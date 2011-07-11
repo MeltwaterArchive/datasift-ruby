@@ -1,0 +1,4 @@
+definition: interaction.content contains "twitter"
+definition_hash: b76b06db8a679d2b4319e5d06a8b6691
+
+invalid_definition: interactin.content contains "twitter"
