@@ -3,7 +3,7 @@ $:.push File.expand_path("../lib", __FILE__)
 
 Gem::Specification.new do |s|
 	s.name				= 'datasift'
-	s.version			= '0.1.0'
+	s.version			= File.open('VERSION').first
 
 	s.authors			= ['MediaSift']
 	s.email				= ['support@datasift.net']

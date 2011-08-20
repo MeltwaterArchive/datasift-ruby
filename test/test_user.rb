@@ -4,7 +4,7 @@ class TestUser < Test::Unit::TestCase
 	context "Given a new User object" do
 		setup do
 			init()
-			@user = DataSift::User.new(@config['username'], @config['api_key'])
+			initUser()
 		end
 
 		should "have the correct username" do
@@ -21,7 +21,7 @@ class TestUser < Test::Unit::TestCase
 	context "Given an empty definition from the User factory" do
 		setup do
 			init()
-			@user = DataSift::User.new(@config['username'], @config['api_key'])
+			initUser()
 			@definition = @user.createDefinition()
 		end
 
@@ -34,7 +34,7 @@ class TestUser < Test::Unit::TestCase
 	context "Given an new definition from the User factory" do
 		setup do
 			init()
-			@user = DataSift::User.new(@config['username'], @config['api_key'])
+			initUser()
 			@definition = @user.createDefinition("   " + @testdata['definition'])
 		end
 
@@ -47,17 +47,22 @@ class TestUser < Test::Unit::TestCase
 	context "Given a call has been made to the API" do
 		setup do
 			init()
-			@user = DataSift::User.new(@config['username'], @config['api_key'])
+			initUser()
 			@definition = @user.createDefinition(@testdata['definition'])
+			@user.api_client.setResponse(200, {
+				'hash'       => @testdata['definition_hash'],
+				'created_at' => Time.now.strftime('%Y-%m-%d %H:%M:%S'),
+				'cost'       => 10,
+			}, 200, 150)
 			@definition.compile()
 		end
 
 		should "have a rate limit value" do
-			assert @user.rate_limit != -1
+			assert @user.rate_limit == 200
 		end
 
 		should "have a rate limit remaining value" do
-			assert @user.rate_limit_remaining != -1
+			assert @user.rate_limit_remaining == 150
 		end
 	end
 end
