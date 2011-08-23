@@ -12,6 +12,7 @@ require 'rubygems'
 
 dir = File.dirname(__FILE__)
 require dir + '/DataSift/exceptions'
+require dir + '/DataSift/apiclient'
 require dir + '/DataSift/user'
 require dir + '/DataSift/definition'
 require dir + '/DataSift/stream_consumer'

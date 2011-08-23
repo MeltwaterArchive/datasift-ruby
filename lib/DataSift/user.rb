@@ -26,7 +26,7 @@ module DataSift
 		API_BASE_URL = 'api.datasift.net/';
 		STREAM_BASE_URL = 'stream.datasift.net/';
 
-		attr_reader :username, :api_key, :rate_limit, :rate_limit_remaining
+		attr_reader :username, :api_key, :rate_limit, :rate_limit_remaining, :api_client
 
 		# Constructor. A username and API key are required when constructing an
 		# instance of this class.
@@ -59,63 +59,46 @@ module DataSift
 			USER_AGENT
 		end
 
+		# Sets the ApiClient object to use to access the API
+		def setApiClient(client)
+			@api_client = client
+		end
+
 		# Make a call to a DataSift API endpoint.
 		# === Parameters
 		#
 		# * +endpoint+ - The endpoint of the API call.
 		# * +params+ - The parameters to be passed along with the request.
 		def callAPI(endpoint, params = {})
-			params['username'] = @username
-			params['api_key'] = @api_key
-
-			# Build the full endpoint URL
-			url = 'http://' + API_BASE_URL + endpoint + '.json?' + hash_to_querystring(params)
-
-			begin
-				# Make the call
-				res = RestClient.get(url, { 'Auth' => @username + ':' + @api_key, 'User-Agent' => getUserAgent() })
-
-				# Parse the JSON response
-				retval = Crack::JSON.parse(res)
-			rescue RestClient::ExceptionWithResponse => err
-				# Get the response
-				res = err.response
-				# Parse the JSON response
-				retval = Crack::JSON.parse(res)
-
-				case err.http_code
-				when 401
-					# Authentication failure
-					raise AccessDeniedError, retval.has_key?('error') ? retval['error'] : 'Authentication failed'
-				when 403
-					# Check the rate limit
-					raise RateLimitExceededError, retval['comment'] if @rate_limit_remaining == 0
-					# Rate limit is ok, raise a generic exception
-					raise APIError.new(403), retval.has_key?('error') ? retval['error'] : 'Unknown error'
-				else
-					raise APIError.new(err.http_code), retval.has_key?('error') ? retval['error'] : 'Unknown error'
-				end
+			if !@api_client
+				@api_client = ApiClient.new()
 			end
+
+			res = @api_client.call(@username, @api_key, endpoint, params)
+
+			# Set up the return value
+			retval = res['data']
 
 			# Update the rate limits from the headers
-			@rate_limit = -1
-			if res.headers[:x_ratelimit_limit]
-				@rate_limit = res.headers[:x_ratelimit_limit]
-			end
+			@rate_limit = res['rate_limit']
+			@rate_limit_remaining = res['rate_limit_remaining']
 
-			@rate_limit_remaining = -1
-			if res.headers[:x_ratelimit_remaining]
-				@rate_limit_remaining = res.headers[:x_ratelimit_remaining]
+			case res['response_code']
+			when 200
+				# Do nothing
+			when 401
+				# Authentication failure
+				raise AccessDeniedError, retval.has_key?('error') ? retval['error'] : 'Authentication failed'
+			when 403
+				# Check the rate limit
+				raise RateLimitExceededError, retval['comment'] if @rate_limit_remaining == 0
+				# Rate limit is ok, raise a generic exception
+				raise APIError.new(403), retval.has_key?('error') ? retval['error'] : 'Unknown error'
+			else
+				raise APIError.new(res['http_code']), retval.has_key?('error') ? retval['error'] : 'Unknown error'
 			end
 
 			retval
-		end
-
-		def hash_to_querystring(hash)
-			hash.keys.inject('') do |query_string, key|
-				query_string << '&' unless key == hash.keys.first
-				query_string << "#{URI.encode(key.to_s)}=#{URI.encode(hash[key].to_s)}"
-			end
 		end
 	end
 end
