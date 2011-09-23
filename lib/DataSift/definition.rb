@@ -158,5 +158,18 @@ module DataSift
 		def getConsumer(type = nil, on_interaction = nil, on_stopped = nil)
 			StreamConsumer.factory(@user, type, self)
 		end
+
+		# Returns the usage for this definition.
+		# === Parameters
+		#
+		# * +start_time+ - An optional timestamp to specify the start of the
+		#                  period in which we're interested.
+		# * +end_time+ - An optional timestamp to specify the end of the period
+		#                in which we're interested.
+		def getUsage(start_time = -1, end_time = -1)
+			raise InvalidDataError, "Cannot get the usage for an empty definition." unless @csdl.length > 0
+
+			@user.getUsage(start_time, end_time, self.hash)
+		end
 	end
 end

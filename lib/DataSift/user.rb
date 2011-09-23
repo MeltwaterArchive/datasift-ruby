@@ -52,6 +52,7 @@ module DataSift
 			DataSift::Definition.new(self, csdl, false)
 		end
 
+<<<<<<< HEAD
 		# Returns a StreamConsumer-derived object for the given hash, for the
 		# given type.
 		# === Parameters
@@ -63,10 +64,13 @@ module DataSift
 			StreamConsumer.factory(self, type, Definition.new(self, nil, hash))
 		end
 
+=======
+>>>>>>> Implemented the usage API endpoint.
 		# Returns the usage data for this user. If a hash is provided then a more
 		# detailed breakdown using interaction types is retrieved and returned.
 		# === Parameters
 		#
+<<<<<<< HEAD
 		# * +period+ - An optional period for which to fetch data ('hour' or 'day')
 		def getUsage(period = 'hour')
 			if period != 'hour' and period != 'day'
@@ -74,6 +78,27 @@ module DataSift
 			end
 
 			params = { 'period' => period }
+=======
+		# * +start_time+ - An optional timestamp to specify the start of the period
+		#                  in which we're interested.
+		# * +end_time+ - An optional timestamp to specify the end of the period
+		#                in which we're interested.
+		# * +hash+ - An optional hash for which to retrieve usage data.
+		def getUsage(start_time = -1, end_time = -1, hash = '')
+			params = {}
+
+			if start_time > -1
+				params['start'] = start_time
+			end
+
+			if end_time > -1
+				params['end'] = start_time
+			end
+
+			if hash != ''
+				params['hash'] = hash
+			end
+>>>>>>> Implemented the usage API endpoint.
 
 			callAPI('usage', params)
 		end
