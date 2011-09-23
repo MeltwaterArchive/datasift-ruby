@@ -5,9 +5,7 @@
 #
 # == Overview
 #
-# The User class represents a user of the API. Applications should start their
-# API interactions by creating an instance of this class. Once initialised it
-# provides factory methods for all of the functionality in the API.
+# The Definition class represents a stream definition.
 
 require 'date'
 
