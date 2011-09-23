@@ -54,6 +54,33 @@ module DataSift
 			DataSift::Definition.new(self, csdl, false)
 		end
 
+		# Returns the usage data for this user. If a hash is provided then a more
+		# detailed breakdown using interaction types is retrieved and returned.
+		# === Parameters
+		#
+		# * +start_time+ - An optional timestamp to specify the start of the period
+		#                  in which we're interested.
+		# * +end_time+ - An optional timestamp to specify the end of the period
+		#                in which we're interested.
+		# * +hash+ - An optional hash for which to retrieve usage data.
+		def getUsage(start_time = -1, end_time = -1, hash = '')
+			params = {}
+
+			if start_time > -1
+				params['start'] = start_time
+			end
+
+			if end_time > -1
+				params['end'] = start_time
+			end
+
+			if hash != ''
+				params['hash'] = hash
+			end
+
+			callAPI('usage', params)
+		end
+
 		# Returns the user agent this library should use for all API calls.
 		def getUserAgent()
 			USER_AGENT
