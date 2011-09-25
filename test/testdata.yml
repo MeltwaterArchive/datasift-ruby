@@ -2,3 +2,7 @@ definition: interaction.content contains "twitter"
 definition_hash: b76b06db8a679d2b4319e5d06a8b6691
 
 invalid_definition: interactin.content contains "twitter"
+
+recording_json: '{"id":"47ce46821c942ff42f8e","start_time":1313055762,"finish_time":null,"name":"Inherit everything 123","hash":"9e2e0ba334ee76aa06ef42d5565dbb70"}'
+
+export_json: '{"id":"82","recording_id":"47ce46821c942ff42f8e","name":"Some name","start":1313052000,"end":1312974000,"status":"killed"}'
