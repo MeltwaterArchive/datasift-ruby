@@ -22,7 +22,7 @@ module DataSift
 	# provides factory methods for all of the functionality in the API.
 	#
 	class User
-		USER_AGENT = 'DataSiftRuby/0.1';
+		USER_AGENT = 'DataSiftRuby/0.3.0';
 		API_BASE_URL = 'api.datasift.net/';
 		STREAM_BASE_URL = 'stream.datasift.net/';
 

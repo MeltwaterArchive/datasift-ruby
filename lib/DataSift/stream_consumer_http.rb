@@ -39,7 +39,9 @@ module DataSift
 							next if json.nil?
 							chunkLeft = size-json.size
 							if chunkLeft == 0
-								parser << json
+								if json.length > 100
+									parser << json
+								end
 							else
 								# received only part of the chunk, grab the rest
 								parser << @socket.read(chunkLeft)
