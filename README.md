@@ -28,7 +28,7 @@ consumer.consume(true) do |interaction|
 end
 ```
 
-See the DataSift documentation for full details of the data contained within each interaction: http://support.datasift.net/help/kb/rest-api/return-objects
+See the DataSift documentation for full details of the data contained within each interaction. See this page on our developer site for an example tweet: http://dev.datasift.com/docs/targets/twitter/twitter-output-format
 
 License
 -------
