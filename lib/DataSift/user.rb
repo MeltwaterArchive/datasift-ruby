@@ -23,8 +23,8 @@ module DataSift
 	#
 	class User
 		USER_AGENT = 'DataSiftRuby/0.3.0';
-		API_BASE_URL = 'api.datasift.net/';
-		STREAM_BASE_URL = 'stream.datasift.net/';
+		API_BASE_URL = 'api.datasift.com/';
+		STREAM_BASE_URL = 'stream.datasift.com/';
 
 		attr_reader :username, :api_key, :rate_limit, :rate_limit_remaining, :api_client
 
