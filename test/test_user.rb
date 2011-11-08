@@ -52,7 +52,7 @@ class TestUser < Test::Unit::TestCase
 			@user.api_client.setResponse(200, {
 				'hash'       => @testdata['definition_hash'],
 				'created_at' => Time.now.strftime('%Y-%m-%d %H:%M:%S'),
-				'cost'       => 10,
+				'dpu'        => 10,
 			}, 200, 150)
 			@definition.compile()
 		end

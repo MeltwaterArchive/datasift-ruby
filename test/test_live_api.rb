@@ -26,9 +26,9 @@ class TestDefinitionLive < Test::Unit::TestCase
 			assert_equal @testdata['definition_hash'], @definition.hash
 		end
 
-		should "have a positive cost" do
+		should "have a positive DPU" do
 			@definition.compile()
-			assert @definition.total_cost > 0
+			assert @definition.total_dpu > 0
 		end
 
 		should "have a valid created_at date" do
@@ -54,21 +54,21 @@ class TestDefinitionLive < Test::Unit::TestCase
 		end
 	end
 
-	context "The cost returned from a valid Definition object" do
+	context "The DPU returned from a valid Definition object" do
 		setup do
 			init()
 			initUser(false)
 			@definition = @user.createDefinition(@testdata['definition'])
-			@cost = @definition.getCostBreakdown()
+			@dpu = @definition.getDPUBreakdown()
 		end
 
-		should "contain valid cost data" do
-			assert @cost.has_key?('costs')
-			assert @cost.has_key?('total')
+		should "contain valid DPU data" do
+			assert @dpu.has_key?('detail')
+			assert @dpu.has_key?('dpu')
 		end
 
-		should "have a positive total cost" do
-			assert @cost['total'] > 0
+		should "have a positive total DPU" do
+			assert @dpu['dpu'] > 0
 		end
 	end
 
