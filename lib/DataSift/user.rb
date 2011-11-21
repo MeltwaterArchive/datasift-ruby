@@ -54,6 +54,17 @@ module DataSift
 			DataSift::Definition.new(self, csdl, false)
 		end
 
+		# Returns a StreamConsumer-derived object for the given hash, for the
+		# given type.
+		# === Parameters
+		#
+		# * +type+ - The consumer type for which to construct a consumer.
+		# * +hash+ - The hash to be consumed.
+		#
+		def getConsumer(type = nil, hash = nil, on_interaction = nil, on_stopped = nil)
+			StreamConsumer.factory(self, type, Definition.new(self, nil, hash))
+		end
+
 		# Returns the usage data for this user. If a hash is provided then a more
 		# detailed breakdown using interaction types is retrieved and returned.
 		# === Parameters

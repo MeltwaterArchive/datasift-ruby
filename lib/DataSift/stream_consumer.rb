@@ -57,8 +57,8 @@ module DataSift
 			@stop_reason = 'Unknown reason'
 			@state = STATE_STOPPED
 
-			# Compile the definition to ensure it's valid for use
-			@definition.compile()
+			# Get the hash which will compile the CSDL if necessary
+			@definition.hash
 		end
 
 		# This is called when the consumer is stopped.
