@@ -36,12 +36,22 @@ module DataSift
 			self.csdl = csdl
 		end
 
+		# CSDL getter
+		def csdl
+			raise InvalidDataError, 'The CSDL is not available' unless !@csdl.nil?
+			@csdl
+		end
+
 		# CSDL setter. Strips the incoming string and resets the hash if it's changed.
 		def csdl=(csdl)
-			raise InvalidDataError, 'The CSDL must be a string.' unless csdl.is_a? String
-			csdl.strip!
-			clearHash() unless csdl == @csdl
-			@csdl = csdl
+			if csdl.nil?
+				@csdl = nil
+			else
+				raise InvalidDataError, 'The CSDL must be a string.' unless csdl.is_a? String
+				csdl.strip!
+				clearHash() unless csdl == @csdl
+				@csdl = csdl
+			end
 		end
 
 		# Hash getter. If the hash has not yet been obtained the CSDL will be
@@ -61,6 +71,7 @@ module DataSift
 		# Reset the hash to false. The effect of this is to mark the definition as
 		# requiring compilation.
 		def clearHash()
+			@csdl = '' unless !@csdl.nil?
 			@hash = false
 			@total_dpu = false
 			@created_at = false
