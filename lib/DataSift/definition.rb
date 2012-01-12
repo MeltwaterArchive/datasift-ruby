@@ -109,7 +109,7 @@ module DataSift
 				when 400
 					raise CompileFailedError, err
 				else
-					raise CompileFailedError, 'Unexpected APIError code: ' + err.http_code.to_s + ' [' + err + ']'
+					raise CompileFailedError, 'Unexpected APIError code: ' + err.http_code.to_s + ' [' + err.inspect + ']'
 				end
 			end
 		end
