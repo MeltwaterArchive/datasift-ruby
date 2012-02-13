@@ -32,7 +32,7 @@ module DataSift
 				if @response_head[:headers]["Transfer-Encoding"] == 'chunked'
 					if block_given?
 						chunkLeft = 0
-						while !@socket.eof? && (line = @socket.gets)
+						while !@socket.eof? && (line = @socket.gets) && @state == StreamConsumer::STATE_RUNNING
 							break if line.match /^0.*?\r\n/
 							next if line == "\r\n"
 							size = line.hex
