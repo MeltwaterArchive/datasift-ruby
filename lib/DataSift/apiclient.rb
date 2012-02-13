@@ -29,7 +29,7 @@ module DataSift
 		# * +api_key+ - The API key for the Auth header
 		def call(username, api_key, endpoint, params = {}, user_agent = 'DataSiftPHP/0.0')
 			# Build the full endpoint URL
-			url = 'http://' + User::API_BASE_URL + endpoint + '.json?' + hashToQuerystring(params)
+			url = 'http://' + User::API_BASE_URL + endpoint
 
 			retval = {
 				'response_code' => 500,
@@ -40,7 +40,7 @@ module DataSift
 
 			begin
 				# Make the call
-				res = RestClient.get(url, { 'Auth' => username + ':' + api_key, 'User-Agent' => user_agent })
+				res = RestClient.post(url, params, { 'Auth' => username + ':' + api_key, 'User-Agent' => user_agent })
 
 				# Success
 				retval['response_code'] = 200
