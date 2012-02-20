@@ -12,6 +12,7 @@ $LOAD_PATH.unshift(File.dirname(__FILE__) + '/../')
 require 'uri'
 require 'socket'
 require 'yajl'
+require 'cgi'
 
 module DataSift
 

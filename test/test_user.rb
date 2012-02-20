@@ -19,25 +19,24 @@ class TestUser < Test::Unit::TestCase
 
 		should "return valid summary usage information" do
 			@user.api_client.setResponse(200, {
-				'processed' => 9999,
-				'delivered' => 10800,
-				'streams' => [
-					{
-						'hash' => 'a123ab20f37f333824159b8868ad3827',
-						'processed' => 7505,
-						'delivered' => 8100
-					},
-					{
-						'hash' => 'c369ab20f37f333824159b8868ad3827',
-						'processed' => 2494,
-						'delivered' => 2700
+				'start' => 'Mon, 07 Nov 2011 14:20:00 +0000',
+				'streams' => {
+					'5e82aa9ac3dcf4dec1cce08a0cec914a' => {
+						'seconds' => 313,
+						'licenses' => {
+							'twitter' => 17,
+							'facebook' => 5
+						}
 					}
-				]
+				},
+				'end' => 'Mon, 07 Nov 2011 15:20:00 +0000'
 			}, 200, 150)
 			usage = @user.getUsage()
-			assert_equal 9999, usage['processed']
-			assert_equal 10800, usage['delivered']
-			assert_equal 'a123ab20f37f333824159b8868ad3827', usage['streams'][0]['hash']
+			assert_equal "Mon, 07 Nov 2011 14:20:00 +0000", usage['start']
+			assert_equal "Mon, 07 Nov 2011 15:20:00 +0000", usage['end']
+			assert_equal 313, usage['streams']['5e82aa9ac3dcf4dec1cce08a0cec914a']['seconds']
+			assert_equal 17, usage['streams']['5e82aa9ac3dcf4dec1cce08a0cec914a']['licenses']['twitter']
+			assert_equal 5, usage['streams']['5e82aa9ac3dcf4dec1cce08a0cec914a']['licenses']['facebook']
 		end
 	end
 
@@ -75,7 +74,7 @@ class TestUser < Test::Unit::TestCase
 			@user.api_client.setResponse(200, {
 				'hash'       => @testdata['definition_hash'],
 				'created_at' => Time.now.strftime('%Y-%m-%d %H:%M:%S'),
-				'cost'       => 10,
+				'dpu'        => 10,
 			}, 200, 150)
 			@definition.compile()
 		end

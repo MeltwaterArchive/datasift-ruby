@@ -16,7 +16,7 @@ module DataSift
 	# The Definition class represents a stream definition.
 	#
 	class Definition
-		attr_reader :csdl, :total_cost, :created_at
+		attr_reader :csdl, :total_dpu, :created_at
 
 		# Constructor. A User object is required, and you can optionally supply a
 		# default CSDL string.
@@ -34,12 +34,22 @@ module DataSift
 			self.csdl = csdl
 		end
 
+		# CSDL getter
+		def csdl
+			raise InvalidDataError, 'The CSDL is not available' unless !@csdl.nil?
+			@csdl
+		end
+
 		# CSDL setter. Strips the incoming string and resets the hash if it's changed.
 		def csdl=(csdl)
-			raise InvalidDataError, 'The CSDL must be a string.' unless csdl.is_a? String
-			csdl.strip!
-			clearHash() unless csdl == @csdl
-			@csdl = csdl
+			if csdl.nil?
+				@csdl = nil
+			else
+				raise InvalidDataError, 'The CSDL must be a string.' unless csdl.is_a? String
+				csdl.strip!
+				clearHash() unless csdl == @csdl
+				@csdl = csdl
+			end
 		end
 
 		# Hash getter. If the hash has not yet been obtained the CSDL will be
@@ -59,8 +69,9 @@ module DataSift
 		# Reset the hash to false. The effect of this is to mark the definition as
 		# requiring compilation.
 		def clearHash()
+			@csdl = '' unless !@csdl.nil?
 			@hash = false
-			@total_cost = false
+			@total_dpu = false
 			@created_at = false
 		end
 
@@ -78,10 +89,10 @@ module DataSift
 					raise CompileFailedError, 'Compiled successfully but no hash in the response'
 				end
 
-				if res.has_key?('cost')
-					@total_cost = Integer(res['cost'])
+				if res.has_key?('dpu')
+					@total_dpu = Float(res['dpu'])
 				else
-					raise CompileFailedError, 'Compiled successfully but no cost in the response'
+					raise CompileFailedError, 'Compiled successfully but no DPU in the response'
 				end
 
 				if res.has_key?('created_at')
@@ -96,21 +107,20 @@ module DataSift
 				when 400
 					raise CompileFailedError, err
 				else
-					raise CompileFailedError, 'Unexpected APIError code: ' + err.http_code.to_s + ' [' + err + ']'
+					raise CompileFailedError, 'Unexpected APIError code: ' + err.http_code.to_s + ' [' + err.inspect + ']'
 				end
 			end
 		end
 
-		# Call the DataSift API to get the cost for this definition. Returns an
+		# Call the DataSift API to get the DPU for this definition. Returns an
 		# array containing...
-		#   costs => The breakdown of running the rule
-		#   tags => The tags associated with the rule
-		#   total => The total cost of the rule
+		#   detail => The breakdown of running the rule
+		#   dpu => The total DPU of the rule
 		#
-		def getCostBreakdown()
-			raise InvalidDataError, "Cannot get the cost for an empty definition." unless @csdl.length > 0
+		def getDPUBreakdown()
+			raise InvalidDataError, "Cannot get the DPU for an empty definition." unless @csdl.length > 0
 
-			@user.callAPI('cost', { 'hash' => self.hash })
+			@user.callAPI('dpu', { 'hash' => self.hash })
 		end
 
 		# Call the DataSift API to get buffered interactions.

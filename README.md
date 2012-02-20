@@ -10,6 +10,13 @@ Install Instructions
 
 sudo gem install datasift
 
+Dependencies
+------------
+
+If you're using the source you'll need to install the dependencies.
+
+sudo gem install yajl-ruby json rest-client
+
 Simple example
 --------------
 
@@ -28,11 +35,11 @@ consumer.consume(true) do |interaction|
 end
 ```
 
-See the DataSift documentation for full details of the data contained within each interaction: http://support.datasift.net/help/kb/rest-api/return-objects
+See the DataSift documentation for full details of the data contained within each interaction. See this page on our developer site for an example tweet: http://dev.datasift.com/docs/targets/twitter/twitter-output-format
 
 License
 -------
 
-All code contained in this repository is Copyright 2011 MediaSift Ltd.
+All code contained in this repository is Copyright 2011-2012 MediaSift Ltd.
 
 This code is released under the BSD license. Please see the LICENSE file for more details.

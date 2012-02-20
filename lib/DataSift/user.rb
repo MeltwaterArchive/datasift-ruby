@@ -9,9 +9,6 @@
 # API interactions by creating an instance of this class. Once initialised it
 # provides factory methods for all of the functionality in the API.
 
-require 'rest_client'
-require 'crack'
-
 module DataSift
 	# User class.
 	#
@@ -22,7 +19,7 @@ module DataSift
 	# provides factory methods for all of the functionality in the API.
 	#
 	class User
-		USER_AGENT = 'DataSiftRuby/0.1';
+		USER_AGENT = 'DataSiftRuby/1.1.0';
 		API_BASE_URL = 'api.datasift.com/';
 		STREAM_BASE_URL = 'stream.datasift.com/';
 
@@ -54,29 +51,28 @@ module DataSift
 			DataSift::Definition.new(self, csdl, false)
 		end
 
+		# Returns a StreamConsumer-derived object for the given hash, for the
+		# given type.
+		# === Parameters
+		#
+		# * +type+ - The consumer type for which to construct a consumer.
+		# * +hash+ - The hash to be consumed.
+		#
+		def getConsumer(type = nil, hash = nil, on_interaction = nil, on_stopped = nil)
+			StreamConsumer.factory(self, type, Definition.new(self, nil, hash))
+		end
+
 		# Returns the usage data for this user. If a hash is provided then a more
 		# detailed breakdown using interaction types is retrieved and returned.
 		# === Parameters
 		#
-		# * +start_time+ - An optional timestamp to specify the start of the period
-		#                  in which we're interested.
-		# * +end_time+ - An optional timestamp to specify the end of the period
-		#                in which we're interested.
-		# * +hash+ - An optional hash for which to retrieve usage data.
-		def getUsage(start_time = -1, end_time = -1, hash = '')
-			params = {}
-
-			if start_time > -1
-				params['start'] = start_time
+		# * +period+ - An optional period for which to fetch data ('hour' or 'day')
+		def getUsage(period = 'hour')
+			if period != 'hour' and period != 'day'
+				raise EInvalidData, 'Period must be hour or day'
 			end
 
-			if end_time > -1
-				params['end'] = start_time
-			end
-
-			if hash != ''
-				params['hash'] = hash
-			end
+			params = { 'period' => period }
 
 			callAPI('usage', params)
 		end

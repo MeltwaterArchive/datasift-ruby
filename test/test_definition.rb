@@ -75,7 +75,7 @@ class TestDefinition < Test::Unit::TestCase
 				@user.api_client.setResponse(200, {
 					'hash'       => @testdata['definition_hash'],
 					'created_at' => Time.now.strftime('%Y-%m-%d %H:%M:%S'),
-					'cost'       => 10,
+					'dpu'       => 10,
 				}, 200, 150)
 				@definition.compile()
 			rescue InvalidDataError
@@ -91,26 +91,26 @@ class TestDefinition < Test::Unit::TestCase
 			@user.api_client.setResponse(200, {
 				'hash'       => @testdata['definition_hash'],
 				'created_at' => Time.now.strftime('%Y-%m-%d %H:%M:%S'),
-				'cost'       => 10,
+				'dpu'        => 10,
 			}, 200, 150)
 			assert_equal @testdata['definition_hash'], @definition.hash
 		end
 
-		should "have a positive cost" do
+		should "have a positive DPU" do
 			@user.api_client.setResponse(200, {
 				'hash'       => @testdata['definition_hash'],
 				'created_at' => Time.now.strftime('%Y-%m-%d %H:%M:%S'),
-				'cost'       => 10,
+				'dpu'        => 10,
 			}, 200, 150)
 			@definition.compile()
-			assert @definition.total_cost > 0
+			assert @definition.total_dpu > 0
 		end
 
 		should "have a valid created_at date" do
 			@user.api_client.setResponse(200, {
 				'hash'       => @testdata['definition_hash'],
 				'created_at' => Time.now.strftime('%Y-%m-%d %H:%M:%S'),
-				'cost'       => 10,
+				'dpu'        => 10,
 			}, 200, 150)
 			@definition.compile()
 			assert @definition.created_at
@@ -139,7 +139,7 @@ class TestDefinition < Test::Unit::TestCase
 		end
 	end
 
-	context "The cost returned from a valid Definition object" do
+	context "The DPU returned from a valid Definition object" do
 		setup do
 			init()
 			initUser()
@@ -148,35 +148,35 @@ class TestDefinition < Test::Unit::TestCase
 			@user.api_client.setResponse(200, {
 				'hash'       => @testdata['definition_hash'],
 				'created_at' => Time.now.strftime('%Y-%m-%d %H:%M:%S'),
-				'cost'       => 10,
+				'dpu'        => 10,
 			}, 200, 150)
 			@definition.compile()
-			# Now get the cost
+			# Now get the DPU
 			@user.api_client.setResponse(200, {
-				'costs' => {
+				'detail' => {
 					'contains' => {
 						'count'   => 1,
-						'cost'    => 4,
+						'dpu'     => 4,
 						'targets' => {
 							'interaction.content' => {
 								'count' => 1,
-								'cost'  => 4,
+								'dpu'   => 4,
 							},
 						},
 					},
 				},
-				'total' => 4
+				'dpu' => 4
 			}, 200, 150)
-			@cost = @definition.getCostBreakdown()
+			@dpu = @definition.getDPUBreakdown()
 		end
 
-		should "contain valid cost data" do
-			assert @cost.has_key?('costs')
-			assert @cost.has_key?('total')
+		should "contain valid DPU data" do
+			assert @dpu.has_key?('detail')
+			assert @dpu.has_key?('dpu')
 		end
 
-		should "have a positive total cost" do
-			assert @cost['total'] > 0
+		should "have a positive total DPU" do
+			assert @dpu['dpu'] > 0
 		end
 	end
 
@@ -189,7 +189,7 @@ class TestDefinition < Test::Unit::TestCase
 			@user.api_client.setResponse(200, {
 				'hash'       => @testdata['definition_hash'],
 				'created_at' => Time.now.strftime('%Y-%m-%d %H:%M:%S'),
-				'cost'       => 10,
+				'dpu'        => 10,
 			}, 200, 150)
 			@definition.compile()
 			# Now get some buffered interactions
@@ -269,7 +269,7 @@ class TestDefinition < Test::Unit::TestCase
 			@user.api_client.setResponse(200, {
 				'hash'       => @testdata['definition_hash'],
 				'created_at' => Time.now.strftime('%Y-%m-%d %H:%M:%S'),
-				'cost'       => 10,
+				'dpu'        => 10,
 			}, 200, 150)
 			@definition.compile()
 			# Now get a consumer
