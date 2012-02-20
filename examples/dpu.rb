@@ -21,6 +21,7 @@ def number_with_delimiter(number, delimiter=',')
 end
 
 # Include the configuration - put your username and API key in this file
+require 'yaml'
 config = YAML::load(File.open(File.join(File.dirname(__FILE__), '..', 'config.yml')))
 
 # Get the CSDL from the command line or STDIN
