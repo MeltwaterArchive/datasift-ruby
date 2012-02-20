@@ -13,6 +13,7 @@
 require File.dirname(__FILE__) + '/../lib/datasift'
 
 # Include the configuration - put your username and API key in this file
+require 'yaml'
 config = YAML::load(File.open(File.join(File.dirname(__FILE__), '..', 'config.yml')))
 
 # Authenticate
