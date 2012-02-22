@@ -9,7 +9,7 @@
 # DataSift API.
 
 require 'rest_client'
-require 'json'
+require 'yajl'
 
 module DataSift
 	# ApiCLient class.
@@ -46,8 +46,7 @@ module DataSift
 				retval['response_code'] = 200
 
 				# Parse the JSON response
-				retval['data'] = JSON.parse(res)
-
+				retval['data'] = Yajl::Parser.parse(res)
 				# Rate limit headers
 				if (res.headers[:x_ratelimit_limit])
 					retval['rate_limit'] = res.headers[:x_ratelimit_limit]
@@ -61,7 +60,7 @@ module DataSift
 				retval['response_code'] = err.http_code
 
 				# And set the data
-				retval['data'] = JSON.parse(err.response)
+				retval['data'] = Yajl::Parser.parse(err.response)
 			end
 
 			retval
