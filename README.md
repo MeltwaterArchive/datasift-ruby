@@ -13,7 +13,9 @@ sudo gem install datasift
 Dependencies
 ------------
 
-sudo gem install yajl-ruby
+If you're using the source you'll need to install the dependencies.
+
+sudo gem install yajl-ruby json rest-client
 
 Simple example
 --------------
