@@ -9,7 +9,7 @@
 # DataSift API.
 
 require 'rest_client'
-require 'crack'
+require 'json'
 
 module DataSift
 	# ApiCLient class.
@@ -46,7 +46,7 @@ module DataSift
 				retval['response_code'] = 200
 
 				# Parse the JSON response
-				retval['data'] = Crack::JSON.parse(res)
+				retval['data'] = JSON.parse(res)
 
 				# Rate limit headers
 				if (res.headers[:x_ratelimit_limit])
@@ -61,7 +61,7 @@ module DataSift
 				retval['response_code'] = err.http_code
 
 				# And set the data
-				retval['data'] = Crack::JSON.parse(err.response)
+				retval['data'] = JSON.parse(err.response)
 			end
 
 			retval

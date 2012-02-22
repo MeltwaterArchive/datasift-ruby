@@ -9,9 +9,6 @@
 # API interactions by creating an instance of this class. Once initialised it
 # provides factory methods for all of the functionality in the API.
 
-require 'rest_client'
-require 'crack'
-
 module DataSift
 	# User class.
 	#
@@ -22,7 +19,7 @@ module DataSift
 	# provides factory methods for all of the functionality in the API.
 	#
 	class User
-		USER_AGENT = 'DataSiftRuby/0.3.0';
+		USER_AGENT = 'DataSiftRuby/1.1.0';
 		API_BASE_URL = 'api.datasift.com/';
 		STREAM_BASE_URL = 'stream.datasift.com/';
 
