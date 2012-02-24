@@ -9,7 +9,7 @@
 # DataSift API.
 
 require 'rest_client'
-require 'json'
+require 'yajl'
 
 module DataSift
 	# ApiCLient class.
@@ -29,7 +29,7 @@ module DataSift
 		# * +api_key+ - The API key for the Auth header
 		def call(username, api_key, endpoint, params = {}, user_agent = 'DataSiftPHP/0.0')
 			# Build the full endpoint URL
-			url = 'http://' + User::API_BASE_URL + endpoint + '.json?' + hashToQuerystring(params)
+			url = 'http://' + User::API_BASE_URL + endpoint
 
 			retval = {
 				'response_code' => 500,
@@ -40,14 +40,13 @@ module DataSift
 
 			begin
 				# Make the call
-				res = RestClient.get(url, { 'Auth' => username + ':' + api_key, 'User-Agent' => user_agent })
+				res = RestClient.post(url, params, { 'Auth' => username + ':' + api_key, 'User-Agent' => user_agent })
 
 				# Success
 				retval['response_code'] = 200
 
 				# Parse the JSON response
-				retval['data'] = JSON.parse(res)
-
+				retval['data'] = Yajl::Parser.parse(res)
 				# Rate limit headers
 				if (res.headers[:x_ratelimit_limit])
 					retval['rate_limit'] = res.headers[:x_ratelimit_limit]
@@ -61,7 +60,7 @@ module DataSift
 				retval['response_code'] = err.http_code
 
 				# And set the data
-				retval['data'] = JSON.parse(err.response)
+				retval['data'] = Yajl::Parser.parse(err.response)
 			end
 
 			retval
