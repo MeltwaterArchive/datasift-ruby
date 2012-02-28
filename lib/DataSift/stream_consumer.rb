@@ -61,6 +61,20 @@ module DataSift
 			@definition.hash
 		end
 
+		# This is called when a deletion notification is received.
+		# === Parameters
+		#
+		# * +interaction+ - Minimal details about the interaction that was deleted.
+		#
+		def onDeleted(&block)
+			if block_given?
+				@on_deleted = block
+				self
+			else
+				@on_deleted
+			end
+		end
+
 		# This is called when the consumer is stopped.
 		# === Parameters
 		#
@@ -88,7 +102,13 @@ module DataSift
 
 			# Start consuming
 			@state = STATE_STARTING
-			onStart(&block)
+			onStart do |interaction|
+				if interaction.has_key?('deleted') and interaction['deleted']
+					onDeleted.call(interaction) unless onDeleted.nil?
+				else
+					block.call(interaction) unless block.nil?
+				end
+			end
 		end
 
 		# Called when the consumer should start consuming the stream.

@@ -1,7 +1,8 @@
 DataSift
 ========
 
-The official Ruby library for accessing the DataSift API. See http://datasift.net for full details and to sign up for an account.
+The official Ruby library for accessing the DataSift API. See
+http://datasift.net for full details and to sign up for an account.
 
 The examples and tests use the username and API key in config.yml.
 
@@ -20,7 +21,8 @@ sudo gem install yajl-ruby rest-client
 Simple example
 --------------
 
-This example looks for anything that contains the word "datasift" and simply prints the content to the screen as they come in.
+This example looks for anything that contains the word "datasift" and simply
+prints the content to the screen as they come in.
 
 ```ruby
 require 'rubygems'
@@ -35,11 +37,27 @@ consumer.consume(true) do |interaction|
 end
 ```
 
-See the DataSift documentation for full details of the data contained within each interaction. See this page on our developer site for an example tweet: http://dev.datasift.com/docs/targets/twitter/twitter-output-format
+See the DataSift documentation for full details of the data contained within
+each interaction. See this page on our developer site for an example tweet:
+http://dev.datasift.com/docs/targets/twitter/twitter-output-format
 
 License
 -------
 
 All code contained in this repository is Copyright 2011-2012 MediaSift Ltd.
 
-This code is released under the BSD license. Please see the LICENSE file for more details.
+This code is released under the BSD license. Please see the LICENSE file for
+more details.
+
+Changelog
+---------
+
+* v.1.2.0 Twitter Compliance (2012-02-28)
+
+  The consumer now has an onDeleted method to which you can assign a block
+  that will be called to handle DELETE requests from Twitter. See delete.rb
+  in the examples folder for a sample implementation.
+  (@see http://dev.datasift.com/docs/twitter-deletes)
+
+  NB: if you are storing tweets you must implement this method in your code
+  and take appropriate action to maintain compliance with the Twitter license.
