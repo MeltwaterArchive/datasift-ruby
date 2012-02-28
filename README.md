@@ -16,7 +16,7 @@ Dependencies
 
 If you're using the source you'll need to install the dependencies.
 
-sudo gem install yajl-ruby json rest-client
+sudo gem install yajl-ruby rest-client
 
 Simple example
 --------------
