@@ -9,6 +9,8 @@
 # API interactions by creating an instance of this class. Once initialised it
 # provides factory methods for all of the functionality in the API.
 
+require 'date'
+
 module DataSift
 
 	# Definition class.
