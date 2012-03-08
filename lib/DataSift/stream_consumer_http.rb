@@ -45,7 +45,10 @@ module DataSift
 								end
 							else
 								# received only part of the chunk, grab the rest
-								parser << @socket.read(chunkLeft)
+								received_data = @socket.read(chunkLeft)
+								if not received_data.nil?
+									parser << received_data
+								end
 							end
 						end
 					else
@@ -130,16 +133,24 @@ module DataSift
 					if @response_head[:code] == 200
 						# Success!
 						@state = StreamConsumer::STATE_RUNNING
-					elsif @response_head[:code] == 404
-						raise StreamError, 'Hash not found!'
+					elsif @response_head[:code] >= 400 && @response_head[:code] < 500 && @response_head[:code] != 420
+						line = ''
+						while !@socket.eof? && line.length < 10
+							line = @socket.gets
+						end
+						data = Yajl::Parser.parse(line)
+						if data.has_key?('message')
+							raise StreamError, data['message']
+						else
+							raise StreamError, 'Connection refused: ' + @response_head[:code] + ' ' + @response_head[:msg]
+						end
 					else
-						puts 'Connection failed: ' + @response_head[:code] + ' ' + @response_head[:msg]
 						if connection_delay == 0
 							connection_delay = 10;
 						elsif connection_delay < 240
 							connection_delay *= 2;
 						else
-							raise StreamError, 'Connection failed: ' + @response_head[:code] + ' ' + @response_head[:msg]
+							raise StreamError, 'Connection refused: ' + @response_head[:code] + ' ' + @response_head[:msg]
 						end
 					end
 				#rescue

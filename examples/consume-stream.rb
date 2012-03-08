@@ -37,6 +37,16 @@ consumer.onStopped do |reason|
 	puts
 end
 
+# Set up the warning event handler.
+consumer.onWarning do |message|
+	puts 'WARNING: ' + message
+end
+
+# Set up the error event handler.
+consumer.onError do |message|
+	puts 'ERROR: ' + message
+end
+
 # And start consuming
 puts 'Consuming...'
 puts '--'
