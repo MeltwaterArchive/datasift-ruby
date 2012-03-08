@@ -75,6 +75,34 @@ module DataSift
 			end
 		end
 
+		# This is called when an error message is received.
+		# === Parameters
+		#
+		# * +message+ - The error message.
+		#
+		def onError(&block)
+			if block_given?
+				@on_error = block
+				self
+			else
+				@on_error
+			end
+		end
+
+		# This is called when an error message is received.
+		# === Parameters
+		#
+		# * +message+ - The error message.
+		#
+		def onWarning(&block)
+			if block_given?
+				@on_warning = block
+				self
+			else
+				@on_warning
+			end
+		end
+
 		# This is called when the consumer is stopped.
 		# === Parameters
 		#
@@ -103,10 +131,20 @@ module DataSift
 			# Start consuming
 			@state = STATE_STARTING
 			onStart do |interaction|
-				if interaction.has_key?('deleted') and interaction['deleted']
-					onDeleted.call(interaction) unless onDeleted.nil?
+				if interaction.has_key?('status')
+					if interaction['status'] == 'error' || interaction['status'] == 'failure'
+						onError.call(interaction['message'])
+					elsif interaction['status'] == 'warning'
+						onWarning.call(interaction['message'])
+					else
+						# Tick
+					end
 				else
-					block.call(interaction) unless block.nil?
+					if interaction.has_key?('deleted') and interaction['deleted']
+						onDeleted.call(interaction) unless onDeleted.nil?
+					else
+						block.call(interaction) unless block.nil?
+					end
 				end
 			end
 		end
