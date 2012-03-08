@@ -52,6 +52,14 @@ more details.
 Changelog
 ---------
 
+* v.1.3.0 Improved error handling (2012-03-08)
+
+  Added onError and onWarning events - see examples/consume-stream.rb for an
+  example.
+
+  Stopped the HTTP consumer from attempting to reconnect when it receives a
+  4xx response from the server.
+
 * v.1.2.0 Twitter Compliance (2012-02-28)
 
   The consumer now has an onDeleted method to which you can assign a block
