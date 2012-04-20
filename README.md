@@ -52,6 +52,8 @@ more details.
 Changelog
 ---------
 
+* v.1.3.1 Exposed compile failures when getting the stream hash (2012-04-20)
+
 * v.1.3.0 Improved error handling (2012-03-08)
 
   Added onError and onWarning events - see examples/consume-stream.rb for an
