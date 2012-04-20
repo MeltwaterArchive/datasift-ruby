@@ -48,9 +48,9 @@ class TestDefinitionLive < Test::Unit::TestCase
 			assert_raise(DataSift::CompileFailedError) { @definition.compile() }
 		end
 
-		should "have a hash of false" do
+		should "fail to get the hash" do
 			assert_raise(DataSift::CompileFailedError) { @definition.compile() }
-			assert_equal false, @definition.hash
+			assert_raise(DataSift::CompileFailedError) { @definition.hash }
 		end
 	end
 

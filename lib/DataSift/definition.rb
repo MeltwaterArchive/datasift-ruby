@@ -60,11 +60,7 @@ module DataSift
 		# compiled first.
 		def hash
 			if @hash == false
-				begin
-					compile()
-				rescue DataSift::CompileFailedError
-					# Ignore
-				end
+				compile()
 			end
 
 			@hash
