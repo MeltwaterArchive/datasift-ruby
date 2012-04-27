@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
 	s.required_rubygems_version	= Gem::Requirement.new(">= 1.3.6") if s.respond_to? :required_rubygems_version=
 
 	s.add_runtime_dependency('rest-client', '~> 1.6.3')
-	s.add_runtime_dependency('yajl-ruby', '~> 0.8.2')
+	s.add_runtime_dependency('yajl-ruby', '~> 1.1.0')
 	s.add_development_dependency('rdoc', '~> 0')
 	s.add_development_dependency('shoulda', '~> 2.11.3')
 	s.add_development_dependency('rspec', '~> 2.6.0')
