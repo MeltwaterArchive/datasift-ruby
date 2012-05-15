@@ -45,7 +45,7 @@ module DataSift
 		# * +params+ - The parameters to be passed along with the request.
 		# * +username+ - The username for the Auth header
 		# * +api_key+ - The API key for the Auth header
-		def call(username, api_key, endpoint, params = {}, user_agent = 'DataSiftPHP/0.0', use_ssl = true)
+		def call(username, api_key, endpoint, params = {}, user_agent = 'DataSiftPHP/0.0')
 			if !@response
 				raise StandardError, 'Expected response not set in mock object'
 			end
