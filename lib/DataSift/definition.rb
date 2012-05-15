@@ -6,8 +6,11 @@
 # == Overview
 #
 # The Definition class represents a stream definition.
+<<<<<<< HEAD
 
 require 'date'
+=======
+>>>>>>> 8d16fe773c5c7190df80ac40a1fae41ff1835d8b
 
 module DataSift
 
