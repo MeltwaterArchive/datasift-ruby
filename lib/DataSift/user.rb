@@ -103,7 +103,7 @@ module DataSift
 				@api_client = ApiClient.new()
 			end
 
-			res = @api_client.call(@username, @api_key, endpoint, params, getUserAgent(), @use_ssl)
+			res = @api_client.call(@username, @api_key, endpoint, params, getUserAgent())
 
 			# Set up the return value
 			retval = res['data']
