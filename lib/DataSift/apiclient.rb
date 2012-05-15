@@ -27,9 +27,9 @@ module DataSift
 		# * +params+ - The parameters to be passed along with the request.
 		# * +username+ - The username for the Auth header
 		# * +api_key+ - The API key for the Auth header
-		def call(username, api_key, endpoint, params = {}, user_agent = 'DataSiftPHP/0.0')
+		def call(username, api_key, endpoint, params = {}, user_agent = 'DataSiftPHP/0.0', ssl = true)
 			# Build the full endpoint URL
-			url = 'http://' + User::API_BASE_URL + endpoint
+			url = 'http' + (ssl ? 's' : '') + '://' + User::API_BASE_URL + endpoint
 
 			retval = {
 				'response_code' => 500,
@@ -47,6 +47,7 @@ module DataSift
 
 				# Parse the JSON response
 				retval['data'] = Yajl::Parser.parse(res)
+
 				# Rate limit headers
 				if (res.headers[:x_ratelimit_limit])
 					retval['rate_limit'] = res.headers[:x_ratelimit_limit]

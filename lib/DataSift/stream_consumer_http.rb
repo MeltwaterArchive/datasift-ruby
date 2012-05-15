@@ -85,9 +85,10 @@ module DataSift
 			onStop(@stop_reason)
 		end
 
+	  private
+
 		def reconnect()
-			uri = URI.parse('http://' + User::STREAM_BASE_URL + @definition.hash +
-											'?username=' + CGI.escape(@user.username) + '&api_key=' + CGI.escape(@user.api_key))
+			uri = URI.parse('http' + (@user.use_ssl ? 's' : '') + '://' + User::STREAM_BASE_URL + @definition.hash)
 
 			user_agent = @user.getUserAgent()
 
@@ -95,6 +96,7 @@ module DataSift
 			request << "Host: #{uri.host}\r\n"
 			request << "User-Agent: #{user_agent}\r\n"
 			request << "Accept: */*\r\n"
+			request << "Auth: #{@user.username}:#{@user.api_key}\r\n"
 			request << "\r\n"
 
 			connection_delay = 0
@@ -107,7 +109,13 @@ module DataSift
 				sleep(connection_delay) if connection_delay > 0
 
 				begin
-					@socket = TCPSocket.new(uri.host, uri.port)
+					@raw_socket = TCPSocket.new(uri.host, uri.port)
+					if @user.use_ssl
+						@socket = OpenSSL::SSL::SSLSocket.new(@raw_socket)
+						@socket.connect
+					else
+						@socket = @raw_socket
+					end
 
 					@socket.write(request)
 					@response_head = {}
@@ -130,10 +138,12 @@ module DataSift
 						end
 					end
 
-					if @response_head[:code] == 200
+					if @response_head[:code].nil?
+						raise StreamError, 'Socket connection refused'
+					elsif @response_head[:code] == 200
 						# Success!
 						@state = StreamConsumer::STATE_RUNNING
-					elsif @response_head[:code] >= 400 && @response_head[:code] < 500 && @response_head[:code] != 420
+					elsif @response_head[:code] >= 399 && @response_head[:code] < 500 && @response_head[:code] != 420
 						line = ''
 						while !@socket.eof? && line.length < 10
 							line = @socket.gets
@@ -153,20 +163,21 @@ module DataSift
 							raise StreamError, 'Connection refused: ' + @response_head[:code] + ' ' + @response_head[:msg]
 						end
 					end
-				#rescue
-				#	if connection_delay == 0
-				#		connection_delay = 1
-				#	elsif connection_delay <= 16
-				#		connection_delay += 1
-				#	else
-				#		raise StreamError, 'Connection failed due to a network error'
-				#	end
+				rescue
+					if connection_delay == 0
+						connection_delay = 1
+					elsif connection_delay <= 16
+						connection_delay += 1
+					else
+						raise StreamError, 'Connection failed due to a network error'
+					end
 				end
 			end while @state != StreamConsumer::STATE_RUNNING
 		end
 
 		def disconnect()
 			@socket.close if !@socket.nil? and !@socket.closed?
+			@raw_socket.close if !@raw_socket.nil? and !@raw_socket.closed?
 		end
 
 	end
