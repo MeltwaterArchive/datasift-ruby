@@ -19,11 +19,11 @@ module DataSift
 	# provides factory methods for all of the functionality in the API.
 	#
 	class User
-		USER_AGENT = 'DataSiftRuby/1.1.0';
+		USER_AGENT = 'DataSiftRuby/' + File.open(File.dirname(File.dirname(File.dirname(__FILE__))) + '/VERSION').first;
 		API_BASE_URL = 'api.datasift.com/';
 		STREAM_BASE_URL = 'stream.datasift.com/';
 
-		attr_reader :username, :api_key, :rate_limit, :rate_limit_remaining, :api_client
+		attr_reader :username, :api_key, :rate_limit, :rate_limit_remaining, :api_client, :use_ssl
 
 		# Constructor. A username and API key are required when constructing an
 		# instance of this class.
@@ -31,7 +31,7 @@ module DataSift
 		#
 		# * +username+ - The user's username
 		# * +api_key+ - The user's API key
-		def initialize(username, api_key)
+		def initialize(username, api_key, use_ssl = true)
 			username.strip!
 			api_key.strip!
 
@@ -41,6 +41,7 @@ module DataSift
 			@api_key = api_key
 			@rate_limit = -1;
 			@rate_limit_remaining = -1
+			@use_ssl = use_ssl
 		end
 
 		# Creates and returns a definition object.
@@ -87,6 +88,11 @@ module DataSift
 			@api_client = client
 		end
 
+		# Sets whether to use SSL for API and stream communication
+		def enableSSL(use_ssl = true)
+			@use_ssl = use_ssl
+		end
+
 		# Make a call to a DataSift API endpoint.
 		# === Parameters
 		#
@@ -97,7 +103,7 @@ module DataSift
 				@api_client = ApiClient.new()
 			end
 
-			res = @api_client.call(@username, @api_key, endpoint, params)
+			res = @api_client.call(@username, @api_key, endpoint, params, getUserAgent(), @use_ssl)
 
 			# Set up the return value
 			retval = res['data']
