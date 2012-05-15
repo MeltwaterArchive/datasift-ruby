@@ -1,5 +1,4 @@
 require 'helper'
-require 'crack'
 
 class TestDefinition < Test::Unit::TestCase
 	context "Given an empty Definition object" do
@@ -278,32 +277,6 @@ class TestDefinition < Test::Unit::TestCase
 
 		should "be valid" do
 			assert @consumer.is_a? DataSift::StreamConsumer
-		end
-	end
-
-	context "Given a valid Definition object, calling getUsage" do
-		setup do
-			init()
-			initUser()
-			@definition = @user.createDefinition(@testdata['definition'])
-			# Compile it so we have the hash
-			@user.api_client.setResponse(200, {
-				'hash'       => @testdata['definition_hash'],
-				'created_at' => Time.now.strftime('%Y-%m-%d %H:%M:%S'),
-				'cost'       => 10,
-			}, 200, 150)
-			@definition.compile()
-		end
-
-		should "return valid usage information" do
-			@user.api_client.setResponse(200, Crack::JSON.parse('{"processed":2494,"delivered":2700,"types":{"buzz":{"processed":247,"delivered":350},"twitter":{"processed":2247,"delivered":2350}}}'), 200, 150)
-			usage = @definition.getUsage()
-			assert_equal 2494, usage['processed']
-			assert_equal 2700, usage['delivered']
-			assert_equal 247, usage['types']['buzz']['processed']
-			assert_equal 350, usage['types']['buzz']['delivered']
-			assert_equal 2247, usage['types']['twitter']['processed']
-			assert_equal 2350, usage['types']['twitter']['delivered']
 		end
 	end
 end

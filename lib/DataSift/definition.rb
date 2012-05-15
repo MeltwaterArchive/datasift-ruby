@@ -5,12 +5,11 @@
 #
 # == Overview
 #
-# The Definition class represents a stream definition.
-<<<<<<< HEAD
+# The User class represents a user of the API. Applications should start their
+# API interactions by creating an instance of this class. Once initialised it
+# provides factory methods for all of the functionality in the API.
 
 require 'date'
-=======
->>>>>>> 8d16fe773c5c7190df80ac40a1fae41ff1835d8b
 
 module DataSift
 
@@ -158,19 +157,6 @@ module DataSift
 		#
 		def getConsumer(type = nil, on_interaction = nil, on_stopped = nil)
 			StreamConsumer.factory(@user, type, self)
-		end
-
-		# Returns the usage for this definition.
-		# === Parameters
-		#
-		# * +start_time+ - An optional timestamp to specify the start of the
-		#                  period in which we're interested.
-		# * +end_time+ - An optional timestamp to specify the end of the period
-		#                in which we're interested.
-		def getUsage(start_time = -1, end_time = -1)
-			raise InvalidDataError, "Cannot get the usage for an empty definition." unless @csdl.length > 0
-
-			@user.getUsage(start_time, end_time, self.hash)
 		end
 	end
 end
