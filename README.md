@@ -18,6 +18,10 @@ If you're using the source you'll need to install the dependencies.
 
 sudo gem install yajl-ruby rest-client
 
+The library will use SSL connections by default. While we recommend using SSL
+you may disable it if required by passing false as the third parameter when
+creating a user, or by calling user.enableSSL(false) on the user object.
+
 Simple example
 --------------
 
@@ -51,6 +55,12 @@ more details.
 
 Changelog
 ---------
+
+* v.1.4.0 Added SSL support (2012-05-15)
+
+  This is enabled by default and can be disabled by passing false as the third
+  parameter to the User constructor, or calling enableSSL(false) on the User
+  object.
 
 * v.1.3.1 Exposed compile failures when getting the stream hash (2012-04-20)
 
