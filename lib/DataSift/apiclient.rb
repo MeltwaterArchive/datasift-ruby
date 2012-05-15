@@ -27,9 +27,9 @@ module DataSift
 		# * +params+ - The parameters to be passed along with the request.
 		# * +username+ - The username for the Auth header
 		# * +api_key+ - The API key for the Auth header
-		def call(username, api_key, endpoint, params = {}, user_agent = 'DataSiftPHP/0.0', ssl = true)
+		def call(username, api_key, endpoint, params = {}, user_agent = 'DataSiftPHP/0.0')
 			# Build the full endpoint URL
-			url = 'http' + (ssl ? 's' : '') + '://' + User::API_BASE_URL + endpoint
+			url = 'http://' + User::API_BASE_URL + endpoint
 
 			retval = {
 				'response_code' => 500,
