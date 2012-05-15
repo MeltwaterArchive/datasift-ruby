@@ -64,7 +64,26 @@ class TestUser < Test::Unit::TestCase
 			assert_not_nil @definition
 			assert_equal @testdata['definition'], @definition.csdl
 		end
-	end
+  end
+
+  context "#getBalance" do
+    setup do
+      init()
+      initUser()
+      @user.api_client.setResponse(200, {
+        'balance' => {
+          'plan' => 'payg',
+          'credit' => 206.74
+        }
+      }, 200, 150)
+    end
+
+    should "return a hash containing the account balance info" do
+      @usage_hash = @user.getBalance()
+      assert @usage_hash['plan'] == 'payg'
+      assert @usage_hash['credit'] == 206.74
+    end
+  end
 
 	context "Given a call has been made to the API" do
 		setup do
