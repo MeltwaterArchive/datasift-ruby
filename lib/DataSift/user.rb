@@ -63,10 +63,10 @@ module DataSift
 			StreamConsumer.factory(self, type, Definition.new(self, nil, hash))
 		end
 
-    # Returns the account balance information for this user.
-    def getBalance
-      callAPI('balance')['balance']
-    end
+		# Returns the account balance information for this user.
+		def getBalance
+			callAPI('balance')['balance']
+		end
 
 		# Returns the usage data for this user. If a hash is provided then a more
 		# detailed breakdown using interaction types is retrieved and returned.
