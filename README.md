@@ -56,6 +56,8 @@ more details.
 Changelog
 ---------
 
+* v.1.5.0 Added getBalance to the User class [joncooper] (2012-05-24)
+
 * v.1.4.1 Fixed a minor bug in the SSL support (2012-05-15)
 
 * v.1.4.0 Added SSL support (2012-05-15)
