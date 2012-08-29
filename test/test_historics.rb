@@ -49,30 +49,27 @@ class TestHistorics < Test::Unit::TestCase
 		end
 
 		should "be able to prepare the query" do
-			@user.api_client.setResponse(200, {
+			setResponseToSingleHistoric({
 				'dpus'         => @testdata['historic_dpus'],
-				'id'           => @testdata['historic_playback_id'],
 				'availability' => @testdata['historic_availability']
-			}, 200, 150)
+			})
 			@historic.prepare()
 		end
 
 		should "not be able to prepare it more than once" do
-			@user.api_client.setResponse(200, {
+			setResponseToSingleHistoric({
 				'dpus'         => @testdata['historic_dpus'],
-				'id'           => @testdata['historic_playback_id'],
 				'availability' => @testdata['historic_availability']
-			}, 200, 150)
+			})
 			@historic.prepare()
 			assert_raise(DataSift::InvalidDataError) { @historic.prepare() }
 		end
 
 		should "be able to change the name after preparing" do
-			@user.api_client.setResponse(200, {
+			setResponseToSingleHistoric({
 				'dpus'         => @testdata['historic_dpus'],
-				'id'           => @testdata['historic_playback_id'],
 				'availability' => @testdata['historic_availability']
-			}, 200, 150)
+			})
 			@historic.prepare()
 
 			assert_equal @testdata['historic_name'], @historic.name
@@ -85,11 +82,10 @@ class TestHistorics < Test::Unit::TestCase
 		end
 
 		should "be able to start the query" do
-			@user.api_client.setResponse(200, {
+			setResponseToSingleHistoric({
 				'dpus'         => @testdata['historic_dpus'],
-				'id'           => @testdata['historic_playback_id'],
 				'availability' => @testdata['historic_availability']
-			}, 200, 150)
+			})
 			@historic.prepare()
 
 			set204Response()
@@ -97,11 +93,10 @@ class TestHistorics < Test::Unit::TestCase
 		end
 
 		should "be able to stop the query" do
-			@user.api_client.setResponse(200, {
+			setResponseToSingleHistoric({
 				'dpus'         => @testdata['historic_dpus'],
-				'id'           => @testdata['historic_playback_id'],
 				'availability' => @testdata['historic_availability']
-			}, 200, 150)
+			})
 			@historic.prepare()
 
 			set204Response()
@@ -109,11 +104,10 @@ class TestHistorics < Test::Unit::TestCase
 		end
 
 		should "be able to delete the query" do
-			@user.api_client.setResponse(200, {
+			setResponseToSingleHistoric({
 				'dpus'         => @testdata['historic_dpus'],
-				'id'           => @testdata['historic_playback_id'],
 				'availability' => @testdata['historic_availability']
-			}, 200, 150)
+			})
 			@historic.prepare()
 
 			set204Response()
@@ -121,11 +115,10 @@ class TestHistorics < Test::Unit::TestCase
 		end
 
 		should "not be able to start the query after deletion" do
-			@user.api_client.setResponse(200, {
+			setResponseToSingleHistoric({
 				'dpus'         => @testdata['historic_dpus'],
-				'id'           => @testdata['historic_playback_id'],
 				'availability' => @testdata['historic_availability']
-			}, 200, 150)
+			})
 			@historic.prepare()
 
 			set204Response()
