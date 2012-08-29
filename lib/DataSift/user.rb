@@ -52,6 +52,39 @@ module DataSift
 			DataSift::Definition.new(self, csdl, false)
 		end
 
+		# Create a Historics query based on this Definition.
+		# === Parameters
+		#
+		# * +hash+ - The stream hash for a new Historics query.
+		# * +start_date+ - The start date for a new Historics query.
+		# * +end_date+ - The end date for a new Historics query.
+		# * +sources+ - An array of sources for a new Historics query.
+		# * +name+ - The name for a new Historics query.
+		# * +sample+ - The sample rate for the new Historics query.
+		#
+		def createHistoric(hash, start_date, end_date, sources, name, sample = DEFAULT_SAMPLE)
+			return Historic.new(self, hash, start_date, end_date, sources, name, sample)
+		end
+
+		# Get a Historics query from the API.
+		# === Parameters
+		#
+		# * +playback_id+ - The playback ID of the Historics query to retrieve.
+		#
+		def getHistoric(playback_id)
+			return Historic.new(self, playback_id)
+		end
+
+		# Get a list of Historics queries in your account.
+		# === Parameters
+		#
+		# * +page+ - The page number to get.
+		# * +per_page+ - The number of items per page.
+		#
+		def listHistorics(page = 1, per_page = 20)
+			return Historic::list(self, page, per_page)
+		end
+
 		# Returns a StreamConsumer-derived object for the given hash, for the
 		# given type.
 		# === Parameters
@@ -119,6 +152,8 @@ module DataSift
 
 			case res['response_code']
 			when 200
+			when 201
+			when 204
 				# Do nothing
 			when 401
 				# Authentication failure
@@ -127,9 +162,9 @@ module DataSift
 				# Check the rate limit
 				raise RateLimitExceededError, retval['comment'] if @rate_limit_remaining == 0
 				# Rate limit is ok, raise a generic exception
-				raise APIError.new(403), retval.has_key?('error') ? retval['error'] : 'Unknown error'
+				raise APIError.new(res['response_code']), retval.has_key?('error') ? retval['error'] : 'Unknown error'
 			else
-				raise APIError.new(res['http_code']), retval.has_key?('error') ? retval['error'] : 'Unknown error'
+				raise APIError.new(res['response_code']), retval.has_key?('error') ? retval['error'] : 'Unknown error'
 			end
 
 			retval

@@ -107,7 +107,7 @@ module DataSift
 				when 400
 					raise CompileFailedError, err
 				else
-					raise CompileFailedError, 'Unexpected APIError code: ' + err.http_code.to_s + ' [' + err.inspect + ']'
+					raise APIError('Unexpected APIError code: ' + err.http_code.to_s + ' [' + err.inspect + ']', err.http_code)
 				end
 			end
 		end
@@ -147,6 +147,19 @@ module DataSift
 			raise APIError, 'No data in the response' unless retval.has_key?('stream')
 
 			retval['stream']
+		end
+
+		# Create a Historics query based on this Definition.
+		# === Parameters
+		#
+		# * +start_date+ - The start date for a new Historics query.
+		# * +end_date+ - The end date for a new Historics query.
+		# * +sources+ - An array of sources for a new Historics query.
+		# * +name+ - The name for a new Historics query.
+		# * +sample+ - The sample rate for the new Historics query.
+		#
+		def createHistoric(start_date, end_date, sources, name, sample = Historic::DEFAULT_SAMPLE)
+			return Historic.new(@user, hash, start_date, end_date, sources, name, sample)
 		end
 
 		# Returns a StreamConsumer-derived object for this definition, for the

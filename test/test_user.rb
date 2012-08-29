@@ -4,7 +4,6 @@ class TestUser < Test::Unit::TestCase
 	context "Given a new User object" do
 		setup do
 			init()
-			initUser()
 		end
 
 		should "have the correct username" do
@@ -43,7 +42,6 @@ class TestUser < Test::Unit::TestCase
 	context "Given an empty definition from the User factory" do
 		setup do
 			init()
-			initUser()
 			@definition = @user.createDefinition()
 		end
 
@@ -56,7 +54,6 @@ class TestUser < Test::Unit::TestCase
 	context "Given an new definition from the User factory" do
 		setup do
 			init()
-			initUser()
 			@definition = @user.createDefinition("   " + @testdata['definition'])
 		end
 
@@ -69,7 +66,6 @@ class TestUser < Test::Unit::TestCase
   context "#getBalance" do
     setup do
       init()
-      initUser()
       @user.api_client.setResponse(200, {
         'balance' => {
           'plan' => 'payg',
@@ -88,7 +84,6 @@ class TestUser < Test::Unit::TestCase
 	context "Given a call has been made to the API" do
 		setup do
 			init()
-			initUser()
 			@definition = @user.createDefinition(@testdata['definition'])
 			@user.api_client.setResponse(200, {
 				'hash'       => @testdata['definition_hash'],
@@ -110,7 +105,6 @@ class TestUser < Test::Unit::TestCase
 	context "The exception raised by the User.getUsage method" do
 		setup do
 			init()
-			initUser()
 		end
 
 		should "be APIError given a 400 response" do

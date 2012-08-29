@@ -4,7 +4,6 @@ class TestDefinition < Test::Unit::TestCase
 	context "Given an empty Definition object" do
 		setup do
 			init()
-			initUser()
 			@definition = @user.createDefinition()
 		end
 
@@ -22,7 +21,6 @@ class TestDefinition < Test::Unit::TestCase
 	context "Given a Definition object with CSDL" do
 		setup do
 			init()
-			initUser()
 			@definition = @user.createDefinition(@testdata['definition'])
 		end
 
@@ -35,7 +33,6 @@ class TestDefinition < Test::Unit::TestCase
 	context "Given a Definition object with CSDL plus padding" do
 		setup do
 			init()
-			initUser()
 			@definition = @user.createDefinition("    " + @testdata['definition'] + "     ")
 		end
 
@@ -54,7 +51,6 @@ class TestDefinition < Test::Unit::TestCase
 	context "When trying to create a Definition object with an invalid CSDL" do
 		setup do
 			init()
-			initUser()
 		end
 
 		should "raise an InvalidDataError" do
@@ -65,7 +61,6 @@ class TestDefinition < Test::Unit::TestCase
 	context "Given a Definition object with a valid CSDL" do
 		setup do
 			init()
-			initUser()
 			@definition = @user.createDefinition(@testdata['definition'])
 		end
 
@@ -119,7 +114,6 @@ class TestDefinition < Test::Unit::TestCase
 	context "Given a Definition object with an invalid CSDL" do
 		setup do
 			init()
-			initUser()
 			@definition = @user.createDefinition(@testdata['invalid_definition'])
 		end
 
@@ -141,7 +135,6 @@ class TestDefinition < Test::Unit::TestCase
 	context "The DPU returned from a valid Definition object" do
 		setup do
 			init()
-			initUser()
 			@definition = @user.createDefinition(@testdata['definition'])
 			# Compile the definition first
 			@user.api_client.setResponse(200, {
@@ -182,7 +175,6 @@ class TestDefinition < Test::Unit::TestCase
 	context "Buffered data returned by a valid Definition object" do
 		setup do
 			init()
-			initUser()
 			@definition = @user.createDefinition(@testdata['definition'])
 			# Compile the definition first
 			@user.api_client.setResponse(200, {
@@ -262,7 +254,6 @@ class TestDefinition < Test::Unit::TestCase
 	context "A StreamConsumer object returned by a valid Definition object" do
 		setup do
 			init()
-			initUser()
 			@definition = @user.createDefinition(@testdata['definition'])
 			# Compile the definition first
 			@user.api_client.setResponse(200, {

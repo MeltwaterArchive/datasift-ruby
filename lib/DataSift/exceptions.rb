@@ -1,15 +1,17 @@
 module DataSift
-	class AccessDeniedError < StandardError; end
-	class CompileFailedError < StandardError; end
-	class InvalidDataError < StandardError; end
-	class NotYetImplementedError < StandardError; end
-	class RateLimitExceededError < StandardError; end
-	class StreamError < StandardError; end
+	class DataSiftError < StandardError; end
 
-	class APIError < StandardError
+	class AccessDeniedError < DataSiftError; end
+	class CompileFailedError < DataSiftError; end
+	class InvalidDataError < DataSiftError; end
+	class NotYetImplementedError < DataSiftError; end
+	class RateLimitExceededError < DataSiftError; end
+	class StreamError < DataSiftError; end
+
+	class APIError < DataSiftError
 		attr_reader :http_code
 
-		def initialize(http_code)
+		def initialize(http_code = -1)
 			@http_code = http_code
 		end
 	end
