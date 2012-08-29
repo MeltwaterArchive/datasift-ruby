@@ -4,7 +4,7 @@ DataSift
 The official Ruby library for accessing the DataSift API. See
 http://datasift.net for full details and to sign up for an account.
 
-The examples and tests use the username and API key in config.yml.
+The examples use the username and API key in config.yml unless otherwise noted.
 
 Install Instructions
 --------------------
