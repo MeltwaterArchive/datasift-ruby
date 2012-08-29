@@ -66,8 +66,23 @@ module DataSift
 			return Historic.new(self, hash, start_date, end_date, sources, name, sample)
 		end
 
+		# Get a Historics query from the API.
+		# === Parameters
+		#
+		# * +playback_id+ - The playback ID of the Historics query to retrieve.
+		#
 		def getHistoric(playback_id)
 			return Historic.new(self, playback_id)
+		end
+
+		# Get a list of Historics queries in your account.
+		# === Parameters
+		#
+		# * +page+ - The page number to get.
+		# * +per_page+ - The number of items per page.
+		#
+		def listHistorics(page = 1, per_page = 20)
+			return Historic::list(self, page, per_page)
 		end
 
 		# Returns a StreamConsumer-derived object for the given hash, for the

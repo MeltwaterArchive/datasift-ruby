@@ -22,6 +22,37 @@ module DataSift
 	class Historic
 		DEFAULT_SAMPLE = 100
 
+		# Get a list of Historics queries in your account.
+		# === Parameters
+		#
+		# * +user+ - The user object making the request.
+		# * +page+ - The page number to get.
+		# * +per_page+ - The number of items per page.
+		#
+		def self.list(user, page = 1, per_page = 20)
+			begin
+				res = user.callAPI(
+					'historics/get', {
+						'page' => page,
+						'max' => per_page
+					})
+
+				retval = { 'count' => res['count'], 'historics' => [] }
+				for historic in res['data']
+					retval['historics'].push(self.new(user, historic))
+				end
+				retval
+			rescue APIError => err
+				case err.http_code
+				when 400
+					# Missing or invalid parameters
+					raise InvalidDataError, err
+				else
+					raise APIError.new(err.http_code), 'Unexpected APIError code: ' + err.http_code.to_s + ' [' + err.message + ']'
+				end
+			end
+		end
+
 		attr_reader :playback_id, :stream_hash, :name, :start_date, :end_date
 		attr_reader :created_at, :status, :progress, :sources, :sample
 		attr_reader :dpus, :volume_info, :is_deleted
@@ -42,7 +73,7 @@ module DataSift
 			@user = user
 
 			if not start_date
-				if hash.kind_of?(Array)
+				if hash.kind_of?(Hash)
 					# Initialising from an array
 					@playback_id = hash['id']
 					initFromArray(hash)
@@ -60,9 +91,9 @@ module DataSift
 
 				# Convert and validate the parameters as required
 				hash = hash.hash if hash.is_a? DataSift::Definition
-				start_date = Date.strftime(start_date, '%s') unless start_date.is_a? Date
-				end_date = Date.strptime(end_date, '%s') unless end_date.is_a? Date
-				raise InvalidDataError, 'Please supply an array of sources' unless sources.kind_of? Array
+				start_date = DateTime.strftime(start_date, '%s') unless start_date.is_a? Date
+				end_date = DateTime.strptime(end_date, '%s') unless end_date.is_a? Date
+				raise InvalidDataError, 'Please supply an array of sources' unless sources.kind_of?(Array)
 
 				@playback_id  = false
 				@stream_hash  = hash
@@ -116,13 +147,13 @@ module DataSift
 			@name = data['name']
 
 			raise APIError, 'No start timestamp in the response' unless data.has_key?('start')
-			@start_date = Date.strptime(data['start'], '%s')
+			@start_date = DateTime.strptime(String(data['start']), '%s')
 
 			raise APIError, 'No end timestamp in the response' unless data.has_key?('end')
-			@end_date = Date.strptime(data['end'], '%s')
+			@end_date = DateTime.strptime(String(data['end']), '%s')
 
 			raise APIError, 'No created at timstamp in the response' unless data.has_key?('created_at')
-			@created_at = Date.strptime(data['created_at'], '%s')
+			@created_at = DateTime.strptime(String(data['created_at']), '%s')
 
 			raise APIError, 'No status in the response' unless data.has_key?('status')
 			@status = data['status']
@@ -198,6 +229,9 @@ module DataSift
 					raise APIError.new(err.http_code), 'Unexpected APIError code: ' + err.http_code.to_s + ' [' + err.message + ']'
 				end
 			end
+
+			# Reload the data so we get the created_at date, initial status and the rest.
+			reloadData()
 		end
 
 		# Start this Historics query.
