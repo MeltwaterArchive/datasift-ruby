@@ -5,11 +5,12 @@ class TestHistorics < Test::Unit::TestCase
 		setup do
 			init()
 			# Create the historic (API response is for compiling the definition)
-			@historic = @user.createHistoric(@testdata['definition_hash'], @testdata['historic_start'], @testdata['historic_end'], @testdata['historic_sources'], @testdata['historic_name'], @testdata['historic_sample'])
+			@historic = @user.createHistoric(@testdata['definition_hash'], @testdata['historic_start'], @testdata['historic_end'], @testdata['historic_sources'], @testdata['historic_sample'], @testdata['historic_name'])
 		end
 
 		should "be a Historic object" do
 			assert_not_nil @historic
+			assert @historic.kind_of?(DataSift::Historic)
 		end
 
 		should "have the correct definition_hash" do
@@ -49,7 +50,7 @@ class TestHistorics < Test::Unit::TestCase
 		end
 
 		should "be able to prepare the query" do
-			setResponseToSingleHistoric({
+			setResponseToASingleHistoric({
 				'dpus'         => @testdata['historic_dpus'],
 				'availability' => @testdata['historic_availability']
 			})
@@ -57,7 +58,7 @@ class TestHistorics < Test::Unit::TestCase
 		end
 
 		should "not be able to prepare it more than once" do
-			setResponseToSingleHistoric({
+			setResponseToASingleHistoric({
 				'dpus'         => @testdata['historic_dpus'],
 				'availability' => @testdata['historic_availability']
 			})
@@ -66,7 +67,7 @@ class TestHistorics < Test::Unit::TestCase
 		end
 
 		should "be able to change the name after preparing" do
-			setResponseToSingleHistoric({
+			setResponseToASingleHistoric({
 				'dpus'         => @testdata['historic_dpus'],
 				'availability' => @testdata['historic_availability']
 			})
@@ -75,14 +76,14 @@ class TestHistorics < Test::Unit::TestCase
 			assert_equal @testdata['historic_name'], @historic.name
 
 			new_name = 'new name'
-			setResponseToSingleHistoric({ 'name' => new_name })
+			setResponseToASingleHistoric({ 'name' => new_name })
 			@historic.name = new_name
 
 			assert_equal new_name, @historic.name
 		end
 
 		should "be able to start the query" do
-			setResponseToSingleHistoric({
+			setResponseToASingleHistoric({
 				'dpus'         => @testdata['historic_dpus'],
 				'availability' => @testdata['historic_availability']
 			})
@@ -93,7 +94,7 @@ class TestHistorics < Test::Unit::TestCase
 		end
 
 		should "be able to stop the query" do
-			setResponseToSingleHistoric({
+			setResponseToASingleHistoric({
 				'dpus'         => @testdata['historic_dpus'],
 				'availability' => @testdata['historic_availability']
 			})
@@ -104,7 +105,7 @@ class TestHistorics < Test::Unit::TestCase
 		end
 
 		should "be able to delete the query" do
-			setResponseToSingleHistoric({
+			setResponseToASingleHistoric({
 				'dpus'         => @testdata['historic_dpus'],
 				'availability' => @testdata['historic_availability']
 			})
@@ -115,7 +116,7 @@ class TestHistorics < Test::Unit::TestCase
 		end
 
 		should "not be able to start the query after deletion" do
-			setResponseToSingleHistoric({
+			setResponseToASingleHistoric({
 				'dpus'         => @testdata['historic_dpus'],
 				'availability' => @testdata['historic_availability']
 			})
@@ -139,7 +140,7 @@ class TestHistorics < Test::Unit::TestCase
 				'created_at' => Time.now.strftime('%Y-%m-%d %H:%M:%S'),
 				'dpu'        => 10,
 			}, 200, 150)
-			@historic = @definition.createHistoric(@testdata['historic_start'], @testdata['historic_end'], @testdata['historic_sources'], @testdata['historic_name'], @testdata['historic_sample'])
+			@historic = @definition.createHistoric(@testdata['historic_start'], @testdata['historic_end'], @testdata['historic_sources'], @testdata['historic_sample'], @testdata['historic_name'])
 		end
 
 		should "be a Historic object" do
@@ -179,7 +180,7 @@ class TestHistorics < Test::Unit::TestCase
 		setup do
 			init()
 			# Create the historic (API response is for compiling the definition)
-			setResponseToSingleHistoric()
+			setResponseToASingleHistoric()
 			@historic = @user.getHistoric(@testdata['historic_playback_id'])
 		end
 
@@ -223,7 +224,7 @@ class TestHistorics < Test::Unit::TestCase
 			assert_equal @testdata['historic_name'], @historic.name
 
 			new_name = 'new name'
-			setResponseToSingleHistoric({ 'name' => new_name })
+			setResponseToASingleHistoric({ 'name' => new_name })
 			@historic.name = new_name
 
 			assert_equal new_name, @historic.name

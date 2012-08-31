@@ -1,4 +1,4 @@
-# This script starts Historics queries in your account.
+# This script views the details of Push subscriptions in your account.
 #
 # NB: Most of the error handling (exception catching) has been removed for
 # the sake of simplicity. Nearly everything in this library may throw
@@ -14,17 +14,18 @@ require File.dirname(__FILE__) + '/env'
 env = Env.new()
 
 # Make sure we have something to do
-abort('Please specify one or more playback IDs') unless env.args.size() > 0
+abort('Please specify one or more subscription IDs') unless env.args.size() > 0
 
-begin
-	for playback_id in env.args
-		historic = env.user.getHistoric(playback_id)
-		print 'Starting ' + playback_id + ', "' + historic.name + '"...'
-		historic.start()
-		puts 'done'
+for sub_id in env.args
+	begin
+		sub = env.user.getPushSubscription(sub_id)
+		env.displaySubscriptionDetails(sub)
+	rescue DataSift::DataSiftError => err
+		puts 'ERR: [' + err.class.name + '] ' + err.message
+		puts '--'
 	end
+end
 
+if env.user.rate_limit_remaining != -1
 	puts 'Rate limit remainining: ' + String(env.user.rate_limit_remaining)
-rescue DataSift::DataSiftError => err
-	puts 'ERR: [' + err.class.name + '] ' + err.message
 end

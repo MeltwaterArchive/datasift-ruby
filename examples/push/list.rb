@@ -1,4 +1,4 @@
-# This script starts Historics queries in your account.
+# This script lists Push subscription in your account.
 #
 # NB: Most of the error handling (exception catching) has been removed for
 # the sake of simplicity. Nearly everything in this library may throw
@@ -13,15 +13,15 @@ require File.dirname(__FILE__) + '/env'
 # user object, and provides access to both along with helper functions.
 env = Env.new()
 
-# Make sure we have something to do
-abort('Please specify one or more playback IDs') unless env.args.size() > 0
-
 begin
-	for playback_id in env.args
-		historic = env.user.getHistoric(playback_id)
-		print 'Starting ' + playback_id + ', "' + historic.name + '"...'
-		historic.start()
-		puts 'done'
+	subscriptions = env.user.listPushSubscriptions()
+
+	if subscriptions['subscriptions'].size() == 0
+		puts 'No Push subscriptions exist in your account.'
+	else
+		for subscription in subscriptions['subscriptions']
+			env.displaySubscriptionDetails(subscription)
+		end
 	end
 
 	puts 'Rate limit remainining: ' + String(env.user.rate_limit_remaining)

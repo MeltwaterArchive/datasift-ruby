@@ -158,8 +158,8 @@ module DataSift
 		# * +name+ - The name for a new Historics query.
 		# * +sample+ - The sample rate for the new Historics query.
 		#
-		def createHistoric(start_date, end_date, sources, name, sample = Historic::DEFAULT_SAMPLE)
-			return Historic.new(@user, hash, start_date, end_date, sources, name, sample)
+		def createHistoric(start_date, end_date, sources, sample, name)
+			return Historic.new(@user, hash, start_date, end_date, sources, sample, name)
 		end
 
 		# Returns a StreamConsumer-derived object for this definition, for the

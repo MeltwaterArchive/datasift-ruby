@@ -21,9 +21,10 @@ push_hash_type: stream
 push_last_request: 2012-07-20 07:10:00
 push_last_success: 2012-07-20 07:00:00
 push_output_type: http
-push_output_params_delivery_frequency: 60
-push_output_params_max_size: 10240
-push_output_params_url: http://www.example.com/push_endpoint
-push_output_params_auth_type: basic
-push_output_params_auth_username: myuser
-push_output_params_auth_password: mypass
+push_output_params:
+  delivery_frequency: 60
+  max_size: 10240
+  url: http://www.example.com/push_endpoint
+  auth_type: basic
+  auth_username: myuser
+  auth_password: mypass

@@ -85,6 +85,80 @@ module DataSift
 			return Historic::list(self, page, per_page)
 		end
 
+		# Create a new PushDefinition object for this user.
+		def createPushDefinition()
+			return PushDefinition.new(self)
+		end
+
+		# Get an existing PushSubscription from the API.
+		# === Parameters
+		#
+		# * +subscription_id+ - The ID of the subscription to fetch.
+		#
+		def getPushSubscription(subscription_id)
+			return PushSubscription.get(self, subscription_id)
+		end
+
+		# Get the log entries for all push subscription or the given subscription.
+		# === Parameters
+		#
+		# * +subscription_id+ - Optional subscription ID.
+		#
+		def getPushSubscriptionLog(subscription_id = false)
+			if subscription_id
+				return getPushSubscription(subscription_id).getLog()
+			else
+				return PushSubscription.getLogs(self)
+			end
+		end
+
+		# Get a page of Push subscriptions in the given user's account, where each
+		# page contains up to per_page items. Results will be ordered according to
+		# the supplied ordering parameters.
+		# === Parameters
+		#
+		# * +page+ - The page number to get.
+		# * +per_page+ - The number of items per page.
+		# * +order_by+ - The field by which to order the results.
+		# * +order_dir+ - Ascending or descending.
+		# * +include_finished+ - True to include subscriptions against finished Historics queries.
+		#
+		def listPushSubscriptions(page = 1, per_page = 20, order_by = PushSubscription::ORDERBY_CREATED_AT, order_dir = PushSubscription::ORDERDIR_ASC, include_finished = false)
+			return PushSubscription.list(self, page, per_page, order_by, order_dir, include_finished)
+		end
+
+		# Get a page of Push subscriptions in the given user's account, where each
+		# page contains up to per_page items. Results will be ordered according to
+		# the supplied ordering parameters.
+		# === Parameters
+		#
+		# * +hash+ - The stream hash.
+		# * +page+ - The page number to get.
+		# * +per_page+ - The number of items per page.
+		# * +order_by+ - The field by which to order the results.
+		# * +order_dir+ - Ascending or descending.
+		# * +include_finished+ - True to include subscriptions against finished Historics queries.
+		#
+		def listPushSubscriptionsToStreamHash(hash, page = 1, per_page = 20, order_by = PushSubscription::ORDERBY_CREATED_AT, order_dir = PushSubscription::ORDERDIR_ASC, include_finished = false)
+			return PushSubscription.listByStreamHash(self, hash, page, per_page, order_by, order_dir)
+		end
+
+		# Get a page of Push subscriptions in the given user's account, where each
+		# page contains up to per_page items. Results will be ordered according to
+		# the supplied ordering parameters.
+		# === Parameters
+		#
+		# * +hash+ - The stream hash.
+		# * +page+ - The page number to get.
+		# * +per_page+ - The number of items per page.
+		# * +order_by+ - The field by which to order the results.
+		# * +order_dir+ - Ascending or descending.
+		# * +include_finished+ - True to include subscriptions against finished Historics queries.
+		#
+		def listPushSubscriptionsToPlaybackId(playback_id, page = 1, per_page = 20, order_by = PushSubscription::ORDERBY_CREATED_AT, order_dir = PushSubscription::ORDERDIR_ASC, include_finished = false)
+			return PushSubscription.listByPlaybackId(self, playback_id, page, per_page, order_by, order_dir)
+		end
+
 		# Returns a StreamConsumer-derived object for the given hash, for the
 		# given type.
 		# === Parameters

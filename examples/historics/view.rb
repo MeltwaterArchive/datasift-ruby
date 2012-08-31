@@ -24,5 +24,5 @@ begin
 
 	puts 'Rate limit remainining: ' + String(env.user.rate_limit_remaining)
 rescue DataSift::DataSiftError => err
-	puts 'ERR: ' + err.inspect
+	puts 'ERR: [' + err.class.name + '] ' + err.message
 end

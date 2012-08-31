@@ -39,7 +39,7 @@ module DataSift
 
 				retval = { 'count' => res['count'], 'historics' => [] }
 				for historic in res['data']
-					retval['historics'].push(self.new(user, historic))
+					retval['historics'].push(new(user, historic))
 				end
 				retval
 			rescue APIError => err
@@ -68,7 +68,7 @@ module DataSift
 		# * +name+ - The name for a new Historics query.
 		# * +sample+ - The sample rate for the new Historics query.
 		#
-		def initialize(user, hash, start_date = false, end_date = false, sources = false, name = false, sample = false)
+		def initialize(user, hash, start_date = false, end_date = false, sources = false, sample = false, name = false)
 			raise InvalidDataError, 'Please supply a valid User object when creating a Historic object.' unless user.is_a? DataSift::User
 			@user = user
 
