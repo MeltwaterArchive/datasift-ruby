@@ -2,7 +2,7 @@ DataSift
 ========
 
 The official Ruby library for accessing the DataSift API. See
-http://datasift.net for full details and to sign up for an account.
+http://datasift.com/ for full details and to sign up for an account.
 
 The examples use the username and API key in config.yml unless otherwise noted.
 
@@ -19,7 +19,7 @@ If you're using the source you'll need to install the dependencies.
 sudo gem install yajl-ruby rest-client
 
 The library will use SSL connections by default. While we recommend using SSL
-you may disable it if required by passing false as the third parameter when
+you may disable it if r§equired by passing false as the third parameter when
 creating a user, or by calling user.enableSSL(false) on the user object.
 
 Simple example
@@ -56,7 +56,9 @@ more details.
 Changelog
 ---------
 
-* v.1.5.0 Added getBalance to the User class [joncooper] (2012-05-24)
+* v.2.0.0 Added support for Historics queries and Push delivery (2012-08-31)
+
+* v.1.5.0 Added getBalance to the User class [joncooper](https://github.com/joncooper) (2012-05-24)
 
 * v.1.4.1 Fixed a minor bug in the SSL support (2012-05-15)
 

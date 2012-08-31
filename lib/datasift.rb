@@ -1,13 +1,5 @@
-#
-# datasift.rb - DataSift module base file
-#
-# Copyright (C) 2011 MediaSift Ltd
-#
-# == Overview
-#
-# This is the base file for the DataSift API library. Require this file to get
-# access to the full library functionality.
-#
+#This is the base file for the DataSift API library. Require this file to get
+#access to the full library functionality.
 require 'rubygems'
 
 dir = File.dirname(__FILE__)
