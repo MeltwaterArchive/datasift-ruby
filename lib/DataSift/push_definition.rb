@@ -1,31 +1,20 @@
-#
-# definition.rb - This file contains the Definition class.
-#
-# Copyright (C) 2011 MediaSift Ltd
-#
-# == Overview
-#
-# The User class represents a user of the API. Applications should start their
-# API interactions by creating an instance of this class. Once initialised it
-# provides factory methods for all of the functionality in the API.
-
 module DataSift
-	# PushDefinition class.
-	#
-	# == Introduction
-	#
-	# The Definition class represents a stream definition.
-	#
+	#The PushDefinition class represents a stream definition.
 	class PushDefinition
+		#Output parameter names are prefixed with this string before being sent to
+		#the API.
 		OUTPUT_PARAMS_PREFIX = 'output_params.'
 
-		attr_accessor :initial_status, :output_type, :output_params
+		#The initial status for subscriptions to this endpoint.
+		attr_accessor :initial_status
+		#The output type for this Push definition.
+		attr_accessor :output_type
+		#The output parameters for this Push definition.
+		attr_accessor :output_params
 
-		# Constructor. A User object is required.
-		# === Parameters
-		#
-		# * +user+ - The DataSift::User object.
-		#
+		#Constructor. A User object is required.
+		#=== Parameters
+		#* +user+ - The DataSift::User object.
 		def initialize(user)
 			raise InvalidDataError, 'Please supply a valid User object when creating a Definition object.' unless user.is_a? DataSift::User
 			@user = user
@@ -34,7 +23,7 @@ module DataSift
 			@output_params = {}
 		end
 
-		# Validate the output type and parameters with the DataSift API.
+		#Validate the output type and parameters with the DataSift API.
 		def validate()
 			begin
 				params = { 'output_type' => @output_type }
@@ -50,53 +39,53 @@ module DataSift
 			end
 		end
 
-		# Subscribe this endpoint to a Definition.
-		# === Parameters
-		#
-		# * +definition+ - The Definition object.
-		# * +name+ - A name for this subscription.
-		#
+		#Subscribe this endpoint to a Definition.
+		#=== Parameters
+		#* +definition+ - The Definition object.
+		#* +name+ - A name for this subscription.
+		#=== Returns
+		#A PushSubscription object.
 		def subscribeDefinition(definition, name)
-			subscribeStreamHash(definition.hash, name)
+			return subscribeStreamHash(definition.hash, name)
 		end
 
-		# Subscribe this endpoint to a stream hash.
-		# === Parameters
-		#
-		# * +hash+ - The stream hash.
-		# * +name+ - A name for this subscription.
-		#
+		#Subscribe this endpoint to a stream hash.
+		#=== Parameters
+		#* +hash+ - The stream hash.
+		#* +name+ - A name for this subscription.
+		#=== Returns
+		#A PushSubscription object.
 		def subscribeStreamHash(hash, name)
-			subscribe('hash', hash, name)
+			return subscribe('hash', hash, name)
 		end
 
-		# Subscribe this endpoint to a Historics query.
-		# === Parameters
-		#
-		# * +historic+ - The Historic object.
-		# * +name+ - A name for this subscription.
-		#
+		#Subscribe this endpoint to a Historics query.
+		#=== Parameters
+		#* +historic+ - The Historic object.
+		#* +name+ - A name for this subscription.
+		#=== Returns
+		#A PushSubscription object.
 		def subscribeHistoric(historic, name)
-			subscribeHistoricPlaybackId(historic.hash, name)
+			return subscribeHistoricPlaybackId(historic.hash, name)
 		end
 
-		# Subscribe this endpoint to a Historics playback ID.
-		# === Parameters
-		#
-		# * +playback_id+ - The playback ID.
-		# * +name+ - A name for this subscription.
-		#
+		#Subscribe this endpoint to a Historics playback ID.
+		#=== Parameters
+		#* +playback_id+ - The playback ID.
+		#* +name+ - A name for this subscription.
+		#=== Returns
+		#A PushSubscription object.
 		def subscribeHistoricPlaybackId(playback_id, name)
-			subscribe('playback_id', playback_id, name)
+			return subscribe('playback_id', playback_id, name)
 		end
 
-		# Subscribe this endpoint to a hash.
-		# === Parameters
-		#
-		# * +hash_type+ - The hash type.
-		# * +hash+ - The hash.
-		# * +name+ - A name for this subscription.
-		#
+		#Subscribe this endpoint to a hash.
+		#=== Parameters
+		#* +hash_type+ - The hash type.
+		#* +hash+ - The hash.
+		#* +name+ - A name for this subscription.
+		#=== Returns
+		#A PushSubscription object.
 		def subscribe(hash_type, hash, name)
 			begin
 				# API call parameters
@@ -112,7 +101,7 @@ module DataSift
 
 				# Call the API and create a new PushSubscription from the returned
 				# object
-				PushSubscription.new(@user, @user.callAPI('push/create', params))
+				return PushSubscription.new(@user, @user.callAPI('push/create', params))
 			rescue APIError => err
 				case err.http_code
 				when 400

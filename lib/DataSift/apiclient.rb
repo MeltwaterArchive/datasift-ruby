@@ -1,32 +1,22 @@
-#
-# apiclient.rb - This file contains the ApiClient class.
-#
-# Copyright (C) 2011 MediaSift Ltd
-#
-# == Overview
-#
-# The ApiClient class wraps the functionality that makes calls to the
-# DataSift API.
-
 require 'rest_client'
 require 'yajl'
 
 module DataSift
-	# ApiCLient class.
-	#
-	# == Introduction
-	#
-	# The ApiClient class wraps the functionality that makes calls to the
-	# DataSift API.
-	#
+	#The ApiClient class wraps the functionality that makes calls to the
+	#DataSift API.
 	class ApiClient
-		# Make a call to a DataSift API endpoint.
-		# === Parameters
-		#
-		# * +endpoint+ - The endpoint of the API call.
-		# * +params+ - The parameters to be passed along with the request.
-		# * +username+ - The username for the Auth header
-		# * +api_key+ - The API key for the Auth header
+		#Make a call to a DataSift API endpoint.
+		#=== Parameters
+		#* +endpoint+ - The endpoint of the API call.
+		#* +params+ - The parameters to be passed along with the request.
+		#* +username+ - The username for the Auth header
+		#* +api_key+ - The API key for the Auth header
+		#=== Returns
+		#A Hash contatining...
+		#* +response_code+ - The HTTP response code.
+		#* +data+ - A Hash containing the response data.
+		#* +rate_limit+ - The total API credits you get per hour.
+		#* +rate_limit_remaining+ - The number of API credits you have remaining for this hour.
 		def call(username, api_key, endpoint, params = {}, user_agent = 'DataSiftPHP/0.0')
 			# Build the full endpoint URL
 			url = 'http://' + User::API_BASE_URL + endpoint
@@ -64,11 +54,16 @@ module DataSift
 				retval['data'] = Yajl::Parser.parse(err.response)
 			end
 
-			retval
+			return retval
 		end
 
 	private
 
+		#Convert a Hash to an HTTP query string.
+		#=== Parameters
+		#* +hash+ - The Hash to convert.
+		#=== Returns
+		#A string containing the equivalent query string.
 		def hashToQuerystring(hash)
 			hash.keys.inject('') do |query_string, key|
 				query_string << '&' unless key == hash.keys.first

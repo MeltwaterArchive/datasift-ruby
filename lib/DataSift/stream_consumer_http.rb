@@ -1,12 +1,3 @@
-#
-# stream_consumer_http.rb - This file contains the StreamConsumer_HTTP class.
-#
-# Copyright (C) 2011 MediaSift Ltd
-#
-# == Overview
-#
-# The StreamConsumer_HTTP class implements HTTP streaming.
-
 $LOAD_PATH.unshift(File.dirname(__FILE__) + '/../')
 
 require 'uri'
@@ -15,14 +6,19 @@ require 'yajl'
 require 'cgi'
 
 module DataSift
-
+	#The HTTP implementation of the StreamConsumer.
 	class StreamConsumer_HTTP < StreamConsumer
-
-		# Constructor. Requires valid user and definition objects.
+		#Constructor. Requires valid user and definition objects.
+		#=== Parameters
+		#* +user+ - The user consuming the data.
+		#* +definition+ - The Definition to consume.
 		def initialize(user, definition)
 			super
 		end
 
+		#Called when the consumer is started.
+		#=== Parameters
+		#* +block+ - A block to receive incoming data.
 		def onStart(&block)
 			begin
 				reconnect() unless !@socket.nil? and !@socket.closed?
@@ -85,8 +81,9 @@ module DataSift
 			onStop(@stop_reason)
 		end
 
-	  private
+  private
 
+  	#Reconnect the stream socket.
 		def reconnect()
 			uri = URI.parse('http' + (@user.use_ssl ? 's' : '') + '://' + User::STREAM_BASE_URL + @definition.hash)
 
@@ -175,11 +172,10 @@ module DataSift
 			end while @state != StreamConsumer::STATE_RUNNING
 		end
 
+		#Disconnect the stream socket.
 		def disconnect()
 			@socket.close if !@socket.nil? and !@socket.closed?
 			@raw_socket.close if !@raw_socket.nil? and !@raw_socket.closed?
 		end
-
 	end
-
 end

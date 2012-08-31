@@ -1,34 +1,17 @@
-#
-# historic.rb - This file contains the Historic class.
-#
-# Copyright (C) 2011 MediaSift Ltd
-#
-# == Overview
-#
-# The User class represents a user of the API. Applications should start their
-# API interactions by creating an instance of this class. Once initialised it
-# provides factory methods for all of the functionality in the API.
-
 require 'date'
 
 module DataSift
-
-	# Definition class.
-	#
-	# == Introduction
-	#
-	# The Definition class represents a stream definition.
-	#
+	#The Historic class represents a Historics query.
 	class Historic
-		DEFAULT_SAMPLE = 100
-
-		# Get a list of Historics queries in your account.
-		# === Parameters
-		#
-		# * +user+ - The user object making the request.
-		# * +page+ - The page number to get.
-		# * +per_page+ - The number of items per page.
-		#
+		#Get a list of Historics queries in your account.
+		#=== Parameters
+		#* +user+ - The user object making the request.
+		#* +page+ - The page number to get.
+		#* +per_page+ - The number of items per page.
+		#=== Returns
+		#A Hash containing...
+		#* +count+ - The total number of Historics queries in your account.
+		#* +historics+ - An array of Hashes where each Hash is a Historics query.
 		def self.list(user, page = 1, per_page = 20)
 			begin
 				res = user.callAPI(
@@ -53,21 +36,42 @@ module DataSift
 			end
 		end
 
-		attr_reader :playback_id, :stream_hash, :name, :start_date, :end_date
-		attr_reader :created_at, :status, :progress, :sources, :sample
-		attr_reader :dpus, :volume_info, :is_deleted
+		#The ID of this Historics query.
+		attr_reader :playback_id
+		#The stream hash which this Historics query is executing.
+		attr_reader :stream_hash
+		#The friendly name for this Historics query.
+		attr_reader :name
+		#The start date for this Historics query.
+		attr_reader :start_date
+		#The end date for this Historics query.
+		attr_reader :end_date
+		#The date/time when this Historics query was created.
+		attr_reader :created_at
+		#The current status of this Historics query.
+		attr_reader :status
+		#The current progress in percent of this Historics query.
+		attr_reader :progress
+		#The data sources for which this Historics query is looking.
+		attr_reader :sources
+		#The sample percentage that this Historics query will match.
+		attr_reader :sample
+		#The DPU cost of running this Historics query.
+		attr_reader :dpus
+		#The data availability for this Historics query.
+		attr_reader :volume_info
+		#True if this Historics query has been deleted.
+		attr_reader :is_deleted
 
-		# Constructor. Pass all parameters to create a new Historics query, or provide a User object and a playback_id as the hash parameter to load an existing query from the API.
-		# === Parameters
-		#
-		# * +user+ - The DataSift::User object.
-		# * +hash+ - Either a stream_hash, an array containing the Historics query data or a playback ID.
-		# * +start_date+ - The start date for a new Historics query.
-		# * +end_date+ - The end date for a new Historics query.
-		# * +sources+ - An array of sources for a new Historics query.
-		# * +name+ - The name for a new Historics query.
-		# * +sample+ - The sample rate for the new Historics query.
-		#
+		#Constructor. Pass all parameters to create a new Historics query, or provide a User object and a playback_id as the hash parameter to load an existing query from the API.
+		#=== Parameters
+		#* +user+ - The DataSift::User object.
+		#* +hash+ - Either a stream_hash, an array containing the Historics query data or a playback ID.
+		#* +start_date+ - The start date for a new Historics query.
+		#* +end_date+ - The end date for a new Historics query.
+		#* +sources+ - An array of sources for a new Historics query.
+		#* +name+ - The name for a new Historics query.
+		#* +sample+ - The sample rate for the new Historics query.
 		def initialize(user, hash, start_date = false, end_date = false, sources = false, sample = false, name = false)
 			raise InvalidDataError, 'Please supply a valid User object when creating a Historic object.' unless user.is_a? DataSift::User
 			@user = user
@@ -110,12 +114,12 @@ module DataSift
 			end
 		end
 
-		# Reload the data for this object from the API.
+		#Reload the data for this object from the API.
 		def reloadData()
-			# Can't do this if we've been deleted
+			#Can't do this if we've been deleted
 			raise InvalidDataError, 'Cannot reload the data for a deleted Historics query' unless not @is_deleted
 
-			# Can't do this without a playback ID
+			#Can't do this without a playback ID
 			raise InvalidDataError, 'Cannot reload the data with a Historics query with no playback ID' unless @playback_id
 
 			begin
@@ -130,11 +134,9 @@ module DataSift
 			end
 		end
 
-		# Initialise this obejct from the data in an array.
-		# === Parameters
-		#
-		# * +data+ - The array containing the data.
-		#
+		#Initialise this obejct from the data in a Hash.
+		#=== Parameters
+		#* +data+ - The Hash containing the data.
 		def initFromArray(data)
 			raise APIError, 'No playback ID in the response' unless data.has_key?('id')
 			raise APIError, 'Incorrect playback ID in the response' unless not @playback_id or data['id'] == @playback_id
@@ -172,11 +174,11 @@ module DataSift
 
 			@is_deleted = (@status == 'deleted')
 
-			true
+			return true
 		end
 
-		# Getter for the playback ID. If the Historics query has not yet been
-		# prepared that will be done automagically to obtain the playback ID.
+		#Getter for the playback ID. If the Historics query has not yet been
+		#prepared that will be done automagically to obtain the playback ID.
 		def hash
 			if @playback_id == false
 				prepare()
@@ -185,8 +187,8 @@ module DataSift
 			@playback_id
 		end
 
-		# Name setter. Updates via the API if this Historics query has already
-		# been prepared.
+		#Name setter. Updates via the API if this Historics query has already
+		#been prepared.
 		def name=(new_name)
 			raise InvalidDataError, 'Cannot set the name of a deleted Historics query' unless not @is_deleted
 
@@ -198,7 +200,7 @@ module DataSift
 			end
 		end
 
-		# Call the DataSift API to prepare this Historics query
+		#Call the DataSift API to prepare this Historics query
 		def prepare()
 			raise InvalidDataError, 'Cannot prepare a deleted Historics query' unless not @is_deleted
 			raise InvalidDataError, 'This Historics query has already been prepared' unless not @playback_id
@@ -234,7 +236,7 @@ module DataSift
 			reloadData()
 		end
 
-		# Start this Historics query.
+		#Start this Historics query.
 		def start()
 			raise InvalidDataError, 'Cannot start a deleted Historics query' unless not @is_deleted
 			raise InvalidDataError, 'Cannot start a Historics query that hasn\'t been prepared' unless @playback_id
@@ -255,7 +257,7 @@ module DataSift
 			end
 		end
 
-		# Stop this Historics query.
+		#Stop this Historics query.
 		def stop()
 			raise InvalidDataError, 'Cannot stop a deleted Historics query' unless not @is_deleted
 			raise InvalidDataError, 'Cannot stop a Historics query that hasn\'t been prepared' unless @playback_id
@@ -276,7 +278,7 @@ module DataSift
 			end
 		end
 
-		# Delete this Historics query.
+		#Delete this Historics query.
 		def delete()
 			raise InvalidDataError, 'Cannot delete a deleted Historics query' unless not @is_deleted
 			raise InvalidDataError, 'Cannot delete a Historics query that hasn\'t been prepared' unless @playback_id
@@ -298,11 +300,21 @@ module DataSift
 			end
 		end
 
-		# Get a page of Push subscriptions for this Historics query, where each
-		# page contains up to per_page items. Results will be returned in the
-		# order requested.
-		def getPushSubscriptions(page = 1, per_page = 20, order_by = 'created_at', order_dir = 'asc', include_finished = false)
-			print 'Not yet implemented'
+		#Get a page of Push subscriptions for this Historics query, where each
+		#page contains up to per_page items. Results will be returned in the
+		#order requested.
+		#=== Parameters
+		#* +page+ - The page number to get.
+		#* +per_page+ - The number of items per page.
+		#* +order_by+ - The field by which to order the results.
+		#* +order_dir+ - Ascending or descending.
+		#* +include_finished+ - True to include subscriptions against finished Historics queries.
+		#=== Returns
+		#A Hash containing...
+		#* +count+ - The total number of Push subscriptions in your account.
+		#* +subscriptions+ - An array of Hashes where each Hash is a Push subscription.
+		def getPushSubscriptions(page = 1, per_page = 20, order_by = PushSubscription::ORDERBY_CREATED_AT, order_dir = PushSubscription::ORDERDIR_ASC)
+			return PushSubscription.list(@user, page, per_page, order_by, order_dir, true, 'playback_id', @playback_id)
 		end
 	end
 
