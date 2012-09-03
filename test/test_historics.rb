@@ -4,7 +4,7 @@ class TestHistorics < Test::Unit::TestCase
 	context "Given a new Historic object from a stream hash" do
 		setup do
 			init()
-			# Create the historic (API response is for compiling the definition)
+			# Create the historic
 			@historic = @user.createHistoric(@testdata['definition_hash'], @testdata['historic_start'], @testdata['historic_end'], @testdata['historic_sources'], @testdata['historic_sample'], @testdata['historic_name'])
 		end
 

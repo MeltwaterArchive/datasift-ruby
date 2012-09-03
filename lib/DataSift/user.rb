@@ -5,7 +5,7 @@ module DataSift
 	#provides factory methods for all of the functionality in the API.
 	class User
 		#The user agent to pass through with all HTTP requests.
-		USER_AGENT = 'DataSiftRuby/' + File.open(File.dirname(File.dirname(File.dirname(__FILE__))) + '/VERSION').first;
+		USER_AGENT = 'DataSiftRuby/' + File.open(File.dirname(File.dirname(File.dirname(__FILE__))) + '/VERSION').first.strip!;
 		#The base URL for API requests.
 		API_BASE_URL = 'api.datasift.com/';
 		#The base URL for streams.
