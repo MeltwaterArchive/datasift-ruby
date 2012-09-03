@@ -56,6 +56,8 @@ more details.
 Changelog
 ---------
 
+* v.2.0.1 Fixed a bug that was preventing streaming connections from being established (2012-09-03)
+
 * v.2.0.0 Added support for Historics queries and Push delivery (2012-08-31)
 
 * v.1.5.0 Added getBalance to the User class [joncooper](https://github.com/joncooper) (2012-05-24)
