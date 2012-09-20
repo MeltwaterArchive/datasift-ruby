@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>class DataSift::StreamConsumer_HTTP - datasift 2.0.1
+</title>
+
+<link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="../index.html">Home</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>lib/DataSift/stream_consumer_http.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link"><a href="StreamConsumer.html">DataSift::StreamConsumer</a>
+  
+</nav>
+
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-c-new">::new</a>
+    
+    <li><a href="#method-i-onStart">#onStart</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../DataSift.html">DataSift</a>
+  
+    <li><a href="../DataSift/APIError.html">DataSift::APIError</a>
+  
+    <li><a href="../DataSift/AccessDeniedError.html">DataSift::AccessDeniedError</a>
+  
+    <li><a href="../DataSift/ApiClient.html">DataSift::ApiClient</a>
+  
+    <li><a href="../DataSift/CompileFailedError.html">DataSift::CompileFailedError</a>
+  
+    <li><a href="../DataSift/DataSiftError.html">DataSift::DataSiftError</a>
+  
+    <li><a href="../DataSift/Definition.html">DataSift::Definition</a>
+  
+    <li><a href="../DataSift/Historic.html">DataSift::Historic</a>
+  
+    <li><a href="../DataSift/InvalidDataError.html">DataSift::InvalidDataError</a>
+  
+    <li><a href="../DataSift/MockApiClient.html">DataSift::MockApiClient</a>
+  
+    <li><a href="../DataSift/PushDefinition.html">DataSift::PushDefinition</a>
+  
+    <li><a href="../DataSift/PushSubscription.html">DataSift::PushSubscription</a>
+  
+    <li><a href="../DataSift/RateLimitExceededError.html">DataSift::RateLimitExceededError</a>
+  
+    <li><a href="../DataSift/StreamConsumer.html">DataSift::StreamConsumer</a>
+  
+    <li><a href="../DataSift/StreamConsumer_HTTP.html">DataSift::StreamConsumer_HTTP</a>
+  
+    <li><a href="../DataSift/StreamError.html">DataSift::StreamError</a>
+  
+    <li><a href="../DataSift/User.html">DataSift::User</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class DataSift::StreamConsumer_HTTP</h1>
+
+  <div id="description" class="description">
+    
+<p>The HTTP implementation of the <a
+href="StreamConsumer.html">StreamConsumer</a>.</p>
+
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-onStart" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">onStart</span><span
+            class="method-args">(&block)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Called when the consumer is started.</p>
+
+<h3 id="method-i-onStart-label-Parameters">Parameters</h3>
+<ul><li>
+<p><code>block</code> - A block to receive incoming data.</p>
+</li></ul>
+          
+
+          
+          <div class="method-source-code" id="onStart-source">
+            <pre><span class="ruby-comment"># File lib/DataSift/stream_consumer_http.rb, line 22</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">onStart</span>(&amp;<span class="ruby-identifier">block</span>)
+        <span class="ruby-keyword">begin</span>
+                <span class="ruby-identifier">reconnect</span>() <span class="ruby-keyword">unless</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@socket</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword">and</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@socket</span>.<span class="ruby-identifier">closed?</span>
+
+                <span class="ruby-identifier">parser</span> = <span class="ruby-constant">Yajl</span><span class="ruby-operator">::</span><span class="ruby-constant">Parser</span>.<span class="ruby-identifier">new</span>
+                <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">on_parse_complete</span> = <span class="ruby-identifier">block</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">block_given?</span>
+                <span class="ruby-keyword">if</span> <span class="ruby-ivar">@response_head</span>[<span class="ruby-value">:headers</span>][<span class="ruby-string">&quot;Transfer-Encoding&quot;</span>] <span class="ruby-operator">==</span> <span class="ruby-string">'chunked'</span>
+                        <span class="ruby-keyword">if</span> <span class="ruby-identifier">block_given?</span>
+                                <span class="ruby-identifier">chunkLeft</span> = <span class="ruby-value">0</span>
+                                <span class="ruby-keyword">while</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@socket</span>.<span class="ruby-identifier">eof?</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-identifier">line</span> = <span class="ruby-ivar">@socket</span>.<span class="ruby-identifier">gets</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@state</span> <span class="ruby-operator">==</span> <span class="ruby-constant">StreamConsumer</span><span class="ruby-operator">::</span><span class="ruby-constant">STATE_RUNNING</span>
+                                        <span class="ruby-keyword">break</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">line</span>.<span class="ruby-identifier">match</span> <span class="ruby-regexp">%r^0.*?\r\n/</span>
+                                        <span class="ruby-keyword">next</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">line</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;\r\n&quot;</span>
+                                        <span class="ruby-identifier">size</span> = <span class="ruby-identifier">line</span>.<span class="ruby-identifier">hex</span>
+                                        <span class="ruby-identifier">json</span> = <span class="ruby-ivar">@socket</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">size</span>)
+                                        <span class="ruby-keyword">next</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">json</span>.<span class="ruby-identifier">nil?</span>
+                                        <span class="ruby-identifier">chunkLeft</span> = <span class="ruby-identifier">size</span><span class="ruby-operator">-</span><span class="ruby-identifier">json</span>.<span class="ruby-identifier">size</span>
+                                        <span class="ruby-keyword">if</span> <span class="ruby-identifier">chunkLeft</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+                                                <span class="ruby-keyword">if</span> <span class="ruby-identifier">json</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">100</span>
+                                                        <span class="ruby-identifier">parser</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">json</span>
+                                                <span class="ruby-keyword">end</span>
+                                        <span class="ruby-keyword">else</span>
+                                                <span class="ruby-comment"># received only part of the chunk, grab the rest</span>
+                                                <span class="ruby-identifier">received_data</span> = <span class="ruby-ivar">@socket</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">chunkLeft</span>)
+                                                <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-identifier">received_data</span>.<span class="ruby-identifier">nil?</span>
+                                                        <span class="ruby-identifier">parser</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">received_data</span>
+                                                <span class="ruby-keyword">end</span>
+                                        <span class="ruby-keyword">end</span>
+                                <span class="ruby-keyword">end</span>
+                        <span class="ruby-keyword">else</span>
+                                <span class="ruby-identifier">raise</span> <span class="ruby-constant">StreamError</span>, <span class="ruby-string">'Chunked responses detected, but no block given to handle the chunks.'</span>
+                        <span class="ruby-keyword">end</span>
+                <span class="ruby-keyword">else</span>
+                        <span class="ruby-identifier">content_type</span> = <span class="ruby-ivar">@response_head</span>[<span class="ruby-value">:headers</span>][<span class="ruby-string">'Content-Type'</span>].<span class="ruby-identifier">split</span>(<span class="ruby-string">';'</span>)
+                        <span class="ruby-identifier">content_type</span> = <span class="ruby-identifier">content_type</span>.<span class="ruby-identifier">first</span>
+                        <span class="ruby-keyword">if</span> <span class="ruby-constant">ALLOWED_MIME_TYPES</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">content_type</span>)
+                                <span class="ruby-keyword">case</span> <span class="ruby-ivar">@response_head</span>[<span class="ruby-value">:headers</span>][<span class="ruby-string">'Content-Encoding'</span>]
+                                <span class="ruby-keyword">when</span> <span class="ruby-string">'gzip'</span>
+                                        <span class="ruby-keyword">return</span> <span class="ruby-constant">Yajl</span><span class="ruby-operator">::</span><span class="ruby-constant">Gzip</span><span class="ruby-operator">::</span><span class="ruby-constant">StreamReader</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-ivar">@socket</span>, <span class="ruby-identifier">opts</span>, &amp;<span class="ruby-identifier">block</span>)
+                                <span class="ruby-keyword">when</span> <span class="ruby-string">'deflate'</span>
+                                        <span class="ruby-keyword">return</span> <span class="ruby-constant">Yajl</span><span class="ruby-operator">::</span><span class="ruby-constant">Deflate</span><span class="ruby-operator">::</span><span class="ruby-constant">StreamReader</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-ivar">@socket</span>, <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">merge</span>({<span class="ruby-value">:deflate_options</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-operator">-</span><span class="ruby-constant">Zlib</span><span class="ruby-operator">::</span><span class="ruby-constant">MAX_WBITS</span>}), &amp;<span class="ruby-identifier">block</span>)
+                                <span class="ruby-keyword">when</span> <span class="ruby-string">'bzip2'</span>
+                                        <span class="ruby-keyword">return</span> <span class="ruby-constant">Yajl</span><span class="ruby-operator">::</span><span class="ruby-constant">Bzip2</span><span class="ruby-operator">::</span><span class="ruby-constant">StreamReader</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-ivar">@socket</span>, <span class="ruby-identifier">opts</span>, &amp;<span class="ruby-identifier">block</span>)
+                                <span class="ruby-keyword">else</span>
+                                        <span class="ruby-keyword">return</span> <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-ivar">@socket</span>)
+                                <span class="ruby-keyword">end</span>
+                        <span class="ruby-keyword">else</span>
+                                <span class="ruby-identifier">raise</span> <span class="ruby-constant">StreamError</span>, <span class="ruby-string">'Unhandled response MIME type '</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">content_type</span>
+                        <span class="ruby-keyword">end</span>
+                <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">end</span> <span class="ruby-keyword">while</span> <span class="ruby-ivar">@auto_reconnect</span> <span class="ruby-keyword">and</span> <span class="ruby-ivar">@state</span> <span class="ruby-operator">==</span> <span class="ruby-constant">StreamConsumer</span><span class="ruby-operator">::</span><span class="ruby-constant">STATE_RUNNING</span>
+
+        <span class="ruby-identifier">disconnect</span>()
+
+        <span class="ruby-keyword">if</span> <span class="ruby-ivar">@state</span> <span class="ruby-operator">==</span> <span class="ruby-constant">StreamConsumer</span><span class="ruby-operator">::</span><span class="ruby-constant">STATE_STOPPING</span>
+                <span class="ruby-ivar">@stop_reason</span> = <span class="ruby-string">'Stop requested'</span>
+        <span class="ruby-keyword">else</span>
+                <span class="ruby-ivar">@stop_reason</span> = <span class="ruby-string">'Connection dropped'</span>
+        <span class="ruby-keyword">end</span>
+
+        <span class="ruby-identifier">onStop</span>(<span class="ruby-ivar">@stop_reason</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- onStart-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- onStart-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(user, definition)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Constructor. Requires valid user and definition objects.</p>
+
+<h3 id="method-c-new-label-Parameters">Parameters</h3>
+<ul><li>
+<p><code>user</code> - The user consuming the data.</p>
+</li><li>
+<p><code>definition</code> - The <a href="Definition.html">Definition</a> to
+consume.</p>
+</li></ul>
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File lib/DataSift/stream_consumer_http.rb, line 15</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">user</span>, <span class="ruby-identifier">definition</span>)
+        <span class="ruby-keyword">super</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- new-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- new-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

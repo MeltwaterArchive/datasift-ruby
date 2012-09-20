@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>class DataSift::Historic - datasift 2.0.1
+</title>
+
+<link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="../index.html">Home</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>lib/DataSift/historic.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link">Object
+  
+</nav>
+
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-c-list">::list</a>
+    
+    <li><a href="#method-c-new">::new</a>
+    
+    <li><a href="#method-i-delete">#delete</a>
+    
+    <li><a href="#method-i-getPushSubscriptions">#getPushSubscriptions</a>
+    
+    <li><a href="#method-i-hash">#hash</a>
+    
+    <li><a href="#method-i-initFromArray">#initFromArray</a>
+    
+    <li><a href="#method-i-name-3D">#name=</a>
+    
+    <li><a href="#method-i-prepare">#prepare</a>
+    
+    <li><a href="#method-i-reloadData">#reloadData</a>
+    
+    <li><a href="#method-i-start">#start</a>
+    
+    <li><a href="#method-i-stop">#stop</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../DataSift.html">DataSift</a>
+  
+    <li><a href="../DataSift/APIError.html">DataSift::APIError</a>
+  
+    <li><a href="../DataSift/AccessDeniedError.html">DataSift::AccessDeniedError</a>
+  
+    <li><a href="../DataSift/ApiClient.html">DataSift::ApiClient</a>
+  
+    <li><a href="../DataSift/CompileFailedError.html">DataSift::CompileFailedError</a>
+  
+    <li><a href="../DataSift/DataSiftError.html">DataSift::DataSiftError</a>
+  
+    <li><a href="../DataSift/Definition.html">DataSift::Definition</a>
+  
+    <li><a href="../DataSift/Historic.html">DataSift::Historic</a>
+  
+    <li><a href="../DataSift/InvalidDataError.html">DataSift::InvalidDataError</a>
+  
+    <li><a href="../DataSift/MockApiClient.html">DataSift::MockApiClient</a>
+  
+    <li><a href="../DataSift/PushDefinition.html">DataSift::PushDefinition</a>
+  
+    <li><a href="../DataSift/PushSubscription.html">DataSift::PushSubscription</a>
+  
+    <li><a href="../DataSift/RateLimitExceededError.html">DataSift::RateLimitExceededError</a>
+  
+    <li><a href="../DataSift/StreamConsumer.html">DataSift::StreamConsumer</a>
+  
+    <li><a href="../DataSift/StreamConsumer_HTTP.html">DataSift::StreamConsumer_HTTP</a>
+  
+    <li><a href="../DataSift/StreamError.html">DataSift::StreamError</a>
+  
+    <li><a href="../DataSift/User.html">DataSift::User</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class DataSift::Historic</h1>
+
+  <div id="description" class="description">
+    
+<p>The <a href="Historic.html">Historic</a> class represents a Historics
+query.</p>
+
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+    <!-- Attributes -->
+    <section id="attribute-method-details" class="method-section section">
+      <h3 class="section-header">Attributes</h3>
+
+      
+      <div id="attribute-i-created_at" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">created_at</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>The date/time when this Historics query was created.</p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-dpus" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">dpus</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>The DPU cost of running this Historics query.</p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-end_date" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">end_date</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>The end date for this Historics query.</p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-is_deleted" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">is_deleted</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>True if this Historics query has been deleted.</p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-name" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">name</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>The friendly name for this Historics query.</p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-playback_id" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">playback_id</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>The ID of this Historics query.</p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-progress" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">progress</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>The current progress in percent of this Historics query.</p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-sample" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">sample</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>The sample percentage that this Historics query will match.</p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-sources" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">sources</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>The data sources for which this Historics query is looking.</p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-start_date" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">start_date</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>The start date for this Historics query.</p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-status" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">status</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>The current status of this Historics query.</p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-stream_hash" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">stream_hash</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>The stream hash which this Historics query is executing.</p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-volume_info" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">volume_info</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>The data availability for this Historics query.</p>
+        
+        </div>
+      </div>
+      
+    </section><!-- attribute-method-details -->
+    
+
+    <!-- Methods -->
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-delete" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">delete</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Delete this Historics query.</p>
+          
+
+          
+          <div class="method-source-code" id="delete-source">
+            <pre><span class="ruby-comment"># File lib/DataSift/historic.rb, line 282</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">delete</span>()
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'Cannot delete a deleted Historics query'</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@is_deleted</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'Cannot delete a Historics query that hasn\t been prepared'</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@playback_id</span>
+
+        <span class="ruby-keyword">begin</span>
+                <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">callAPI</span>(<span class="ruby-string">'historics/delete'</span>, { <span class="ruby-string">'id'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@playback_id</span> })
+                <span class="ruby-ivar">@is_deleted</span> = <span class="ruby-keyword">true</span>
+        <span class="ruby-keyword">rescue</span> <span class="ruby-constant">APIError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">err</span>
+                <span class="ruby-keyword">case</span> <span class="ruby-identifier">err</span>.<span class="ruby-identifier">http_code</span>
+                <span class="ruby-keyword">when</span> <span class="ruby-value">400</span>
+                        <span class="ruby-comment"># Missing or invalid parameters</span>
+                        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-identifier">err</span>
+                <span class="ruby-keyword">when</span> <span class="ruby-value">404</span>
+                        <span class="ruby-comment"># Historics query not found</span>
+                        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-identifier">err</span>
+                <span class="ruby-keyword">else</span>
+                        <span class="ruby-identifier">raise</span> <span class="ruby-constant">APIError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">err</span>.<span class="ruby-identifier">http_code</span>), <span class="ruby-string">'Unexpected APIError code: '</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">err</span>.<span class="ruby-identifier">http_code</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">+</span> <span class="ruby-string">' ['</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">err</span>.<span class="ruby-identifier">message</span> <span class="ruby-operator">+</span> <span class="ruby-string">']'</span>
+                <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- delete-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- delete-method -->
+
+    
+      <div id="method-i-getPushSubscriptions" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">getPushSubscriptions</span><span
+            class="method-args">(page = 1, per_page = 20, order_by = PushSubscription::ORDERBY_CREATED_AT, order_dir = PushSubscription::ORDERDIR_ASC)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Get a page of Push subscriptions for this Historics query, where each page
+contains up to per_page items. Results will be returned in the order
+requested.</p>
+
+<h3 id="method-i-getPushSubscriptions-label-Parameters">Parameters</h3>
+<ul><li>
+<p><code>page</code> - The page number to get.</p>
+</li><li>
+<p><code>per_page</code> - The number of items per page.</p>
+</li><li>
+<p><code>order_by</code> - The field by which to order the results.</p>
+</li><li>
+<p><code>order_dir</code> - Ascending or descending.</p>
+</li><li>
+<p><code>include_finished</code> - True to include subscriptions against
+finished Historics queries.</p>
+</li></ul>
+
+<h3 id="method-i-getPushSubscriptions-label-Returns">Returns</h3>
+
+<p>A Hash containing…</p>
+<ul><li>
+<p><code>count</code> - The total number of Push subscriptions in your
+account.</p>
+</li><li>
+<p><code>subscriptions</code> - An array of Hashes where each Hash is a Push
+subscription.</p>
+</li></ul>
+          
+
+          
+          <div class="method-source-code" id="getPushSubscriptions-source">
+            <pre><span class="ruby-comment"># File lib/DataSift/historic.rb, line 316</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">getPushSubscriptions</span>(<span class="ruby-identifier">page</span> = <span class="ruby-value">1</span>, <span class="ruby-identifier">per_page</span> = <span class="ruby-value">20</span>, <span class="ruby-identifier">order_by</span> = <span class="ruby-constant">PushSubscription</span><span class="ruby-operator">::</span><span class="ruby-constant">ORDERBY_CREATED_AT</span>, <span class="ruby-identifier">order_dir</span> = <span class="ruby-constant">PushSubscription</span><span class="ruby-operator">::</span><span class="ruby-constant">ORDERDIR_ASC</span>)
+        <span class="ruby-keyword">return</span> <span class="ruby-constant">PushSubscription</span>.<span class="ruby-identifier">list</span>(<span class="ruby-ivar">@user</span>, <span class="ruby-identifier">page</span>, <span class="ruby-identifier">per_page</span>, <span class="ruby-identifier">order_by</span>, <span class="ruby-identifier">order_dir</span>, <span class="ruby-keyword">true</span>, <span class="ruby-string">'playback_id'</span>, <span class="ruby-ivar">@playback_id</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- getPushSubscriptions-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- getPushSubscriptions-method -->
+
+    
+      <div id="method-i-hash" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">hash</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Getter for the playback ID. If the Historics query has not yet been
+prepared that will be done automagically to obtain the playback ID.</p>
+          
+
+          
+          <div class="method-source-code" id="hash-source">
+            <pre><span class="ruby-comment"># File lib/DataSift/historic.rb, line 182</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">hash</span>
+        <span class="ruby-keyword">if</span> <span class="ruby-ivar">@playback_id</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">false</span>
+                <span class="ruby-identifier">prepare</span>()
+        <span class="ruby-keyword">end</span>
+
+        <span class="ruby-ivar">@playback_id</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- hash-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- hash-method -->
+
+    
+      <div id="method-i-initFromArray" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">initFromArray</span><span
+            class="method-args">(data)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Initialise this obejct from the data in a Hash.</p>
+
+<h3 id="method-i-initFromArray-label-Parameters">Parameters</h3>
+<ul><li>
+<p><code>data</code> - The Hash containing the data.</p>
+</li></ul>
+          
+
+          
+          <div class="method-source-code" id="initFromArray-source">
+            <pre><span class="ruby-comment"># File lib/DataSift/historic.rb, line 140</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initFromArray</span>(<span class="ruby-identifier">data</span>)
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">APIError</span>, <span class="ruby-string">'No playback ID in the response'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'id'</span>)
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">APIError</span>, <span class="ruby-string">'Incorrect playback ID in the response'</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@playback_id</span> <span class="ruby-keyword">or</span> <span class="ruby-identifier">data</span>[<span class="ruby-string">'id'</span>] <span class="ruby-operator">==</span> <span class="ruby-ivar">@playback_id</span>
+        <span class="ruby-ivar">@playback_id</span> = <span class="ruby-identifier">data</span>[<span class="ruby-string">'id'</span>]
+
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">APIError</span>, <span class="ruby-string">'No definition hash in the response'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'definition_id'</span>)
+        <span class="ruby-ivar">@stream_hash</span> = <span class="ruby-identifier">data</span>[<span class="ruby-string">'definition_id'</span>]
+
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">APIError</span>, <span class="ruby-string">'No name in the response'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'name'</span>)
+        <span class="ruby-ivar">@name</span> = <span class="ruby-identifier">data</span>[<span class="ruby-string">'name'</span>]
+
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">APIError</span>, <span class="ruby-string">'No start timestamp in the response'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'start'</span>)
+        <span class="ruby-ivar">@start_date</span> = <span class="ruby-constant">DateTime</span>.<span class="ruby-identifier">strptime</span>(<span class="ruby-constant">String</span>(<span class="ruby-identifier">data</span>[<span class="ruby-string">'start'</span>]), <span class="ruby-string">'%s'</span>)
+
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">APIError</span>, <span class="ruby-string">'No end timestamp in the response'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'end'</span>)
+        <span class="ruby-ivar">@end_date</span> = <span class="ruby-constant">DateTime</span>.<span class="ruby-identifier">strptime</span>(<span class="ruby-constant">String</span>(<span class="ruby-identifier">data</span>[<span class="ruby-string">'end'</span>]), <span class="ruby-string">'%s'</span>)
+
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">APIError</span>, <span class="ruby-string">'No created at timstamp in the response'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'created_at'</span>)
+        <span class="ruby-ivar">@created_at</span> = <span class="ruby-constant">DateTime</span>.<span class="ruby-identifier">strptime</span>(<span class="ruby-constant">String</span>(<span class="ruby-identifier">data</span>[<span class="ruby-string">'created_at'</span>]), <span class="ruby-string">'%s'</span>)
+
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">APIError</span>, <span class="ruby-string">'No status in the response'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'status'</span>)
+        <span class="ruby-ivar">@status</span> = <span class="ruby-identifier">data</span>[<span class="ruby-string">'status'</span>]
+
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">APIError</span>, <span class="ruby-string">'No progress in the response'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'progress'</span>)
+        <span class="ruby-ivar">@progress</span> = <span class="ruby-identifier">data</span>[<span class="ruby-string">'progress'</span>]
+
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">APIError</span>, <span class="ruby-string">'No sources in the response'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'sources'</span>)
+        <span class="ruby-ivar">@sources</span> = <span class="ruby-identifier">data</span>[<span class="ruby-string">'sources'</span>]
+
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">APIError</span>, <span class="ruby-string">'No sample in the response'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'sample'</span>)
+        <span class="ruby-ivar">@sample</span> = <span class="ruby-identifier">data</span>[<span class="ruby-string">'sample'</span>]
+
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">APIError</span>, <span class="ruby-string">'No volume info in the response'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'volume_info'</span>)
+        <span class="ruby-ivar">@volume_info</span> = <span class="ruby-identifier">data</span>[<span class="ruby-string">'volume_info'</span>]
+
+        <span class="ruby-ivar">@is_deleted</span> = (<span class="ruby-ivar">@status</span> <span class="ruby-operator">==</span> <span class="ruby-string">'deleted'</span>)
+
+        <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- initFromArray-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- initFromArray-method -->
+
+    
+      <div id="method-i-name-3D" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">name=</span><span
+            class="method-args">(new_name)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Name setter. Updates via the API if this Historics query has already been
+prepared.</p>
+          
+
+          
+          <div class="method-source-code" id="name-3D-source">
+            <pre><span class="ruby-comment"># File lib/DataSift/historic.rb, line 192</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">name=</span>(<span class="ruby-identifier">new_name</span>)
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'Cannot set the name of a deleted Historics query'</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@is_deleted</span>
+
+        <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@playback_id</span>
+                <span class="ruby-ivar">@name</span> = <span class="ruby-identifier">new_name</span>
+        <span class="ruby-keyword">else</span>
+                <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">callAPI</span>(<span class="ruby-string">'historics/update'</span>, { <span class="ruby-string">'id'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@playback_id</span>, <span class="ruby-string">'name'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">new_name</span> })
+                <span class="ruby-identifier">reloadData</span>()
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- name-3D-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- name-3D-method -->
+
+    
+      <div id="method-i-prepare" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">prepare</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Call the <a href="../DataSift.html">DataSift</a> API to prepare this
+Historics query</p>
+          
+
+          
+          <div class="method-source-code" id="prepare-source">
+            <pre><span class="ruby-comment"># File lib/DataSift/historic.rb, line 204</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">prepare</span>()
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'Cannot prepare a deleted Historics query'</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@is_deleted</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'This Historics query has already been prepared'</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@playback_id</span>
+
+        <span class="ruby-keyword">begin</span>
+                <span class="ruby-identifier">res</span> = <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">callAPI</span>(
+                        <span class="ruby-string">'historics/prepare'</span>, {
+                                <span class="ruby-string">'hash'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@stream_hash</span>,
+                                <span class="ruby-string">'start'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Integer</span>(<span class="ruby-ivar">@start_date</span>.<span class="ruby-identifier">strftime</span>(<span class="ruby-string">'%s'</span>)),
+                                <span class="ruby-string">'end'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Integer</span>(<span class="ruby-ivar">@end_date</span>.<span class="ruby-identifier">strftime</span>(<span class="ruby-string">'%s'</span>)),
+                                <span class="ruby-string">'name'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@name</span>,
+                                <span class="ruby-string">'sources'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@sources</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">','</span>)
+                        })
+
+                <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'Prepared successfully but no playback ID in the response'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">res</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'id'</span>)
+                <span class="ruby-ivar">@playback_id</span> = <span class="ruby-identifier">res</span>[<span class="ruby-string">'id'</span>]
+
+                <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'Prepared successfully but no DPU cost in the response'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">res</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'dpus'</span>)
+                <span class="ruby-ivar">@dpus</span> = <span class="ruby-identifier">res</span>[<span class="ruby-string">'dpus'</span>]
+
+                <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'Prepared successfully but no availability in the response'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">res</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'availability'</span>)
+                <span class="ruby-ivar">@availability</span> = <span class="ruby-identifier">res</span>[<span class="ruby-string">'availability'</span>]
+        <span class="ruby-keyword">rescue</span> <span class="ruby-constant">APIError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">err</span>
+                <span class="ruby-keyword">case</span> <span class="ruby-identifier">err</span>.<span class="ruby-identifier">http_code</span>
+                <span class="ruby-keyword">when</span> <span class="ruby-value">400</span>
+                        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-identifier">err</span>
+                <span class="ruby-keyword">else</span>
+                        <span class="ruby-identifier">raise</span> <span class="ruby-constant">APIError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">err</span>.<span class="ruby-identifier">http_code</span>), <span class="ruby-string">'Unexpected APIError code: '</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">err</span>.<span class="ruby-identifier">http_code</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">+</span> <span class="ruby-string">' ['</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">err</span>.<span class="ruby-identifier">message</span> <span class="ruby-operator">+</span> <span class="ruby-string">']'</span>
+                <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">end</span>
+
+        <span class="ruby-comment"># Reload the data so we get the created_at date, initial status and the rest.</span>
+        <span class="ruby-identifier">reloadData</span>()
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- prepare-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- prepare-method -->
+
+    
+      <div id="method-i-reloadData" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">reloadData</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Reload the data for this object from the API.</p>
+          
+
+          
+          <div class="method-source-code" id="reloadData-source">
+            <pre><span class="ruby-comment"># File lib/DataSift/historic.rb, line 118</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">reloadData</span>()
+        <span class="ruby-comment">#Can't do this if we've been deleted</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'Cannot reload the data for a deleted Historics query'</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@is_deleted</span>
+
+        <span class="ruby-comment">#Can't do this without a playback ID</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'Cannot reload the data with a Historics query with no playback ID'</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@playback_id</span>
+
+        <span class="ruby-keyword">begin</span>
+                <span class="ruby-identifier">initFromArray</span>(<span class="ruby-ivar">@user</span>.<span class="ruby-identifier">callAPI</span>(<span class="ruby-string">'historics/get'</span>, { <span class="ruby-string">'id'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@playback_id</span> }))
+        <span class="ruby-keyword">rescue</span> <span class="ruby-constant">APIError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">err</span>
+                <span class="ruby-keyword">case</span> <span class="ruby-identifier">err</span>.<span class="ruby-identifier">http_code</span>
+                <span class="ruby-keyword">when</span> <span class="ruby-value">400</span>
+                        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-identifier">err</span>
+                <span class="ruby-keyword">else</span>
+                        <span class="ruby-identifier">raise</span> <span class="ruby-constant">APIError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">err</span>.<span class="ruby-identifier">http_code</span>), <span class="ruby-string">'Unexpected APIError code: '</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">err</span>.<span class="ruby-identifier">http_code</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">+</span> <span class="ruby-string">' ['</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">err</span>.<span class="ruby-identifier">message</span> <span class="ruby-operator">+</span> <span class="ruby-string">']'</span>
+                <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- reloadData-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- reloadData-method -->
+
+    
+      <div id="method-i-start" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">start</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Start this Historics query.</p>
+          
+
+          
+          <div class="method-source-code" id="start-source">
+            <pre><span class="ruby-comment"># File lib/DataSift/historic.rb, line 240</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">start</span>()
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'Cannot start a deleted Historics query'</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@is_deleted</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'Cannot start a Historics query that hasn\t been prepared'</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@playback_id</span>
+
+        <span class="ruby-keyword">begin</span>
+                <span class="ruby-identifier">res</span> = <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">callAPI</span>(<span class="ruby-string">'historics/start'</span>, { <span class="ruby-string">'id'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@playback_id</span> })
+        <span class="ruby-keyword">rescue</span> <span class="ruby-constant">APIError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">err</span>
+                <span class="ruby-keyword">case</span> <span class="ruby-identifier">err</span>.<span class="ruby-identifier">http_code</span>
+                <span class="ruby-keyword">when</span> <span class="ruby-value">400</span>
+                        <span class="ruby-comment"># Missing or invalid parameters</span>
+                        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-identifier">err</span>
+                <span class="ruby-keyword">when</span> <span class="ruby-value">404</span>
+                        <span class="ruby-comment"># Historics query not found</span>
+                        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-identifier">err</span>
+                <span class="ruby-keyword">else</span>
+                        <span class="ruby-identifier">raise</span> <span class="ruby-constant">APIError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">err</span>.<span class="ruby-identifier">http_code</span>), <span class="ruby-string">'Unexpected APIError code: '</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">err</span>.<span class="ruby-identifier">http_code</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">+</span> <span class="ruby-string">' ['</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">err</span>.<span class="ruby-identifier">message</span> <span class="ruby-operator">+</span> <span class="ruby-string">']'</span>
+                <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- start-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- start-method -->
+
+    
+      <div id="method-i-stop" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">stop</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Stop this Historics query.</p>
+          
+
+          
+          <div class="method-source-code" id="stop-source">
+            <pre><span class="ruby-comment"># File lib/DataSift/historic.rb, line 261</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">stop</span>()
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'Cannot stop a deleted Historics query'</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@is_deleted</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'Cannot stop a Historics query that hasn\t been prepared'</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@playback_id</span>
+
+        <span class="ruby-keyword">begin</span>
+                <span class="ruby-identifier">res</span> = <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">callAPI</span>(<span class="ruby-string">'historics/stop'</span>, { <span class="ruby-string">'id'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@playback_id</span> })
+        <span class="ruby-keyword">rescue</span> <span class="ruby-constant">APIError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">err</span>
+                <span class="ruby-keyword">case</span> <span class="ruby-identifier">err</span>.<span class="ruby-identifier">http_code</span>
+                <span class="ruby-keyword">when</span> <span class="ruby-value">400</span>
+                        <span class="ruby-comment"># Missing or invalid parameters</span>
+                        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-identifier">err</span>
+                <span class="ruby-keyword">when</span> <span class="ruby-value">404</span>
+                        <span class="ruby-comment"># Historics query not found</span>
+                        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-identifier">err</span>
+                <span class="ruby-keyword">else</span>
+                        <span class="ruby-identifier">raise</span> <span class="ruby-constant">APIError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">err</span>.<span class="ruby-identifier">http_code</span>), <span class="ruby-string">'Unexpected APIError code: '</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">err</span>.<span class="ruby-identifier">http_code</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">+</span> <span class="ruby-string">' ['</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">err</span>.<span class="ruby-identifier">message</span> <span class="ruby-operator">+</span> <span class="ruby-string">']'</span>
+                <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- stop-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- stop-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-list" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">list</span><span
+            class="method-args">(user, page = 1, per_page = 20)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Get a list of Historics queries in your account.</p>
+
+<h3 id="method-c-list-label-Parameters">Parameters</h3>
+<ul><li>
+<p><code>user</code> - The user object making the request.</p>
+</li><li>
+<p><code>page</code> - The page number to get.</p>
+</li><li>
+<p><code>per_page</code> - The number of items per page.</p>
+</li></ul>
+
+<h3 id="method-c-list-label-Returns">Returns</h3>
+
+<p>A Hash containing…</p>
+<ul><li>
+<p><code>count</code> - The total number of Historics queries in your account.</p>
+</li><li>
+<p><code>historics</code> - An array of Hashes where each Hash is a Historics
+query.</p>
+</li></ul>
+          
+
+          
+          <div class="method-source-code" id="list-source">
+            <pre><span class="ruby-comment"># File lib/DataSift/historic.rb, line 15</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">list</span>(<span class="ruby-identifier">user</span>, <span class="ruby-identifier">page</span> = <span class="ruby-value">1</span>, <span class="ruby-identifier">per_page</span> = <span class="ruby-value">20</span>)
+        <span class="ruby-keyword">begin</span>
+                <span class="ruby-identifier">res</span> = <span class="ruby-identifier">user</span>.<span class="ruby-identifier">callAPI</span>(
+                        <span class="ruby-string">'historics/get'</span>, {
+                                <span class="ruby-string">'page'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">page</span>,
+                                <span class="ruby-string">'max'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">per_page</span>
+                        })
+
+                <span class="ruby-identifier">retval</span> = { <span class="ruby-string">'count'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">res</span>[<span class="ruby-string">'count'</span>], <span class="ruby-string">'historics'</span> =<span class="ruby-operator">&gt;</span> [] }
+                <span class="ruby-keyword">for</span> <span class="ruby-identifier">historic</span> <span class="ruby-keyword">in</span> <span class="ruby-identifier">res</span>[<span class="ruby-string">'data'</span>]
+                        <span class="ruby-identifier">retval</span>[<span class="ruby-string">'historics'</span>].<span class="ruby-identifier">push</span>(<span class="ruby-identifier">new</span>(<span class="ruby-identifier">user</span>, <span class="ruby-identifier">historic</span>))
+                <span class="ruby-keyword">end</span>
+                <span class="ruby-identifier">retval</span>
+        <span class="ruby-keyword">rescue</span> <span class="ruby-constant">APIError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">err</span>
+                <span class="ruby-keyword">case</span> <span class="ruby-identifier">err</span>.<span class="ruby-identifier">http_code</span>
+                <span class="ruby-keyword">when</span> <span class="ruby-value">400</span>
+                        <span class="ruby-comment"># Missing or invalid parameters</span>
+                        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-identifier">err</span>
+                <span class="ruby-keyword">else</span>
+                        <span class="ruby-identifier">raise</span> <span class="ruby-constant">APIError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">err</span>.<span class="ruby-identifier">http_code</span>), <span class="ruby-string">'Unexpected APIError code: '</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">err</span>.<span class="ruby-identifier">http_code</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">+</span> <span class="ruby-string">' ['</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">err</span>.<span class="ruby-identifier">message</span> <span class="ruby-operator">+</span> <span class="ruby-string">']'</span>
+                <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- list-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- list-method -->
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(user, hash, start_date = false, end_date = false, sources = false, sample = false, name = false)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Constructor. Pass all parameters to create a new Historics query, or
+provide a <a href="User.html">User</a> object and a <a
+href="Historic.html#attribute-i-playback_id">#playback_id</a> as the hash
+parameter to load an existing query from the API.</p>
+
+<h3 id="method-c-new-label-Parameters">Parameters</h3>
+<ul><li>
+<p><code>user</code> - The <a href="User.html">DataSift::User</a> object.</p>
+</li><li>
+<p><code>hash</code> - Either a <a
+href="Historic.html#attribute-i-stream_hash">#stream_hash</a>, an array
+containing the Historics query data or a playback ID.</p>
+</li><li>
+<p><code>start_date</code> - The start date for a new Historics query.</p>
+</li><li>
+<p><code>end_date</code> - The end date for a new Historics query.</p>
+</li><li>
+<p><code>sources</code> - An array of sources for a new Historics query.</p>
+</li><li>
+<p><code>name</code> - The name for a new Historics query.</p>
+</li><li>
+<p><code>sample</code> - The sample rate for the new Historics query.</p>
+</li></ul>
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File lib/DataSift/historic.rb, line 75</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">user</span>, <span class="ruby-identifier">hash</span>, <span class="ruby-identifier">start_date</span> = <span class="ruby-keyword">false</span>, <span class="ruby-identifier">end_date</span> = <span class="ruby-keyword">false</span>, <span class="ruby-identifier">sources</span> = <span class="ruby-keyword">false</span>, <span class="ruby-identifier">sample</span> = <span class="ruby-keyword">false</span>, <span class="ruby-identifier">name</span> = <span class="ruby-keyword">false</span>)
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'Please supply a valid User object when creating a Historic object.'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">DataSift</span><span class="ruby-operator">::</span><span class="ruby-constant">User</span>
+        <span class="ruby-ivar">@user</span> = <span class="ruby-identifier">user</span>
+
+        <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-identifier">start_date</span>
+                <span class="ruby-keyword">if</span> <span class="ruby-identifier">hash</span>.<span class="ruby-identifier">kind_of?</span>(<span class="ruby-constant">Hash</span>)
+                        <span class="ruby-comment"># Initialising from an array</span>
+                        <span class="ruby-ivar">@playback_id</span> = <span class="ruby-identifier">hash</span>[<span class="ruby-string">'id'</span>]
+                        <span class="ruby-identifier">initFromArray</span>(<span class="ruby-identifier">hash</span>)
+                <span class="ruby-keyword">else</span>
+                        <span class="ruby-comment"># Fetching from the API</span>
+                        <span class="ruby-ivar">@playback_id</span> = <span class="ruby-identifier">hash</span>
+                        <span class="ruby-identifier">reloadData</span>()
+                <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">else</span>
+                <span class="ruby-comment"># Creating a new Historic query, make sure we have all the parameters</span>
+                <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>,
+                        <span class="ruby-string">'Please supply all parameters when creating a new Historics query'</span> <span class="ruby-keyword">unless</span>
+                                <span class="ruby-identifier">start_date</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">and</span> <span class="ruby-identifier">end_date</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">and</span> <span class="ruby-identifier">sources</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">and</span>
+                                <span class="ruby-identifier">name</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">and</span> <span class="ruby-identifier">sample</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">false</span>
+
+                <span class="ruby-comment"># Convert and validate the parameters as required</span>
+                <span class="ruby-identifier">hash</span> = <span class="ruby-identifier">hash</span>.<span class="ruby-identifier">hash</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">hash</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">DataSift</span><span class="ruby-operator">::</span><span class="ruby-constant">Definition</span>
+                <span class="ruby-identifier">start_date</span> = <span class="ruby-constant">DateTime</span>.<span class="ruby-identifier">strftime</span>(<span class="ruby-identifier">start_date</span>, <span class="ruby-string">'%s'</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">start_date</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">Date</span>
+                <span class="ruby-identifier">end_date</span> = <span class="ruby-constant">DateTime</span>.<span class="ruby-identifier">strptime</span>(<span class="ruby-identifier">end_date</span>, <span class="ruby-string">'%s'</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">end_date</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">Date</span>
+                <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'Please supply an array of sources'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">sources</span>.<span class="ruby-identifier">kind_of?</span>(<span class="ruby-constant">Array</span>)
+
+                <span class="ruby-ivar">@playback_id</span>  = <span class="ruby-keyword">false</span>
+                <span class="ruby-ivar">@stream_hash</span>  = <span class="ruby-identifier">hash</span>
+                <span class="ruby-ivar">@start_date</span>   = <span class="ruby-identifier">start_date</span>
+                <span class="ruby-ivar">@end_date</span>     = <span class="ruby-identifier">end_date</span>
+                <span class="ruby-ivar">@sources</span>      = <span class="ruby-identifier">sources</span>
+                <span class="ruby-ivar">@name</span>         = <span class="ruby-identifier">name</span>
+                <span class="ruby-ivar">@sample</span>       = <span class="ruby-identifier">sample</span>
+                <span class="ruby-ivar">@progress</span>     = <span class="ruby-value">0</span>
+                <span class="ruby-ivar">@dpus</span>         = <span class="ruby-keyword">false</span>
+                <span class="ruby-ivar">@availability</span> = {}
+                <span class="ruby-ivar">@volume_info</span>  = {}
+                <span class="ruby-ivar">@is_deleted</span>   = <span class="ruby-keyword">false</span>
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- new-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- new-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

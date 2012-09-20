@@ -1,0 +1,13 @@
+Thu, 20 Sep 2012 15:22:39 +0100
+lib/DataSift/push_subscription.rb	Thu, 20 Sep 2012 15:22:37 +0100
+lib/DataSift/user.rb	Thu, 20 Sep 2012 15:22:37 +0100
+lib/DataSift/stream_consumer_http.rb	Thu, 20 Sep 2012 15:22:37 +0100
+lib/DataSift/apiclient.rb	Thu, 20 Sep 2012 15:22:37 +0100
+lib/DataSift/stream_consumer.rb	Thu, 20 Sep 2012 15:22:37 +0100
+lib/DataSift/historic.rb	Thu, 20 Sep 2012 15:22:37 +0100
+lib/DataSift/push_definition.rb	Thu, 20 Sep 2012 15:22:37 +0100
+lib/DataSift/mockapiclient.rb	Thu, 20 Sep 2012 15:22:37 +0100
+lib/DataSift/definition.rb	Thu, 20 Sep 2012 15:22:37 +0100
+lib/datasift.rb	Thu, 20 Sep 2012 15:22:37 +0100
+lib/DataSift/exceptions.rb	Thu, 20 Sep 2012 15:22:37 +0100
+README.md	Thu, 20 Sep 2012 15:22:37 +0100
