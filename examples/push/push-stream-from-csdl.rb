@@ -14,7 +14,7 @@ require File.dirname(__FILE__) + '/env'
 def usage(message = '', end_of_story = true)
 	puts message + '\n' unless message.length() == 0
 	puts
-	puts 'Usage: push-stream-from-csdl.py <username> <api_key> \\'
+	puts 'Usage: push-stream-from-csdl.rb <username> <api_key> \\'
 	puts '              <csdl_filename> <output_type> <name> ...'
 	puts
 	puts 'Where: csdl_filename = a file containing the CSDL'
@@ -23,7 +23,7 @@ def usage(message = '', end_of_story = true)
 	puts '       key=val       = output_type-specific arguments'
 	puts
 	puts 'Example'
-	puts '       push-stream-from-csdl.py csdl.txt http PushName delivery_frequency=10 \\'
+	puts '       push-stream-from-csdl.rb csdl.txt http PushName delivery_frequency=10 \\'
 	puts '             url=http://www.example.com/push_endpoint auth.type=none'
 	puts
 	exit 1 unless not end_of_story
