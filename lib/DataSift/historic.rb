@@ -212,7 +212,8 @@ module DataSift
 						'start' => Integer(@start_date.strftime('%s')),
 						'end' => Integer(@end_date.strftime('%s')),
 						'name' => @name,
-						'sources' => @sources.join(',')
+						'sources' => @sources.join(','),
+						'sample' => @sample
 					})
 
 				raise InvalidDataError, 'Prepared successfully but no playback ID in the response' unless res.has_key?('id')
