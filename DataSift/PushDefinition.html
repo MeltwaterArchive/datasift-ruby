@@ -4,7 +4,7 @@
 <head>
 <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
-<title>class DataSift::PushDefinition - RDoc Documentation</title>
+<title>class DataSift::PushDefinition - DataSift Ruby Client Library</title>
 
 <link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
 
@@ -255,51 +255,6 @@ the API.</p>
 
     <!-- Methods -->
     
-     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
-      <h3 class="section-header">Public Class Methods</h3>
-
-    
-      <div id="method-c-new" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">new</span><span
-            class="method-args">(user)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Constructor. A <a href="User.html">User</a> object is required.</p>
-
-<h3 id="method-c-new-label-Parameters">Parameters</h3>
-<ul><li>
-<p><code>user</code> - The <a href="User.html">DataSift::User</a> object.</p>
-</li></ul>
-          
-
-          
-          <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/push_definition.rb, line 18</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">user</span>)
-        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'Please supply a valid User object when creating a Definition object.'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">DataSift</span><span class="ruby-operator">::</span><span class="ruby-constant">User</span>
-        <span class="ruby-ivar">@user</span> = <span class="ruby-identifier">user</span>
-        <span class="ruby-ivar">@initial_status</span> = <span class="ruby-string">''</span>
-        <span class="ruby-ivar">@output_type</span> = <span class="ruby-string">''</span>
-        <span class="ruby-ivar">@output_params</span> = {}
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- new-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- new-method -->
-
-    
-    </section><!-- public-class-method-details -->
-  
      <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
       <h3 class="section-header">Public Instance Methods</h3>
 
@@ -577,6 +532,51 @@ href="../DataSift.html">DataSift</a> API.</p>
 
     
     </section><!-- public-instance-method-details -->
+  
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(user)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Constructor. A <a href="User.html">User</a> object is required.</p>
+
+<h3 id="method-c-new-label-Parameters">Parameters</h3>
+<ul><li>
+<p><code>user</code> - The <a href="User.html">DataSift::User</a> object.</p>
+</li></ul>
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File lib/DataSift/push_definition.rb, line 18</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">user</span>)
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'Please supply a valid User object when creating a Definition object.'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">DataSift</span><span class="ruby-operator">::</span><span class="ruby-constant">User</span>
+        <span class="ruby-ivar">@user</span> = <span class="ruby-identifier">user</span>
+        <span class="ruby-ivar">@initial_status</span> = <span class="ruby-string">''</span>
+        <span class="ruby-ivar">@output_type</span> = <span class="ruby-string">''</span>
+        <span class="ruby-ivar">@output_params</span> = {}
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- new-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- new-method -->
+
+    
+    </section><!-- public-class-method-details -->
   
   </section><!-- 5Buntitled-5D -->
 

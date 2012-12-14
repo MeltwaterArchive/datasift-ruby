@@ -4,7 +4,7 @@
 <head>
 <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
-<title>class DataSift::User - RDoc Documentation</title>
+<title>class DataSift::User - DataSift Ruby Client Library</title>
 
 <link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
 
@@ -329,61 +329,6 @@ request is made.</p>
 
     <!-- Methods -->
     
-     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
-      <h3 class="section-header">Public Class Methods</h3>
-
-    
-      <div id="method-c-new" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">new</span><span
-            class="method-args">(username, api_key, use_ssl = true)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Constructor. A username and API key are required when constructing an
-instance of this class.</p>
-
-<h3 id="method-c-new-label-Parameters">Parameters</h3>
-<ul><li>
-<p><code>username</code> - The User’s <a
-href="../DataSift.html">DataSift</a> username</p>
-</li><li>
-<p><code>api_key</code> - The User’s <a href="../DataSift.html">DataSift</a>
-API key</p>
-</li></ul>
-          
-
-          
-          <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/user.rb, line 34</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">username</span>, <span class="ruby-identifier">api_key</span>, <span class="ruby-identifier">use_ssl</span> = <span class="ruby-keyword">true</span>)
-        <span class="ruby-identifier">username</span>.<span class="ruby-identifier">strip!</span>
-        <span class="ruby-identifier">api_key</span>.<span class="ruby-identifier">strip!</span>
-
-        <span class="ruby-identifier">raise</span> <span class="ruby-constant">EInvalidData</span>, <span class="ruby-string">'Please supply valid credentials when creating a User object.'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">username</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span> <span class="ruby-keyword">and</span> <span class="ruby-identifier">api_key</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
-
-        <span class="ruby-ivar">@username</span> = <span class="ruby-identifier">username</span>
-        <span class="ruby-ivar">@api_key</span> = <span class="ruby-identifier">api_key</span>
-        <span class="ruby-ivar">@rate_limit</span> = <span class="ruby-value">-1</span>;
-        <span class="ruby-ivar">@rate_limit_remaining</span> = <span class="ruby-value">-1</span>
-        <span class="ruby-ivar">@use_ssl</span> = <span class="ruby-identifier">use_ssl</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- new-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- new-method -->
-
-    
-    </section><!-- public-class-method-details -->
-  
      <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
       <h3 class="section-header">Public Instance Methods</h3>
 
@@ -1160,6 +1105,61 @@ API</p>
 
     
     </section><!-- public-instance-method-details -->
+  
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(username, api_key, use_ssl = true)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Constructor. A username and API key are required when constructing an
+instance of this class.</p>
+
+<h3 id="method-c-new-label-Parameters">Parameters</h3>
+<ul><li>
+<p><code>username</code> - The User’s <a
+href="../DataSift.html">DataSift</a> username</p>
+</li><li>
+<p><code>api_key</code> - The User’s <a href="../DataSift.html">DataSift</a>
+API key</p>
+</li></ul>
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File lib/DataSift/user.rb, line 34</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">username</span>, <span class="ruby-identifier">api_key</span>, <span class="ruby-identifier">use_ssl</span> = <span class="ruby-keyword">true</span>)
+        <span class="ruby-identifier">username</span>.<span class="ruby-identifier">strip!</span>
+        <span class="ruby-identifier">api_key</span>.<span class="ruby-identifier">strip!</span>
+
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">EInvalidData</span>, <span class="ruby-string">'Please supply valid credentials when creating a User object.'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">username</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span> <span class="ruby-keyword">and</span> <span class="ruby-identifier">api_key</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+
+        <span class="ruby-ivar">@username</span> = <span class="ruby-identifier">username</span>
+        <span class="ruby-ivar">@api_key</span> = <span class="ruby-identifier">api_key</span>
+        <span class="ruby-ivar">@rate_limit</span> = <span class="ruby-value">-1</span>;
+        <span class="ruby-ivar">@rate_limit_remaining</span> = <span class="ruby-value">-1</span>
+        <span class="ruby-ivar">@use_ssl</span> = <span class="ruby-identifier">use_ssl</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- new-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- new-method -->
+
+    
+    </section><!-- public-class-method-details -->
   
   </section><!-- 5Buntitled-5D -->
 

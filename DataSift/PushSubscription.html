@@ -4,7 +4,7 @@
 <head>
 <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
-<title>class DataSift::PushSubscription - RDoc Documentation</title>
+<title>class DataSift::PushSubscription - DataSift Ruby Client Library</title>
 
 <link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
 
@@ -417,6 +417,353 @@ the subscription, or null if it never has.</p>
 
     <!-- Methods -->
     
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-delete" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">delete</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Delete this subscription.</p>
+          
+
+          
+          <div class="method-source-code" id="delete-source">
+            <pre><span class="ruby-comment"># File lib/DataSift/push_subscription.rb, line 286</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">delete</span>()
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'Cannot delete a deleted Push subscription'</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@is_deleted</span>
+        <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">callAPI</span>(<span class="ruby-string">'push/delete'</span>, { <span class="ruby-string">'id'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@id</span> })
+        <span class="ruby-comment"># The delete API call does not return the object, so set the status</span>
+        <span class="ruby-comment"># manually.</span>
+        <span class="ruby-ivar">@status</span> = <span class="ruby-constant">STATUS_DELETED</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- delete-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- delete-method -->
+
+    
+      <div id="method-i-getLog" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">getLog</span><span
+            class="method-args">(page = 1, per_page = 20, order_by = ORDERBY_REQUEST_TIME, order_dir = ORDERDIR_DESC)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Get a page of the log for this subscription, ordered as specified.</p>
+
+<h3 id="method-i-getLog-label-Parameters">Parameters</h3>
+<ul><li>
+<p><code>page</code> - The page number to get.</p>
+</li><li>
+<p><code>per_page</code> - The number of items per page.</p>
+</li><li>
+<p><code>order_by</code> - The field by which to order the results.</p>
+</li><li>
+<p><code>order_dir</code> - Ascending or descending.</p>
+</li></ul>
+
+<h3 id="method-i-getLog-label-Returns">Returns</h3>
+
+<p>A Hash containing…</p>
+<ul><li>
+<p><code>count</code> - The total number of matching log entries.</p>
+</li><li>
+<p><code>log_entries</code> - An array of Hashes where each Hash is a log
+entry.</p>
+</li></ul>
+          
+
+          
+          <div class="method-source-code" id="getLog-source">
+            <pre><span class="ruby-comment"># File lib/DataSift/push_subscription.rb, line 304</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">getLog</span>(<span class="ruby-identifier">page</span> = <span class="ruby-value">1</span>, <span class="ruby-identifier">per_page</span> = <span class="ruby-value">20</span>, <span class="ruby-identifier">order_by</span> = <span class="ruby-constant">ORDERBY_REQUEST_TIME</span>, <span class="ruby-identifier">order_dir</span> = <span class="ruby-constant">ORDERDIR_DESC</span>)
+        <span class="ruby-keyword">return</span> <span class="ruby-constant">PushSubscription</span>.<span class="ruby-identifier">getLogs</span>(<span class="ruby-ivar">@user</span>, <span class="ruby-identifier">page</span>, <span class="ruby-identifier">per_page</span>, <span class="ruby-identifier">order_by</span>, <span class="ruby-identifier">order_dir</span>, <span class="ruby-ivar">@id</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- getLog-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- getLog-method -->
+
+    
+      <div id="method-i-init" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">init</span><span
+            class="method-args">(data)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Extract the subscription data from a Hash.</p>
+
+<h3 id="method-i-init-label-Parameters">Parameters</h3>
+<ul><li>
+<p><code>data</code> - The Hash containing the subscription data.</p>
+</li></ul>
+          
+
+          
+          <div class="method-source-code" id="init-source">
+            <pre><span class="ruby-comment"># File lib/DataSift/push_subscription.rb, line 210</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">init</span>(<span class="ruby-identifier">data</span>)
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'No id found'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'id'</span>)
+        <span class="ruby-ivar">@id</span> = <span class="ruby-identifier">data</span>[<span class="ruby-string">'id'</span>]
+
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'No name found'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'name'</span>)
+        <span class="ruby-ivar">@name</span> = <span class="ruby-identifier">data</span>[<span class="ruby-string">'name'</span>]
+
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'No created_at found'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'created_at'</span>)
+        <span class="ruby-ivar">@created_at</span> = <span class="ruby-constant">DateTime</span>.<span class="ruby-identifier">strptime</span>(<span class="ruby-constant">String</span>(<span class="ruby-identifier">data</span>[<span class="ruby-string">'created_at'</span>]), <span class="ruby-string">'%s'</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>[<span class="ruby-string">'created_at'</span>].<span class="ruby-identifier">nil?</span>
+
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'No status found'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'status'</span>)
+        <span class="ruby-ivar">@status</span> = <span class="ruby-identifier">data</span>[<span class="ruby-string">'status'</span>]
+
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'No hash_type found'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'hash_type'</span>)
+        <span class="ruby-ivar">@hash_type</span> = <span class="ruby-identifier">data</span>[<span class="ruby-string">'hash_type'</span>]
+
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'No hash found'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'hash'</span>)
+        <span class="ruby-ivar">@hash</span> = <span class="ruby-identifier">data</span>[<span class="ruby-string">'hash'</span>]
+
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'No last_request found'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'last_request'</span>)
+        <span class="ruby-ivar">@last_request</span> = <span class="ruby-constant">DateTime</span>.<span class="ruby-identifier">strptime</span>(<span class="ruby-constant">String</span>(<span class="ruby-identifier">data</span>[<span class="ruby-string">'last_request'</span>]), <span class="ruby-string">'%s'</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>[<span class="ruby-string">'last_request'</span>].<span class="ruby-identifier">nil?</span>
+
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'No last_success found'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'last_success'</span>)
+        <span class="ruby-ivar">@last_success</span> = <span class="ruby-constant">DateTime</span>.<span class="ruby-identifier">strptime</span>(<span class="ruby-constant">String</span>(<span class="ruby-identifier">data</span>[<span class="ruby-string">'last_success'</span>]), <span class="ruby-string">'%s'</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>[<span class="ruby-string">'last_success'</span>].<span class="ruby-identifier">nil?</span>
+
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'No output_type found'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'output_type'</span>)
+        <span class="ruby-ivar">@output_type</span> = <span class="ruby-identifier">data</span>[<span class="ruby-string">'output_type'</span>]
+
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'No output_params found'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'output_params'</span>)
+        <span class="ruby-ivar">@output_params</span> = <span class="ruby-identifier">parseOutputParams</span>(<span class="ruby-identifier">data</span>[<span class="ruby-string">'output_params'</span>])
+
+        <span class="ruby-ivar">@is_deleted</span> = <span class="ruby-keyword">true</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@status</span> <span class="ruby-operator">==</span> <span class="ruby-constant">STATUS_DELETED</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- init-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- init-method -->
+
+    
+      <div id="method-i-name-3D" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">name=</span><span
+            class="method-args">(new_name)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Name setter. Raises an <a href="InvalidDataError.html">InvalidDataError</a>
+if this subscription has been deleted.</p>
+          
+
+          
+          <div class="method-source-code" id="name-3D-source">
+            <pre><span class="ruby-comment"># File lib/DataSift/push_subscription.rb, line 251</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">name=</span>(<span class="ruby-identifier">new_name</span>)
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'Cannot set the name of a deleted Push subscription'</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@is_deleted</span>
+        <span class="ruby-ivar">@name</span> = <span class="ruby-identifier">new_name</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- name-3D-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- name-3D-method -->
+
+    
+      <div id="method-i-pause" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">pause</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Pause this subscription.</p>
+          
+
+          
+          <div class="method-source-code" id="pause-source">
+            <pre><span class="ruby-comment"># File lib/DataSift/push_subscription.rb, line 268</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">pause</span>()
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'Cannot pause a deleted Push subscription'</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@is_deleted</span>
+        <span class="ruby-identifier">init</span>(<span class="ruby-ivar">@user</span>.<span class="ruby-identifier">callAPI</span>(<span class="ruby-string">'push/pause'</span>, { <span class="ruby-string">'id'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@id</span> }))
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- pause-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- pause-method -->
+
+    
+      <div id="method-i-reload" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">reload</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Reload the data for this subscription from the API.</p>
+          
+
+          
+          <div class="method-source-code" id="reload-source">
+            <pre><span class="ruby-comment"># File lib/DataSift/push_subscription.rb, line 245</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">reload</span>()
+        <span class="ruby-identifier">init</span>(<span class="ruby-ivar">@user</span>.<span class="ruby-identifier">callAPI</span>(<span class="ruby-string">'push/get'</span>, { <span class="ruby-string">'id'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@id</span> }))
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- reload-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- reload-method -->
+
+    
+      <div id="method-i-resume" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">resume</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Resume this subscription.</p>
+          
+
+          
+          <div class="method-source-code" id="resume-source">
+            <pre><span class="ruby-comment"># File lib/DataSift/push_subscription.rb, line 274</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">resume</span>()
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'Cannot resume a deleted Push subscription'</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@is_deleted</span>
+        <span class="ruby-identifier">init</span>(<span class="ruby-ivar">@user</span>.<span class="ruby-identifier">callAPI</span>(<span class="ruby-string">'push/resume'</span>, { <span class="ruby-string">'id'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@id</span> }))
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- resume-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- resume-method -->
+
+    
+      <div id="method-i-save" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">save</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Save changes to the name and output_params to the API.</p>
+          
+
+          
+          <div class="method-source-code" id="save-source">
+            <pre><span class="ruby-comment"># File lib/DataSift/push_subscription.rb, line 257</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">save</span>()
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'Cannot save changes to a deleted Push subscription'</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@is_deleted</span>
+        <span class="ruby-identifier">params</span> = {
+                <span class="ruby-string">'id'</span>   =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@id</span>,
+                <span class="ruby-string">'name'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@name</span>
+        }
+        <span class="ruby-ivar">@output_params</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-identifier">params</span>[<span class="ruby-constant">OUTPUT_PARAMS_PREFIX</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">k</span>] = <span class="ruby-identifier">v</span> }
+        <span class="ruby-identifier">init</span>(<span class="ruby-ivar">@user</span>.<span class="ruby-identifier">callAPI</span>(<span class="ruby-string">'push/update'</span>, <span class="ruby-identifier">params</span>))
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- save-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- save-method -->
+
+    
+      <div id="method-i-stop" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">stop</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Stop this subscription.</p>
+          
+
+          
+          <div class="method-source-code" id="stop-source">
+            <pre><span class="ruby-comment"># File lib/DataSift/push_subscription.rb, line 280</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">stop</span>()
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'Cannot stop a deleted Push subscription'</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@is_deleted</span>
+        <span class="ruby-identifier">init</span>(<span class="ruby-ivar">@user</span>.<span class="ruby-identifier">callAPI</span>(<span class="ruby-string">'push/stop'</span>, { <span class="ruby-string">'id'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@id</span> }))
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- stop-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- stop-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
      <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
       <h3 class="section-header">Public Class Methods</h3>
 
@@ -802,353 +1149,6 @@ a Hash containing the subscription data.</p>
 
     
     </section><!-- public-class-method-details -->
-  
-     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
-      <h3 class="section-header">Public Instance Methods</h3>
-
-    
-      <div id="method-i-delete" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">delete</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Delete this subscription.</p>
-          
-
-          
-          <div class="method-source-code" id="delete-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/push_subscription.rb, line 286</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">delete</span>()
-        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'Cannot delete a deleted Push subscription'</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@is_deleted</span>
-        <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">callAPI</span>(<span class="ruby-string">'push/delete'</span>, { <span class="ruby-string">'id'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@id</span> })
-        <span class="ruby-comment"># The delete API call does not return the object, so set the status</span>
-        <span class="ruby-comment"># manually.</span>
-        <span class="ruby-ivar">@status</span> = <span class="ruby-constant">STATUS_DELETED</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- delete-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- delete-method -->
-
-    
-      <div id="method-i-getLog" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">getLog</span><span
-            class="method-args">(page = 1, per_page = 20, order_by = ORDERBY_REQUEST_TIME, order_dir = ORDERDIR_DESC)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Get a page of the log for this subscription, ordered as specified.</p>
-
-<h3 id="method-i-getLog-label-Parameters">Parameters</h3>
-<ul><li>
-<p><code>page</code> - The page number to get.</p>
-</li><li>
-<p><code>per_page</code> - The number of items per page.</p>
-</li><li>
-<p><code>order_by</code> - The field by which to order the results.</p>
-</li><li>
-<p><code>order_dir</code> - Ascending or descending.</p>
-</li></ul>
-
-<h3 id="method-i-getLog-label-Returns">Returns</h3>
-
-<p>A Hash containing…</p>
-<ul><li>
-<p><code>count</code> - The total number of matching log entries.</p>
-</li><li>
-<p><code>log_entries</code> - An array of Hashes where each Hash is a log
-entry.</p>
-</li></ul>
-          
-
-          
-          <div class="method-source-code" id="getLog-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/push_subscription.rb, line 304</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">getLog</span>(<span class="ruby-identifier">page</span> = <span class="ruby-value">1</span>, <span class="ruby-identifier">per_page</span> = <span class="ruby-value">20</span>, <span class="ruby-identifier">order_by</span> = <span class="ruby-constant">ORDERBY_REQUEST_TIME</span>, <span class="ruby-identifier">order_dir</span> = <span class="ruby-constant">ORDERDIR_DESC</span>)
-        <span class="ruby-keyword">return</span> <span class="ruby-constant">PushSubscription</span>.<span class="ruby-identifier">getLogs</span>(<span class="ruby-ivar">@user</span>, <span class="ruby-identifier">page</span>, <span class="ruby-identifier">per_page</span>, <span class="ruby-identifier">order_by</span>, <span class="ruby-identifier">order_dir</span>, <span class="ruby-ivar">@id</span>)
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- getLog-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- getLog-method -->
-
-    
-      <div id="method-i-init" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">init</span><span
-            class="method-args">(data)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Extract the subscription data from a Hash.</p>
-
-<h3 id="method-i-init-label-Parameters">Parameters</h3>
-<ul><li>
-<p><code>data</code> - The Hash containing the subscription data.</p>
-</li></ul>
-          
-
-          
-          <div class="method-source-code" id="init-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/push_subscription.rb, line 210</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">init</span>(<span class="ruby-identifier">data</span>)
-        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'No id found'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'id'</span>)
-        <span class="ruby-ivar">@id</span> = <span class="ruby-identifier">data</span>[<span class="ruby-string">'id'</span>]
-
-        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'No name found'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'name'</span>)
-        <span class="ruby-ivar">@name</span> = <span class="ruby-identifier">data</span>[<span class="ruby-string">'name'</span>]
-
-        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'No created_at found'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'created_at'</span>)
-        <span class="ruby-ivar">@created_at</span> = <span class="ruby-constant">DateTime</span>.<span class="ruby-identifier">strptime</span>(<span class="ruby-constant">String</span>(<span class="ruby-identifier">data</span>[<span class="ruby-string">'created_at'</span>]), <span class="ruby-string">'%s'</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>[<span class="ruby-string">'created_at'</span>].<span class="ruby-identifier">nil?</span>
-
-        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'No status found'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'status'</span>)
-        <span class="ruby-ivar">@status</span> = <span class="ruby-identifier">data</span>[<span class="ruby-string">'status'</span>]
-
-        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'No hash_type found'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'hash_type'</span>)
-        <span class="ruby-ivar">@hash_type</span> = <span class="ruby-identifier">data</span>[<span class="ruby-string">'hash_type'</span>]
-
-        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'No hash found'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'hash'</span>)
-        <span class="ruby-ivar">@hash</span> = <span class="ruby-identifier">data</span>[<span class="ruby-string">'hash'</span>]
-
-        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'No last_request found'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'last_request'</span>)
-        <span class="ruby-ivar">@last_request</span> = <span class="ruby-constant">DateTime</span>.<span class="ruby-identifier">strptime</span>(<span class="ruby-constant">String</span>(<span class="ruby-identifier">data</span>[<span class="ruby-string">'last_request'</span>]), <span class="ruby-string">'%s'</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>[<span class="ruby-string">'last_request'</span>].<span class="ruby-identifier">nil?</span>
-
-        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'No last_success found'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'last_success'</span>)
-        <span class="ruby-ivar">@last_success</span> = <span class="ruby-constant">DateTime</span>.<span class="ruby-identifier">strptime</span>(<span class="ruby-constant">String</span>(<span class="ruby-identifier">data</span>[<span class="ruby-string">'last_success'</span>]), <span class="ruby-string">'%s'</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>[<span class="ruby-string">'last_success'</span>].<span class="ruby-identifier">nil?</span>
-
-        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'No output_type found'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'output_type'</span>)
-        <span class="ruby-ivar">@output_type</span> = <span class="ruby-identifier">data</span>[<span class="ruby-string">'output_type'</span>]
-
-        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'No output_params found'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'output_params'</span>)
-        <span class="ruby-ivar">@output_params</span> = <span class="ruby-identifier">parseOutputParams</span>(<span class="ruby-identifier">data</span>[<span class="ruby-string">'output_params'</span>])
-
-        <span class="ruby-ivar">@is_deleted</span> = <span class="ruby-keyword">true</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@status</span> <span class="ruby-operator">==</span> <span class="ruby-constant">STATUS_DELETED</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- init-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- init-method -->
-
-    
-      <div id="method-i-name-3D" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">name=</span><span
-            class="method-args">(new_name)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Name setter. Raises an <a href="InvalidDataError.html">InvalidDataError</a>
-if this subscription has been deleted.</p>
-          
-
-          
-          <div class="method-source-code" id="name-3D-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/push_subscription.rb, line 251</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">name=</span>(<span class="ruby-identifier">new_name</span>)
-        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'Cannot set the name of a deleted Push subscription'</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@is_deleted</span>
-        <span class="ruby-ivar">@name</span> = <span class="ruby-identifier">new_name</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- name-3D-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- name-3D-method -->
-
-    
-      <div id="method-i-pause" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">pause</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Pause this subscription.</p>
-          
-
-          
-          <div class="method-source-code" id="pause-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/push_subscription.rb, line 268</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">pause</span>()
-        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'Cannot pause a deleted Push subscription'</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@is_deleted</span>
-        <span class="ruby-identifier">init</span>(<span class="ruby-ivar">@user</span>.<span class="ruby-identifier">callAPI</span>(<span class="ruby-string">'push/pause'</span>, { <span class="ruby-string">'id'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@id</span> }))
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- pause-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- pause-method -->
-
-    
-      <div id="method-i-reload" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">reload</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Reload the data for this subscription from the API.</p>
-          
-
-          
-          <div class="method-source-code" id="reload-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/push_subscription.rb, line 245</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">reload</span>()
-        <span class="ruby-identifier">init</span>(<span class="ruby-ivar">@user</span>.<span class="ruby-identifier">callAPI</span>(<span class="ruby-string">'push/get'</span>, { <span class="ruby-string">'id'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@id</span> }))
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- reload-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- reload-method -->
-
-    
-      <div id="method-i-resume" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">resume</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Resume this subscription.</p>
-          
-
-          
-          <div class="method-source-code" id="resume-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/push_subscription.rb, line 274</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">resume</span>()
-        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'Cannot resume a deleted Push subscription'</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@is_deleted</span>
-        <span class="ruby-identifier">init</span>(<span class="ruby-ivar">@user</span>.<span class="ruby-identifier">callAPI</span>(<span class="ruby-string">'push/resume'</span>, { <span class="ruby-string">'id'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@id</span> }))
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- resume-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- resume-method -->
-
-    
-      <div id="method-i-save" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">save</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Save changes to the name and output_params to the API.</p>
-          
-
-          
-          <div class="method-source-code" id="save-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/push_subscription.rb, line 257</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">save</span>()
-        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'Cannot save changes to a deleted Push subscription'</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@is_deleted</span>
-        <span class="ruby-identifier">params</span> = {
-                <span class="ruby-string">'id'</span>   =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@id</span>,
-                <span class="ruby-string">'name'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@name</span>
-        }
-        <span class="ruby-ivar">@output_params</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-identifier">params</span>[<span class="ruby-constant">OUTPUT_PARAMS_PREFIX</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">k</span>] = <span class="ruby-identifier">v</span> }
-        <span class="ruby-identifier">init</span>(<span class="ruby-ivar">@user</span>.<span class="ruby-identifier">callAPI</span>(<span class="ruby-string">'push/update'</span>, <span class="ruby-identifier">params</span>))
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- save-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- save-method -->
-
-    
-      <div id="method-i-stop" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">stop</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Stop this subscription.</p>
-          
-
-          
-          <div class="method-source-code" id="stop-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/push_subscription.rb, line 280</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">stop</span>()
-        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'Cannot stop a deleted Push subscription'</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@is_deleted</span>
-        <span class="ruby-identifier">init</span>(<span class="ruby-ivar">@user</span>.<span class="ruby-identifier">callAPI</span>(<span class="ruby-string">'push/stop'</span>, { <span class="ruby-string">'id'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@id</span> }))
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- stop-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- stop-method -->
-
-    
-    </section><!-- public-instance-method-details -->
   
   </section><!-- 5Buntitled-5D -->
 
