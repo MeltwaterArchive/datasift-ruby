@@ -19,7 +19,7 @@ If you're using the source you'll need to install the dependencies.
 sudo gem install yajl-ruby rest-client
 
 The library will use SSL connections by default. While we recommend using SSL
-you may disable it if r§equired by passing false as the third parameter when
+you may disable it if required by passing false as the third parameter when
 creating a user, or by calling user.enableSSL(false) on the user object.
 
 Simple example
@@ -55,6 +55,8 @@ more details.
 
 Changelog
 ---------
+
+* v.2.0.2 Added missing Historic sample size into historic/prepare requests (2012-12-03)
 
 * v.2.0.1 Fixed a bug that was preventing streaming connections from being established (2012-09-03)
 
