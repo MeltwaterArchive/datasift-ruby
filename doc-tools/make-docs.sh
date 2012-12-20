@@ -1,34 +1,43 @@
-#!/bin/sh -v
-if [ -z "$1" ]; then
-    echo 'You must run this script with branch name as its argument, e.g.'
-    echo 'sh ./make-docs.sh master'
-    exit
-fi
-echo 'working on branch '$1
-echo 'installing tools'
+#!/bin/bash
+# -v
+
+export BASE_DIR="$( cd "$( dirname $0 )/../../../.." && pwd )/"
+
+source ${BASE_DIR}ms-tools/doc-tools/docathon/sub/make-docs-util-defs.sh
+initialise $*
+
+### Ruby-specific parameters
+parameters "ruby"
+
+### installation of Ruby-specific tools
+message 'installing tools'
 sudo apt-get install git
 sudo apt-get install ruby
 sudo apt-get install rubygems
 sudo gem install rdoc
-echo 'making temporary directory'
-mkdir tmp
-cd tmp
-echo 'cloning repos'
-git clone https://github.com/datasift/datasift-ruby.git code
-git clone https://github.com/datasift/datasift-ruby.git gh-pages
-cd code
-git checkout $1
-cd ..
-cd gh-pages
-git checkout gh-pages
 
-cd ../code
-rdoc --title 'DataSift Ruby Client Library'
-cd ../gh-pages
-cp -a ../code/doc/* .
+pre_build
 
-git add *
-git commit -m 'Updated to reflect the latest changes to '$1
-echo 'You are going to update the gh-pages branch to reflect the latest changes to '$1
-git push origin gh-pages
-echo 'finished'
+### Ruby-specific build steps
+
+#message "preparing to build documents"
+
+(
+	message "building documents"
+	cd ${CODE_DIR} ; stop_on_error
+	rdoc --title 'DataSift Ruby Client Library' ; stop_on_error
+) || error "stopped parent"
+(
+	message "copying documents"
+	cd ${GH_PAGES_DIR} ; stop_on_error
+	cp -a ../code/doc/* . ; stop_on_error
+) || error "stopped parent"
+
+(
+	cd ${GH_PAGES_DIR} ; stop_on_error
+	git add *
+) || error "stopped parent"
+
+post_build
+
+finalise
