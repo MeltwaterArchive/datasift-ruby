@@ -55,6 +55,7 @@ more details.
 
 Changelog
 ---------
+* v.2.0.3 Removed checks for now deprecated 'volume_info' field from historics/prepare call (2013-01-17)
 
 * v.2.0.2 Added missing Historic sample size into historic/prepare requests (2012-12-03)
 
