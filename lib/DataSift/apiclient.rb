@@ -7,19 +7,18 @@ module DataSift
 	class ApiClient
 		#Make a call to a DataSift API endpoint.
 		#=== Parameters
+		#* +user+ - The DataSift User object.
 		#* +endpoint+ - The endpoint of the API call.
 		#* +params+ - The parameters to be passed along with the request.
-		#* +username+ - The username for the Auth header
-		#* +api_key+ - The API key for the Auth header
 		#=== Returns
 		#A Hash contatining...
 		#* +response_code+ - The HTTP response code.
 		#* +data+ - A Hash containing the response data.
 		#* +rate_limit+ - The total API credits you get per hour.
 		#* +rate_limit_remaining+ - The number of API credits you have remaining for this hour.
-		def call(username, api_key, endpoint, params = {}, user_agent = 'DataSiftPHP/0.0')
+		def call(user, endpoint, params = {}, user_agent = User::USER_AGENT)
 			# Build the full endpoint URL
-			url = 'http://' + User::API_BASE_URL + endpoint
+			url = 'http' + (user.use_ssl ? 's' : '') + '://' + User::API_BASE_URL + endpoint
 
 			retval = {
 				'response_code' => 500,
@@ -30,10 +29,10 @@ module DataSift
 
 			begin
 				# Make the call
-				res = RestClient.post(url, params, { 'Auth' => username + ':' + api_key, 'User-Agent' => user_agent })
+				res = RestClient.post(url, params, { 'Auth' => user.username + ':' + user.api_key, 'User-Agent' => user_agent })
 
 				# Success
-				retval['response_code'] = 200
+				retval['response_code'] = res.code
 
 				# Parse the JSON response
 				retval['data'] = Yajl::Parser.parse(res)
