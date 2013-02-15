@@ -1,4 +1,4 @@
-require 'helper'
+require './helper'
 
 class TestPushDefinition < Test::Unit::TestCase
 	context "Given a new PushDefinition object" do

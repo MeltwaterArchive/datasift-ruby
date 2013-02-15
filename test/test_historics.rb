@@ -1,4 +1,4 @@
-require 'helper'
+require './helper'
 
 class TestHistorics < Test::Unit::TestCase
 	context "Given a new Historic object from a stream hash" do

@@ -1,4 +1,4 @@
-require 'helper'
+require './helper'
 
 class TestUser < Test::Unit::TestCase
 	context "Given a new User object" do

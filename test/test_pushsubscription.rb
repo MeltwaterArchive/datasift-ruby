@@ -1,4 +1,4 @@
-require 'helper'
+require './helper'
 
 class TestPushSubscription < Test::Unit::TestCase
 	context "Given a new PushSubsription object" do

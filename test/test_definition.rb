@@ -1,4 +1,4 @@
-require 'helper'
+require './helper'
 
 class TestDefinition < Test::Unit::TestCase
 	context "Given an empty Definition object" do
