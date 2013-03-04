@@ -1,4 +1,4 @@
-require 'helper'
+require './' + File.dirname(__FILE__) + '/helper'
 
 class TestHistorics < Test::Unit::TestCase
 	context "Given a new Historic object from a stream hash" do

@@ -13,7 +13,7 @@
 #
 
 # Include the DataSift library
-require File.dirname(__FILE__) + '/../lib/datasift'
+require './' + File.dirname(__FILE__) + '/../lib/datasift'
 
 # Function to format a number with commas
 def number_with_delimiter(number, delimiter=',')
