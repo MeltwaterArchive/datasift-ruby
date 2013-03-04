@@ -58,8 +58,6 @@ module DataSift
 		attr_reader :sample
 		#The DPU cost of running this Historics query.
 		attr_reader :dpus
-		#The data availability for this Historics query.
-		attr_reader :volume_info
 		#True if this Historics query has been deleted.
 		attr_reader :is_deleted
 
@@ -109,7 +107,6 @@ module DataSift
 				@progress     = 0
 				@dpus         = false
 				@availability = {}
-				@volume_info  = {}
 				@is_deleted   = false
 			end
 		end
@@ -168,9 +165,6 @@ module DataSift
 
 			raise APIError, 'No sample in the response' unless data.has_key?('sample')
 			@sample = data['sample']
-
-			raise APIError, 'No volume info in the response' unless data.has_key?('volume_info')
-			@volume_info = data['volume_info']
 
 			@is_deleted = (@status == 'deleted')
 

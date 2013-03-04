@@ -56,6 +56,12 @@ more details.
 Changelog
 ---------
 
+* v.2.0.3 Stability improvement and bug fix (2013-03-04)
+  
+  Removed references to deprecated Historic output field 'volume_info'.
+  Added 65s timeout on live streaming to handle 'silent' server disconnects.
+  Minor changes to ensure Ruby 2.0 compatibility.
+
 * v.2.0.2 Added missing Historic sample size into historic/prepare requests (2012-12-03)
 
 * v.2.0.1 Fixed a bug that was preventing streaming connections from being established (2012-09-03)

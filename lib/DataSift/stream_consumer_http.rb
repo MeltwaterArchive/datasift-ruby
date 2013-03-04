@@ -22,7 +22,6 @@ module DataSift
 		def onStart(&block)
 			begin
 				reconnect() unless !@socket.nil? and !@socket.closed?
-
 				parser = Yajl::Parser.new
 				parser.on_parse_complete = block if block_given?
 				if @response_head[:headers]["Transfer-Encoding"] == 'chunked'
@@ -30,6 +29,15 @@ module DataSift
 						chunkLeft = 0
 						while !@socket.eof? && (line = @socket.gets) && @state == StreamConsumer::STATE_RUNNING
 							break if line.match /^0.*?\r\n/
+
+							begin
+								ready = IO.select([@socket], nil, [@socket], @stream_timeout)
+								unless ready
+									reconnect()
+									next
+								end
+							end
+
 							next if line == "\r\n"
 							size = line.hex
 							json = @socket.read(size)
@@ -82,7 +90,6 @@ module DataSift
 		end
 
   private
-
   	#Reconnect the stream socket.
 		def reconnect()
 			uri = URI.parse('http' + (@user.use_ssl ? 's' : '') + '://' + User::STREAM_BASE_URL + @definition.hash)

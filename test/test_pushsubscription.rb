@@ -1,4 +1,4 @@
-require 'helper'
+require './' + File.dirname(__FILE__) + '/helper'
 
 class TestPushSubscription < Test::Unit::TestCase
 	context "Given a new PushSubsription object" do
