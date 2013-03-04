@@ -1,4 +1,4 @@
-require './helper'
+require './' + File.dirname(__FILE__) + '/helper'
 
 class TestDefinition < Test::Unit::TestCase
 	context "Given an empty Definition object" do

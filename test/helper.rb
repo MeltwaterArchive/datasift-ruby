@@ -44,7 +44,7 @@ class Test::Unit::TestCase
 				'sources' => @testdata['historic_sources'],
 				'sample' => @testdata['historic_sample'],
 				'volume_info' => {
-					'digg' => 9
+					'twitter' => 9
 				},
 			}
 		@user.api_client.setResponse(200, data.merge(changes), 200, 150)
