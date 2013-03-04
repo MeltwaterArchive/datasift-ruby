@@ -43,9 +43,6 @@ class Test::Unit::TestCase
 				'progress' => 0,
 				'sources' => @testdata['historic_sources'],
 				'sample' => @testdata['historic_sample'],
-				'volume_info' => {
-					'twitter' => 9
-				},
 			}
 		@user.api_client.setResponse(200, data.merge(changes), 200, 150)
 	end
