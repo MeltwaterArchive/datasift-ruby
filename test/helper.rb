@@ -14,12 +14,12 @@ class Test::Unit::TestCase
 		@testdata = YAML::load(File.open(File.join(File.dirname(__FILE__), 'testdata.yml')))
 
 		# Initialise the test data (parse the dates, etc).
-		@testdata['historic_start'] = DateTime.parse(@testdata['historic_start'])
-		@testdata['historic_end'] = DateTime.parse(@testdata['historic_end'])
-		@testdata['historic_created_at'] = DateTime.parse(@testdata['historic_created_at'])
-		@testdata['push_created_at'] = DateTime.parse(@testdata['push_created_at'])
-		@testdata['push_last_request'] = DateTime.parse(@testdata['push_last_request'])
-		@testdata['push_last_success'] = DateTime.parse(@testdata['push_last_success'])
+		@testdata['historic_start'] = DateTime.parse(@testdata['historic_start'].to_s)
+		@testdata['historic_end'] = DateTime.parse(@testdata['historic_end'].to_s)
+		@testdata['historic_created_at'] = DateTime.parse(@testdata['historic_created_at'].to_s)
+		@testdata['push_created_at'] = DateTime.parse(@testdata['push_created_at'].to_s)
+		@testdata['push_last_request'] = DateTime.parse(@testdata['push_last_request'].to_s)
+		@testdata['push_last_success'] = DateTime.parse(@testdata['push_last_success'].to_s)
 		@testdata['historic_sources'] = @testdata['historic_sources'].split(',')
 
 		@user = DataSift::User.new(@config['username'], @config['api_key'])
@@ -44,7 +44,7 @@ class Test::Unit::TestCase
 				'sources' => @testdata['historic_sources'],
 				'sample' => @testdata['historic_sample'],
 				'volume_info' => {
-					'digg' => 9
+					'twitter' => 9
 				},
 			}
 		@user.api_client.setResponse(200, data.merge(changes), 200, 150)

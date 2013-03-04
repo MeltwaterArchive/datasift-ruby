@@ -18,7 +18,7 @@ if ARGV.size == 0
 end
 
 # Include the DataSift library
-require File.dirname(__FILE__) + '/../lib/datasift'
+require './' + File.dirname(__FILE__) + '/../lib/datasift'
 
 # Include the configuration - put your username and API key in this file
 require 'yaml'

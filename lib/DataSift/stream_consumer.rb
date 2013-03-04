@@ -53,6 +53,7 @@ module DataSift
 			@auto_reconnect = true
 			@stop_reason = 'Unknown reason'
 			@state = STATE_STOPPED
+			@stream_timeout = 65
 
 			# Get the hash which will compile the CSDL if necessary
 			@definition.hash
@@ -124,7 +125,7 @@ module DataSift
 					elsif interaction['status'] == 'warning'
 						onWarning.call(interaction['message'])
 					else
-						# Tick
+						# Tick
 					end
 				else
 					if interaction.has_key?('deleted') and interaction['deleted']
