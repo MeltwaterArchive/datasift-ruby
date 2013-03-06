@@ -1,693 +1,386 @@
-<!DOCTYPE html>
-
-<html>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
 
-<title>class DataSift::StreamConsumer - DataSift Ruby Client Library</title>
+  <title>Class: DataSift::StreamConsumer</title>
 
-<link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
+  <link rel="stylesheet" href="../rdoc.css" type="text/css" media="screen" />
 
-<script type="text/javascript">
-  var rdoc_rel_prefix = "../";
-</script>
+  <script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../js/thickbox-compressed.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../js/quicksearch.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../js/darkfish.js" type="text/javascript" charset="utf-8"></script>
 
-<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
-<script type="text/javascript" charset="utf-8" src="../js/navigation.js"></script>
-<script type="text/javascript" charset="utf-8" src="../js/search_index.js"></script>
-<script type="text/javascript" charset="utf-8" src="../js/search.js"></script>
-<script type="text/javascript" charset="utf-8" src="../js/searcher.js"></script>
-<script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
-
-
+</head>
 <body id="top" class="class">
-<nav id="metadata">
-  <nav id="home-section" class="section">
-  <h3 class="section-header">
-    <a href="../index.html">Home</a>
-    <a href="../table_of_contents.html#classes">Classes</a>
-    <a href="../table_of_contents.html#methods">Methods</a>
-  </h3>
-</nav>
 
+  <div id="metadata">
+    <div id="home-metadata">
+      <div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="../index.html">Home</a>
+          <a href="../index.html#classes">Classes</a>
+          <a href="../index.html#methods">Methods</a>
+        </h3>
+      </div>
+    </div>
 
-  <nav id="search-section" class="section project-section" class="initially-hidden">
-  <form action="#" method="get" accept-charset="utf-8">
-    <h3 class="section-header">
-      <input type="text" name="search" placeholder="Search" id="search-field"
-             title="Type to search, Up and Down to navigate, Enter to load">
-    </h3>
-  </form>
+    <div id="file-metadata">
+      <div id="file-list-section" class="section">
+        <h3 class="section-header">In Files</h3>
+        <div class="section-body">
+          <ul>
+          
+            <li><a href="../lib/DataSift/stream_consumer_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="lib/DataSift/stream_consumer.rb">lib/DataSift/stream_consumer.rb</a></li>
+          
+          </ul>
+        </div>
+      </div>
 
-  <ul id="search-results" class="initially-hidden"></ul>
-</nav>
+      
+    </div>
 
+    <div id="class-metadata">
+      
+      <!-- Parent Class -->
+      <div id="parent-class-section" class="section">
+        <h3 class="section-header">Parent</h3>
+        
+        <p class="link"><a href="../Object.html">Object</a></p>
+        
+      </div>
+      
 
-  <div id="file-metadata">
-    <nav id="file-list-section" class="section">
-  <h3 class="section-header">Defined In</h3>
-  <ul>
-    <li>lib/DataSift/stream_consumer.rb
-  </ul>
-</nav>
+      
 
-    
+      
+
+      
+      <!-- Method Quickref -->
+      <div id="method-list-section" class="section">
+        <h3 class="section-header">Methods</h3>
+        <ul class="link-list">
+          
+          <li><a href="#method-c-factory">::factory</a></li>
+          
+          <li><a href="#method-c-new">::new</a></li>
+          
+          <li><a href="#method-i-consume">#consume</a></li>
+          
+          <li><a href="#method-i-onDeleted">#onDeleted</a></li>
+          
+          <li><a href="#method-i-onError">#onError</a></li>
+          
+          <li><a href="#method-i-onStart">#onStart</a></li>
+          
+          <li><a href="#method-i-onStop">#onStop</a></li>
+          
+          <li><a href="#method-i-onStopped">#onStopped</a></li>
+          
+          <li><a href="#method-i-onWarning">#onWarning</a></li>
+          
+          <li><a href="#method-i-stop">#stop</a></li>
+          
+        </ul>
+      </div>
+      
+
+      
+    </div>
+
+    <div id="project-metadata">
+      
+      
+      <div id="fileindex-section" class="section project-section">
+        <h3 class="section-header">Files</h3>
+        <ul>
+        
+          <li class="file"><a href="../Gemfile.html">Gemfile</a></li>
+        
+          <li class="file"><a href="../LICENSE.html">LICENSE</a></li>
+        
+          <li class="file"><a href="../Rakefile.html">Rakefile</a></li>
+        
+          <li class="file"><a href="../VERSION.html">VERSION</a></li>
+        
+        </ul>
+      </div>
+      
+
+      <div id="classindex-section" class="section project-section">
+        <h3 class="section-header">Class/Module Index
+          <span class="search-toggle"><img src="../images/find.png"
+            height="16" width="16" alt="[+]"
+            title="show/hide quicksearch" /></span></h3>
+        <form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+        <fieldset>
+          <legend>Quicksearch</legend>
+          <input type="text" name="quicksearch" value=""
+            class="quicksearch-field" />
+        </fieldset>
+        </form>
+
+        <ul class="link-list">
+        
+          <li><a href="../DataSift.html">DataSift</a></li>
+        
+          <li><a href="../DataSift/APIError.html">DataSift::APIError</a></li>
+        
+          <li><a href="../DataSift/AccessDeniedError.html">DataSift::AccessDeniedError</a></li>
+        
+          <li><a href="../DataSift/ApiClient.html">DataSift::ApiClient</a></li>
+        
+          <li><a href="../DataSift/CompileFailedError.html">DataSift::CompileFailedError</a></li>
+        
+          <li><a href="../DataSift/DataSiftError.html">DataSift::DataSiftError</a></li>
+        
+          <li><a href="../DataSift/Definition.html">DataSift::Definition</a></li>
+        
+          <li><a href="../DataSift/Historic.html">DataSift::Historic</a></li>
+        
+          <li><a href="../DataSift/InvalidDataError.html">DataSift::InvalidDataError</a></li>
+        
+          <li><a href="../DataSift/MockApiClient.html">DataSift::MockApiClient</a></li>
+        
+          <li><a href="../DataSift/PushDefinition.html">DataSift::PushDefinition</a></li>
+        
+          <li><a href="../DataSift/PushSubscription.html">DataSift::PushSubscription</a></li>
+        
+          <li><a href="../DataSift/RateLimitExceededError.html">DataSift::RateLimitExceededError</a></li>
+        
+          <li><a href="../DataSift/StreamConsumer.html">DataSift::StreamConsumer</a></li>
+        
+          <li><a href="../DataSift/StreamConsumer_HTTP.html">DataSift::StreamConsumer_HTTP</a></li>
+        
+          <li><a href="../DataSift/StreamError.html">DataSift::StreamError</a></li>
+        
+          <li><a href="../DataSift/User.html">DataSift::User</a></li>
+        
+          <li><a href="../Test.html">Test</a></li>
+        
+          <li><a href="../Test/Unit.html">Test::Unit</a></li>
+        
+          <li><a href="../Test/Unit/TestCase.html">Test::Unit::TestCase</a></li>
+        
+          <li><a href="../Env.html">Env</a></li>
+        
+          <li><a href="../Object.html">Object</a></li>
+        
+          <li><a href="../TestDefinition.html">TestDefinition</a></li>
+        
+          <li><a href="../TestHistorics.html">TestHistorics</a></li>
+        
+          <li><a href="../TestPushDefinition.html">TestPushDefinition</a></li>
+        
+          <li><a href="../TestPushSubscription.html">TestPushSubscription</a></li>
+        
+          <li><a href="../TestUser.html">TestUser</a></li>
+        
+        </ul>
+        <div id="no-class-search-results" style="display: none;">No matching classes.</div>
+      </div>
+
+      
+    </div>
   </div>
 
-  <div id="class-metadata">
-    
-    <nav id="parent-class-section" class="section">
-  <h3 class="section-header">Parent</h3>
-  
-  <p class="link"><a href="../Object.html">Object</a>
-  
-</nav>
+  <div id="documentation">
+    <h1 class="class">DataSift::StreamConsumer</h1>
 
-    
-    <!-- Method Quickref -->
-<nav id="method-list-section" class="section">
-  <h3 class="section-header">Methods</h3>
-
-  <ul class="link-list">
-    
-    <li><a href="#method-c-factory">::factory</a>
-    
-    <li><a href="#method-c-new">::new</a>
-    
-    <li><a href="#method-i-consume">#consume</a>
-    
-    <li><a href="#method-i-onDeleted">#onDeleted</a>
-    
-    <li><a href="#method-i-onError">#onError</a>
-    
-    <li><a href="#method-i-onStart">#onStart</a>
-    
-    <li><a href="#method-i-onStop">#onStop</a>
-    
-    <li><a href="#method-i-onStopped">#onStopped</a>
-    
-    <li><a href="#method-i-onWarning">#onWarning</a>
-    
-    <li><a href="#method-i-stop">#stop</a>
-    
-  </ul>
-</nav>
-
-  </div>
-
-  <div id="project-metadata">
-    <nav id="fileindex-section" class="section project-section">
-  <h3 class="section-header">Pages</h3>
-
-  <ul>
-  
-    <li class="file"><a href="../Gemfile.html">Gemfile</a>
-  
-    <li class="file"><a href="../LICENSE.html">LICENSE</a>
-  
-    <li class="file"><a href="../Rakefile.html">Rakefile</a>
-  
-    <li class="file"><a href="../VERSION.html">VERSION</a>
-  
-  </ul>
-</nav>
-
-    <nav id="classindex-section" class="section project-section">
-  <h3 class="section-header">Class and Module Index</h3>
-
-  <ul class="link-list">
-  
-    <li><a href="../DataSift.html">DataSift</a>
-  
-    <li><a href="../DataSift/APIError.html">DataSift::APIError</a>
-  
-    <li><a href="../DataSift/AccessDeniedError.html">DataSift::AccessDeniedError</a>
-  
-    <li><a href="../DataSift/ApiClient.html">DataSift::ApiClient</a>
-  
-    <li><a href="../DataSift/CompileFailedError.html">DataSift::CompileFailedError</a>
-  
-    <li><a href="../DataSift/DataSiftError.html">DataSift::DataSiftError</a>
-  
-    <li><a href="../DataSift/Definition.html">DataSift::Definition</a>
-  
-    <li><a href="../DataSift/Historic.html">DataSift::Historic</a>
-  
-    <li><a href="../DataSift/InvalidDataError.html">DataSift::InvalidDataError</a>
-  
-    <li><a href="../DataSift/MockApiClient.html">DataSift::MockApiClient</a>
-  
-    <li><a href="../DataSift/PushDefinition.html">DataSift::PushDefinition</a>
-  
-    <li><a href="../DataSift/PushSubscription.html">DataSift::PushSubscription</a>
-  
-    <li><a href="../DataSift/RateLimitExceededError.html">DataSift::RateLimitExceededError</a>
-  
-    <li><a href="../DataSift/StreamConsumer.html">DataSift::StreamConsumer</a>
-  
-    <li><a href="../DataSift/StreamConsumer_HTTP.html">DataSift::StreamConsumer_HTTP</a>
-  
-    <li><a href="../DataSift/StreamError.html">DataSift::StreamError</a>
-  
-    <li><a href="../DataSift/User.html">DataSift::User</a>
-  
-    <li><a href="../Test.html">Test</a>
-  
-    <li><a href="../Test/Unit.html">Test::Unit</a>
-  
-    <li><a href="../Test/Unit/TestCase.html">Test::Unit::TestCase</a>
-  
-    <li><a href="../Env.html">Env</a>
-  
-    <li><a href="../Object.html">Object</a>
-  
-    <li><a href="../TestDefinition.html">TestDefinition</a>
-  
-    <li><a href="../TestHistorics.html">TestHistorics</a>
-  
-    <li><a href="../TestPushDefinition.html">TestPushDefinition</a>
-  
-    <li><a href="../TestPushSubscription.html">TestPushSubscription</a>
-  
-    <li><a href="../TestUser.html">TestUser</a>
-  
-  </ul>
-</nav>
-
-  </div>
-</nav>
-
-<div id="documentation">
-  <h1 class="class">class DataSift::StreamConsumer</h1>
-
-  <div id="description" class="description">
-    
+    <div id="description" class="description">
+      
 <p>This is the base class for all <a
 href="StreamConsumer.html">StreamConsumer</a> implementation.</p>
 
-  </div><!-- description -->
-
-  
-  
-  
-  <section id="5Buntitled-5D" class="documentation-section">
-    
+    </div><!-- description -->
 
     
-
     
-    <!-- Constants -->
-    <section id="constants-list" class="section">
-      <h3 class="section-header">Constants</h3>
-      <dl>
-      
-        <dt id="STATE_RUNNING">STATE_RUNNING
-        
-        <dd class="description"><p>Constant for the “running” status.</p>
-        
-      
-        <dt id="STATE_STARTING">STATE_STARTING
-        
-        <dd class="description"><p>Constant for the “starting” status.</p>
-        
-      
-        <dt id="STATE_STOPPED">STATE_STOPPED
-        
-        <dd class="description"><p>Constant for the “stopped” status.</p>
-        
-      
-        <dt id="STATE_STOPPING">STATE_STOPPING
-        
-        <dd class="description"><p>Constant for the “stopping” status.</p>
-        
-      
-        <dt id="TYPE_HTTP">TYPE_HTTP
-        
-        <dd class="description"><p>Constant for the HTTP <a href="StreamConsumer.html">StreamConsumer</a>
-implementation option.</p>
-        
-      
-      </dl>
-    </section>
     
-
-    
-    <!-- Attributes -->
-    <section id="attribute-method-details" class="method-section section">
-      <h3 class="section-header">Attributes</h3>
+    <div id="5Buntitled-5D" class="documentation-section">
+      
 
       
-      <div id="attribute-i-auto_reconnect" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">auto_reconnect</span><span
-            class="attribute-access-type">[RW]</span>
-        </div>
 
-        <div class="method-description">
+      
+      <!-- Constants -->
+      <div id="constants-list" class="section">
+        <h3 class="section-header">Constants</h3>
+        <dl>
         
-        <p>Whether the consumer should automatically try to reconnect if the
+          <dt><a name="STATE_RUNNING">STATE_RUNNING</a></dt>
+          
+          <dd class="description"><p>Constant for the “running” status.</p></dd>
+          
+        
+          <dt><a name="STATE_STARTING">STATE_STARTING</a></dt>
+          
+          <dd class="description"><p>Constant for the “starting” status.</p></dd>
+          
+        
+          <dt><a name="STATE_STOPPED">STATE_STOPPED</a></dt>
+          
+          <dd class="description"><p>Constant for the “stopped” status.</p></dd>
+          
+        
+          <dt><a name="STATE_STOPPING">STATE_STOPPING</a></dt>
+          
+          <dd class="description"><p>Constant for the “stopping” status.</p></dd>
+          
+        
+          <dt><a name="TYPE_HTTP">TYPE_HTTP</a></dt>
+          
+          <dd class="description"><p>Constant for the HTTP <a href="StreamConsumer.html">StreamConsumer</a>
+implementation option.</p></dd>
+          
+        
+        </dl>
+      </div>
+      
+
+      
+      <!-- Attributes -->
+      <div id="attribute-method-details" class="method-section section">
+        <h3 class="section-header">Attributes</h3>
+
+        
+        <div id="auto_reconnect-attribute-method" class="method-detail">
+          <a name="auto_reconnect"></a>
+          
+          <a name="auto_reconnect="></a>
+          
+          <div class="method-heading attribute-method-heading">
+            <span class="method-name">auto_reconnect</span><span
+              class="attribute-access-type">[RW]</span>
+          </div>
+
+          <div class="method-description">
+          
+          <p>Whether the consumer should automatically try to reconnect if the
 connection is dropped.</p>
-        
+          
+          </div>
         </div>
-      </div>
+        
+        <div id="state-attribute-method" class="method-detail">
+          <a name="state"></a>
+          
+          <div class="method-heading attribute-method-heading">
+            <span class="method-name">state</span><span
+              class="attribute-access-type">[R]</span>
+          </div>
+
+          <div class="method-description">
+          
+          <p>The current state of the consumer.</p>
+          
+          </div>
+        </div>
+        
+        <div id="stop_reason-attribute-method" class="method-detail">
+          <a name="stop_reason"></a>
+          
+          <div class="method-heading attribute-method-heading">
+            <span class="method-name">stop_reason</span><span
+              class="attribute-access-type">[R]</span>
+          </div>
+
+          <div class="method-description">
+          
+          <p>The reason the consumer was stopped.</p>
+          
+          </div>
+        </div>
+        
+      </div><!-- attribute-method-details -->
       
-      <div id="attribute-i-state" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">state</span><span
-            class="attribute-access-type">[R]</span>
-        </div>
 
-        <div class="method-description">
-        
-        <p>The current state of the consumer.</p>
-        
-        </div>
-      </div>
+      <!-- Methods -->
       
-      <div id="attribute-i-stop_reason" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">stop_reason</span><span
-            class="attribute-access-type">[R]</span>
-        </div>
+      <div id="public-class-method-details" class="method-section section">
+        <h3 class="section-header">Public Class Methods</h3>
 
-        <div class="method-description">
-        
-        <p>The reason the consumer was stopped.</p>
-        
-        </div>
-      </div>
       
-    </section><!-- attribute-method-details -->
-    
-
-    <!-- Methods -->
-    
-     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
-      <h3 class="section-header">Public Instance Methods</h3>
-
-    
-      <div id="method-i-consume" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">consume</span><span
-            class="method-args">(auto_reconnect = true, &block)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Once an instance of a <a href="StreamConsumer.html">StreamConsumer</a> is
-ready for use, call this to start consuming. Extending classes should
-implement onStart to handle actually starting.</p>
-
-<h3 id="method-i-consume-label-Parameters">Parameters</h3>
-<ul><li>
-<p><code>auto_reconnect</code> - Whether the consumer should automatically
-reconnect.</p>
-</li><li>
-<p><code>block</code> - An optional block to receive incoming interactions.</p>
-</li></ul>
-          
+        <div id="factory-method" class="method-detail ">
+          <a name="method-c-factory"></a>
 
           
-          <div class="method-source-code" id="consume-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/stream_consumer.rb, line 115</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">consume</span>(<span class="ruby-identifier">auto_reconnect</span> = <span class="ruby-keyword">true</span>, &amp;<span class="ruby-identifier">block</span>)
-        <span class="ruby-ivar">@auto_reconnect</span> = <span class="ruby-identifier">auto_reconnect</span>;
-
-        <span class="ruby-comment"># Start consuming</span>
-        <span class="ruby-ivar">@state</span> = <span class="ruby-constant">STATE_STARTING</span>
-        <span class="ruby-identifier">onStart</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">interaction</span><span class="ruby-operator">|</span>
-                <span class="ruby-keyword">if</span> <span class="ruby-identifier">interaction</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'status'</span>)
-                        <span class="ruby-keyword">if</span> <span class="ruby-identifier">interaction</span>[<span class="ruby-string">'status'</span>] <span class="ruby-operator">==</span> <span class="ruby-string">'error'</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">interaction</span>[<span class="ruby-string">'status'</span>] <span class="ruby-operator">==</span> <span class="ruby-string">'failure'</span>
-                                <span class="ruby-identifier">onError</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">interaction</span>[<span class="ruby-string">'message'</span>])
-                        <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">interaction</span>[<span class="ruby-string">'status'</span>] <span class="ruby-operator">==</span> <span class="ruby-string">'warning'</span>
-                                <span class="ruby-identifier">onWarning</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">interaction</span>[<span class="ruby-string">'message'</span>])
-                        <span class="ruby-keyword">else</span>
-                                <span class="ruby-comment"># Tick</span>
-                        <span class="ruby-keyword">end</span>
-                <span class="ruby-keyword">else</span>
-                        <span class="ruby-keyword">if</span> <span class="ruby-identifier">interaction</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'deleted'</span>) <span class="ruby-keyword">and</span> <span class="ruby-identifier">interaction</span>[<span class="ruby-string">'deleted'</span>]
-                                <span class="ruby-identifier">onDeleted</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">interaction</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">onDeleted</span>.<span class="ruby-identifier">nil?</span>
-                        <span class="ruby-keyword">else</span>
-                                <span class="ruby-identifier">block</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">interaction</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">block</span>.<span class="ruby-identifier">nil?</span>
-                        <span class="ruby-keyword">end</span>
-                <span class="ruby-keyword">end</span>
-        <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- consume-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- consume-method -->
-
-    
-      <div id="method-i-onDeleted" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">onDeleted</span><span
-            class="method-args">(&block)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Called when a deletion notification is received.</p>
-
-<h3 id="method-i-onDeleted-label-Parameters">Parameters</h3>
-<ul><li>
-<p><code>interaction</code> - Minimal details about the interaction that was
-deleted.</p>
-</li></ul>
+          <div class="method-heading">
+            <span class="method-name">factory</span><span
+              class="method-args">(user, type, definition)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
           
 
-          
-          <div class="method-source-code" id="onDeleted-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/stream_consumer.rb, line 64</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">onDeleted</span>(&amp;<span class="ruby-identifier">block</span>)
-        <span class="ruby-keyword">if</span> <span class="ruby-identifier">block_given?</span>
-                <span class="ruby-ivar">@on_deleted</span> = <span class="ruby-identifier">block</span>
-                <span class="ruby-keyword">self</span>
-        <span class="ruby-keyword">else</span>
-                <span class="ruby-ivar">@on_deleted</span>
-        <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- onDeleted-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- onDeleted-method -->
-
-    
-      <div id="method-i-onError" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">onError</span><span
-            class="method-args">(&block)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>This is called when an error message is received.</p>
-
-<h3 id="method-i-onError-label-Parameters">Parameters</h3>
-<ul><li>
-<p><code>message</code> - The error message.</p>
-</li></ul>
-          
-
-          
-          <div class="method-source-code" id="onError-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/stream_consumer.rb, line 76</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">onError</span>(&amp;<span class="ruby-identifier">block</span>)
-        <span class="ruby-keyword">if</span> <span class="ruby-identifier">block_given?</span>
-                <span class="ruby-ivar">@on_error</span> = <span class="ruby-identifier">block</span>
-                <span class="ruby-keyword">self</span>
-        <span class="ruby-keyword">else</span>
-                <span class="ruby-ivar">@on_error</span>
-        <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- onError-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- onError-method -->
-
-    
-      <div id="method-i-onStart" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">onStart</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Called when the consumer should start consuming the stream.</p>
-          
-
-          
-          <div class="method-source-code" id="onStart-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/stream_consumer.rb, line 140</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">onStart</span>()
-        <span class="ruby-identifier">abort</span>(<span class="ruby-string">'onStart method has not been overridden!'</span>)
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- onStart-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- onStart-method -->
-
-    
-      <div id="method-i-onStop" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">onStop</span><span
-            class="method-args">(reason = '')</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Default implementation of onStop. It’s unlikely that this method will
-ever be used in isolation, but rather it should be called as the final step
-in the extending class’s implementation.</p>
-
-<h3 id="method-i-onStop-label-Parameters">Parameters</h3>
-<ul><li>
-<p><code>reason</code> - The reason why the consumer stopped.</p>
-</li></ul>
-          
-
-          
-          <div class="method-source-code" id="onStop-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/stream_consumer.rb, line 158</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">onStop</span>(<span class="ruby-identifier">reason</span> = <span class="ruby-string">''</span>)
-        <span class="ruby-identifier">reason</span> = <span class="ruby-string">'Unexpected'</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@state</span> <span class="ruby-operator">!=</span> <span class="ruby-constant">StreamConsumer</span><span class="ruby-operator">::</span><span class="ruby-constant">STATE_STOPPING</span> <span class="ruby-keyword">and</span> <span class="ruby-identifier">reason</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
-        <span class="ruby-ivar">@state</span> = <span class="ruby-constant">StreamConsumer</span><span class="ruby-operator">::</span><span class="ruby-constant">STATE_STOPPED</span>
-        <span class="ruby-ivar">@stop_reason</span> = <span class="ruby-identifier">reason</span>
-        <span class="ruby-identifier">onStopped</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">reason</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">onStopped</span>.<span class="ruby-identifier">nil?</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- onStop-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- onStop-method -->
-
-    
-      <div id="method-i-onStopped" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">onStopped</span><span
-            class="method-args">(&block)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>This is called when the consumer is stopped.</p>
-
-<h3 id="method-i-onStopped-label-Parameters">Parameters</h3>
-<ul><li>
-<p><code>reason</code> - The reason why the consumer stopped.</p>
-</li></ul>
-          
-
-          
-          <div class="method-source-code" id="onStopped-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/stream_consumer.rb, line 100</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">onStopped</span>(&amp;<span class="ruby-identifier">block</span>)
-        <span class="ruby-keyword">if</span> <span class="ruby-identifier">block_given?</span>
-                <span class="ruby-ivar">@on_stopped</span> = <span class="ruby-identifier">block</span>
-                <span class="ruby-keyword">self</span>
-        <span class="ruby-keyword">else</span>
-                <span class="ruby-ivar">@on_stopped</span>
-        <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- onStopped-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- onStopped-method -->
-
-    
-      <div id="method-i-onWarning" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">onWarning</span><span
-            class="method-args">(&block)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>This is called when an error message is received.</p>
-
-<h3 id="method-i-onWarning-label-Parameters">Parameters</h3>
-<ul><li>
-<p><code>message</code> - The error message.</p>
-</li></ul>
-          
-
-          
-          <div class="method-source-code" id="onWarning-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/stream_consumer.rb, line 88</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">onWarning</span>(&amp;<span class="ruby-identifier">block</span>)
-        <span class="ruby-keyword">if</span> <span class="ruby-identifier">block_given?</span>
-                <span class="ruby-ivar">@on_warning</span> = <span class="ruby-identifier">block</span>
-                <span class="ruby-keyword">self</span>
-        <span class="ruby-keyword">else</span>
-                <span class="ruby-ivar">@on_warning</span>
-        <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- onWarning-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- onWarning-method -->
-
-    
-      <div id="method-i-stop" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">stop</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>This method can be called at any time to <strong>request</strong> that the
-consumer stop consuming. This method sets the state to <a
-href="StreamConsumer.html#STATE_STOPPING">STATE_STOPPING</a> and it’s up
-to the consumer implementation to notice that this has changed, stop
-consuming and call the onStopped method.</p>
-          
-
-          
-          <div class="method-source-code" id="stop-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/stream_consumer.rb, line 148</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">stop</span>()
-        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'Consumer state must be RUNNING before it can be stopped'</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@state</span> = <span class="ruby-constant">StreamConsumer</span><span class="ruby-operator">::</span><span class="ruby-constant">STATE_RUNNING</span>
-        <span class="ruby-ivar">@state</span> = <span class="ruby-constant">StreamConsumer</span><span class="ruby-operator">::</span><span class="ruby-constant">STATE_STOPPING</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- stop-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- stop-method -->
-
-    
-    </section><!-- public-instance-method-details -->
-  
-     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
-      <h3 class="section-header">Public Class Methods</h3>
-
-    
-      <div id="method-c-factory" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">factory</span><span
-            class="method-args">(user, type, definition)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Factory function. Creates a StreamConsumer-derived object for the given
+          <div class="method-description">
+            
+            <p>Factory function. Creates a StreamConsumer-derived object for the given
 type.</p>
 
-<h3 id="method-c-factory-label-Parameters">Parameters</h3>
+<h3>Parameters</h3>
 <ul><li>
-<p><code>type</code> - Use the TYPE_ constants</p>
+<p><tt>type</tt> - Use the TYPE_ constants</p>
 </li><li>
-<p><code>definition</code> - CSDL string or a <a
+<p><tt>definition</tt> - CSDL string or a <a
 href="Definition.html">Definition</a> object.</p>
 </li></ul>
 
-<h3 id="method-c-factory-label-Returns">Returns</h3>
+<h3>Returns</h3>
 
 <p>A StreamConsumer-derived object.</p>
-          
+            
 
-          
-          <div class="method-source-code" id="factory-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/stream_consumer.rb, line 23</span>
+            
+            <div class="method-source-code" id="factory-source">
+<pre>
+<span class="ruby-comment"># File lib/DataSift/stream_consumer.rb, line 23</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">factory</span>(<span class="ruby-identifier">user</span>, <span class="ruby-identifier">type</span>, <span class="ruby-identifier">definition</span>)
         <span class="ruby-identifier">type</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">TYPE_HTTP</span>
         <span class="ruby-ivar">@klass</span> = <span class="ruby-constant">Module</span>.<span class="ruby-identifier">const_get</span>(<span class="ruby-string">'DataSift'</span>).<span class="ruby-identifier">const_get</span>(<span class="ruby-string">'StreamConsumer_'</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">type</span>)
         <span class="ruby-ivar">@klass</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">user</span>, <span class="ruby-identifier">definition</span>)
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- factory-source -->
+            </div><!-- factory-source -->
+            
+          </div>
+
           
-        </div>
 
-        
-
-        
-      </div><!-- factory-method -->
-
-    
-      <div id="method-c-new" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">new</span><span
-            class="method-args">(user, definition)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
           
-          <p>Constructor. Do not use this directly, use the factory method instead.</p>
+        </div><!-- factory-method -->
 
-<h3 id="method-c-new-label-Parameters">Parameters</h3>
+      
+        <div id="new-method" class="method-detail ">
+          <a name="method-c-new"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">new</span><span
+              class="method-args">(user, definition)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Constructor. Do not use this directly, use the factory method instead.</p>
+
+<h3>Parameters</h3>
 <ul><li>
-<p><code>user</code> - The user this consumer will run as.</p>
+<p><tt>user</tt> - The user this consumer will run as.</p>
 </li><li>
-<p><code>definition</code> - CSDL string or a <a
+<p><tt>definition</tt> - CSDL string or a <a
 href="Definition.html">Definition</a> object.</p>
 </li></ul>
-          
+            
 
-          
-          <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/stream_consumer.rb, line 41</span>
+            
+            <div class="method-source-code" id="new-source">
+<pre>
+<span class="ruby-comment"># File lib/DataSift/stream_consumer.rb, line 41</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">user</span>, <span class="ruby-identifier">definition</span>)
         <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'Please supply a valid User object when creating a Definition object.'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">DataSift</span><span class="ruby-operator">::</span><span class="ruby-constant">User</span>
 
@@ -703,30 +396,390 @@ href="Definition.html">Definition</a> object.</p>
         <span class="ruby-ivar">@auto_reconnect</span> = <span class="ruby-keyword">true</span>
         <span class="ruby-ivar">@stop_reason</span> = <span class="ruby-string">'Unknown reason'</span>
         <span class="ruby-ivar">@state</span> = <span class="ruby-constant">STATE_STOPPED</span>
+        <span class="ruby-ivar">@stream_timeout</span> = <span class="ruby-value">65</span>
 
         <span class="ruby-comment"># Get the hash which will compile the CSDL if necessary</span>
         <span class="ruby-ivar">@definition</span>.<span class="ruby-identifier">hash</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- new-source -->
+            </div><!-- new-source -->
+            
+          </div>
+
           
-        </div>
 
-        
+          
+        </div><!-- new-method -->
 
-        
-      </div><!-- new-method -->
-
+      
+      </div><!-- public-class-method-details -->
     
-    </section><!-- public-class-method-details -->
+      <div id="public-instance-method-details" class="method-section section">
+        <h3 class="section-header">Public Instance Methods</h3>
+
+      
+        <div id="consume-method" class="method-detail ">
+          <a name="method-i-consume"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">consume</span><span
+              class="method-args">(auto_reconnect = true, &block)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Once an instance of a <a href="StreamConsumer.html">StreamConsumer</a> is
+ready for use, call this to start consuming. Extending classes should
+implement onStart to handle actually starting.</p>
+
+<h3>Parameters</h3>
+<ul><li>
+<p><tt>auto_reconnect</tt> - Whether the consumer should automatically
+reconnect.</p>
+</li><li>
+<p><tt>block</tt> - An optional block to receive incoming interactions.</p>
+</li></ul>
+            
+
+            
+            <div class="method-source-code" id="consume-source">
+<pre>
+<span class="ruby-comment"># File lib/DataSift/stream_consumer.rb, line 116</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">consume</span>(<span class="ruby-identifier">auto_reconnect</span> = <span class="ruby-keyword">true</span>, &amp;<span class="ruby-identifier">block</span>)
+        <span class="ruby-ivar">@auto_reconnect</span> = <span class="ruby-identifier">auto_reconnect</span>;
+
+        <span class="ruby-comment"># Start consuming</span>
+        <span class="ruby-ivar">@state</span> = <span class="ruby-constant">STATE_STARTING</span>
+        <span class="ruby-identifier">onStart</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">interaction</span><span class="ruby-operator">|</span>
+                <span class="ruby-keyword">if</span> <span class="ruby-identifier">interaction</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'status'</span>)
+                        <span class="ruby-keyword">if</span> <span class="ruby-identifier">interaction</span>[<span class="ruby-string">'status'</span>] <span class="ruby-operator">==</span> <span class="ruby-string">'error'</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">interaction</span>[<span class="ruby-string">'status'</span>] <span class="ruby-operator">==</span> <span class="ruby-string">'failure'</span>
+                                <span class="ruby-identifier">onError</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">interaction</span>[<span class="ruby-string">'message'</span>])
+                        <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">interaction</span>[<span class="ruby-string">'status'</span>] <span class="ruby-operator">==</span> <span class="ruby-string">'warning'</span>
+                                <span class="ruby-identifier">onWarning</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">interaction</span>[<span class="ruby-string">'message'</span>])
+                        <span class="ruby-keyword">else</span>
+                                <span class="ruby-comment"># Tick</span>
+                        <span class="ruby-keyword">end</span>
+                <span class="ruby-keyword">else</span>
+                        <span class="ruby-keyword">if</span> <span class="ruby-identifier">interaction</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'deleted'</span>) <span class="ruby-keyword">and</span> <span class="ruby-identifier">interaction</span>[<span class="ruby-string">'deleted'</span>]
+                                <span class="ruby-identifier">onDeleted</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">interaction</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">onDeleted</span>.<span class="ruby-identifier">nil?</span>
+                        <span class="ruby-keyword">else</span>
+                                <span class="ruby-identifier">block</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">interaction</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">block</span>.<span class="ruby-identifier">nil?</span>
+                        <span class="ruby-keyword">end</span>
+                <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- consume-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- consume-method -->
+
+      
+        <div id="onDeleted-method" class="method-detail ">
+          <a name="method-i-onDeleted"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">onDeleted</span><span
+              class="method-args">(&block)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Called when a deletion notification is received.</p>
+
+<h3>Parameters</h3>
+<ul><li>
+<p><tt>interaction</tt> - Minimal details about the interaction that was
+deleted.</p>
+</li></ul>
+            
+
+            
+            <div class="method-source-code" id="onDeleted-source">
+<pre>
+<span class="ruby-comment"># File lib/DataSift/stream_consumer.rb, line 65</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">onDeleted</span>(&amp;<span class="ruby-identifier">block</span>)
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">block_given?</span>
+                <span class="ruby-ivar">@on_deleted</span> = <span class="ruby-identifier">block</span>
+                <span class="ruby-keyword">self</span>
+        <span class="ruby-keyword">else</span>
+                <span class="ruby-ivar">@on_deleted</span>
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- onDeleted-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- onDeleted-method -->
+
+      
+        <div id="onError-method" class="method-detail ">
+          <a name="method-i-onError"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">onError</span><span
+              class="method-args">(&block)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>This is called when an error message is received.</p>
+
+<h3>Parameters</h3>
+<ul><li>
+<p><tt>message</tt> - The error message.</p>
+</li></ul>
+            
+
+            
+            <div class="method-source-code" id="onError-source">
+<pre>
+<span class="ruby-comment"># File lib/DataSift/stream_consumer.rb, line 77</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">onError</span>(&amp;<span class="ruby-identifier">block</span>)
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">block_given?</span>
+                <span class="ruby-ivar">@on_error</span> = <span class="ruby-identifier">block</span>
+                <span class="ruby-keyword">self</span>
+        <span class="ruby-keyword">else</span>
+                <span class="ruby-ivar">@on_error</span>
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- onError-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- onError-method -->
+
+      
+        <div id="onStart-method" class="method-detail ">
+          <a name="method-i-onStart"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">onStart</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Called when the consumer should start consuming the stream.</p>
+            
+
+            
+            <div class="method-source-code" id="onStart-source">
+<pre>
+<span class="ruby-comment"># File lib/DataSift/stream_consumer.rb, line 141</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">onStart</span>()
+        <span class="ruby-identifier">abort</span>(<span class="ruby-string">'onStart method has not been overridden!'</span>)
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- onStart-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- onStart-method -->
+
+      
+        <div id="onStop-method" class="method-detail ">
+          <a name="method-i-onStop"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">onStop</span><span
+              class="method-args">(reason = '')</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Default implementation of onStop. It’s unlikely that this method will ever
+be used in isolation, but rather it should be called as the final step in
+the extending class’s implementation.</p>
+
+<h3>Parameters</h3>
+<ul><li>
+<p><tt>reason</tt> - The reason why the consumer stopped.</p>
+</li></ul>
+            
+
+            
+            <div class="method-source-code" id="onStop-source">
+<pre>
+<span class="ruby-comment"># File lib/DataSift/stream_consumer.rb, line 159</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">onStop</span>(<span class="ruby-identifier">reason</span> = <span class="ruby-string">''</span>)
+        <span class="ruby-identifier">reason</span> = <span class="ruby-string">'Unexpected'</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@state</span> <span class="ruby-operator">!=</span> <span class="ruby-constant">StreamConsumer</span><span class="ruby-operator">::</span><span class="ruby-constant">STATE_STOPPING</span> <span class="ruby-keyword">and</span> <span class="ruby-identifier">reason</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+        <span class="ruby-ivar">@state</span> = <span class="ruby-constant">StreamConsumer</span><span class="ruby-operator">::</span><span class="ruby-constant">STATE_STOPPED</span>
+        <span class="ruby-ivar">@stop_reason</span> = <span class="ruby-identifier">reason</span>
+        <span class="ruby-identifier">onStopped</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">reason</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">onStopped</span>.<span class="ruby-identifier">nil?</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- onStop-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- onStop-method -->
+
+      
+        <div id="onStopped-method" class="method-detail ">
+          <a name="method-i-onStopped"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">onStopped</span><span
+              class="method-args">(&block)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>This is called when the consumer is stopped.</p>
+
+<h3>Parameters</h3>
+<ul><li>
+<p><tt>reason</tt> - The reason why the consumer stopped.</p>
+</li></ul>
+            
+
+            
+            <div class="method-source-code" id="onStopped-source">
+<pre>
+<span class="ruby-comment"># File lib/DataSift/stream_consumer.rb, line 101</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">onStopped</span>(&amp;<span class="ruby-identifier">block</span>)
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">block_given?</span>
+                <span class="ruby-ivar">@on_stopped</span> = <span class="ruby-identifier">block</span>
+                <span class="ruby-keyword">self</span>
+        <span class="ruby-keyword">else</span>
+                <span class="ruby-ivar">@on_stopped</span>
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- onStopped-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- onStopped-method -->
+
+      
+        <div id="onWarning-method" class="method-detail ">
+          <a name="method-i-onWarning"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">onWarning</span><span
+              class="method-args">(&block)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>This is called when an error message is received.</p>
+
+<h3>Parameters</h3>
+<ul><li>
+<p><tt>message</tt> - The error message.</p>
+</li></ul>
+            
+
+            
+            <div class="method-source-code" id="onWarning-source">
+<pre>
+<span class="ruby-comment"># File lib/DataSift/stream_consumer.rb, line 89</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">onWarning</span>(&amp;<span class="ruby-identifier">block</span>)
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">block_given?</span>
+                <span class="ruby-ivar">@on_warning</span> = <span class="ruby-identifier">block</span>
+                <span class="ruby-keyword">self</span>
+        <span class="ruby-keyword">else</span>
+                <span class="ruby-ivar">@on_warning</span>
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- onWarning-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- onWarning-method -->
+
+      
+        <div id="stop-method" class="method-detail ">
+          <a name="method-i-stop"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">stop</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>This method can be called at any time to <b>request</b> that the consumer
+stop consuming. This method sets the state to <a
+href="StreamConsumer.html#STATE_STOPPING">STATE_STOPPING</a> and it’s up to
+the consumer implementation to notice that this has changed, stop consuming
+and call the onStopped method.</p>
+            
+
+            
+            <div class="method-source-code" id="stop-source">
+<pre>
+<span class="ruby-comment"># File lib/DataSift/stream_consumer.rb, line 149</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">stop</span>()
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'Consumer state must be RUNNING before it can be stopped'</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@state</span> = <span class="ruby-constant">StreamConsumer</span><span class="ruby-operator">::</span><span class="ruby-constant">STATE_RUNNING</span>
+        <span class="ruby-ivar">@state</span> = <span class="ruby-constant">StreamConsumer</span><span class="ruby-operator">::</span><span class="ruby-constant">STATE_STOPPING</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- stop-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- stop-method -->
+
+      
+      </div><!-- public-instance-method-details -->
+    
+    </div><!-- 5Buntitled-5D -->
   
-  </section><!-- 5Buntitled-5D -->
 
-</div><!-- documentation -->
+  </div><!-- documentation -->
 
+  <div id="validator-badges">
+    <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+    <p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+      Rdoc Generator</a> 2</small>.</p>
+  </div>
 
-<footer id="validator-badges">
-  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
-  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.
-  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
-</footer>
+</body>
+</html>
 

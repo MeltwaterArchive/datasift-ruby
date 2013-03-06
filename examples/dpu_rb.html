@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+
+  <title>File: dpu.rb [DataSift Ruby Client Library]</title>
+
+  <link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet" />
+
+  <script src="../js/jquery.js" type="text/javascript"
+    charset="utf-8"></script>
+  <script src="../js/thickbox-compressed.js" type="text/javascript"
+    charset="utf-8"></script>
+  <script src="../js/quicksearch.js" type="text/javascript"
+    charset="utf-8"></script>
+  <script src="../js/darkfish.js" type="text/javascript"
+    charset="utf-8"></script>
+</head>
+
+<body class="file file-popup">
+  <div id="metadata">
+    <dl>
+      <dt class="modified-date">Last Modified</dt>
+      <dd class="modified-date">2013-03-06 13:58:33 +0000</dd>
+
+      
+      <dt class="requires">Requires</dt>
+      <dd class="requires">
+        <ul>
+        
+          <li>./</li>
+        
+          <li>yaml</li>
+        
+        </ul>
+      </dd>
+      
+
+      
+    </dl>
+  </div>
+
+  <div id="documentation">
+    
+    <div class="description">
+      <h2>Description</h2>
+      
+<p>This example gets the DPU associated with the stream given on the command
+line or piped/typed into STDIN. It  presents it in a nice ASCII table.]
+Note that the CSDL must be enclosed in quotes if given on the command line.</p>
+
+<p>ruby dpu.rb ‘interaction.content contains “football”’</p>
+
+<pre>or</pre>
+
+<p>cat football.csdl | ruby dpu.rb</p>
+
+<p>NB: Most of the error handling (exception catching) has been removed for
+the sake of simplicity. Nearly everything in this library may throw
+exceptions, and production code should catch them. See the documentation
+for full details.</p>
+
+    </div>
+    
+  </div>
+</body>
+</html>
+

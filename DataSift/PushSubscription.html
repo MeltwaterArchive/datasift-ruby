@@ -1,855 +1,542 @@
-<!DOCTYPE html>
-
-<html>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
 
-<title>class DataSift::PushSubscription - DataSift Ruby Client Library</title>
+  <title>Class: DataSift::PushSubscription</title>
 
-<link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
+  <link rel="stylesheet" href="../rdoc.css" type="text/css" media="screen" />
 
-<script type="text/javascript">
-  var rdoc_rel_prefix = "../";
-</script>
+  <script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../js/thickbox-compressed.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../js/quicksearch.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../js/darkfish.js" type="text/javascript" charset="utf-8"></script>
 
-<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
-<script type="text/javascript" charset="utf-8" src="../js/navigation.js"></script>
-<script type="text/javascript" charset="utf-8" src="../js/search_index.js"></script>
-<script type="text/javascript" charset="utf-8" src="../js/search.js"></script>
-<script type="text/javascript" charset="utf-8" src="../js/searcher.js"></script>
-<script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
-
-
+</head>
 <body id="top" class="class">
-<nav id="metadata">
-  <nav id="home-section" class="section">
-  <h3 class="section-header">
-    <a href="../index.html">Home</a>
-    <a href="../table_of_contents.html#classes">Classes</a>
-    <a href="../table_of_contents.html#methods">Methods</a>
-  </h3>
-</nav>
 
+  <div id="metadata">
+    <div id="home-metadata">
+      <div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="../index.html">Home</a>
+          <a href="../index.html#classes">Classes</a>
+          <a href="../index.html#methods">Methods</a>
+        </h3>
+      </div>
+    </div>
 
-  <nav id="search-section" class="section project-section" class="initially-hidden">
-  <form action="#" method="get" accept-charset="utf-8">
-    <h3 class="section-header">
-      <input type="text" name="search" placeholder="Search" id="search-field"
-             title="Type to search, Up and Down to navigate, Enter to load">
-    </h3>
-  </form>
+    <div id="file-metadata">
+      <div id="file-list-section" class="section">
+        <h3 class="section-header">In Files</h3>
+        <div class="section-body">
+          <ul>
+          
+            <li><a href="../lib/DataSift/push_subscription_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="lib/DataSift/push_subscription.rb">lib/DataSift/push_subscription.rb</a></li>
+          
+          </ul>
+        </div>
+      </div>
 
-  <ul id="search-results" class="initially-hidden"></ul>
-</nav>
+      
+    </div>
 
+    <div id="class-metadata">
+      
+      <!-- Parent Class -->
+      <div id="parent-class-section" class="section">
+        <h3 class="section-header">Parent</h3>
+        
+        <p class="link"><a href="PushDefinition.html">DataSift::PushDefinition</a></p>
+        
+      </div>
+      
 
-  <div id="file-metadata">
-    <nav id="file-list-section" class="section">
-  <h3 class="section-header">Defined In</h3>
-  <ul>
-    <li>lib/DataSift/push_subscription.rb
-  </ul>
-</nav>
+      
 
-    
+      
+
+      
+      <!-- Method Quickref -->
+      <div id="method-list-section" class="section">
+        <h3 class="section-header">Methods</h3>
+        <ul class="link-list">
+          
+          <li><a href="#method-c-get">::get</a></li>
+          
+          <li><a href="#method-c-getLogs">::getLogs</a></li>
+          
+          <li><a href="#method-c-list">::list</a></li>
+          
+          <li><a href="#method-c-listByPlaybackId">::listByPlaybackId</a></li>
+          
+          <li><a href="#method-c-listByStreamHash">::listByStreamHash</a></li>
+          
+          <li><a href="#method-c-new">::new</a></li>
+          
+          <li><a href="#method-i-delete">#delete</a></li>
+          
+          <li><a href="#method-i-getLog">#getLog</a></li>
+          
+          <li><a href="#method-i-init">#init</a></li>
+          
+          <li><a href="#method-i-name-3D">#name=</a></li>
+          
+          <li><a href="#method-i-pause">#pause</a></li>
+          
+          <li><a href="#method-i-reload">#reload</a></li>
+          
+          <li><a href="#method-i-resume">#resume</a></li>
+          
+          <li><a href="#method-i-save">#save</a></li>
+          
+          <li><a href="#method-i-stop">#stop</a></li>
+          
+        </ul>
+      </div>
+      
+
+      
+    </div>
+
+    <div id="project-metadata">
+      
+      
+      <div id="fileindex-section" class="section project-section">
+        <h3 class="section-header">Files</h3>
+        <ul>
+        
+          <li class="file"><a href="../Gemfile.html">Gemfile</a></li>
+        
+          <li class="file"><a href="../LICENSE.html">LICENSE</a></li>
+        
+          <li class="file"><a href="../Rakefile.html">Rakefile</a></li>
+        
+          <li class="file"><a href="../VERSION.html">VERSION</a></li>
+        
+        </ul>
+      </div>
+      
+
+      <div id="classindex-section" class="section project-section">
+        <h3 class="section-header">Class/Module Index
+          <span class="search-toggle"><img src="../images/find.png"
+            height="16" width="16" alt="[+]"
+            title="show/hide quicksearch" /></span></h3>
+        <form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+        <fieldset>
+          <legend>Quicksearch</legend>
+          <input type="text" name="quicksearch" value=""
+            class="quicksearch-field" />
+        </fieldset>
+        </form>
+
+        <ul class="link-list">
+        
+          <li><a href="../DataSift.html">DataSift</a></li>
+        
+          <li><a href="../DataSift/APIError.html">DataSift::APIError</a></li>
+        
+          <li><a href="../DataSift/AccessDeniedError.html">DataSift::AccessDeniedError</a></li>
+        
+          <li><a href="../DataSift/ApiClient.html">DataSift::ApiClient</a></li>
+        
+          <li><a href="../DataSift/CompileFailedError.html">DataSift::CompileFailedError</a></li>
+        
+          <li><a href="../DataSift/DataSiftError.html">DataSift::DataSiftError</a></li>
+        
+          <li><a href="../DataSift/Definition.html">DataSift::Definition</a></li>
+        
+          <li><a href="../DataSift/Historic.html">DataSift::Historic</a></li>
+        
+          <li><a href="../DataSift/InvalidDataError.html">DataSift::InvalidDataError</a></li>
+        
+          <li><a href="../DataSift/MockApiClient.html">DataSift::MockApiClient</a></li>
+        
+          <li><a href="../DataSift/PushDefinition.html">DataSift::PushDefinition</a></li>
+        
+          <li><a href="../DataSift/PushSubscription.html">DataSift::PushSubscription</a></li>
+        
+          <li><a href="../DataSift/RateLimitExceededError.html">DataSift::RateLimitExceededError</a></li>
+        
+          <li><a href="../DataSift/StreamConsumer.html">DataSift::StreamConsumer</a></li>
+        
+          <li><a href="../DataSift/StreamConsumer_HTTP.html">DataSift::StreamConsumer_HTTP</a></li>
+        
+          <li><a href="../DataSift/StreamError.html">DataSift::StreamError</a></li>
+        
+          <li><a href="../DataSift/User.html">DataSift::User</a></li>
+        
+          <li><a href="../Test.html">Test</a></li>
+        
+          <li><a href="../Test/Unit.html">Test::Unit</a></li>
+        
+          <li><a href="../Test/Unit/TestCase.html">Test::Unit::TestCase</a></li>
+        
+          <li><a href="../Env.html">Env</a></li>
+        
+          <li><a href="../Object.html">Object</a></li>
+        
+          <li><a href="../TestDefinition.html">TestDefinition</a></li>
+        
+          <li><a href="../TestHistorics.html">TestHistorics</a></li>
+        
+          <li><a href="../TestPushDefinition.html">TestPushDefinition</a></li>
+        
+          <li><a href="../TestPushSubscription.html">TestPushSubscription</a></li>
+        
+          <li><a href="../TestUser.html">TestUser</a></li>
+        
+        </ul>
+        <div id="no-class-search-results" style="display: none;">No matching classes.</div>
+      </div>
+
+      
+    </div>
   </div>
 
-  <div id="class-metadata">
-    
-    <nav id="parent-class-section" class="section">
-  <h3 class="section-header">Parent</h3>
-  
-  <p class="link"><a href="PushDefinition.html">DataSift::PushDefinition</a>
-  
-</nav>
+  <div id="documentation">
+    <h1 class="class">DataSift::PushSubscription</h1>
 
-    
-    <!-- Method Quickref -->
-<nav id="method-list-section" class="section">
-  <h3 class="section-header">Methods</h3>
-
-  <ul class="link-list">
-    
-    <li><a href="#method-c-get">::get</a>
-    
-    <li><a href="#method-c-getLogs">::getLogs</a>
-    
-    <li><a href="#method-c-list">::list</a>
-    
-    <li><a href="#method-c-listByPlaybackId">::listByPlaybackId</a>
-    
-    <li><a href="#method-c-listByStreamHash">::listByStreamHash</a>
-    
-    <li><a href="#method-c-new">::new</a>
-    
-    <li><a href="#method-i-delete">#delete</a>
-    
-    <li><a href="#method-i-getLog">#getLog</a>
-    
-    <li><a href="#method-i-init">#init</a>
-    
-    <li><a href="#method-i-name-3D">#name=</a>
-    
-    <li><a href="#method-i-pause">#pause</a>
-    
-    <li><a href="#method-i-reload">#reload</a>
-    
-    <li><a href="#method-i-resume">#resume</a>
-    
-    <li><a href="#method-i-save">#save</a>
-    
-    <li><a href="#method-i-stop">#stop</a>
-    
-  </ul>
-</nav>
-
-  </div>
-
-  <div id="project-metadata">
-    <nav id="fileindex-section" class="section project-section">
-  <h3 class="section-header">Pages</h3>
-
-  <ul>
-  
-    <li class="file"><a href="../Gemfile.html">Gemfile</a>
-  
-    <li class="file"><a href="../LICENSE.html">LICENSE</a>
-  
-    <li class="file"><a href="../Rakefile.html">Rakefile</a>
-  
-    <li class="file"><a href="../VERSION.html">VERSION</a>
-  
-  </ul>
-</nav>
-
-    <nav id="classindex-section" class="section project-section">
-  <h3 class="section-header">Class and Module Index</h3>
-
-  <ul class="link-list">
-  
-    <li><a href="../DataSift.html">DataSift</a>
-  
-    <li><a href="../DataSift/APIError.html">DataSift::APIError</a>
-  
-    <li><a href="../DataSift/AccessDeniedError.html">DataSift::AccessDeniedError</a>
-  
-    <li><a href="../DataSift/ApiClient.html">DataSift::ApiClient</a>
-  
-    <li><a href="../DataSift/CompileFailedError.html">DataSift::CompileFailedError</a>
-  
-    <li><a href="../DataSift/DataSiftError.html">DataSift::DataSiftError</a>
-  
-    <li><a href="../DataSift/Definition.html">DataSift::Definition</a>
-  
-    <li><a href="../DataSift/Historic.html">DataSift::Historic</a>
-  
-    <li><a href="../DataSift/InvalidDataError.html">DataSift::InvalidDataError</a>
-  
-    <li><a href="../DataSift/MockApiClient.html">DataSift::MockApiClient</a>
-  
-    <li><a href="../DataSift/PushDefinition.html">DataSift::PushDefinition</a>
-  
-    <li><a href="../DataSift/PushSubscription.html">DataSift::PushSubscription</a>
-  
-    <li><a href="../DataSift/RateLimitExceededError.html">DataSift::RateLimitExceededError</a>
-  
-    <li><a href="../DataSift/StreamConsumer.html">DataSift::StreamConsumer</a>
-  
-    <li><a href="../DataSift/StreamConsumer_HTTP.html">DataSift::StreamConsumer_HTTP</a>
-  
-    <li><a href="../DataSift/StreamError.html">DataSift::StreamError</a>
-  
-    <li><a href="../DataSift/User.html">DataSift::User</a>
-  
-    <li><a href="../Test.html">Test</a>
-  
-    <li><a href="../Test/Unit.html">Test::Unit</a>
-  
-    <li><a href="../Test/Unit/TestCase.html">Test::Unit::TestCase</a>
-  
-    <li><a href="../Env.html">Env</a>
-  
-    <li><a href="../Object.html">Object</a>
-  
-    <li><a href="../TestDefinition.html">TestDefinition</a>
-  
-    <li><a href="../TestHistorics.html">TestHistorics</a>
-  
-    <li><a href="../TestPushDefinition.html">TestPushDefinition</a>
-  
-    <li><a href="../TestPushSubscription.html">TestPushSubscription</a>
-  
-    <li><a href="../TestUser.html">TestUser</a>
-  
-  </ul>
-</nav>
-
-  </div>
-</nav>
-
-<div id="documentation">
-  <h1 class="class">class DataSift::PushSubscription</h1>
-
-  <div id="description" class="description">
-    
+    <div id="description" class="description">
+      
 <p>The <a href="PushSubscription.html">PushSubscription</a> class represents a
 stream definition.</p>
 
-  </div><!-- description -->
-
-  
-  
-  
-  <section id="5Buntitled-5D" class="documentation-section">
-    
+    </div><!-- description -->
 
     
-
     
-    <!-- Constants -->
-    <section id="constants-list" class="section">
-      <h3 class="section-header">Constants</h3>
-      <dl>
-      
-        <dt id="HASH_TYPE_HISTORIC">HASH_TYPE_HISTORIC
-        
-        <dd class="description"><p>Constant for the historic hash type.</p>
-        
-      
-        <dt id="HASH_TYPE_STREAM">HASH_TYPE_STREAM
-        
-        <dd class="description"><p>Constant for the stream hash type.</p>
-        
-      
-        <dt id="ORDERBY_CREATED_AT">ORDERBY_CREATED_AT
-        
-        <dd class="description"><p>Constant for the order by <a
-href="PushSubscription.html#attribute-i-created_at">#created_at</a> option.</p>
-        
-      
-        <dt id="ORDERBY_ID">ORDERBY_ID
-        
-        <dd class="description"><p>Constant for the order by ID option.</p>
-        
-      
-        <dt id="ORDERBY_REQUEST_TIME">ORDERBY_REQUEST_TIME
-        
-        <dd class="description"><p>Constant for the order by request_time option.</p>
-        
-      
-        <dt id="ORDERDIR_ASC">ORDERDIR_ASC
-        
-        <dd class="description"><p>Constant for ascending order option.</p>
-        
-      
-        <dt id="ORDERDIR_DESC">ORDERDIR_DESC
-        
-        <dd class="description"><p>Constnat for the descending order option.</p>
-        
-      
-        <dt id="STATUS_ACTIVE">STATUS_ACTIVE
-        
-        <dd class="description"><p>Constant for the “active” status.</p>
-        
-      
-        <dt id="STATUS_DELETED">STATUS_DELETED
-        
-        <dd class="description"><p>Constant for the “deleted” status.</p>
-        
-      
-        <dt id="STATUS_FAILED">STATUS_FAILED
-        
-        <dd class="description"><p>Constant for the “failed” status.</p>
-        
-      
-        <dt id="STATUS_FINISHED">STATUS_FINISHED
-        
-        <dd class="description"><p>Constant for the “finished” status.</p>
-        
-      
-        <dt id="STATUS_FINISHING">STATUS_FINISHING
-        
-        <dd class="description"><p>Constant for the “finishing” status.</p>
-        
-      
-        <dt id="STATUS_PAUSED">STATUS_PAUSED
-        
-        <dd class="description"><p>Constant for the “paused” status.</p>
-        
-      
-        <dt id="STATUS_STOPPED">STATUS_STOPPED
-        
-        <dd class="description"><p>Constant for the “stopped” status.</p>
-        
-      
-      </dl>
-    </section>
     
-
-    
-    <!-- Attributes -->
-    <section id="attribute-method-details" class="method-section section">
-      <h3 class="section-header">Attributes</h3>
+    <div id="5Buntitled-5D" class="documentation-section">
+      
 
       
-      <div id="attribute-i-created_at" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">created_at</span><span
-            class="attribute-access-type">[R]</span>
-        </div>
 
-        <div class="method-description">
+      
+      <!-- Constants -->
+      <div id="constants-list" class="section">
+        <h3 class="section-header">Constants</h3>
+        <dl>
         
-        <p>The date/time when this subscription was created.</p>
+          <dt><a name="HASH_TYPE_HISTORIC">HASH_TYPE_HISTORIC</a></dt>
+          
+          <dd class="description"><p>Constant for the historic hash type.</p></dd>
+          
         
-        </div>
+          <dt><a name="HASH_TYPE_STREAM">HASH_TYPE_STREAM</a></dt>
+          
+          <dd class="description"><p>Constant for the stream hash type.</p></dd>
+          
+        
+          <dt><a name="ORDERBY_CREATED_AT">ORDERBY_CREATED_AT</a></dt>
+          
+          <dd class="description"><p>Constant for the order by <a
+href="PushSubscription.html#attribute-i-created_at">created_at</a> option.</p></dd>
+          
+        
+          <dt><a name="ORDERBY_ID">ORDERBY_ID</a></dt>
+          
+          <dd class="description"><p>Constant for the order by ID option.</p></dd>
+          
+        
+          <dt><a name="ORDERBY_REQUEST_TIME">ORDERBY_REQUEST_TIME</a></dt>
+          
+          <dd class="description"><p>Constant for the order by request_time option.</p></dd>
+          
+        
+          <dt><a name="ORDERDIR_ASC">ORDERDIR_ASC</a></dt>
+          
+          <dd class="description"><p>Constant for ascending order option.</p></dd>
+          
+        
+          <dt><a name="ORDERDIR_DESC">ORDERDIR_DESC</a></dt>
+          
+          <dd class="description"><p>Constnat for the descending order option.</p></dd>
+          
+        
+          <dt><a name="STATUS_ACTIVE">STATUS_ACTIVE</a></dt>
+          
+          <dd class="description"><p>Constant for the “active” status.</p></dd>
+          
+        
+          <dt><a name="STATUS_DELETED">STATUS_DELETED</a></dt>
+          
+          <dd class="description"><p>Constant for the “deleted” status.</p></dd>
+          
+        
+          <dt><a name="STATUS_FAILED">STATUS_FAILED</a></dt>
+          
+          <dd class="description"><p>Constant for the “failed” status.</p></dd>
+          
+        
+          <dt><a name="STATUS_FINISHED">STATUS_FINISHED</a></dt>
+          
+          <dd class="description"><p>Constant for the “finished” status.</p></dd>
+          
+        
+          <dt><a name="STATUS_FINISHING">STATUS_FINISHING</a></dt>
+          
+          <dd class="description"><p>Constant for the “finishing” status.</p></dd>
+          
+        
+          <dt><a name="STATUS_PAUSED">STATUS_PAUSED</a></dt>
+          
+          <dd class="description"><p>Constant for the “paused” status.</p></dd>
+          
+        
+          <dt><a name="STATUS_STOPPED">STATUS_STOPPED</a></dt>
+          
+          <dd class="description"><p>Constant for the “stopped” status.</p></dd>
+          
+        
+        </dl>
       </div>
       
-      <div id="attribute-i-hash" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">hash</span><span
-            class="attribute-access-type">[R]</span>
-        </div>
 
-        <div class="method-description">
+      
+      <!-- Attributes -->
+      <div id="attribute-method-details" class="method-section section">
+        <h3 class="section-header">Attributes</h3>
+
         
-        <p>The stream hash or Historics query playback_id to which this subscription
+        <div id="created_at-attribute-method" class="method-detail">
+          <a name="created_at"></a>
+          
+          <div class="method-heading attribute-method-heading">
+            <span class="method-name">created_at</span><span
+              class="attribute-access-type">[R]</span>
+          </div>
+
+          <div class="method-description">
+          
+          <p>The date/time when this subscription was created.</p>
+          
+          </div>
+        </div>
+        
+        <div id="hash-attribute-method" class="method-detail">
+          <a name="hash"></a>
+          
+          <div class="method-heading attribute-method-heading">
+            <span class="method-name">hash</span><span
+              class="attribute-access-type">[R]</span>
+          </div>
+
+          <div class="method-description">
+          
+          <p>The stream hash or Historics query playback_id to which this subscription
 is subscribed.</p>
+          
+          </div>
+        </div>
         
-        </div>
-      </div>
-      
-      <div id="attribute-i-hash_type" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">hash_type</span><span
-            class="attribute-access-type">[R]</span>
-        </div>
+        <div id="hash_type-attribute-method" class="method-detail">
+          <a name="hash_type"></a>
+          
+          <div class="method-heading attribute-method-heading">
+            <span class="method-name">hash_type</span><span
+              class="attribute-access-type">[R]</span>
+          </div>
 
-        <div class="method-description">
-        
-        <p>The type of hash that hash is, ‘stream’ or ‘historic’.</p>
-        
+          <div class="method-description">
+          
+          <p>The type of hash that hash is, ‘stream’ or ‘historic’.</p>
+          
+          </div>
         </div>
-      </div>
-      
-      <div id="attribute-i-id" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">id</span><span
-            class="attribute-access-type">[R]</span>
-        </div>
+        
+        <div id="id-attribute-method" class="method-detail">
+          <a name="id"></a>
+          
+          <div class="method-heading attribute-method-heading">
+            <span class="method-name">id</span><span
+              class="attribute-access-type">[R]</span>
+          </div>
 
-        <div class="method-description">
-        
-        <p>The ID of this subscription.</p>
-        
+          <div class="method-description">
+          
+          <p>The ID of this subscription.</p>
+          
+          </div>
         </div>
-      </div>
-      
-      <div id="attribute-i-is_deleted" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">is_deleted</span><span
-            class="attribute-access-type">[R]</span>
-        </div>
+        
+        <div id="is_deleted-attribute-method" class="method-detail">
+          <a name="is_deleted"></a>
+          
+          <div class="method-heading attribute-method-heading">
+            <span class="method-name">is_deleted</span><span
+              class="attribute-access-type">[R]</span>
+          </div>
 
-        <div class="method-description">
-        
-        <p>Whether this Push subscription has been deleted.</p>
-        
+          <div class="method-description">
+          
+          <p>Whether this Push subscription has been deleted.</p>
+          
+          </div>
         </div>
-      </div>
-      
-      <div id="attribute-i-last_request" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">last_request</span><span
-            class="attribute-access-type">[R]</span>
-        </div>
+        
+        <div id="last_request-attribute-method" class="method-detail">
+          <a name="last_request"></a>
+          
+          <div class="method-heading attribute-method-heading">
+            <span class="method-name">last_request</span><span
+              class="attribute-access-type">[R]</span>
+          </div>
 
-        <div class="method-description">
-        
-        <p>The date/time of the last time the subscription tried to push data to the
+          <div class="method-description">
+          
+          <p>The date/time of the last time the subscription tried to push data to the
 endpoint, or null if it never has.</p>
+          
+          </div>
+        </div>
         
-        </div>
-      </div>
-      
-      <div id="attribute-i-last_success" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">last_success</span><span
-            class="attribute-access-type">[R]</span>
-        </div>
+        <div id="last_success-attribute-method" class="method-detail">
+          <a name="last_success"></a>
+          
+          <div class="method-heading attribute-method-heading">
+            <span class="method-name">last_success</span><span
+              class="attribute-access-type">[R]</span>
+          </div>
 
-        <div class="method-description">
-        
-        <p>The date/time of the last time the endpoint successfully accepted data from
+          <div class="method-description">
+          
+          <p>The date/time of the last time the endpoint successfully accepted data from
 the subscription, or null if it never has.</p>
-        
+          
+          </div>
         </div>
-      </div>
+        
+        <div id="name-attribute-method" class="method-detail">
+          <a name="name"></a>
+          
+          <div class="method-heading attribute-method-heading">
+            <span class="method-name">name</span><span
+              class="attribute-access-type">[R]</span>
+          </div>
+
+          <div class="method-description">
+          
+          <p>The friendly name of this subscription.</p>
+          
+          </div>
+        </div>
+        
+        <div id="status-attribute-method" class="method-detail">
+          <a name="status"></a>
+          
+          <div class="method-heading attribute-method-heading">
+            <span class="method-name">status</span><span
+              class="attribute-access-type">[R]</span>
+          </div>
+
+          <div class="method-description">
+          
+          <p>The current status of this subscription.</p>
+          
+          </div>
+        </div>
+        
+      </div><!-- attribute-method-details -->
       
-      <div id="attribute-i-name" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">name</span><span
-            class="attribute-access-type">[R]</span>
-        </div>
 
-        <div class="method-description">
-        
-        <p>The friendly name of this subscription.</p>
-        
-        </div>
-      </div>
+      <!-- Methods -->
       
-      <div id="attribute-i-status" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">status</span><span
-            class="attribute-access-type">[R]</span>
-        </div>
+      <div id="public-class-method-details" class="method-section section">
+        <h3 class="section-header">Public Class Methods</h3>
 
-        <div class="method-description">
-        
-        <p>The current status of this subscription.</p>
-        
-        </div>
-      </div>
       
-    </section><!-- attribute-method-details -->
-    
-
-    <!-- Methods -->
-    
-     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
-      <h3 class="section-header">Public Instance Methods</h3>
-
-    
-      <div id="method-i-delete" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">delete</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Delete this subscription.</p>
-          
+        <div id="get-method" class="method-detail ">
+          <a name="method-c-get"></a>
 
           
-          <div class="method-source-code" id="delete-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/push_subscription.rb, line 286</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">delete</span>()
-        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'Cannot delete a deleted Push subscription'</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@is_deleted</span>
-        <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">callAPI</span>(<span class="ruby-string">'push/delete'</span>, { <span class="ruby-string">'id'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@id</span> })
-        <span class="ruby-comment"># The delete API call does not return the object, so set the status</span>
-        <span class="ruby-comment"># manually.</span>
-        <span class="ruby-ivar">@status</span> = <span class="ruby-constant">STATUS_DELETED</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- delete-source -->
+          <div class="method-heading">
+            <span class="method-name">get</span><span
+              class="method-args">(user, id)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
           
-        </div>
 
-        
+          <div class="method-description">
+            
+            <p>Get a single Push subscription by ID.</p>
 
-        
-      </div><!-- delete-method -->
-
-    
-      <div id="method-i-getLog" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">getLog</span><span
-            class="method-args">(page = 1, per_page = 20, order_by = ORDERBY_REQUEST_TIME, order_dir = ORDERDIR_DESC)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Get a page of the log for this subscription, ordered as specified.</p>
-
-<h3 id="method-i-getLog-label-Parameters">Parameters</h3>
+<h3>Parameters</h3>
 <ul><li>
-<p><code>page</code> - The page number to get.</p>
-</li><li>
-<p><code>per_page</code> - The number of items per page.</p>
-</li><li>
-<p><code>order_by</code> - The field by which to order the results.</p>
-</li><li>
-<p><code>order_dir</code> - Ascending or descending.</p>
+<p><tt>id</tt> - The subscription ID.</p>
 </li></ul>
 
-<h3 id="method-i-getLog-label-Returns">Returns</h3>
-
-<p>A Hash containing…</p>
-<ul><li>
-<p><code>count</code> - The total number of matching log entries.</p>
-</li><li>
-<p><code>log_entries</code> - An array of Hashes where each Hash is a log
-entry.</p>
-</li></ul>
-          
-
-          
-          <div class="method-source-code" id="getLog-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/push_subscription.rb, line 304</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">getLog</span>(<span class="ruby-identifier">page</span> = <span class="ruby-value">1</span>, <span class="ruby-identifier">per_page</span> = <span class="ruby-value">20</span>, <span class="ruby-identifier">order_by</span> = <span class="ruby-constant">ORDERBY_REQUEST_TIME</span>, <span class="ruby-identifier">order_dir</span> = <span class="ruby-constant">ORDERDIR_DESC</span>)
-        <span class="ruby-keyword">return</span> <span class="ruby-constant">PushSubscription</span>.<span class="ruby-identifier">getLogs</span>(<span class="ruby-ivar">@user</span>, <span class="ruby-identifier">page</span>, <span class="ruby-identifier">per_page</span>, <span class="ruby-identifier">order_by</span>, <span class="ruby-identifier">order_dir</span>, <span class="ruby-ivar">@id</span>)
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- getLog-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- getLog-method -->
-
-    
-      <div id="method-i-init" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">init</span><span
-            class="method-args">(data)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Extract the subscription data from a Hash.</p>
-
-<h3 id="method-i-init-label-Parameters">Parameters</h3>
-<ul><li>
-<p><code>data</code> - The Hash containing the subscription data.</p>
-</li></ul>
-          
-
-          
-          <div class="method-source-code" id="init-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/push_subscription.rb, line 210</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">init</span>(<span class="ruby-identifier">data</span>)
-        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'No id found'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'id'</span>)
-        <span class="ruby-ivar">@id</span> = <span class="ruby-identifier">data</span>[<span class="ruby-string">'id'</span>]
-
-        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'No name found'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'name'</span>)
-        <span class="ruby-ivar">@name</span> = <span class="ruby-identifier">data</span>[<span class="ruby-string">'name'</span>]
-
-        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'No created_at found'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'created_at'</span>)
-        <span class="ruby-ivar">@created_at</span> = <span class="ruby-constant">DateTime</span>.<span class="ruby-identifier">strptime</span>(<span class="ruby-constant">String</span>(<span class="ruby-identifier">data</span>[<span class="ruby-string">'created_at'</span>]), <span class="ruby-string">'%s'</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>[<span class="ruby-string">'created_at'</span>].<span class="ruby-identifier">nil?</span>
-
-        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'No status found'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'status'</span>)
-        <span class="ruby-ivar">@status</span> = <span class="ruby-identifier">data</span>[<span class="ruby-string">'status'</span>]
-
-        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'No hash_type found'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'hash_type'</span>)
-        <span class="ruby-ivar">@hash_type</span> = <span class="ruby-identifier">data</span>[<span class="ruby-string">'hash_type'</span>]
-
-        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'No hash found'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'hash'</span>)
-        <span class="ruby-ivar">@hash</span> = <span class="ruby-identifier">data</span>[<span class="ruby-string">'hash'</span>]
-
-        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'No last_request found'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'last_request'</span>)
-        <span class="ruby-ivar">@last_request</span> = <span class="ruby-constant">DateTime</span>.<span class="ruby-identifier">strptime</span>(<span class="ruby-constant">String</span>(<span class="ruby-identifier">data</span>[<span class="ruby-string">'last_request'</span>]), <span class="ruby-string">'%s'</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>[<span class="ruby-string">'last_request'</span>].<span class="ruby-identifier">nil?</span>
-
-        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'No last_success found'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'last_success'</span>)
-        <span class="ruby-ivar">@last_success</span> = <span class="ruby-constant">DateTime</span>.<span class="ruby-identifier">strptime</span>(<span class="ruby-constant">String</span>(<span class="ruby-identifier">data</span>[<span class="ruby-string">'last_success'</span>]), <span class="ruby-string">'%s'</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>[<span class="ruby-string">'last_success'</span>].<span class="ruby-identifier">nil?</span>
-
-        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'No output_type found'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'output_type'</span>)
-        <span class="ruby-ivar">@output_type</span> = <span class="ruby-identifier">data</span>[<span class="ruby-string">'output_type'</span>]
-
-        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'No output_params found'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'output_params'</span>)
-        <span class="ruby-ivar">@output_params</span> = <span class="ruby-identifier">parseOutputParams</span>(<span class="ruby-identifier">data</span>[<span class="ruby-string">'output_params'</span>])
-
-        <span class="ruby-ivar">@is_deleted</span> = <span class="ruby-keyword">true</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@status</span> <span class="ruby-operator">==</span> <span class="ruby-constant">STATUS_DELETED</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- init-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- init-method -->
-
-    
-      <div id="method-i-name-3D" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">name=</span><span
-            class="method-args">(new_name)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Name setter. Raises an <a href="InvalidDataError.html">InvalidDataError</a>
-if this subscription has been deleted.</p>
-          
-
-          
-          <div class="method-source-code" id="name-3D-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/push_subscription.rb, line 251</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">name=</span>(<span class="ruby-identifier">new_name</span>)
-        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'Cannot set the name of a deleted Push subscription'</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@is_deleted</span>
-        <span class="ruby-ivar">@name</span> = <span class="ruby-identifier">new_name</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- name-3D-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- name-3D-method -->
-
-    
-      <div id="method-i-pause" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">pause</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Pause this subscription.</p>
-          
-
-          
-          <div class="method-source-code" id="pause-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/push_subscription.rb, line 268</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">pause</span>()
-        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'Cannot pause a deleted Push subscription'</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@is_deleted</span>
-        <span class="ruby-identifier">init</span>(<span class="ruby-ivar">@user</span>.<span class="ruby-identifier">callAPI</span>(<span class="ruby-string">'push/pause'</span>, { <span class="ruby-string">'id'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@id</span> }))
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- pause-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- pause-method -->
-
-    
-      <div id="method-i-reload" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">reload</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Reload the data for this subscription from the API.</p>
-          
-
-          
-          <div class="method-source-code" id="reload-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/push_subscription.rb, line 245</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">reload</span>()
-        <span class="ruby-identifier">init</span>(<span class="ruby-ivar">@user</span>.<span class="ruby-identifier">callAPI</span>(<span class="ruby-string">'push/get'</span>, { <span class="ruby-string">'id'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@id</span> }))
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- reload-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- reload-method -->
-
-    
-      <div id="method-i-resume" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">resume</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Resume this subscription.</p>
-          
-
-          
-          <div class="method-source-code" id="resume-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/push_subscription.rb, line 274</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">resume</span>()
-        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'Cannot resume a deleted Push subscription'</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@is_deleted</span>
-        <span class="ruby-identifier">init</span>(<span class="ruby-ivar">@user</span>.<span class="ruby-identifier">callAPI</span>(<span class="ruby-string">'push/resume'</span>, { <span class="ruby-string">'id'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@id</span> }))
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- resume-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- resume-method -->
-
-    
-      <div id="method-i-save" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">save</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Save changes to the name and output_params to the API.</p>
-          
-
-          
-          <div class="method-source-code" id="save-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/push_subscription.rb, line 257</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">save</span>()
-        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'Cannot save changes to a deleted Push subscription'</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@is_deleted</span>
-        <span class="ruby-identifier">params</span> = {
-                <span class="ruby-string">'id'</span>   =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@id</span>,
-                <span class="ruby-string">'name'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@name</span>
-        }
-        <span class="ruby-ivar">@output_params</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-identifier">params</span>[<span class="ruby-constant">OUTPUT_PARAMS_PREFIX</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">k</span>] = <span class="ruby-identifier">v</span> }
-        <span class="ruby-identifier">init</span>(<span class="ruby-ivar">@user</span>.<span class="ruby-identifier">callAPI</span>(<span class="ruby-string">'push/update'</span>, <span class="ruby-identifier">params</span>))
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- save-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- save-method -->
-
-    
-      <div id="method-i-stop" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">stop</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Stop this subscription.</p>
-          
-
-          
-          <div class="method-source-code" id="stop-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/push_subscription.rb, line 280</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">stop</span>()
-        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'Cannot stop a deleted Push subscription'</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@is_deleted</span>
-        <span class="ruby-identifier">init</span>(<span class="ruby-ivar">@user</span>.<span class="ruby-identifier">callAPI</span>(<span class="ruby-string">'push/stop'</span>, { <span class="ruby-string">'id'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@id</span> }))
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- stop-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- stop-method -->
-
-    
-    </section><!-- public-instance-method-details -->
-  
-     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
-      <h3 class="section-header">Public Class Methods</h3>
-
-    
-      <div id="method-c-get" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">get</span><span
-            class="method-args">(user, id)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Get a single Push subscription by ID.</p>
-
-<h3 id="method-c-get-label-Parameters">Parameters</h3>
-<ul><li>
-<p><code>id</code> - The subscription ID.</p>
-</li></ul>
-
-<h3 id="method-c-get-label-Returns">Returns</h3>
+<h3>Returns</h3>
 
 <p>A <a href="PushSubscription.html">PushSubscription</a> object.</p>
-          
+            
 
-          
-          <div class="method-source-code" id="get-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/push_subscription.rb, line 41</span>
+            
+            <div class="method-source-code" id="get-source">
+<pre>
+<span class="ruby-comment"># File lib/DataSift/push_subscription.rb, line 41</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">get</span>(<span class="ruby-identifier">user</span>, <span class="ruby-identifier">id</span>)
         <span class="ruby-keyword">return</span> <span class="ruby-identifier">new</span>(<span class="ruby-identifier">user</span>, <span class="ruby-identifier">user</span>.<span class="ruby-identifier">callAPI</span>(<span class="ruby-string">'push/get'</span>, { <span class="ruby-string">'id'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">id</span> }))
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- get-source -->
+            </div><!-- get-source -->
+            
+          </div>
+
           
-        </div>
 
-        
-
-        
-      </div><!-- get-method -->
-
-    
-      <div id="method-c-getLogs" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">getLogs</span><span
-            class="method-args">(user, page = 1, per_page = 20, order_by = ORDERBY_REQUEST_TIME, order_dir = ORDERDIR_DESC, id = false)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
           
-          <p>Page through recent Push subscription log entries, specifying the sort
+        </div><!-- get-method -->
+
+      
+        <div id="getLogs-method" class="method-detail ">
+          <a name="method-c-getLogs"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">getLogs</span><span
+              class="method-args">(user, page = 1, per_page = 20, order_by = ORDERBY_REQUEST_TIME, order_dir = ORDERDIR_DESC, id = false)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Page through recent Push subscription log entries, specifying the sort
 order.</p>
 
-<h3 id="method-c-getLogs-label-Parameters">Parameters</h3>
+<h3>Parameters</h3>
 <ul><li>
-<p><code>user</code> - The user object making the request.</p>
+<p><tt>user</tt> - The user object making the request.</p>
 </li><li>
-<p><code>page</code> - The page number to get.</p>
+<p><tt>page</tt> - The page number to get.</p>
 </li><li>
-<p><code>per_page</code> - The number of items per page.</p>
+<p><tt>per_page</tt> - The number of items per page.</p>
 </li><li>
-<p><code>order_by</code> - The field by which to order the results.</p>
+<p><tt>order_by</tt> - The field by which to order the results.</p>
 </li><li>
-<p><code>order_dir</code> - Ascending or descending.</p>
+<p><tt>order_dir</tt> - Ascending or descending.</p>
 </li><li>
-<p><code>id</code> - Optional subscription ID.</p>
+<p><tt>id</tt> - Optional subscription ID.</p>
 </li></ul>
 
-<h3 id="method-c-getLogs-label-Returns">Returns</h3>
+<h3>Returns</h3>
 
 <p>A Hash containing…</p>
 <ul><li>
-<p><code>count</code> - The total number of matching log entries.</p>
+<p><tt>count</tt> - The total number of matching log entries.</p>
 </li><li>
-<p><code>log_entries</code> - An array of Hashes where each Hash is a log
-entry.</p>
+<p><tt>log_entries</tt> - An array of Hashes where each Hash is a log entry.</p>
 </li></ul>
-          
+            
 
-          
-          <div class="method-source-code" id="getLogs-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/push_subscription.rb, line 150</span>
+            
+            <div class="method-source-code" id="getLogs-source">
+<pre>
+<span class="ruby-comment"># File lib/DataSift/push_subscription.rb, line 150</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">getLogs</span>(<span class="ruby-identifier">user</span>, <span class="ruby-identifier">page</span> = <span class="ruby-value">1</span>, <span class="ruby-identifier">per_page</span> = <span class="ruby-value">20</span>, <span class="ruby-identifier">order_by</span> = <span class="ruby-constant">ORDERBY_REQUEST_TIME</span>, <span class="ruby-identifier">order_dir</span> = <span class="ruby-constant">ORDERDIR_DESC</span>, <span class="ruby-identifier">id</span> = <span class="ruby-keyword">false</span>)
         <span class="ruby-keyword">begin</span>
                 <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'The specified page number is invalid'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">page</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-value">1</span>
@@ -877,69 +564,71 @@ entry.</p>
                 <span class="ruby-keyword">end</span>
         <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- getLogs-source -->
+            </div><!-- getLogs-source -->
+            
+          </div>
+
           
-        </div>
 
-        
-
-        
-      </div><!-- getLogs-method -->
-
-    
-      <div id="method-c-list" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">list</span><span
-            class="method-args">(user, page = 1, per_page = 20, order_by = ORDERBY_CREATED_AT, order_dir = ORDERDIR_ASC, include_finished = false, hash_type = false, hash = false)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
           
-          <p>Get a page of Push subscriptions in the given user’s account, where each
+        </div><!-- getLogs-method -->
+
+      
+        <div id="list-method" class="method-detail ">
+          <a name="method-c-list"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">list</span><span
+              class="method-args">(user, page = 1, per_page = 20, order_by = ORDERBY_CREATED_AT, order_dir = ORDERDIR_ASC, include_finished = false, hash_type = false, hash = false)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Get a page of Push subscriptions in the given user’s account, where each
 page contains up to per_page items. Results will be ordered according to
 the supplied ordering parameters.</p>
 
-<h3 id="method-c-list-label-Parameters">Parameters</h3>
+<h3>Parameters</h3>
 <ul><li>
-<p><code>user</code> - The user object making the request.</p>
+<p><tt>user</tt> - The user object making the request.</p>
 </li><li>
-<p><code>page</code> - The page number to get.</p>
+<p><tt>page</tt> - The page number to get.</p>
 </li><li>
-<p><code>per_page</code> - The number of items per page.</p>
+<p><tt>per_page</tt> - The number of items per page.</p>
 </li><li>
-<p><code>order_by</code> - The field by which to order the results.</p>
+<p><tt>order_by</tt> - The field by which to order the results.</p>
 </li><li>
-<p><code>order_dir</code> - Ascending or descending.</p>
+<p><tt>order_dir</tt> - Ascending or descending.</p>
 </li><li>
-<p><code>include_finished</code> - True to include subscriptions against
-finished Historics queries.</p>
+<p><tt>include_finished</tt> - True to include subscriptions against finished
+Historics queries.</p>
 </li><li>
-<p><code>hash_type</code> - Optional hash type to look for (hash is also
-required)</p>
+<p><tt>hash_type</tt> - Optional hash type to look for (hash is also required)</p>
 </li><li>
 <p>+hash* - Optional hash to look for (<a
-href="PushSubscription.html#attribute-i-hash_type">#hash_type</a> is also
+href="PushSubscription.html#attribute-i-hash_type">hash_type</a> is also
 required)</p>
 </li></ul>
 
-<h3 id="method-c-list-label-Returns">Returns</h3>
+<h3>Returns</h3>
 
 <p>A Hash containing…</p>
 <ul><li>
-<p><code>count</code> - The total number of matching Push subscriptions in
-your account.</p>
+<p><tt>count</tt> - The total number of matching Push subscriptions in your
+account.</p>
 </li><li>
-<p><code>subscriptions</code> - An array of Hashes where each Hash is a Push
+<p><tt>subscriptions</tt> - An array of Hashes where each Hash is a Push
 subscription.</p>
 </li></ul>
-          
+            
 
-          
-          <div class="method-source-code" id="list-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/push_subscription.rb, line 61</span>
+            
+            <div class="method-source-code" id="list-source">
+<pre>
+<span class="ruby-comment"># File lib/DataSift/push_subscription.rb, line 61</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">list</span>(<span class="ruby-identifier">user</span>, <span class="ruby-identifier">page</span> = <span class="ruby-value">1</span>, <span class="ruby-identifier">per_page</span> = <span class="ruby-value">20</span>, <span class="ruby-identifier">order_by</span> = <span class="ruby-constant">ORDERBY_CREATED_AT</span>, <span class="ruby-identifier">order_dir</span> = <span class="ruby-constant">ORDERDIR_ASC</span>, <span class="ruby-identifier">include_finished</span> = <span class="ruby-keyword">false</span>, <span class="ruby-identifier">hash_type</span> = <span class="ruby-keyword">false</span>, <span class="ruby-identifier">hash</span> = <span class="ruby-keyword">false</span>)
         <span class="ruby-keyword">begin</span>
                 <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'The specified page number is invalid'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">page</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-value">1</span>
@@ -977,187 +666,572 @@ subscription.</p>
                 <span class="ruby-keyword">end</span>
         <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- list-source -->
+            </div><!-- list-source -->
+            
+          </div>
+
           
-        </div>
 
-        
-
-        
-      </div><!-- list-method -->
-
-    
-      <div id="method-c-listByPlaybackId" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">listByPlaybackId</span><span
-            class="method-args">(user, playback_id, page = 1, per_page = 20, order_by = ORDERBY_CREATED_AT, order_dir = ORDERDIR_ASC, include_finished = false)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
           
-          <p>Get a page of Push subscriptions for the given stream hash, where each page
+        </div><!-- list-method -->
+
+      
+        <div id="listByPlaybackId-method" class="method-detail ">
+          <a name="method-c-listByPlaybackId"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">listByPlaybackId</span><span
+              class="method-args">(user, playback_id, page = 1, per_page = 20, order_by = ORDERBY_CREATED_AT, order_dir = ORDERDIR_ASC, include_finished = false)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Get a page of Push subscriptions for the given stream hash, where each page
 contains up to per_page items. Results will be ordered according to the
 supplied ordering parameters.</p>
 
-<h3 id="method-c-listByPlaybackId-label-Parameters">Parameters</h3>
+<h3>Parameters</h3>
 <ul><li>
-<p><code>user</code> - The user object making the request.</p>
+<p><tt>user</tt> - The user object making the request.</p>
 </li><li>
-<p><code>playback_id</code> - The playback ID.</p>
+<p><tt>playback_id</tt> - The playback ID.</p>
 </li><li>
-<p><code>page</code> - The page number to get.</p>
+<p><tt>page</tt> - The page number to get.</p>
 </li><li>
-<p><code>per_page</code> - The number of items per page.</p>
+<p><tt>per_page</tt> - The number of items per page.</p>
 </li><li>
-<p><code>order_by</code> - The field by which to order the results.</p>
+<p><tt>order_by</tt> - The field by which to order the results.</p>
 </li><li>
-<p><code>order_dir</code> - Ascending or descending.</p>
+<p><tt>order_dir</tt> - Ascending or descending.</p>
 </li><li>
-<p><code>include_finished</code> - True to include subscriptions against
-finished Historics queries.</p>
+<p><tt>include_finished</tt> - True to include subscriptions against finished
+Historics queries.</p>
 </li></ul>
 
-<h3 id="method-c-listByPlaybackId-label-Returns">Returns</h3>
+<h3>Returns</h3>
 
 <p>A Hash containing…</p>
 <ul><li>
-<p><code>count</code> - The total number of matching Push subscriptions in
-your account.</p>
+<p><tt>count</tt> - The total number of matching Push subscriptions in your
+account.</p>
 </li><li>
-<p><code>subscriptions</code> - An array of Hashes where each Hash is a Push
+<p><tt>subscriptions</tt> - An array of Hashes where each Hash is a Push
 subscription.</p>
 </li></ul>
-          
+            
 
-          
-          <div class="method-source-code" id="listByPlaybackId-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/push_subscription.rb, line 133</span>
+            
+            <div class="method-source-code" id="listByPlaybackId-source">
+<pre>
+<span class="ruby-comment"># File lib/DataSift/push_subscription.rb, line 133</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">listByPlaybackId</span>(<span class="ruby-identifier">user</span>, <span class="ruby-identifier">playback_id</span>, <span class="ruby-identifier">page</span> = <span class="ruby-value">1</span>, <span class="ruby-identifier">per_page</span> = <span class="ruby-value">20</span>, <span class="ruby-identifier">order_by</span> = <span class="ruby-constant">ORDERBY_CREATED_AT</span>, <span class="ruby-identifier">order_dir</span> = <span class="ruby-constant">ORDERDIR_ASC</span>, <span class="ruby-identifier">include_finished</span> = <span class="ruby-keyword">false</span>)
         <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">list</span>(<span class="ruby-identifier">user</span>, <span class="ruby-identifier">page</span>, <span class="ruby-identifier">per_page</span>, <span class="ruby-identifier">order_by</span>, <span class="ruby-identifier">order_dir</span>, <span class="ruby-identifier">include_finished</span>, <span class="ruby-string">'playback_id'</span>, <span class="ruby-identifier">playback_id</span>)
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- listByPlaybackId-source -->
+            </div><!-- listByPlaybackId-source -->
+            
+          </div>
+
           
-        </div>
 
-        
-
-        
-      </div><!-- listByPlaybackId-method -->
-
-    
-      <div id="method-c-listByStreamHash" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">listByStreamHash</span><span
-            class="method-args">(user, hash, page = 1, per_page = 20, order_by = ORDERBY_CREATED_AT, order_dir = ORDERDIR_ASC)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
           
-          <p>Get a page of Push subscriptions for the given stream hash, where each page
+        </div><!-- listByPlaybackId-method -->
+
+      
+        <div id="listByStreamHash-method" class="method-detail ">
+          <a name="method-c-listByStreamHash"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">listByStreamHash</span><span
+              class="method-args">(user, hash, page = 1, per_page = 20, order_by = ORDERBY_CREATED_AT, order_dir = ORDERDIR_ASC)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Get a page of Push subscriptions for the given stream hash, where each page
 contains up to per_page items. Results will be ordered according to the
 supplied ordering parameters.</p>
 
-<h3 id="method-c-listByStreamHash-label-Parameters">Parameters</h3>
+<h3>Parameters</h3>
 <ul><li>
-<p><code>user</code> - The user object making the request.</p>
+<p><tt>user</tt> - The user object making the request.</p>
 </li><li>
-<p><code>hash</code> - The stream hash.</p>
+<p><tt>hash</tt> - The stream hash.</p>
 </li><li>
-<p><code>page</code> - The page number to get.</p>
+<p><tt>page</tt> - The page number to get.</p>
 </li><li>
-<p><code>per_page</code> - The number of items per page.</p>
+<p><tt>per_page</tt> - The number of items per page.</p>
 </li><li>
-<p><code>order_by</code> - The field by which to order the results.</p>
+<p><tt>order_by</tt> - The field by which to order the results.</p>
 </li><li>
-<p><code>order_dir</code> - Ascending or descending.</p>
+<p><tt>order_dir</tt> - Ascending or descending.</p>
 </li><li>
-<p><code>include_finished</code> - True to include subscriptions against
-finished Historics queries.</p>
+<p><tt>include_finished</tt> - True to include subscriptions against finished
+Historics queries.</p>
 </li></ul>
 
-<h3 id="method-c-listByStreamHash-label-Returns">Returns</h3>
+<h3>Returns</h3>
 
 <p>A Hash containing…</p>
 <ul><li>
-<p><code>count</code> - The total number of matching Push subscriptions in
-your account.</p>
+<p><tt>count</tt> - The total number of matching Push subscriptions in your
+account.</p>
 </li><li>
-<p><code>subscriptions</code> - An array of Hashes where each Hash is a Push
+<p><tt>subscriptions</tt> - An array of Hashes where each Hash is a Push
 subscription.</p>
 </li></ul>
-          
+            
 
-          
-          <div class="method-source-code" id="listByStreamHash-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/push_subscription.rb, line 114</span>
+            
+            <div class="method-source-code" id="listByStreamHash-source">
+<pre>
+<span class="ruby-comment"># File lib/DataSift/push_subscription.rb, line 114</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">listByStreamHash</span>(<span class="ruby-identifier">user</span>, <span class="ruby-identifier">hash</span>, <span class="ruby-identifier">page</span> = <span class="ruby-value">1</span>, <span class="ruby-identifier">per_page</span> = <span class="ruby-value">20</span>, <span class="ruby-identifier">order_by</span> = <span class="ruby-constant">ORDERBY_CREATED_AT</span>, <span class="ruby-identifier">order_dir</span> = <span class="ruby-constant">ORDERDIR_ASC</span>)
         <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">list</span>(<span class="ruby-identifier">user</span>, <span class="ruby-identifier">page</span>, <span class="ruby-identifier">per_page</span>, <span class="ruby-identifier">order_by</span>, <span class="ruby-identifier">order_dir</span>, <span class="ruby-keyword">false</span>, <span class="ruby-string">'hash'</span>, <span class="ruby-identifier">hash</span>)
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- listByStreamHash-source -->
+            </div><!-- listByStreamHash-source -->
+            
+          </div>
+
           
-        </div>
 
-        
-
-        
-      </div><!-- listByStreamHash-method -->
-
-    
-      <div id="method-c-new" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">new</span><span
-            class="method-args">(user, data)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
           
-          <p>Constructor. A <a href="User.html">User</a> object is required, along with
+        </div><!-- listByStreamHash-method -->
+
+      
+        <div id="new-method" class="method-detail ">
+          <a name="method-c-new"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">new</span><span
+              class="method-args">(user, data)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Constructor. A <a href="User.html">User</a> object is required, along with
 a Hash containing the subscription data.</p>
 
-<h3 id="method-c-new-label-Parameters">Parameters</h3>
+<h3>Parameters</h3>
 <ul><li>
-<p><code>user</code> - The <a href="User.html">DataSift::User</a> object.</p>
+<p><tt>user</tt> - The <a href="User.html">DataSift::User</a> object.</p>
 </li><li>
-<p><code>data</code> - The Hash containing the subscription data.</p>
+<p><tt>data</tt> - The Hash containing the subscription data.</p>
 </li></ul>
-          
+            
 
-          
-          <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/push_subscription.rb, line 202</span>
+            
+            <div class="method-source-code" id="new-source">
+<pre>
+<span class="ruby-comment"># File lib/DataSift/push_subscription.rb, line 202</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">user</span>, <span class="ruby-identifier">data</span>)
         <span class="ruby-keyword">super</span>(<span class="ruby-identifier">user</span>)
         <span class="ruby-identifier">init</span>(<span class="ruby-identifier">data</span>)
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- new-source -->
+            </div><!-- new-source -->
+            
+          </div>
+
           
-        </div>
 
-        
+          
+        </div><!-- new-method -->
 
-        
-      </div><!-- new-method -->
-
+      
+      </div><!-- public-class-method-details -->
     
-    </section><!-- public-class-method-details -->
+      <div id="public-instance-method-details" class="method-section section">
+        <h3 class="section-header">Public Instance Methods</h3>
+
+      
+        <div id="delete-method" class="method-detail ">
+          <a name="method-i-delete"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">delete</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Delete this subscription.</p>
+            
+
+            
+            <div class="method-source-code" id="delete-source">
+<pre>
+<span class="ruby-comment"># File lib/DataSift/push_subscription.rb, line 286</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">delete</span>()
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'Cannot delete a deleted Push subscription'</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@is_deleted</span>
+        <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">callAPI</span>(<span class="ruby-string">'push/delete'</span>, { <span class="ruby-string">'id'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@id</span> })
+        <span class="ruby-comment"># The delete API call does not return the object, so set the status</span>
+        <span class="ruby-comment"># manually.</span>
+        <span class="ruby-ivar">@status</span> = <span class="ruby-constant">STATUS_DELETED</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- delete-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- delete-method -->
+
+      
+        <div id="getLog-method" class="method-detail ">
+          <a name="method-i-getLog"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">getLog</span><span
+              class="method-args">(page = 1, per_page = 20, order_by = ORDERBY_REQUEST_TIME, order_dir = ORDERDIR_DESC)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Get a page of the log for this subscription, ordered as specified.</p>
+
+<h3>Parameters</h3>
+<ul><li>
+<p><tt>page</tt> - The page number to get.</p>
+</li><li>
+<p><tt>per_page</tt> - The number of items per page.</p>
+</li><li>
+<p><tt>order_by</tt> - The field by which to order the results.</p>
+</li><li>
+<p><tt>order_dir</tt> - Ascending or descending.</p>
+</li></ul>
+
+<h3>Returns</h3>
+
+<p>A Hash containing…</p>
+<ul><li>
+<p><tt>count</tt> - The total number of matching log entries.</p>
+</li><li>
+<p><tt>log_entries</tt> - An array of Hashes where each Hash is a log entry.</p>
+</li></ul>
+            
+
+            
+            <div class="method-source-code" id="getLog-source">
+<pre>
+<span class="ruby-comment"># File lib/DataSift/push_subscription.rb, line 304</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">getLog</span>(<span class="ruby-identifier">page</span> = <span class="ruby-value">1</span>, <span class="ruby-identifier">per_page</span> = <span class="ruby-value">20</span>, <span class="ruby-identifier">order_by</span> = <span class="ruby-constant">ORDERBY_REQUEST_TIME</span>, <span class="ruby-identifier">order_dir</span> = <span class="ruby-constant">ORDERDIR_DESC</span>)
+        <span class="ruby-keyword">return</span> <span class="ruby-constant">PushSubscription</span>.<span class="ruby-identifier">getLogs</span>(<span class="ruby-ivar">@user</span>, <span class="ruby-identifier">page</span>, <span class="ruby-identifier">per_page</span>, <span class="ruby-identifier">order_by</span>, <span class="ruby-identifier">order_dir</span>, <span class="ruby-ivar">@id</span>)
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- getLog-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- getLog-method -->
+
+      
+        <div id="init-method" class="method-detail ">
+          <a name="method-i-init"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">init</span><span
+              class="method-args">(data)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Extract the subscription data from a Hash.</p>
+
+<h3>Parameters</h3>
+<ul><li>
+<p><tt>data</tt> - The Hash containing the subscription data.</p>
+</li></ul>
+            
+
+            
+            <div class="method-source-code" id="init-source">
+<pre>
+<span class="ruby-comment"># File lib/DataSift/push_subscription.rb, line 210</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">init</span>(<span class="ruby-identifier">data</span>)
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'No id found'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'id'</span>)
+        <span class="ruby-ivar">@id</span> = <span class="ruby-identifier">data</span>[<span class="ruby-string">'id'</span>]
+
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'No name found'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'name'</span>)
+        <span class="ruby-ivar">@name</span> = <span class="ruby-identifier">data</span>[<span class="ruby-string">'name'</span>]
+
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'No created_at found'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'created_at'</span>)
+        <span class="ruby-ivar">@created_at</span> = <span class="ruby-constant">DateTime</span>.<span class="ruby-identifier">strptime</span>(<span class="ruby-constant">String</span>(<span class="ruby-identifier">data</span>[<span class="ruby-string">'created_at'</span>]), <span class="ruby-string">'%s'</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>[<span class="ruby-string">'created_at'</span>].<span class="ruby-identifier">nil?</span>
+
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'No status found'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'status'</span>)
+        <span class="ruby-ivar">@status</span> = <span class="ruby-identifier">data</span>[<span class="ruby-string">'status'</span>]
+
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'No hash_type found'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'hash_type'</span>)
+        <span class="ruby-ivar">@hash_type</span> = <span class="ruby-identifier">data</span>[<span class="ruby-string">'hash_type'</span>]
+
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'No hash found'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'hash'</span>)
+        <span class="ruby-ivar">@hash</span> = <span class="ruby-identifier">data</span>[<span class="ruby-string">'hash'</span>]
+
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'No last_request found'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'last_request'</span>)
+        <span class="ruby-ivar">@last_request</span> = <span class="ruby-constant">DateTime</span>.<span class="ruby-identifier">strptime</span>(<span class="ruby-constant">String</span>(<span class="ruby-identifier">data</span>[<span class="ruby-string">'last_request'</span>]), <span class="ruby-string">'%s'</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>[<span class="ruby-string">'last_request'</span>].<span class="ruby-identifier">nil?</span>
+
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'No last_success found'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'last_success'</span>)
+        <span class="ruby-ivar">@last_success</span> = <span class="ruby-constant">DateTime</span>.<span class="ruby-identifier">strptime</span>(<span class="ruby-constant">String</span>(<span class="ruby-identifier">data</span>[<span class="ruby-string">'last_success'</span>]), <span class="ruby-string">'%s'</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>[<span class="ruby-string">'last_success'</span>].<span class="ruby-identifier">nil?</span>
+
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'No output_type found'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'output_type'</span>)
+        <span class="ruby-ivar">@output_type</span> = <span class="ruby-identifier">data</span>[<span class="ruby-string">'output_type'</span>]
+
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'No output_params found'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">'output_params'</span>)
+        <span class="ruby-ivar">@output_params</span> = <span class="ruby-identifier">parseOutputParams</span>(<span class="ruby-identifier">data</span>[<span class="ruby-string">'output_params'</span>])
+
+        <span class="ruby-ivar">@is_deleted</span> = <span class="ruby-keyword">true</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@status</span> <span class="ruby-operator">==</span> <span class="ruby-constant">STATUS_DELETED</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- init-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- init-method -->
+
+      
+        <div id="name-3D-method" class="method-detail ">
+          <a name="method-i-name-3D"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">name=</span><span
+              class="method-args">(new_name)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Name setter. Raises an <a href="InvalidDataError.html">InvalidDataError</a>
+if this subscription has been deleted.</p>
+            
+
+            
+            <div class="method-source-code" id="name-3D-source">
+<pre>
+<span class="ruby-comment"># File lib/DataSift/push_subscription.rb, line 251</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">name=</span>(<span class="ruby-identifier">new_name</span>)
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'Cannot set the name of a deleted Push subscription'</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@is_deleted</span>
+        <span class="ruby-ivar">@name</span> = <span class="ruby-identifier">new_name</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- name-3D-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- name-3D-method -->
+
+      
+        <div id="pause-method" class="method-detail ">
+          <a name="method-i-pause"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">pause</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Pause this subscription.</p>
+            
+
+            
+            <div class="method-source-code" id="pause-source">
+<pre>
+<span class="ruby-comment"># File lib/DataSift/push_subscription.rb, line 268</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">pause</span>()
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'Cannot pause a deleted Push subscription'</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@is_deleted</span>
+        <span class="ruby-identifier">init</span>(<span class="ruby-ivar">@user</span>.<span class="ruby-identifier">callAPI</span>(<span class="ruby-string">'push/pause'</span>, { <span class="ruby-string">'id'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@id</span> }))
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- pause-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- pause-method -->
+
+      
+        <div id="reload-method" class="method-detail ">
+          <a name="method-i-reload"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">reload</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Reload the data for this subscription from the API.</p>
+            
+
+            
+            <div class="method-source-code" id="reload-source">
+<pre>
+<span class="ruby-comment"># File lib/DataSift/push_subscription.rb, line 245</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">reload</span>()
+        <span class="ruby-identifier">init</span>(<span class="ruby-ivar">@user</span>.<span class="ruby-identifier">callAPI</span>(<span class="ruby-string">'push/get'</span>, { <span class="ruby-string">'id'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@id</span> }))
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- reload-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- reload-method -->
+
+      
+        <div id="resume-method" class="method-detail ">
+          <a name="method-i-resume"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">resume</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Resume this subscription.</p>
+            
+
+            
+            <div class="method-source-code" id="resume-source">
+<pre>
+<span class="ruby-comment"># File lib/DataSift/push_subscription.rb, line 274</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">resume</span>()
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'Cannot resume a deleted Push subscription'</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@is_deleted</span>
+        <span class="ruby-identifier">init</span>(<span class="ruby-ivar">@user</span>.<span class="ruby-identifier">callAPI</span>(<span class="ruby-string">'push/resume'</span>, { <span class="ruby-string">'id'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@id</span> }))
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- resume-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- resume-method -->
+
+      
+        <div id="save-method" class="method-detail ">
+          <a name="method-i-save"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">save</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Save changes to the name and output_params to the API.</p>
+            
+
+            
+            <div class="method-source-code" id="save-source">
+<pre>
+<span class="ruby-comment"># File lib/DataSift/push_subscription.rb, line 257</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">save</span>()
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'Cannot save changes to a deleted Push subscription'</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@is_deleted</span>
+        <span class="ruby-identifier">params</span> = {
+                <span class="ruby-string">'id'</span>   =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@id</span>,
+                <span class="ruby-string">'name'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@name</span>
+        }
+        <span class="ruby-ivar">@output_params</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-identifier">params</span>[<span class="ruby-constant">OUTPUT_PARAMS_PREFIX</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">k</span>] = <span class="ruby-identifier">v</span> }
+        <span class="ruby-identifier">init</span>(<span class="ruby-ivar">@user</span>.<span class="ruby-identifier">callAPI</span>(<span class="ruby-string">'push/update'</span>, <span class="ruby-identifier">params</span>))
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- save-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- save-method -->
+
+      
+        <div id="stop-method" class="method-detail ">
+          <a name="method-i-stop"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">stop</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Stop this subscription.</p>
+            
+
+            
+            <div class="method-source-code" id="stop-source">
+<pre>
+<span class="ruby-comment"># File lib/DataSift/push_subscription.rb, line 280</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">stop</span>()
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'Cannot stop a deleted Push subscription'</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@is_deleted</span>
+        <span class="ruby-identifier">init</span>(<span class="ruby-ivar">@user</span>.<span class="ruby-identifier">callAPI</span>(<span class="ruby-string">'push/stop'</span>, { <span class="ruby-string">'id'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@id</span> }))
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- stop-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- stop-method -->
+
+      
+      </div><!-- public-instance-method-details -->
+    
+    </div><!-- 5Buntitled-5D -->
   
-  </section><!-- 5Buntitled-5D -->
 
-</div><!-- documentation -->
+  </div><!-- documentation -->
 
+  <div id="validator-badges">
+    <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+    <p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+      Rdoc Generator</a> 2</small>.</p>
+  </div>
 
-<footer id="validator-badges">
-  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
-  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.
-  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
-</footer>
+</body>
+</html>
 

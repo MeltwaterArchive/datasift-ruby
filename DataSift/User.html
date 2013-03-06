@@ -1,373 +1,456 @@
-<!DOCTYPE html>
-
-<html>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
 
-<title>class DataSift::User - DataSift Ruby Client Library</title>
+  <title>Class: DataSift::User</title>
 
-<link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
+  <link rel="stylesheet" href="../rdoc.css" type="text/css" media="screen" />
 
-<script type="text/javascript">
-  var rdoc_rel_prefix = "../";
-</script>
+  <script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../js/thickbox-compressed.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../js/quicksearch.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../js/darkfish.js" type="text/javascript" charset="utf-8"></script>
 
-<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
-<script type="text/javascript" charset="utf-8" src="../js/navigation.js"></script>
-<script type="text/javascript" charset="utf-8" src="../js/search_index.js"></script>
-<script type="text/javascript" charset="utf-8" src="../js/search.js"></script>
-<script type="text/javascript" charset="utf-8" src="../js/searcher.js"></script>
-<script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
-
-
+</head>
 <body id="top" class="class">
-<nav id="metadata">
-  <nav id="home-section" class="section">
-  <h3 class="section-header">
-    <a href="../index.html">Home</a>
-    <a href="../table_of_contents.html#classes">Classes</a>
-    <a href="../table_of_contents.html#methods">Methods</a>
-  </h3>
-</nav>
 
+  <div id="metadata">
+    <div id="home-metadata">
+      <div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="../index.html">Home</a>
+          <a href="../index.html#classes">Classes</a>
+          <a href="../index.html#methods">Methods</a>
+        </h3>
+      </div>
+    </div>
 
-  <nav id="search-section" class="section project-section" class="initially-hidden">
-  <form action="#" method="get" accept-charset="utf-8">
-    <h3 class="section-header">
-      <input type="text" name="search" placeholder="Search" id="search-field"
-             title="Type to search, Up and Down to navigate, Enter to load">
-    </h3>
-  </form>
+    <div id="file-metadata">
+      <div id="file-list-section" class="section">
+        <h3 class="section-header">In Files</h3>
+        <div class="section-body">
+          <ul>
+          
+            <li><a href="../lib/DataSift/user_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="lib/DataSift/user.rb">lib/DataSift/user.rb</a></li>
+          
+          </ul>
+        </div>
+      </div>
 
-  <ul id="search-results" class="initially-hidden"></ul>
-</nav>
+      
+    </div>
 
+    <div id="class-metadata">
+      
+      <!-- Parent Class -->
+      <div id="parent-class-section" class="section">
+        <h3 class="section-header">Parent</h3>
+        
+        <p class="link"><a href="../Object.html">Object</a></p>
+        
+      </div>
+      
 
-  <div id="file-metadata">
-    <nav id="file-list-section" class="section">
-  <h3 class="section-header">Defined In</h3>
-  <ul>
-    <li>lib/DataSift/user.rb
-  </ul>
-</nav>
+      
 
-    
+      
+
+      
+      <!-- Method Quickref -->
+      <div id="method-list-section" class="section">
+        <h3 class="section-header">Methods</h3>
+        <ul class="link-list">
+          
+          <li><a href="#method-c-new">::new</a></li>
+          
+          <li><a href="#method-i-callAPI">#callAPI</a></li>
+          
+          <li><a href="#method-i-createDefinition">#createDefinition</a></li>
+          
+          <li><a href="#method-i-createHistoric">#createHistoric</a></li>
+          
+          <li><a href="#method-i-createPushDefinition">#createPushDefinition</a></li>
+          
+          <li><a href="#method-i-enableSSL">#enableSSL</a></li>
+          
+          <li><a href="#method-i-getBalance">#getBalance</a></li>
+          
+          <li><a href="#method-i-getConsumer">#getConsumer</a></li>
+          
+          <li><a href="#method-i-getHistoric">#getHistoric</a></li>
+          
+          <li><a href="#method-i-getPushSubscription">#getPushSubscription</a></li>
+          
+          <li><a href="#method-i-getPushSubscriptionLog">#getPushSubscriptionLog</a></li>
+          
+          <li><a href="#method-i-getUsage">#getUsage</a></li>
+          
+          <li><a href="#method-i-getUserAgent">#getUserAgent</a></li>
+          
+          <li><a href="#method-i-listHistorics">#listHistorics</a></li>
+          
+          <li><a href="#method-i-listPushSubscriptions">#listPushSubscriptions</a></li>
+          
+          <li><a href="#method-i-listPushSubscriptionsToPlaybackId">#listPushSubscriptionsToPlaybackId</a></li>
+          
+          <li><a href="#method-i-listPushSubscriptionsToStreamHash">#listPushSubscriptionsToStreamHash</a></li>
+          
+          <li><a href="#method-i-setApiClient">#setApiClient</a></li>
+          
+        </ul>
+      </div>
+      
+
+      
+    </div>
+
+    <div id="project-metadata">
+      
+      
+      <div id="fileindex-section" class="section project-section">
+        <h3 class="section-header">Files</h3>
+        <ul>
+        
+          <li class="file"><a href="../Gemfile.html">Gemfile</a></li>
+        
+          <li class="file"><a href="../LICENSE.html">LICENSE</a></li>
+        
+          <li class="file"><a href="../Rakefile.html">Rakefile</a></li>
+        
+          <li class="file"><a href="../VERSION.html">VERSION</a></li>
+        
+        </ul>
+      </div>
+      
+
+      <div id="classindex-section" class="section project-section">
+        <h3 class="section-header">Class/Module Index
+          <span class="search-toggle"><img src="../images/find.png"
+            height="16" width="16" alt="[+]"
+            title="show/hide quicksearch" /></span></h3>
+        <form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+        <fieldset>
+          <legend>Quicksearch</legend>
+          <input type="text" name="quicksearch" value=""
+            class="quicksearch-field" />
+        </fieldset>
+        </form>
+
+        <ul class="link-list">
+        
+          <li><a href="../DataSift.html">DataSift</a></li>
+        
+          <li><a href="../DataSift/APIError.html">DataSift::APIError</a></li>
+        
+          <li><a href="../DataSift/AccessDeniedError.html">DataSift::AccessDeniedError</a></li>
+        
+          <li><a href="../DataSift/ApiClient.html">DataSift::ApiClient</a></li>
+        
+          <li><a href="../DataSift/CompileFailedError.html">DataSift::CompileFailedError</a></li>
+        
+          <li><a href="../DataSift/DataSiftError.html">DataSift::DataSiftError</a></li>
+        
+          <li><a href="../DataSift/Definition.html">DataSift::Definition</a></li>
+        
+          <li><a href="../DataSift/Historic.html">DataSift::Historic</a></li>
+        
+          <li><a href="../DataSift/InvalidDataError.html">DataSift::InvalidDataError</a></li>
+        
+          <li><a href="../DataSift/MockApiClient.html">DataSift::MockApiClient</a></li>
+        
+          <li><a href="../DataSift/PushDefinition.html">DataSift::PushDefinition</a></li>
+        
+          <li><a href="../DataSift/PushSubscription.html">DataSift::PushSubscription</a></li>
+        
+          <li><a href="../DataSift/RateLimitExceededError.html">DataSift::RateLimitExceededError</a></li>
+        
+          <li><a href="../DataSift/StreamConsumer.html">DataSift::StreamConsumer</a></li>
+        
+          <li><a href="../DataSift/StreamConsumer_HTTP.html">DataSift::StreamConsumer_HTTP</a></li>
+        
+          <li><a href="../DataSift/StreamError.html">DataSift::StreamError</a></li>
+        
+          <li><a href="../DataSift/User.html">DataSift::User</a></li>
+        
+          <li><a href="../Test.html">Test</a></li>
+        
+          <li><a href="../Test/Unit.html">Test::Unit</a></li>
+        
+          <li><a href="../Test/Unit/TestCase.html">Test::Unit::TestCase</a></li>
+        
+          <li><a href="../Env.html">Env</a></li>
+        
+          <li><a href="../Object.html">Object</a></li>
+        
+          <li><a href="../TestDefinition.html">TestDefinition</a></li>
+        
+          <li><a href="../TestHistorics.html">TestHistorics</a></li>
+        
+          <li><a href="../TestPushDefinition.html">TestPushDefinition</a></li>
+        
+          <li><a href="../TestPushSubscription.html">TestPushSubscription</a></li>
+        
+          <li><a href="../TestUser.html">TestUser</a></li>
+        
+        </ul>
+        <div id="no-class-search-results" style="display: none;">No matching classes.</div>
+      </div>
+
+      
+    </div>
   </div>
 
-  <div id="class-metadata">
-    
-    <nav id="parent-class-section" class="section">
-  <h3 class="section-header">Parent</h3>
-  
-  <p class="link"><a href="../Object.html">Object</a>
-  
-</nav>
+  <div id="documentation">
+    <h1 class="class">DataSift::User</h1>
 
-    
-    <!-- Method Quickref -->
-<nav id="method-list-section" class="section">
-  <h3 class="section-header">Methods</h3>
-
-  <ul class="link-list">
-    
-    <li><a href="#method-c-new">::new</a>
-    
-    <li><a href="#method-i-callAPI">#callAPI</a>
-    
-    <li><a href="#method-i-createDefinition">#createDefinition</a>
-    
-    <li><a href="#method-i-createHistoric">#createHistoric</a>
-    
-    <li><a href="#method-i-createPushDefinition">#createPushDefinition</a>
-    
-    <li><a href="#method-i-enableSSL">#enableSSL</a>
-    
-    <li><a href="#method-i-getBalance">#getBalance</a>
-    
-    <li><a href="#method-i-getConsumer">#getConsumer</a>
-    
-    <li><a href="#method-i-getHistoric">#getHistoric</a>
-    
-    <li><a href="#method-i-getPushSubscription">#getPushSubscription</a>
-    
-    <li><a href="#method-i-getPushSubscriptionLog">#getPushSubscriptionLog</a>
-    
-    <li><a href="#method-i-getUsage">#getUsage</a>
-    
-    <li><a href="#method-i-getUserAgent">#getUserAgent</a>
-    
-    <li><a href="#method-i-listHistorics">#listHistorics</a>
-    
-    <li><a href="#method-i-listPushSubscriptions">#listPushSubscriptions</a>
-    
-    <li><a href="#method-i-listPushSubscriptionsToPlaybackId">#listPushSubscriptionsToPlaybackId</a>
-    
-    <li><a href="#method-i-listPushSubscriptionsToStreamHash">#listPushSubscriptionsToStreamHash</a>
-    
-    <li><a href="#method-i-setApiClient">#setApiClient</a>
-    
-  </ul>
-</nav>
-
-  </div>
-
-  <div id="project-metadata">
-    <nav id="fileindex-section" class="section project-section">
-  <h3 class="section-header">Pages</h3>
-
-  <ul>
-  
-    <li class="file"><a href="../Gemfile.html">Gemfile</a>
-  
-    <li class="file"><a href="../LICENSE.html">LICENSE</a>
-  
-    <li class="file"><a href="../Rakefile.html">Rakefile</a>
-  
-    <li class="file"><a href="../VERSION.html">VERSION</a>
-  
-  </ul>
-</nav>
-
-    <nav id="classindex-section" class="section project-section">
-  <h3 class="section-header">Class and Module Index</h3>
-
-  <ul class="link-list">
-  
-    <li><a href="../DataSift.html">DataSift</a>
-  
-    <li><a href="../DataSift/APIError.html">DataSift::APIError</a>
-  
-    <li><a href="../DataSift/AccessDeniedError.html">DataSift::AccessDeniedError</a>
-  
-    <li><a href="../DataSift/ApiClient.html">DataSift::ApiClient</a>
-  
-    <li><a href="../DataSift/CompileFailedError.html">DataSift::CompileFailedError</a>
-  
-    <li><a href="../DataSift/DataSiftError.html">DataSift::DataSiftError</a>
-  
-    <li><a href="../DataSift/Definition.html">DataSift::Definition</a>
-  
-    <li><a href="../DataSift/Historic.html">DataSift::Historic</a>
-  
-    <li><a href="../DataSift/InvalidDataError.html">DataSift::InvalidDataError</a>
-  
-    <li><a href="../DataSift/MockApiClient.html">DataSift::MockApiClient</a>
-  
-    <li><a href="../DataSift/PushDefinition.html">DataSift::PushDefinition</a>
-  
-    <li><a href="../DataSift/PushSubscription.html">DataSift::PushSubscription</a>
-  
-    <li><a href="../DataSift/RateLimitExceededError.html">DataSift::RateLimitExceededError</a>
-  
-    <li><a href="../DataSift/StreamConsumer.html">DataSift::StreamConsumer</a>
-  
-    <li><a href="../DataSift/StreamConsumer_HTTP.html">DataSift::StreamConsumer_HTTP</a>
-  
-    <li><a href="../DataSift/StreamError.html">DataSift::StreamError</a>
-  
-    <li><a href="../DataSift/User.html">DataSift::User</a>
-  
-    <li><a href="../Test.html">Test</a>
-  
-    <li><a href="../Test/Unit.html">Test::Unit</a>
-  
-    <li><a href="../Test/Unit/TestCase.html">Test::Unit::TestCase</a>
-  
-    <li><a href="../Env.html">Env</a>
-  
-    <li><a href="../Object.html">Object</a>
-  
-    <li><a href="../TestDefinition.html">TestDefinition</a>
-  
-    <li><a href="../TestHistorics.html">TestHistorics</a>
-  
-    <li><a href="../TestPushDefinition.html">TestPushDefinition</a>
-  
-    <li><a href="../TestPushSubscription.html">TestPushSubscription</a>
-  
-    <li><a href="../TestUser.html">TestUser</a>
-  
-  </ul>
-</nav>
-
-  </div>
-</nav>
-
-<div id="documentation">
-  <h1 class="class">class DataSift::User</h1>
-
-  <div id="description" class="description">
-    
+    <div id="description" class="description">
+      
 <p>The <a href="User.html">User</a> class represents a user of the API.
 Applications should start their API interactions by creating an instance of
 this class. Once initialised it provides factory methods for all of the
 functionality in the API.</p>
 
-  </div><!-- description -->
-
-  
-  
-  
-  <section id="5Buntitled-5D" class="documentation-section">
-    
+    </div><!-- description -->
 
     
-
     
-    <!-- Constants -->
-    <section id="constants-list" class="section">
-      <h3 class="section-header">Constants</h3>
-      <dl>
-      
-        <dt id="API_BASE_URL">API_BASE_URL
-        
-        <dd class="description"><p>The base URL for API requests.</p>
-        
-      
-        <dt id="STREAM_BASE_URL">STREAM_BASE_URL
-        
-        <dd class="description"><p>The base URL for streams.</p>
-        
-      
-        <dt id="USER_AGENT">USER_AGENT
-        
-        <dd class="description"><p>The user agent to pass through with all HTTP requests.</p>
-        
-      
-      </dl>
-    </section>
     
-
-    
-    <!-- Attributes -->
-    <section id="attribute-method-details" class="method-section section">
-      <h3 class="section-header">Attributes</h3>
+    <div id="5Buntitled-5D" class="documentation-section">
+      
 
       
-      <div id="attribute-i-api_client" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">api_client</span><span
-            class="attribute-access-type">[R]</span>
-        </div>
 
-        <div class="method-description">
-        
-        <p>The APIClient class to use when making API requests.</p>
-        
-        </div>
-      </div>
       
-      <div id="attribute-i-api_key" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">api_key</span><span
-            class="attribute-access-type">[R]</span>
-        </div>
-
-        <div class="method-description">
+      <!-- Constants -->
+      <div id="constants-list" class="section">
+        <h3 class="section-header">Constants</h3>
+        <dl>
         
-        <p>The User’s <a href="../DataSift.html">DataSift</a> API key.</p>
-        
-        </div>
-      </div>
-      
-      <div id="attribute-i-rate_limit" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">rate_limit</span><span
-            class="attribute-access-type">[R]</span>
-        </div>
-
-        <div class="method-description">
-        
-        <p>The User’s total number of available hourly API credits. This is not
-populated until an API request is made.</p>
-        
-        </div>
-      </div>
-      
-      <div id="attribute-i-rate_limit_remaining" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">rate_limit_remaining</span><span
-            class="attribute-access-type">[R]</span>
-        </div>
-
-        <div class="method-description">
-        
-        <p>The User’s API credits remaining. This is not populated until an API
-request is made.</p>
-        
-        </div>
-      </div>
-      
-      <div id="attribute-i-use_ssl" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">use_ssl</span><span
-            class="attribute-access-type">[R]</span>
-        </div>
-
-        <div class="method-description">
-        
-        <p>True if streaming connections should use SSL.</p>
-        
-        </div>
-      </div>
-      
-      <div id="attribute-i-username" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">username</span><span
-            class="attribute-access-type">[R]</span>
-        </div>
-
-        <div class="method-description">
-        
-        <p>The User’s <a href="../DataSift.html">DataSift</a> username.</p>
-        
-        </div>
-      </div>
-      
-    </section><!-- attribute-method-details -->
-    
-
-    <!-- Methods -->
-    
-     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
-      <h3 class="section-header">Public Instance Methods</h3>
-
-    
-      <div id="method-i-callAPI" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">callAPI</span><span
-            class="method-args">(endpoint, params = {})</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
+          <dt><a name="API_BASE_URL">API_BASE_URL</a></dt>
           
-          <p>Make a call to a <a href="../DataSift.html">DataSift</a> API endpoint.</p>
+          <dd class="description"><p>The base URL for API requests.</p></dd>
+          
+        
+          <dt><a name="STREAM_BASE_URL">STREAM_BASE_URL</a></dt>
+          
+          <dd class="description"><p>The base URL for streams.</p></dd>
+          
+        
+          <dt><a name="USER_AGENT">USER_AGENT</a></dt>
+          
+          <dd class="description"><p>The user agent to pass through with all HTTP requests.</p></dd>
+          
+        
+        </dl>
+      </div>
+      
 
-<h3 id="method-i-callAPI-label-Parameters">Parameters</h3>
+      
+      <!-- Attributes -->
+      <div id="attribute-method-details" class="method-section section">
+        <h3 class="section-header">Attributes</h3>
+
+        
+        <div id="api_client-attribute-method" class="method-detail">
+          <a name="api_client"></a>
+          
+          <div class="method-heading attribute-method-heading">
+            <span class="method-name">api_client</span><span
+              class="attribute-access-type">[R]</span>
+          </div>
+
+          <div class="method-description">
+          
+          <p>The APIClient class to use when making API requests.</p>
+          
+          </div>
+        </div>
+        
+        <div id="api_key-attribute-method" class="method-detail">
+          <a name="api_key"></a>
+          
+          <div class="method-heading attribute-method-heading">
+            <span class="method-name">api_key</span><span
+              class="attribute-access-type">[R]</span>
+          </div>
+
+          <div class="method-description">
+          
+          <p>The User’s <a href="../DataSift.html">DataSift</a> API key.</p>
+          
+          </div>
+        </div>
+        
+        <div id="rate_limit-attribute-method" class="method-detail">
+          <a name="rate_limit"></a>
+          
+          <div class="method-heading attribute-method-heading">
+            <span class="method-name">rate_limit</span><span
+              class="attribute-access-type">[R]</span>
+          </div>
+
+          <div class="method-description">
+          
+          <p>The User’s total number of available hourly API credits. This is not
+populated until an API request is made.</p>
+          
+          </div>
+        </div>
+        
+        <div id="rate_limit_remaining-attribute-method" class="method-detail">
+          <a name="rate_limit_remaining"></a>
+          
+          <div class="method-heading attribute-method-heading">
+            <span class="method-name">rate_limit_remaining</span><span
+              class="attribute-access-type">[R]</span>
+          </div>
+
+          <div class="method-description">
+          
+          <p>The User’s API credits remaining. This is not populated until an API
+request is made.</p>
+          
+          </div>
+        </div>
+        
+        <div id="use_ssl-attribute-method" class="method-detail">
+          <a name="use_ssl"></a>
+          
+          <div class="method-heading attribute-method-heading">
+            <span class="method-name">use_ssl</span><span
+              class="attribute-access-type">[R]</span>
+          </div>
+
+          <div class="method-description">
+          
+          <p>True if streaming connections should use SSL.</p>
+          
+          </div>
+        </div>
+        
+        <div id="username-attribute-method" class="method-detail">
+          <a name="username"></a>
+          
+          <div class="method-heading attribute-method-heading">
+            <span class="method-name">username</span><span
+              class="attribute-access-type">[R]</span>
+          </div>
+
+          <div class="method-description">
+          
+          <p>The User’s <a href="../DataSift.html">DataSift</a> username.</p>
+          
+          </div>
+        </div>
+        
+      </div><!-- attribute-method-details -->
+      
+
+      <!-- Methods -->
+      
+      <div id="public-class-method-details" class="method-section section">
+        <h3 class="section-header">Public Class Methods</h3>
+
+      
+        <div id="new-method" class="method-detail ">
+          <a name="method-c-new"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">new</span><span
+              class="method-args">(username, api_key, use_ssl = true)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Constructor. A username and API key are required when constructing an
+instance of this class.</p>
+
+<h3>Parameters</h3>
 <ul><li>
-<p><code>endpoint</code> - The endpoint of the API call.</p>
+<p><tt>username</tt> - The User's <a href="../DataSift.html">DataSift</a>
+username</p>
 </li><li>
-<p><code>params</code> - A Hash of parameters to be passed along with the
-request.</p>
+<p><tt>api_key</tt> - The User's <a href="../DataSift.html">DataSift</a> API
+key</p>
+</li></ul>
+            
+
+            
+            <div class="method-source-code" id="new-source">
+<pre>
+<span class="ruby-comment"># File lib/DataSift/user.rb, line 34</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">username</span>, <span class="ruby-identifier">api_key</span>, <span class="ruby-identifier">use_ssl</span> = <span class="ruby-keyword">true</span>)
+        <span class="ruby-identifier">username</span>.<span class="ruby-identifier">strip!</span>
+        <span class="ruby-identifier">api_key</span>.<span class="ruby-identifier">strip!</span>
+
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">EInvalidData</span>, <span class="ruby-string">'Please supply valid credentials when creating a User object.'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">username</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span> <span class="ruby-keyword">and</span> <span class="ruby-identifier">api_key</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+
+        <span class="ruby-ivar">@username</span> = <span class="ruby-identifier">username</span>
+        <span class="ruby-ivar">@api_key</span> = <span class="ruby-identifier">api_key</span>
+        <span class="ruby-ivar">@rate_limit</span> = <span class="ruby-value">-1</span>;
+        <span class="ruby-ivar">@rate_limit_remaining</span> = <span class="ruby-value">-1</span>
+        <span class="ruby-ivar">@use_ssl</span> = <span class="ruby-identifier">use_ssl</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- new-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- new-method -->
+
+      
+      </div><!-- public-class-method-details -->
+    
+      <div id="public-instance-method-details" class="method-section section">
+        <h3 class="section-header">Public Instance Methods</h3>
+
+      
+        <div id="callAPI-method" class="method-detail ">
+          <a name="method-i-callAPI"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">callAPI</span><span
+              class="method-args">(endpoint, params = {})</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Make a call to a <a href="../DataSift.html">DataSift</a> API endpoint.</p>
+
+<h3>Parameters</h3>
+<ul><li>
+<p><tt>endpoint</tt> - The endpoint of the API call.</p>
+</li><li>
+<p><tt>params</tt> - A Hash of parameters to be passed along with the request.</p>
 </li></ul>
 
-<h3 id="method-i-callAPI-label-Returns">Returns</h3>
+<h3>Returns</h3>
 
 <p>A Hash containing the response data.</p>
-          
+            
 
-          
-          <div class="method-source-code" id="callAPI-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/user.rb, line 232</span>
+            
+            <div class="method-source-code" id="callAPI-source">
+<pre>
+<span class="ruby-comment"># File lib/DataSift/user.rb, line 232</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">callAPI</span>(<span class="ruby-identifier">endpoint</span>, <span class="ruby-identifier">params</span> = {})
         <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@api_client</span>
                 <span class="ruby-ivar">@api_client</span> = <span class="ruby-constant">ApiClient</span>.<span class="ruby-identifier">new</span>()
         <span class="ruby-keyword">end</span>
 
-        <span class="ruby-identifier">res</span> = <span class="ruby-ivar">@api_client</span>.<span class="ruby-identifier">call</span>(<span class="ruby-ivar">@username</span>, <span class="ruby-ivar">@api_key</span>, <span class="ruby-identifier">endpoint</span>, <span class="ruby-identifier">params</span>, <span class="ruby-identifier">getUserAgent</span>())
+        <span class="ruby-identifier">res</span> = <span class="ruby-ivar">@api_client</span>.<span class="ruby-identifier">call</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">endpoint</span>, <span class="ruby-identifier">params</span>, <span class="ruby-identifier">getUserAgent</span>())
 
         <span class="ruby-comment"># Set up the return value</span>
         <span class="ruby-identifier">retval</span> = <span class="ruby-identifier">res</span>[<span class="ruby-string">'data'</span>]
@@ -395,363 +478,388 @@ request.</p>
 
         <span class="ruby-keyword">return</span> <span class="ruby-identifier">retval</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- callAPI-source -->
+            </div><!-- callAPI-source -->
+            
+          </div>
+
           
-        </div>
 
-        
-
-        
-      </div><!-- callAPI-method -->
-
-    
-      <div id="method-i-createDefinition" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">createDefinition</span><span
-            class="method-args">(csdl = '')</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
           
-          <p>Creates and returns a definition object.</p>
+        </div><!-- callAPI-method -->
 
-<h3 id="method-i-createDefinition-label-Parameters">Parameters</h3>
+      
+        <div id="createDefinition-method" class="method-detail ">
+          <a name="method-i-createDefinition"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">createDefinition</span><span
+              class="method-args">(csdl = '')</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Creates and returns a definition object.</p>
+
+<h3>Parameters</h3>
 <ul><li>
-<p><code>csdl</code> - Optional CSDL string with which to prime the object.</p>
+<p><tt>csdl</tt> - Optional CSDL string with which to prime the object.</p>
 </li></ul>
 
-<h3 id="method-i-createDefinition-label-Returns">Returns</h3>
+<h3>Returns</h3>
 
 <p>A <a href="Definition.html">Definition</a> object.</p>
-          
+            
 
-          
-          <div class="method-source-code" id="createDefinition-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/user.rb, line 52</span>
+            
+            <div class="method-source-code" id="createDefinition-source">
+<pre>
+<span class="ruby-comment"># File lib/DataSift/user.rb, line 52</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">createDefinition</span>(<span class="ruby-identifier">csdl</span> = <span class="ruby-string">''</span>)
         <span class="ruby-constant">DataSift</span><span class="ruby-operator">::</span><span class="ruby-constant">Definition</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">csdl</span>, <span class="ruby-keyword">false</span>)
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- createDefinition-source -->
+            </div><!-- createDefinition-source -->
+            
+          </div>
+
           
-        </div>
 
-        
-
-        
-      </div><!-- createDefinition-method -->
-
-    
-      <div id="method-i-createHistoric" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">createHistoric</span><span
-            class="method-args">(hash, start_date, end_date, sources, sample, name)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
           
-          <p>Create a Historics query based on this <a
+        </div><!-- createDefinition-method -->
+
+      
+        <div id="createHistoric-method" class="method-detail ">
+          <a name="method-i-createHistoric"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">createHistoric</span><span
+              class="method-args">(hash, start_date, end_date, sources, sample, name)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Create a Historics query based on this <a
 href="Definition.html">Definition</a>.</p>
 
-<h3 id="method-i-createHistoric-label-Parameters">Parameters</h3>
+<h3>Parameters</h3>
 <ul><li>
-<p><code>hash</code> - The stream hash for a new Historics query.</p>
+<p><tt>hash</tt> - The stream hash for a new Historics query.</p>
 </li><li>
-<p><code>start_date</code> - The start date for a new Historics query.</p>
+<p><tt>start_date</tt> - The start date for a new Historics query.</p>
 </li><li>
-<p><code>end_date</code> - The end date for a new Historics query.</p>
+<p><tt>end_date</tt> - The end date for a new Historics query.</p>
 </li><li>
-<p><code>sources</code> - An array of sources for a new Historics query.</p>
+<p><tt>sources</tt> - An array of sources for a new Historics query.</p>
 </li><li>
-<p><code>name</code> - The name for a new Historics query.</p>
+<p><tt>name</tt> - The name for a new Historics query.</p>
 </li><li>
-<p><code>sample</code> - The sample rate for the new Historics query.</p>
+<p><tt>sample</tt> - The sample rate for the new Historics query.</p>
 </li></ul>
 
-<h3 id="method-i-createHistoric-label-Returns">Returns</h3>
+<h3>Returns</h3>
 
 <p>A <a href="Historic.html">Historic</a> object.</p>
-          
+            
 
-          
-          <div class="method-source-code" id="createHistoric-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/user.rb, line 66</span>
+            
+            <div class="method-source-code" id="createHistoric-source">
+<pre>
+<span class="ruby-comment"># File lib/DataSift/user.rb, line 66</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">createHistoric</span>(<span class="ruby-identifier">hash</span>, <span class="ruby-identifier">start_date</span>, <span class="ruby-identifier">end_date</span>, <span class="ruby-identifier">sources</span>, <span class="ruby-identifier">sample</span>, <span class="ruby-identifier">name</span>)
         <span class="ruby-keyword">return</span> <span class="ruby-constant">Historic</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">hash</span>, <span class="ruby-identifier">start_date</span>, <span class="ruby-identifier">end_date</span>, <span class="ruby-identifier">sources</span>, <span class="ruby-identifier">sample</span>, <span class="ruby-identifier">name</span>)
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- createHistoric-source -->
+            </div><!-- createHistoric-source -->
+            
+          </div>
+
           
-        </div>
 
-        
-
-        
-      </div><!-- createHistoric-method -->
-
-    
-      <div id="method-i-createPushDefinition" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">createPushDefinition</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
           
-          <p>Create a new <a href="PushDefinition.html">PushDefinition</a> object for
+        </div><!-- createHistoric-method -->
+
+      
+        <div id="createPushDefinition-method" class="method-detail ">
+          <a name="method-i-createPushDefinition"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">createPushDefinition</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Create a new <a href="PushDefinition.html">PushDefinition</a> object for
 this user.</p>
 
-<h3 id="method-i-createPushDefinition-label-Returns">Returns</h3>
+<h3>Returns</h3>
 
 <p>A <a href="PushDefinition.html">PushDefinition</a> object.</p>
-          
+            
 
-          
-          <div class="method-source-code" id="createPushDefinition-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/user.rb, line 94</span>
+            
+            <div class="method-source-code" id="createPushDefinition-source">
+<pre>
+<span class="ruby-comment"># File lib/DataSift/user.rb, line 94</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">createPushDefinition</span>()
         <span class="ruby-keyword">return</span> <span class="ruby-constant">PushDefinition</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword">self</span>)
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- createPushDefinition-source -->
+            </div><!-- createPushDefinition-source -->
+            
+          </div>
+
           
-        </div>
 
-        
-
-        
-      </div><!-- createPushDefinition-method -->
-
-    
-      <div id="method-i-enableSSL" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">enableSSL</span><span
-            class="method-args">(use_ssl = true)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
           
-          <p>Sets whether to use SSL for API and stream communication.</p>
+        </div><!-- createPushDefinition-method -->
 
-<h3 id="method-i-enableSSL-label-Parameters">Parameters</h3>
+      
+        <div id="enableSSL-method" class="method-detail ">
+          <a name="method-i-enableSSL"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">enableSSL</span><span
+              class="method-args">(use_ssl = true)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Sets whether to use SSL for API and stream communication.</p>
+
+<h3>Parameters</h3>
 <ul><li>
-<p><code>use_ssl</code> - Pass true to use SSL.</p>
+<p><tt>use_ssl</tt> - Pass true to use SSL.</p>
 </li></ul>
-          
+            
 
-          
-          <div class="method-source-code" id="enableSSL-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/user.rb, line 222</span>
+            
+            <div class="method-source-code" id="enableSSL-source">
+<pre>
+<span class="ruby-comment"># File lib/DataSift/user.rb, line 222</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">enableSSL</span>(<span class="ruby-identifier">use_ssl</span> = <span class="ruby-keyword">true</span>)
         <span class="ruby-ivar">@use_ssl</span> = <span class="ruby-identifier">use_ssl</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- enableSSL-source -->
+            </div><!-- enableSSL-source -->
+            
+          </div>
+
           
-        </div>
 
-        
-
-        
-      </div><!-- enableSSL-method -->
-
-    
-      <div id="method-i-getBalance" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">getBalance</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
           
-          <p>Returns the account balance information for this user.</p>
+        </div><!-- enableSSL-method -->
 
-<h3 id="method-i-getBalance-label-Returns">Returns</h3>
+      
+        <div id="getBalance-method" class="method-detail ">
+          <a name="method-i-getBalance"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">getBalance</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Returns the account balance information for this user.</p>
+
+<h3>Returns</h3>
 
 <p>A Hash containing the balance information.</p>
-          
+            
 
-          
-          <div class="method-source-code" id="getBalance-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/user.rb, line 189</span>
+            
+            <div class="method-source-code" id="getBalance-source">
+<pre>
+<span class="ruby-comment"># File lib/DataSift/user.rb, line 189</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">getBalance</span>
         <span class="ruby-keyword">return</span> <span class="ruby-identifier">callAPI</span>(<span class="ruby-string">'balance'</span>)[<span class="ruby-string">'balance'</span>]
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- getBalance-source -->
+            </div><!-- getBalance-source -->
+            
+          </div>
+
           
-        </div>
 
-        
-
-        
-      </div><!-- getBalance-method -->
-
-    
-      <div id="method-i-getConsumer" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">getConsumer</span><span
-            class="method-args">(type = nil, hash = nil, on_interaction = nil, on_stopped = nil)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
           
-          <p>Returns a StreamConsumer-derived object for the given hash, for the given
+        </div><!-- getBalance-method -->
+
+      
+        <div id="getConsumer-method" class="method-detail ">
+          <a name="method-i-getConsumer"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">getConsumer</span><span
+              class="method-args">(type = nil, hash = nil, on_interaction = nil, on_stopped = nil)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Returns a StreamConsumer-derived object for the given hash, for the given
 type.</p>
 
-<h3 id="method-i-getConsumer-label-Parameters">Parameters</h3>
+<h3>Parameters</h3>
 <ul><li>
-<p><code>type</code> - The consumer type for which to construct a consumer.</p>
+<p><tt>type</tt> - The consumer type for which to construct a consumer.</p>
 </li><li>
-<p><code>hash</code> - The hash to be consumed.</p>
+<p><tt>hash</tt> - The hash to be consumed.</p>
 </li></ul>
 
-<h3 id="method-i-getConsumer-label-Returns">Returns</h3>
+<h3>Returns</h3>
 
 <p>A StreamConsumer-derived object.</p>
-          
+            
 
-          
-          <div class="method-source-code" id="getConsumer-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/user.rb, line 182</span>
+            
+            <div class="method-source-code" id="getConsumer-source">
+<pre>
+<span class="ruby-comment"># File lib/DataSift/user.rb, line 182</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">getConsumer</span>(<span class="ruby-identifier">type</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">hash</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">on_interaction</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">on_stopped</span> = <span class="ruby-keyword">nil</span>)
         <span class="ruby-constant">StreamConsumer</span>.<span class="ruby-identifier">factory</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">type</span>, <span class="ruby-constant">Definition</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword">self</span>, <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">hash</span>))
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- getConsumer-source -->
+            </div><!-- getConsumer-source -->
+            
+          </div>
+
           
-        </div>
 
-        
-
-        
-      </div><!-- getConsumer-method -->
-
-    
-      <div id="method-i-getHistoric" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">getHistoric</span><span
-            class="method-args">(playback_id)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
           
-          <p>Get a Historics query from the API.</p>
+        </div><!-- getConsumer-method -->
 
-<h3 id="method-i-getHistoric-label-Parameters">Parameters</h3>
+      
+        <div id="getHistoric-method" class="method-detail ">
+          <a name="method-i-getHistoric"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">getHistoric</span><span
+              class="method-args">(playback_id)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Get a Historics query from the API.</p>
+
+<h3>Parameters</h3>
 <ul><li>
-<p><code>playback_id</code> - The playback ID of the Historics query to
-retrieve.</p>
+<p><tt>playback_id</tt> - The playback ID of the Historics query to retrieve.</p>
 </li></ul>
 
-<h3 id="method-i-getHistoric-label-Returns">Returns</h3>
+<h3>Returns</h3>
 
 <p>A <a href="Historic.html">Historic</a> object.</p>
-          
+            
 
-          
-          <div class="method-source-code" id="getHistoric-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/user.rb, line 75</span>
+            
+            <div class="method-source-code" id="getHistoric-source">
+<pre>
+<span class="ruby-comment"># File lib/DataSift/user.rb, line 75</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">getHistoric</span>(<span class="ruby-identifier">playback_id</span>)
         <span class="ruby-keyword">return</span> <span class="ruby-constant">Historic</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">playback_id</span>)
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- getHistoric-source -->
+            </div><!-- getHistoric-source -->
+            
+          </div>
+
           
-        </div>
 
-        
-
-        
-      </div><!-- getHistoric-method -->
-
-    
-      <div id="method-i-getPushSubscription" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">getPushSubscription</span><span
-            class="method-args">(subscription_id)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
           
-          <p>Get an existing <a href="PushSubscription.html">PushSubscription</a> from
+        </div><!-- getHistoric-method -->
+
+      
+        <div id="getPushSubscription-method" class="method-detail ">
+          <a name="method-i-getPushSubscription"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">getPushSubscription</span><span
+              class="method-args">(subscription_id)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Get an existing <a href="PushSubscription.html">PushSubscription</a> from
 the API.</p>
 
-<h3 id="method-i-getPushSubscription-label-Parameters">Parameters</h3>
+<h3>Parameters</h3>
 <ul><li>
-<p><code>subscription_id</code> - The ID of the subscription to fetch.</p>
+<p><tt>subscription_id</tt> - The ID of the subscription to fetch.</p>
 </li></ul>
 
-<h3 id="method-i-getPushSubscription-label-Returns">Returns</h3>
+<h3>Returns</h3>
 
 <p>A <a href="PushSubscription.html">PushSubscription</a> object.</p>
-          
+            
 
-          
-          <div class="method-source-code" id="getPushSubscription-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/user.rb, line 103</span>
+            
+            <div class="method-source-code" id="getPushSubscription-source">
+<pre>
+<span class="ruby-comment"># File lib/DataSift/user.rb, line 103</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">getPushSubscription</span>(<span class="ruby-identifier">subscription_id</span>)
         <span class="ruby-keyword">return</span> <span class="ruby-constant">PushSubscription</span>.<span class="ruby-identifier">get</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">subscription_id</span>)
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- getPushSubscription-source -->
+            </div><!-- getPushSubscription-source -->
+            
+          </div>
+
           
-        </div>
 
-        
-
-        
-      </div><!-- getPushSubscription-method -->
-
-    
-      <div id="method-i-getPushSubscriptionLog" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">getPushSubscriptionLog</span><span
-            class="method-args">(subscription_id = false)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
           
-          <p>Get the log entries for all push subscription or the given subscription.</p>
+        </div><!-- getPushSubscription-method -->
 
-<h3 id="method-i-getPushSubscriptionLog-label-Parameters">Parameters</h3>
+      
+        <div id="getPushSubscriptionLog-method" class="method-detail ">
+          <a name="method-i-getPushSubscriptionLog"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">getPushSubscriptionLog</span><span
+              class="method-args">(subscription_id = false)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Get the log entries for all push subscription or the given subscription.</p>
+
+<h3>Parameters</h3>
 <ul><li>
-<p><code>subscription_id</code> - Optional subscription ID.</p>
+<p><tt>subscription_id</tt> - Optional subscription ID.</p>
 </li></ul>
 
-<h3 id="method-i-getPushSubscriptionLog-label-Returns">Returns</h3>
+<h3>Returns</h3>
 
 <p>A Hash containing…</p>
 <ul><li>
-<p><code>count</code> - The total number of matching log entries.</p>
+<p><tt>count</tt> - The total number of matching log entries.</p>
 </li><li>
-<p><code>log_entries</code> - An array of Hashes where each Hash is a log
-entry.</p>
+<p><tt>log_entries</tt> - An array of Hashes where each Hash is a log entry.</p>
 </li></ul>
-          
+            
 
-          
-          <div class="method-source-code" id="getPushSubscriptionLog-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/user.rb, line 114</span>
+            
+            <div class="method-source-code" id="getPushSubscriptionLog-source">
+<pre>
+<span class="ruby-comment"># File lib/DataSift/user.rb, line 114</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">getPushSubscriptionLog</span>(<span class="ruby-identifier">subscription_id</span> = <span class="ruby-keyword">false</span>)
         <span class="ruby-keyword">if</span> <span class="ruby-identifier">subscription_id</span>
                 <span class="ruby-keyword">return</span> <span class="ruby-identifier">getPushSubscription</span>(<span class="ruby-identifier">subscription_id</span>).<span class="ruby-identifier">getLog</span>()
@@ -759,416 +867,385 @@ entry.</p>
                 <span class="ruby-keyword">return</span> <span class="ruby-constant">PushSubscription</span>.<span class="ruby-identifier">getLogs</span>(<span class="ruby-keyword">self</span>)
         <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- getPushSubscriptionLog-source -->
+            </div><!-- getPushSubscriptionLog-source -->
+            
+          </div>
+
           
-        </div>
 
-        
-
-        
-      </div><!-- getPushSubscriptionLog-method -->
-
-    
-      <div id="method-i-getUsage" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">getUsage</span><span
-            class="method-args">(period = 'hour')</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
           
-          <p>Returns the usage data for this user. If a hash is provided then a more
+        </div><!-- getPushSubscriptionLog-method -->
+
+      
+        <div id="getUsage-method" class="method-detail ">
+          <a name="method-i-getUsage"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">getUsage</span><span
+              class="method-args">(period = 'hour')</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Returns the usage data for this user. If a hash is provided then a more
 detailed breakdown using interaction types is retrieved and returned.</p>
 
-<h3 id="method-i-getUsage-label-Parameters">Parameters</h3>
+<h3>Parameters</h3>
 <ul><li>
-<p><code>period</code> - An optional period for which to fetch data
-(‘hour’ or ‘day’)</p>
+<p><tt>period</tt> - An optional period for which to fetch data ('hour' or
+'day')</p>
 </li></ul>
 
-<h3 id="method-i-getUsage-label-Returns">Returns</h3>
+<h3>Returns</h3>
 
 <p>A Hash containing the usage information.</p>
-          
+            
 
-          
-          <div class="method-source-code" id="getUsage-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/user.rb, line 199</span>
+            
+            <div class="method-source-code" id="getUsage-source">
+<pre>
+<span class="ruby-comment"># File lib/DataSift/user.rb, line 199</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">getUsage</span>(<span class="ruby-identifier">period</span> = <span class="ruby-string">'hour'</span>)
         <span class="ruby-identifier">params</span> = { <span class="ruby-string">'period'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">period</span> }
 
         <span class="ruby-keyword">return</span> <span class="ruby-identifier">callAPI</span>(<span class="ruby-string">'usage'</span>, <span class="ruby-identifier">params</span>)
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- getUsage-source -->
+            </div><!-- getUsage-source -->
+            
+          </div>
+
           
-        </div>
 
-        
-
-        
-      </div><!-- getUsage-method -->
-
-    
-      <div id="method-i-getUserAgent" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">getUserAgent</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
           
-          <p>Returns the user agent this library should use for all API calls.</p>
+        </div><!-- getUsage-method -->
 
-<h3 id="method-i-getUserAgent-label-Returns">Returns</h3>
+      
+        <div id="getUserAgent-method" class="method-detail ">
+          <a name="method-i-getUserAgent"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">getUserAgent</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Returns the user agent this library should use for all API calls.</p>
+
+<h3>Returns</h3>
 
 <p>The user agent string.</p>
-          
+            
 
-          
-          <div class="method-source-code" id="getUserAgent-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/user.rb, line 208</span>
+            
+            <div class="method-source-code" id="getUserAgent-source">
+<pre>
+<span class="ruby-comment"># File lib/DataSift/user.rb, line 208</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">getUserAgent</span>()
         <span class="ruby-keyword">return</span> <span class="ruby-constant">USER_AGENT</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- getUserAgent-source -->
+            </div><!-- getUserAgent-source -->
+            
+          </div>
+
           
-        </div>
 
-        
-
-        
-      </div><!-- getUserAgent-method -->
-
-    
-      <div id="method-i-listHistorics" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">listHistorics</span><span
-            class="method-args">(page = 1, per_page = 20)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
           
-          <pre>Get a list of Historics queries in your account.</pre>
+        </div><!-- getUserAgent-method -->
 
-<h3 id="method-i-listHistorics-label-Parameters">Parameters</h3>
+      
+        <div id="listHistorics-method" class="method-detail ">
+          <a name="method-i-listHistorics"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">listHistorics</span><span
+              class="method-args">(page = 1, per_page = 20)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <pre>Get a list of Historics queries in your account.</pre>
+
+<h3>Parameters</h3>
 <ul><li>
-<p><code>page</code> - The page number to get.</p>
+<p><tt>page</tt> - The page number to get.</p>
 </li><li>
-<p><code>per_page</code> - The number of items per page.</p>
+<p><tt>per_page</tt> - The number of items per page.</p>
 </li></ul>
 
-<h3 id="method-i-listHistorics-label-Returns">Returns</h3>
+<h3>Returns</h3>
 
 <p>A Hash containing…</p>
 <ul><li>
-<p><code>count</code> - The total number of Historics queries in your account.</p>
+<p><tt>count</tt> - The total number of Historics queries in your account.</p>
 </li><li>
-<p><code>historics</code> - An array of Hashes where each Hash is a Historics
+<p><tt>historics</tt> - An array of Hashes where each Hash is a Historics
 query.</p>
 </li></ul>
-          
+            
 
-          
-          <div class="method-source-code" id="listHistorics-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/user.rb, line 87</span>
+            
+            <div class="method-source-code" id="listHistorics-source">
+<pre>
+<span class="ruby-comment"># File lib/DataSift/user.rb, line 87</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">listHistorics</span>(<span class="ruby-identifier">page</span> = <span class="ruby-value">1</span>, <span class="ruby-identifier">per_page</span> = <span class="ruby-value">20</span>)
         <span class="ruby-keyword">return</span> <span class="ruby-constant">Historic</span><span class="ruby-operator">::</span><span class="ruby-identifier">list</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">page</span>, <span class="ruby-identifier">per_page</span>)
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- listHistorics-source -->
+            </div><!-- listHistorics-source -->
+            
+          </div>
+
           
-        </div>
 
-        
-
-        
-      </div><!-- listHistorics-method -->
-
-    
-      <div id="method-i-listPushSubscriptions" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">listPushSubscriptions</span><span
-            class="method-args">(page = 1, per_page = 20, order_by = PushSubscription::ORDERBY_CREATED_AT, order_dir = PushSubscription::ORDERDIR_ASC, include_finished = false)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
           
-          <p>Get a page of Push subscriptions in the given user’s account, where each
+        </div><!-- listHistorics-method -->
+
+      
+        <div id="listPushSubscriptions-method" class="method-detail ">
+          <a name="method-i-listPushSubscriptions"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">listPushSubscriptions</span><span
+              class="method-args">(page = 1, per_page = 20, order_by = PushSubscription::ORDERBY_CREATED_AT, order_dir = PushSubscription::ORDERDIR_ASC, include_finished = false)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Get a page of Push subscriptions in the given user’s account, where each
 page contains up to per_page items. Results will be ordered according to
 the supplied ordering parameters.</p>
 
-<h3 id="method-i-listPushSubscriptions-label-Parameters">Parameters</h3>
+<h3>Parameters</h3>
 <ul><li>
-<p><code>page</code> - The page number to get.</p>
+<p><tt>page</tt> - The page number to get.</p>
 </li><li>
-<p><code>per_page</code> - The number of items per page.</p>
+<p><tt>per_page</tt> - The number of items per page.</p>
 </li><li>
-<p><code>order_by</code> - The field by which to order the results.</p>
+<p><tt>order_by</tt> - The field by which to order the results.</p>
 </li><li>
-<p><code>order_dir</code> - Ascending or descending.</p>
+<p><tt>order_dir</tt> - Ascending or descending.</p>
 </li><li>
-<p><code>include_finished</code> - True to include subscriptions against
-finished Historics queries.</p>
+<p><tt>include_finished</tt> - True to include subscriptions against finished
+Historics queries.</p>
 </li></ul>
 
-<h3 id="method-i-listPushSubscriptions-label-Returns">Returns</h3>
+<h3>Returns</h3>
 
 <p>A Hash containing…</p>
 <ul><li>
-<p><code>count</code> - The total number of matching Push subscriptions in
-your account.</p>
+<p><tt>count</tt> - The total number of matching Push subscriptions in your
+account.</p>
 </li><li>
-<p><code>subscriptions</code> - An array of Hashes where each Hash is a Push
+<p><tt>subscriptions</tt> - An array of Hashes where each Hash is a Push
 subscription.</p>
 </li></ul>
-          
+            
 
-          
-          <div class="method-source-code" id="listPushSubscriptions-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/user.rb, line 135</span>
+            
+            <div class="method-source-code" id="listPushSubscriptions-source">
+<pre>
+<span class="ruby-comment"># File lib/DataSift/user.rb, line 135</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">listPushSubscriptions</span>(<span class="ruby-identifier">page</span> = <span class="ruby-value">1</span>, <span class="ruby-identifier">per_page</span> = <span class="ruby-value">20</span>, <span class="ruby-identifier">order_by</span> = <span class="ruby-constant">PushSubscription</span><span class="ruby-operator">::</span><span class="ruby-constant">ORDERBY_CREATED_AT</span>, <span class="ruby-identifier">order_dir</span> = <span class="ruby-constant">PushSubscription</span><span class="ruby-operator">::</span><span class="ruby-constant">ORDERDIR_ASC</span>, <span class="ruby-identifier">include_finished</span> = <span class="ruby-keyword">false</span>)
         <span class="ruby-keyword">return</span> <span class="ruby-constant">PushSubscription</span>.<span class="ruby-identifier">list</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">page</span>, <span class="ruby-identifier">per_page</span>, <span class="ruby-identifier">order_by</span>, <span class="ruby-identifier">order_dir</span>, <span class="ruby-identifier">include_finished</span>)
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- listPushSubscriptions-source -->
+            </div><!-- listPushSubscriptions-source -->
+            
+          </div>
+
           
-        </div>
 
-        
-
-        
-      </div><!-- listPushSubscriptions-method -->
-
-    
-      <div id="method-i-listPushSubscriptionsToPlaybackId" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">listPushSubscriptionsToPlaybackId</span><span
-            class="method-args">(playback_id, page = 1, per_page = 20, order_by = PushSubscription::ORDERBY_CREATED_AT, order_dir = PushSubscription::ORDERDIR_ASC, include_finished = false)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
           
-          <p>Get a page of Push subscriptions in the given user’s account, where each
+        </div><!-- listPushSubscriptions-method -->
+
+      
+        <div id="listPushSubscriptionsToPlaybackId-method" class="method-detail ">
+          <a name="method-i-listPushSubscriptionsToPlaybackId"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">listPushSubscriptionsToPlaybackId</span><span
+              class="method-args">(playback_id, page = 1, per_page = 20, order_by = PushSubscription::ORDERBY_CREATED_AT, order_dir = PushSubscription::ORDERDIR_ASC, include_finished = false)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Get a page of Push subscriptions in the given user’s account, where each
 page contains up to per_page items. Results will be ordered according to
 the supplied ordering parameters.</p>
 
-<h3 id="method-i-listPushSubscriptionsToPlaybackId-label-Parameters">Parameters</h3>
+<h3>Parameters</h3>
 <ul><li>
-<p><code>hash</code> - The stream hash.</p>
+<p><tt>hash</tt> - The stream hash.</p>
 </li><li>
-<p><code>page</code> - The page number to get.</p>
+<p><tt>page</tt> - The page number to get.</p>
 </li><li>
-<p><code>per_page</code> - The number of items per page.</p>
+<p><tt>per_page</tt> - The number of items per page.</p>
 </li><li>
-<p><code>order_by</code> - The field by which to order the results.</p>
+<p><tt>order_by</tt> - The field by which to order the results.</p>
 </li><li>
-<p><code>order_dir</code> - Ascending or descending.</p>
+<p><tt>order_dir</tt> - Ascending or descending.</p>
 </li><li>
-<p><code>include_finished</code> - True to include subscriptions against
-finished Historics queries.</p>
+<p><tt>include_finished</tt> - True to include subscriptions against finished
+Historics queries.</p>
 </li></ul>
 
-<h3 id="method-i-listPushSubscriptionsToPlaybackId-label-Returns">Returns</h3>
+<h3>Returns</h3>
 
 <p>A Hash containing…</p>
 <ul><li>
-<p><code>count</code> - The total number of matching Push subscriptions in
-your account.</p>
+<p><tt>count</tt> - The total number of matching Push subscriptions in your
+account.</p>
 </li><li>
-<p><code>subscriptions</code> - An array of Hashes where each Hash is a Push
+<p><tt>subscriptions</tt> - An array of Hashes where each Hash is a Push
 subscription.</p>
 </li></ul>
-          
+            
 
-          
-          <div class="method-source-code" id="listPushSubscriptionsToPlaybackId-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/user.rb, line 171</span>
+            
+            <div class="method-source-code" id="listPushSubscriptionsToPlaybackId-source">
+<pre>
+<span class="ruby-comment"># File lib/DataSift/user.rb, line 171</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">listPushSubscriptionsToPlaybackId</span>(<span class="ruby-identifier">playback_id</span>, <span class="ruby-identifier">page</span> = <span class="ruby-value">1</span>, <span class="ruby-identifier">per_page</span> = <span class="ruby-value">20</span>, <span class="ruby-identifier">order_by</span> = <span class="ruby-constant">PushSubscription</span><span class="ruby-operator">::</span><span class="ruby-constant">ORDERBY_CREATED_AT</span>, <span class="ruby-identifier">order_dir</span> = <span class="ruby-constant">PushSubscription</span><span class="ruby-operator">::</span><span class="ruby-constant">ORDERDIR_ASC</span>, <span class="ruby-identifier">include_finished</span> = <span class="ruby-keyword">false</span>)
         <span class="ruby-keyword">return</span> <span class="ruby-constant">PushSubscription</span>.<span class="ruby-identifier">listByPlaybackId</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">playback_id</span>, <span class="ruby-identifier">page</span>, <span class="ruby-identifier">per_page</span>, <span class="ruby-identifier">order_by</span>, <span class="ruby-identifier">order_dir</span>)
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- listPushSubscriptionsToPlaybackId-source -->
+            </div><!-- listPushSubscriptionsToPlaybackId-source -->
+            
+          </div>
+
           
-        </div>
 
-        
-
-        
-      </div><!-- listPushSubscriptionsToPlaybackId-method -->
-
-    
-      <div id="method-i-listPushSubscriptionsToStreamHash" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">listPushSubscriptionsToStreamHash</span><span
-            class="method-args">(hash, page = 1, per_page = 20, order_by = PushSubscription::ORDERBY_CREATED_AT, order_dir = PushSubscription::ORDERDIR_ASC, include_finished = false)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
           
-          <p>Get a page of Push subscriptions in the given user’s account, where each
+        </div><!-- listPushSubscriptionsToPlaybackId-method -->
+
+      
+        <div id="listPushSubscriptionsToStreamHash-method" class="method-detail ">
+          <a name="method-i-listPushSubscriptionsToStreamHash"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">listPushSubscriptionsToStreamHash</span><span
+              class="method-args">(hash, page = 1, per_page = 20, order_by = PushSubscription::ORDERBY_CREATED_AT, order_dir = PushSubscription::ORDERDIR_ASC, include_finished = false)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Get a page of Push subscriptions in the given user’s account, where each
 page contains up to per_page items. Results will be ordered according to
 the supplied ordering parameters.</p>
 
-<h3 id="method-i-listPushSubscriptionsToStreamHash-label-Parameters">Parameters</h3>
+<h3>Parameters</h3>
 <ul><li>
-<p><code>hash</code> - The stream hash.</p>
+<p><tt>hash</tt> - The stream hash.</p>
 </li><li>
-<p><code>page</code> - The page number to get.</p>
+<p><tt>page</tt> - The page number to get.</p>
 </li><li>
-<p><code>per_page</code> - The number of items per page.</p>
+<p><tt>per_page</tt> - The number of items per page.</p>
 </li><li>
-<p><code>order_by</code> - The field by which to order the results.</p>
+<p><tt>order_by</tt> - The field by which to order the results.</p>
 </li><li>
-<p><code>order_dir</code> - Ascending or descending.</p>
+<p><tt>order_dir</tt> - Ascending or descending.</p>
 </li><li>
-<p><code>include_finished</code> - True to include subscriptions against
-finished Historics queries.</p>
+<p><tt>include_finished</tt> - True to include subscriptions against finished
+Historics queries.</p>
 </li></ul>
 
-<h3 id="method-i-listPushSubscriptionsToStreamHash-label-Returns">Returns</h3>
+<h3>Returns</h3>
 
 <p>A Hash containing…</p>
 <ul><li>
-<p><code>count</code> - The total number of matching Push subscriptions in
-your account.</p>
+<p><tt>count</tt> - The total number of matching Push subscriptions in your
+account.</p>
 </li><li>
-<p><code>subscriptions</code> - An array of Hashes where each Hash is a Push
+<p><tt>subscriptions</tt> - An array of Hashes where each Hash is a Push
 subscription.</p>
 </li></ul>
-          
+            
 
-          
-          <div class="method-source-code" id="listPushSubscriptionsToStreamHash-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/user.rb, line 153</span>
+            
+            <div class="method-source-code" id="listPushSubscriptionsToStreamHash-source">
+<pre>
+<span class="ruby-comment"># File lib/DataSift/user.rb, line 153</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">listPushSubscriptionsToStreamHash</span>(<span class="ruby-identifier">hash</span>, <span class="ruby-identifier">page</span> = <span class="ruby-value">1</span>, <span class="ruby-identifier">per_page</span> = <span class="ruby-value">20</span>, <span class="ruby-identifier">order_by</span> = <span class="ruby-constant">PushSubscription</span><span class="ruby-operator">::</span><span class="ruby-constant">ORDERBY_CREATED_AT</span>, <span class="ruby-identifier">order_dir</span> = <span class="ruby-constant">PushSubscription</span><span class="ruby-operator">::</span><span class="ruby-constant">ORDERDIR_ASC</span>, <span class="ruby-identifier">include_finished</span> = <span class="ruby-keyword">false</span>)
         <span class="ruby-keyword">return</span> <span class="ruby-constant">PushSubscription</span>.<span class="ruby-identifier">listByStreamHash</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">hash</span>, <span class="ruby-identifier">page</span>, <span class="ruby-identifier">per_page</span>, <span class="ruby-identifier">order_by</span>, <span class="ruby-identifier">order_dir</span>)
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- listPushSubscriptionsToStreamHash-source -->
+            </div><!-- listPushSubscriptionsToStreamHash-source -->
+            
+          </div>
+
           
-        </div>
 
-        
-
-        
-      </div><!-- listPushSubscriptionsToStreamHash-method -->
-
-    
-      <div id="method-i-setApiClient" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">setApiClient</span><span
-            class="method-args">(client)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
           
-          <p>Sets the <a href="ApiClient.html">ApiClient</a> object to use to access the
+        </div><!-- listPushSubscriptionsToStreamHash-method -->
+
+      
+        <div id="setApiClient-method" class="method-detail ">
+          <a name="method-i-setApiClient"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">setApiClient</span><span
+              class="method-args">(client)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Sets the <a href="ApiClient.html">ApiClient</a> object to use to access the
 API</p>
 
-<h3 id="method-i-setApiClient-label-Parameters">Parameters</h3>
+<h3>Parameters</h3>
 <ul><li>
-<p><code>client</code> - The API client object to be used.</p>
+<p><tt>client</tt> - The API client object to be used.</p>
 </li></ul>
-          
+            
 
-          
-          <div class="method-source-code" id="setApiClient-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/user.rb, line 215</span>
+            
+            <div class="method-source-code" id="setApiClient-source">
+<pre>
+<span class="ruby-comment"># File lib/DataSift/user.rb, line 215</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">setApiClient</span>(<span class="ruby-identifier">client</span>)
         <span class="ruby-ivar">@api_client</span> = <span class="ruby-identifier">client</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- setApiClient-source -->
+            </div><!-- setApiClient-source -->
+            
+          </div>
+
           
-        </div>
 
-        
+          
+        </div><!-- setApiClient-method -->
 
-        
-      </div><!-- setApiClient-method -->
-
+      
+      </div><!-- public-instance-method-details -->
     
-    </section><!-- public-instance-method-details -->
+    </div><!-- 5Buntitled-5D -->
   
-     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
-      <h3 class="section-header">Public Class Methods</h3>
 
-    
-      <div id="method-c-new" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">new</span><span
-            class="method-args">(username, api_key, use_ssl = true)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
+  </div><!-- documentation -->
 
-        <div class="method-description">
-          
-          <p>Constructor. A username and API key are required when constructing an
-instance of this class.</p>
+  <div id="validator-badges">
+    <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+    <p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+      Rdoc Generator</a> 2</small>.</p>
+  </div>
 
-<h3 id="method-c-new-label-Parameters">Parameters</h3>
-<ul><li>
-<p><code>username</code> - The User’s <a
-href="../DataSift.html">DataSift</a> username</p>
-</li><li>
-<p><code>api_key</code> - The User’s <a href="../DataSift.html">DataSift</a>
-API key</p>
-</li></ul>
-          
-
-          
-          <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/user.rb, line 34</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">username</span>, <span class="ruby-identifier">api_key</span>, <span class="ruby-identifier">use_ssl</span> = <span class="ruby-keyword">true</span>)
-        <span class="ruby-identifier">username</span>.<span class="ruby-identifier">strip!</span>
-        <span class="ruby-identifier">api_key</span>.<span class="ruby-identifier">strip!</span>
-
-        <span class="ruby-identifier">raise</span> <span class="ruby-constant">EInvalidData</span>, <span class="ruby-string">'Please supply valid credentials when creating a User object.'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">username</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span> <span class="ruby-keyword">and</span> <span class="ruby-identifier">api_key</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
-
-        <span class="ruby-ivar">@username</span> = <span class="ruby-identifier">username</span>
-        <span class="ruby-ivar">@api_key</span> = <span class="ruby-identifier">api_key</span>
-        <span class="ruby-ivar">@rate_limit</span> = <span class="ruby-value">-1</span>;
-        <span class="ruby-ivar">@rate_limit_remaining</span> = <span class="ruby-value">-1</span>
-        <span class="ruby-ivar">@use_ssl</span> = <span class="ruby-identifier">use_ssl</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- new-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- new-method -->
-
-    
-    </section><!-- public-class-method-details -->
-  
-  </section><!-- 5Buntitled-5D -->
-
-</div><!-- documentation -->
-
-
-<footer id="validator-badges">
-  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
-  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.
-  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
-</footer>
+</body>
+</html>
 

@@ -1,151 +1,296 @@
-<!DOCTYPE html>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
-<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
 
-<title>DataSift Ruby Client Library</title>
+  <title>DataSift Ruby Client Library</title>
 
-<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+  <link type="text/css" media="screen" href="rdoc.css" rel="stylesheet" />
 
-<script type="text/javascript">
-  var rdoc_rel_prefix = "./";
-</script>
+  <script src="js/jquery.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js/thickbox-compressed.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js/quicksearch.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js/darkfish.js" type="text/javascript" charset="utf-8"></script>
 
-<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
-<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
-<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
-<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
-<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
-<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+</head>
+<body class="indexpage">
 
+  
+  <h1>DataSift Ruby Client Library</h1>
 
-<body>
-<nav id="metadata">
-  <nav id="home-section" class="section">
-  <h3 class="section-header">
-    <a href="./index.html">Home</a>
-    <a href="./table_of_contents.html#classes">Classes</a>
-    <a href="./table_of_contents.html#methods">Methods</a>
-  </h3>
-</nav>
+  
+  <p>This is the API documentation for 'DataSift Ruby Client Library'.</p>
+  
 
-
-  <nav id="search-section" class="section project-section" class="initially-hidden">
-  <form action="#" method="get" accept-charset="utf-8">
-    <h3 class="section-header">
-      <input type="text" name="search" placeholder="Search" id="search-field"
-             title="Type to search, Up and Down to navigate, Enter to load">
-    </h3>
-  </form>
-
-  <ul id="search-results" class="initially-hidden"></ul>
-</nav>
-
-
-  <div id="project-metadata">
-    <nav id="fileindex-section" class="section project-section">
-  <h3 class="section-header">Pages</h3>
-
+  
+  
+  <h2>Files</h2>
   <ul>
-  
-    <li class="file"><a href="./Gemfile.html">Gemfile</a>
-  
-    <li class="file"><a href="./LICENSE.html">LICENSE</a>
-  
-    <li class="file"><a href="./Rakefile.html">Rakefile</a>
-  
-    <li class="file"><a href="./VERSION.html">VERSION</a>
-  
+    
+      <li class="file"><a href="Gemfile.html">Gemfile</a></li>
+    
+      <li class="file"><a href="LICENSE.html">LICENSE</a></li>
+    
+      <li class="file"><a href="Rakefile.html">Rakefile</a></li>
+    
+      <li class="file"><a href="VERSION.html">VERSION</a></li>
+    
   </ul>
-</nav>
+  
 
-    <nav id="classindex-section" class="section project-section">
-  <h3 class="section-header">Class and Module Index</h3>
-
-  <ul class="link-list">
-  
-    <li><a href="./DataSift.html">DataSift</a>
-  
-    <li><a href="./DataSift/APIError.html">DataSift::APIError</a>
-  
-    <li><a href="./DataSift/AccessDeniedError.html">DataSift::AccessDeniedError</a>
-  
-    <li><a href="./DataSift/ApiClient.html">DataSift::ApiClient</a>
-  
-    <li><a href="./DataSift/CompileFailedError.html">DataSift::CompileFailedError</a>
-  
-    <li><a href="./DataSift/DataSiftError.html">DataSift::DataSiftError</a>
-  
-    <li><a href="./DataSift/Definition.html">DataSift::Definition</a>
-  
-    <li><a href="./DataSift/Historic.html">DataSift::Historic</a>
-  
-    <li><a href="./DataSift/InvalidDataError.html">DataSift::InvalidDataError</a>
-  
-    <li><a href="./DataSift/MockApiClient.html">DataSift::MockApiClient</a>
-  
-    <li><a href="./DataSift/PushDefinition.html">DataSift::PushDefinition</a>
-  
-    <li><a href="./DataSift/PushSubscription.html">DataSift::PushSubscription</a>
-  
-    <li><a href="./DataSift/RateLimitExceededError.html">DataSift::RateLimitExceededError</a>
-  
-    <li><a href="./DataSift/StreamConsumer.html">DataSift::StreamConsumer</a>
-  
-    <li><a href="./DataSift/StreamConsumer_HTTP.html">DataSift::StreamConsumer_HTTP</a>
-  
-    <li><a href="./DataSift/StreamError.html">DataSift::StreamError</a>
-  
-    <li><a href="./DataSift/User.html">DataSift::User</a>
-  
-    <li><a href="./Test.html">Test</a>
-  
-    <li><a href="./Test/Unit.html">Test::Unit</a>
-  
-    <li><a href="./Test/Unit/TestCase.html">Test::Unit::TestCase</a>
-  
-    <li><a href="./Env.html">Env</a>
-  
-    <li><a href="./Object.html">Object</a>
-  
-    <li><a href="./TestDefinition.html">TestDefinition</a>
-  
-    <li><a href="./TestHistorics.html">TestHistorics</a>
-  
-    <li><a href="./TestPushDefinition.html">TestPushDefinition</a>
-  
-    <li><a href="./TestPushSubscription.html">TestPushSubscription</a>
-  
-    <li><a href="./TestUser.html">TestUser</a>
-  
+  <h2 id="classes">Classes/Modules</h2>
+  <ul>
+    
+    <li class="module"><a href="DataSift.html">DataSift</a></li>
+    
+    <li class="class"><a href="DataSift/APIError.html">DataSift::APIError</a></li>
+    
+    <li class="class"><a href="DataSift/AccessDeniedError.html">DataSift::AccessDeniedError</a></li>
+    
+    <li class="class"><a href="DataSift/ApiClient.html">DataSift::ApiClient</a></li>
+    
+    <li class="class"><a href="DataSift/CompileFailedError.html">DataSift::CompileFailedError</a></li>
+    
+    <li class="class"><a href="DataSift/DataSiftError.html">DataSift::DataSiftError</a></li>
+    
+    <li class="class"><a href="DataSift/Definition.html">DataSift::Definition</a></li>
+    
+    <li class="class"><a href="DataSift/Historic.html">DataSift::Historic</a></li>
+    
+    <li class="class"><a href="DataSift/InvalidDataError.html">DataSift::InvalidDataError</a></li>
+    
+    <li class="class"><a href="DataSift/MockApiClient.html">DataSift::MockApiClient</a></li>
+    
+    <li class="class"><a href="DataSift/PushDefinition.html">DataSift::PushDefinition</a></li>
+    
+    <li class="class"><a href="DataSift/PushSubscription.html">DataSift::PushSubscription</a></li>
+    
+    <li class="class"><a href="DataSift/RateLimitExceededError.html">DataSift::RateLimitExceededError</a></li>
+    
+    <li class="class"><a href="DataSift/StreamConsumer.html">DataSift::StreamConsumer</a></li>
+    
+    <li class="class"><a href="DataSift/StreamConsumer_HTTP.html">DataSift::StreamConsumer_HTTP</a></li>
+    
+    <li class="class"><a href="DataSift/StreamError.html">DataSift::StreamError</a></li>
+    
+    <li class="class"><a href="DataSift/User.html">DataSift::User</a></li>
+    
+    <li class="module"><a href="Test.html">Test</a></li>
+    
+    <li class="module"><a href="Test/Unit.html">Test::Unit</a></li>
+    
+    <li class="class"><a href="Test/Unit/TestCase.html">Test::Unit::TestCase</a></li>
+    
+    <li class="class"><a href="Env.html">Env</a></li>
+    
+    <li class="class"><a href="Object.html">Object</a></li>
+    
+    <li class="class"><a href="TestDefinition.html">TestDefinition</a></li>
+    
+    <li class="class"><a href="TestHistorics.html">TestHistorics</a></li>
+    
+    <li class="class"><a href="TestPushDefinition.html">TestPushDefinition</a></li>
+    
+    <li class="class"><a href="TestPushSubscription.html">TestPushSubscription</a></li>
+    
+    <li class="class"><a href="TestUser.html">TestUser</a></li>
+    
   </ul>
-</nav>
 
+  <h2 id="methods">Methods</h2>
+  <ul>
+    
+      <li><a href="DataSift/StreamConsumer.html#method-c-factory">::factory &mdash; DataSift::StreamConsumer</a></li>
+    
+      <li><a href="DataSift/PushSubscription.html#method-c-get">::get &mdash; DataSift::PushSubscription</a></li>
+    
+      <li><a href="DataSift/PushSubscription.html#method-c-getLogs">::getLogs &mdash; DataSift::PushSubscription</a></li>
+    
+      <li><a href="DataSift/PushSubscription.html#method-c-list">::list &mdash; DataSift::PushSubscription</a></li>
+    
+      <li><a href="DataSift/Historic.html#method-c-list">::list &mdash; DataSift::Historic</a></li>
+    
+      <li><a href="DataSift/PushSubscription.html#method-c-listByPlaybackId">::listByPlaybackId &mdash; DataSift::PushSubscription</a></li>
+    
+      <li><a href="DataSift/PushSubscription.html#method-c-listByStreamHash">::listByStreamHash &mdash; DataSift::PushSubscription</a></li>
+    
+      <li><a href="DataSift/StreamConsumer.html#method-c-new">::new &mdash; DataSift::StreamConsumer</a></li>
+    
+      <li><a href="DataSift/Definition.html#method-c-new">::new &mdash; DataSift::Definition</a></li>
+    
+      <li><a href="DataSift/StreamConsumer_HTTP.html#method-c-new">::new &mdash; DataSift::StreamConsumer_HTTP</a></li>
+    
+      <li><a href="DataSift/User.html#method-c-new">::new &mdash; DataSift::User</a></li>
+    
+      <li><a href="DataSift/PushDefinition.html#method-c-new">::new &mdash; DataSift::PushDefinition</a></li>
+    
+      <li><a href="DataSift/Historic.html#method-c-new">::new &mdash; DataSift::Historic</a></li>
+    
+      <li><a href="DataSift/APIError.html#method-c-new">::new &mdash; DataSift::APIError</a></li>
+    
+      <li><a href="DataSift/PushSubscription.html#method-c-new">::new &mdash; DataSift::PushSubscription</a></li>
+    
+      <li><a href="Env.html#method-c-new">::new &mdash; Env</a></li>
+    
+      <li><a href="DataSift/MockApiClient.html#method-i-call">#call &mdash; DataSift::MockApiClient</a></li>
+    
+      <li><a href="DataSift/ApiClient.html#method-i-call">#call &mdash; DataSift::ApiClient</a></li>
+    
+      <li><a href="DataSift/User.html#method-i-callAPI">#callAPI &mdash; DataSift::User</a></li>
+    
+      <li><a href="Test/Unit/TestCase.html#method-i-checkSubscription">#checkSubscription &mdash; Test::Unit::TestCase</a></li>
+    
+      <li><a href="DataSift/Definition.html#method-i-clearHash">#clearHash &mdash; DataSift::Definition</a></li>
+    
+      <li><a href="DataSift/MockApiClient.html#method-i-clearResponse">#clearResponse &mdash; DataSift::MockApiClient</a></li>
+    
+      <li><a href="DataSift/Definition.html#method-i-compile">#compile &mdash; DataSift::Definition</a></li>
+    
+      <li><a href="Test/Unit/TestCase.html#method-i-configurePushDefinition">#configurePushDefinition &mdash; Test::Unit::TestCase</a></li>
+    
+      <li><a href="DataSift/StreamConsumer.html#method-i-consume">#consume &mdash; DataSift::StreamConsumer</a></li>
+    
+      <li><a href="DataSift/User.html#method-i-createDefinition">#createDefinition &mdash; DataSift::User</a></li>
+    
+      <li><a href="DataSift/Definition.html#method-i-createHistoric">#createHistoric &mdash; DataSift::Definition</a></li>
+    
+      <li><a href="DataSift/User.html#method-i-createHistoric">#createHistoric &mdash; DataSift::User</a></li>
+    
+      <li><a href="DataSift/User.html#method-i-createPushDefinition">#createPushDefinition &mdash; DataSift::User</a></li>
+    
+      <li><a href="DataSift/Definition.html#method-i-created_at">#created_at &mdash; DataSift::Definition</a></li>
+    
+      <li><a href="DataSift/Definition.html#method-i-csdl-3D">#csdl= &mdash; DataSift::Definition</a></li>
+    
+      <li><a href="DataSift/PushSubscription.html#method-i-delete">#delete &mdash; DataSift::PushSubscription</a></li>
+    
+      <li><a href="DataSift/Historic.html#method-i-delete">#delete &mdash; DataSift::Historic</a></li>
+    
+      <li><a href="Env.html#method-i-displayHistoricDetails">#displayHistoricDetails &mdash; Env</a></li>
+    
+      <li><a href="Env.html#method-i-displaySubscriptionDetails">#displaySubscriptionDetails &mdash; Env</a></li>
+    
+      <li><a href="DataSift/User.html#method-i-enableSSL">#enableSSL &mdash; DataSift::User</a></li>
+    
+      <li><a href="DataSift/User.html#method-i-getBalance">#getBalance &mdash; DataSift::User</a></li>
+    
+      <li><a href="DataSift/Definition.html#method-i-getBuffered">#getBuffered &mdash; DataSift::Definition</a></li>
+    
+      <li><a href="DataSift/Definition.html#method-i-getConsumer">#getConsumer &mdash; DataSift::Definition</a></li>
+    
+      <li><a href="DataSift/User.html#method-i-getConsumer">#getConsumer &mdash; DataSift::User</a></li>
+    
+      <li><a href="DataSift/Definition.html#method-i-getDPUBreakdown">#getDPUBreakdown &mdash; DataSift::Definition</a></li>
+    
+      <li><a href="DataSift/User.html#method-i-getHistoric">#getHistoric &mdash; DataSift::User</a></li>
+    
+      <li><a href="DataSift/PushSubscription.html#method-i-getLog">#getLog &mdash; DataSift::PushSubscription</a></li>
+    
+      <li><a href="DataSift/User.html#method-i-getPushSubscription">#getPushSubscription &mdash; DataSift::User</a></li>
+    
+      <li><a href="DataSift/User.html#method-i-getPushSubscriptionLog">#getPushSubscriptionLog &mdash; DataSift::User</a></li>
+    
+      <li><a href="DataSift/Historic.html#method-i-getPushSubscriptions">#getPushSubscriptions &mdash; DataSift::Historic</a></li>
+    
+      <li><a href="DataSift/User.html#method-i-getUsage">#getUsage &mdash; DataSift::User</a></li>
+    
+      <li><a href="DataSift/User.html#method-i-getUserAgent">#getUserAgent &mdash; DataSift::User</a></li>
+    
+      <li><a href="DataSift/Definition.html#method-i-hash">#hash &mdash; DataSift::Definition</a></li>
+    
+      <li><a href="DataSift/Historic.html#method-i-hash">#hash &mdash; DataSift::Historic</a></li>
+    
+      <li><a href="DataSift/PushSubscription.html#method-i-init">#init &mdash; DataSift::PushSubscription</a></li>
+    
+      <li><a href="Test/Unit/TestCase.html#method-i-init">#init &mdash; Test::Unit::TestCase</a></li>
+    
+      <li><a href="DataSift/Historic.html#method-i-initFromArray">#initFromArray &mdash; DataSift::Historic</a></li>
+    
+      <li><a href="DataSift/User.html#method-i-listHistorics">#listHistorics &mdash; DataSift::User</a></li>
+    
+      <li><a href="DataSift/User.html#method-i-listPushSubscriptions">#listPushSubscriptions &mdash; DataSift::User</a></li>
+    
+      <li><a href="DataSift/User.html#method-i-listPushSubscriptionsToPlaybackId">#listPushSubscriptionsToPlaybackId &mdash; DataSift::User</a></li>
+    
+      <li><a href="DataSift/User.html#method-i-listPushSubscriptionsToStreamHash">#listPushSubscriptionsToStreamHash &mdash; DataSift::User</a></li>
+    
+      <li><a href="DataSift/PushSubscription.html#method-i-name-3D">#name= &mdash; DataSift::PushSubscription</a></li>
+    
+      <li><a href="DataSift/Historic.html#method-i-name-3D">#name= &mdash; DataSift::Historic</a></li>
+    
+      <li><a href="Object.html#method-i-number_with_delimiter">#number_with_delimiter &mdash; Object</a></li>
+    
+      <li><a href="DataSift/StreamConsumer.html#method-i-onDeleted">#onDeleted &mdash; DataSift::StreamConsumer</a></li>
+    
+      <li><a href="DataSift/StreamConsumer.html#method-i-onError">#onError &mdash; DataSift::StreamConsumer</a></li>
+    
+      <li><a href="DataSift/StreamConsumer_HTTP.html#method-i-onStart">#onStart &mdash; DataSift::StreamConsumer_HTTP</a></li>
+    
+      <li><a href="DataSift/StreamConsumer.html#method-i-onStart">#onStart &mdash; DataSift::StreamConsumer</a></li>
+    
+      <li><a href="DataSift/StreamConsumer.html#method-i-onStop">#onStop &mdash; DataSift::StreamConsumer</a></li>
+    
+      <li><a href="DataSift/StreamConsumer.html#method-i-onStopped">#onStopped &mdash; DataSift::StreamConsumer</a></li>
+    
+      <li><a href="DataSift/StreamConsumer.html#method-i-onWarning">#onWarning &mdash; DataSift::StreamConsumer</a></li>
+    
+      <li><a href="DataSift/PushSubscription.html#method-i-pause">#pause &mdash; DataSift::PushSubscription</a></li>
+    
+      <li><a href="DataSift/Historic.html#method-i-prepare">#prepare &mdash; DataSift::Historic</a></li>
+    
+      <li><a href="DataSift/PushSubscription.html#method-i-reload">#reload &mdash; DataSift::PushSubscription</a></li>
+    
+      <li><a href="DataSift/Historic.html#method-i-reloadData">#reloadData &mdash; DataSift::Historic</a></li>
+    
+      <li><a href="DataSift/PushSubscription.html#method-i-resume">#resume &mdash; DataSift::PushSubscription</a></li>
+    
+      <li><a href="DataSift/PushSubscription.html#method-i-save">#save &mdash; DataSift::PushSubscription</a></li>
+    
+      <li><a href="Test/Unit/TestCase.html#method-i-set204Response">#set204Response &mdash; Test::Unit::TestCase</a></li>
+    
+      <li><a href="DataSift/User.html#method-i-setApiClient">#setApiClient &mdash; DataSift::User</a></li>
+    
+      <li><a href="DataSift/MockApiClient.html#method-i-setResponse">#setResponse &mdash; DataSift::MockApiClient</a></li>
+    
+      <li><a href="Test/Unit/TestCase.html#method-i-setResponseToASingleHistoric">#setResponseToASingleHistoric &mdash; Test::Unit::TestCase</a></li>
+    
+      <li><a href="Test/Unit/TestCase.html#method-i-setResponseToASingleSubscription">#setResponseToASingleSubscription &mdash; Test::Unit::TestCase</a></li>
+    
+      <li><a href="DataSift/Historic.html#method-i-start">#start &mdash; DataSift::Historic</a></li>
+    
+      <li><a href="DataSift/PushSubscription.html#method-i-stop">#stop &mdash; DataSift::PushSubscription</a></li>
+    
+      <li><a href="DataSift/StreamConsumer.html#method-i-stop">#stop &mdash; DataSift::StreamConsumer</a></li>
+    
+      <li><a href="DataSift/Historic.html#method-i-stop">#stop &mdash; DataSift::Historic</a></li>
+    
+      <li><a href="DataSift/PushDefinition.html#method-i-subscribe">#subscribe &mdash; DataSift::PushDefinition</a></li>
+    
+      <li><a href="DataSift/PushDefinition.html#method-i-subscribeDefinition">#subscribeDefinition &mdash; DataSift::PushDefinition</a></li>
+    
+      <li><a href="DataSift/PushDefinition.html#method-i-subscribeHistoric">#subscribeHistoric &mdash; DataSift::PushDefinition</a></li>
+    
+      <li><a href="DataSift/PushDefinition.html#method-i-subscribeHistoricPlaybackId">#subscribeHistoricPlaybackId &mdash; DataSift::PushDefinition</a></li>
+    
+      <li><a href="DataSift/PushDefinition.html#method-i-subscribeStreamHash">#subscribeStreamHash &mdash; DataSift::PushDefinition</a></li>
+    
+      <li><a href="DataSift/Definition.html#method-i-total_dpu">#total_dpu &mdash; DataSift::Definition</a></li>
+    
+      <li><a href="Object.html#method-i-usage">#usage &mdash; Object</a></li>
+    
+      <li><a href="DataSift/PushDefinition.html#method-i-validate">#validate &mdash; DataSift::PushDefinition</a></li>
+    
+      <li><a href="DataSift/Definition.html#method-i-validate">#validate &mdash; DataSift::Definition</a></li>
+    
+  </ul>
+
+  <div id="validator-badges">
+    <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+    <p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+      Rdoc Generator</a> 2</small>.</p>
   </div>
-</nav>
-
-<p>This is the API documentation for DataSift Ruby Client Library.
-
-<h2>Source Code</h2>
-
-<p>The DataSift API Library is available for <a href='https://github.com/datasift/datasift-ruby'>download</a>.</p>
-
-<h2>Examples</h2>
-
-<p>See the <a href='https://github.com/datasift/datasift-ruby/tree/master/examples'>examples</a> folder for some simple example usage. Make sure you read the example <a href='https://github.com/datasift/datasift-ruby/blob/master/README.md'>notes</a>.</p>
-
-<h2>Documentation</h2>
-
-<p>The DataSift API Library is used to access the <a href='http://datasift.com/'>DataSift</a> platform via its Application Programming Interface. You can learn more about the DataSift API on our <a href='http://dev.datasift.com/docs/'>documentation</a> site.</p>
-
-<h2>Licensing</h2>
-
-<p>The DataSift API Library is Open Source software. Please read the <a href='https://github.com/datasift/datasift-ruby/blob/master/LICENSE'>license</a>.</p>
-
-<footer id="validator-badges">
-  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
-  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.
-  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
-</footer>
-
+</body>
+</html>

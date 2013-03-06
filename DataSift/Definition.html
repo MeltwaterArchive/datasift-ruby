@@ -1,286 +1,360 @@
-<!DOCTYPE html>
-
-<html>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
 
-<title>class DataSift::Definition - DataSift Ruby Client Library</title>
+  <title>Class: DataSift::Definition</title>
 
-<link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
+  <link rel="stylesheet" href="../rdoc.css" type="text/css" media="screen" />
 
-<script type="text/javascript">
-  var rdoc_rel_prefix = "../";
-</script>
+  <script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../js/thickbox-compressed.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../js/quicksearch.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../js/darkfish.js" type="text/javascript" charset="utf-8"></script>
 
-<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
-<script type="text/javascript" charset="utf-8" src="../js/navigation.js"></script>
-<script type="text/javascript" charset="utf-8" src="../js/search_index.js"></script>
-<script type="text/javascript" charset="utf-8" src="../js/search.js"></script>
-<script type="text/javascript" charset="utf-8" src="../js/searcher.js"></script>
-<script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
-
-
+</head>
 <body id="top" class="class">
-<nav id="metadata">
-  <nav id="home-section" class="section">
-  <h3 class="section-header">
-    <a href="../index.html">Home</a>
-    <a href="../table_of_contents.html#classes">Classes</a>
-    <a href="../table_of_contents.html#methods">Methods</a>
-  </h3>
-</nav>
 
+  <div id="metadata">
+    <div id="home-metadata">
+      <div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="../index.html">Home</a>
+          <a href="../index.html#classes">Classes</a>
+          <a href="../index.html#methods">Methods</a>
+        </h3>
+      </div>
+    </div>
 
-  <nav id="search-section" class="section project-section" class="initially-hidden">
-  <form action="#" method="get" accept-charset="utf-8">
-    <h3 class="section-header">
-      <input type="text" name="search" placeholder="Search" id="search-field"
-             title="Type to search, Up and Down to navigate, Enter to load">
-    </h3>
-  </form>
+    <div id="file-metadata">
+      <div id="file-list-section" class="section">
+        <h3 class="section-header">In Files</h3>
+        <div class="section-body">
+          <ul>
+          
+            <li><a href="../lib/DataSift/definition_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="lib/DataSift/definition.rb">lib/DataSift/definition.rb</a></li>
+          
+          </ul>
+        </div>
+      </div>
 
-  <ul id="search-results" class="initially-hidden"></ul>
-</nav>
+      
+    </div>
 
+    <div id="class-metadata">
+      
+      <!-- Parent Class -->
+      <div id="parent-class-section" class="section">
+        <h3 class="section-header">Parent</h3>
+        
+        <p class="link"><a href="../Object.html">Object</a></p>
+        
+      </div>
+      
 
-  <div id="file-metadata">
-    <nav id="file-list-section" class="section">
-  <h3 class="section-header">Defined In</h3>
-  <ul>
-    <li>lib/DataSift/definition.rb
-  </ul>
-</nav>
+      
 
-    
+      
+
+      
+      <!-- Method Quickref -->
+      <div id="method-list-section" class="section">
+        <h3 class="section-header">Methods</h3>
+        <ul class="link-list">
+          
+          <li><a href="#method-c-new">::new</a></li>
+          
+          <li><a href="#method-i-clearHash">#clearHash</a></li>
+          
+          <li><a href="#method-i-compile">#compile</a></li>
+          
+          <li><a href="#method-i-createHistoric">#createHistoric</a></li>
+          
+          <li><a href="#method-i-created_at">#created_at</a></li>
+          
+          <li><a href="#method-i-csdl-3D">#csdl=</a></li>
+          
+          <li><a href="#method-i-getBuffered">#getBuffered</a></li>
+          
+          <li><a href="#method-i-getConsumer">#getConsumer</a></li>
+          
+          <li><a href="#method-i-getDPUBreakdown">#getDPUBreakdown</a></li>
+          
+          <li><a href="#method-i-hash">#hash</a></li>
+          
+          <li><a href="#method-i-total_dpu">#total_dpu</a></li>
+          
+          <li><a href="#method-i-validate">#validate</a></li>
+          
+        </ul>
+      </div>
+      
+
+      
+    </div>
+
+    <div id="project-metadata">
+      
+      
+      <div id="fileindex-section" class="section project-section">
+        <h3 class="section-header">Files</h3>
+        <ul>
+        
+          <li class="file"><a href="../Gemfile.html">Gemfile</a></li>
+        
+          <li class="file"><a href="../LICENSE.html">LICENSE</a></li>
+        
+          <li class="file"><a href="../Rakefile.html">Rakefile</a></li>
+        
+          <li class="file"><a href="../VERSION.html">VERSION</a></li>
+        
+        </ul>
+      </div>
+      
+
+      <div id="classindex-section" class="section project-section">
+        <h3 class="section-header">Class/Module Index
+          <span class="search-toggle"><img src="../images/find.png"
+            height="16" width="16" alt="[+]"
+            title="show/hide quicksearch" /></span></h3>
+        <form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+        <fieldset>
+          <legend>Quicksearch</legend>
+          <input type="text" name="quicksearch" value=""
+            class="quicksearch-field" />
+        </fieldset>
+        </form>
+
+        <ul class="link-list">
+        
+          <li><a href="../DataSift.html">DataSift</a></li>
+        
+          <li><a href="../DataSift/APIError.html">DataSift::APIError</a></li>
+        
+          <li><a href="../DataSift/AccessDeniedError.html">DataSift::AccessDeniedError</a></li>
+        
+          <li><a href="../DataSift/ApiClient.html">DataSift::ApiClient</a></li>
+        
+          <li><a href="../DataSift/CompileFailedError.html">DataSift::CompileFailedError</a></li>
+        
+          <li><a href="../DataSift/DataSiftError.html">DataSift::DataSiftError</a></li>
+        
+          <li><a href="../DataSift/Definition.html">DataSift::Definition</a></li>
+        
+          <li><a href="../DataSift/Historic.html">DataSift::Historic</a></li>
+        
+          <li><a href="../DataSift/InvalidDataError.html">DataSift::InvalidDataError</a></li>
+        
+          <li><a href="../DataSift/MockApiClient.html">DataSift::MockApiClient</a></li>
+        
+          <li><a href="../DataSift/PushDefinition.html">DataSift::PushDefinition</a></li>
+        
+          <li><a href="../DataSift/PushSubscription.html">DataSift::PushSubscription</a></li>
+        
+          <li><a href="../DataSift/RateLimitExceededError.html">DataSift::RateLimitExceededError</a></li>
+        
+          <li><a href="../DataSift/StreamConsumer.html">DataSift::StreamConsumer</a></li>
+        
+          <li><a href="../DataSift/StreamConsumer_HTTP.html">DataSift::StreamConsumer_HTTP</a></li>
+        
+          <li><a href="../DataSift/StreamError.html">DataSift::StreamError</a></li>
+        
+          <li><a href="../DataSift/User.html">DataSift::User</a></li>
+        
+          <li><a href="../Test.html">Test</a></li>
+        
+          <li><a href="../Test/Unit.html">Test::Unit</a></li>
+        
+          <li><a href="../Test/Unit/TestCase.html">Test::Unit::TestCase</a></li>
+        
+          <li><a href="../Env.html">Env</a></li>
+        
+          <li><a href="../Object.html">Object</a></li>
+        
+          <li><a href="../TestDefinition.html">TestDefinition</a></li>
+        
+          <li><a href="../TestHistorics.html">TestHistorics</a></li>
+        
+          <li><a href="../TestPushDefinition.html">TestPushDefinition</a></li>
+        
+          <li><a href="../TestPushSubscription.html">TestPushSubscription</a></li>
+        
+          <li><a href="../TestUser.html">TestUser</a></li>
+        
+        </ul>
+        <div id="no-class-search-results" style="display: none;">No matching classes.</div>
+      </div>
+
+      
+    </div>
   </div>
 
-  <div id="class-metadata">
-    
-    <nav id="parent-class-section" class="section">
-  <h3 class="section-header">Parent</h3>
-  
-  <p class="link"><a href="../Object.html">Object</a>
-  
-</nav>
+  <div id="documentation">
+    <h1 class="class">DataSift::Definition</h1>
 
-    
-    <!-- Method Quickref -->
-<nav id="method-list-section" class="section">
-  <h3 class="section-header">Methods</h3>
-
-  <ul class="link-list">
-    
-    <li><a href="#method-c-new">::new</a>
-    
-    <li><a href="#method-i-clearHash">#clearHash</a>
-    
-    <li><a href="#method-i-compile">#compile</a>
-    
-    <li><a href="#method-i-createHistoric">#createHistoric</a>
-    
-    <li><a href="#method-i-created_at">#created_at</a>
-    
-    <li><a href="#method-i-csdl-3D">#csdl=</a>
-    
-    <li><a href="#method-i-getBuffered">#getBuffered</a>
-    
-    <li><a href="#method-i-getConsumer">#getConsumer</a>
-    
-    <li><a href="#method-i-getDPUBreakdown">#getDPUBreakdown</a>
-    
-    <li><a href="#method-i-hash">#hash</a>
-    
-    <li><a href="#method-i-total_dpu">#total_dpu</a>
-    
-    <li><a href="#method-i-validate">#validate</a>
-    
-  </ul>
-</nav>
-
-  </div>
-
-  <div id="project-metadata">
-    <nav id="fileindex-section" class="section project-section">
-  <h3 class="section-header">Pages</h3>
-
-  <ul>
-  
-    <li class="file"><a href="../Gemfile.html">Gemfile</a>
-  
-    <li class="file"><a href="../LICENSE.html">LICENSE</a>
-  
-    <li class="file"><a href="../Rakefile.html">Rakefile</a>
-  
-    <li class="file"><a href="../VERSION.html">VERSION</a>
-  
-  </ul>
-</nav>
-
-    <nav id="classindex-section" class="section project-section">
-  <h3 class="section-header">Class and Module Index</h3>
-
-  <ul class="link-list">
-  
-    <li><a href="../DataSift.html">DataSift</a>
-  
-    <li><a href="../DataSift/APIError.html">DataSift::APIError</a>
-  
-    <li><a href="../DataSift/AccessDeniedError.html">DataSift::AccessDeniedError</a>
-  
-    <li><a href="../DataSift/ApiClient.html">DataSift::ApiClient</a>
-  
-    <li><a href="../DataSift/CompileFailedError.html">DataSift::CompileFailedError</a>
-  
-    <li><a href="../DataSift/DataSiftError.html">DataSift::DataSiftError</a>
-  
-    <li><a href="../DataSift/Definition.html">DataSift::Definition</a>
-  
-    <li><a href="../DataSift/Historic.html">DataSift::Historic</a>
-  
-    <li><a href="../DataSift/InvalidDataError.html">DataSift::InvalidDataError</a>
-  
-    <li><a href="../DataSift/MockApiClient.html">DataSift::MockApiClient</a>
-  
-    <li><a href="../DataSift/PushDefinition.html">DataSift::PushDefinition</a>
-  
-    <li><a href="../DataSift/PushSubscription.html">DataSift::PushSubscription</a>
-  
-    <li><a href="../DataSift/RateLimitExceededError.html">DataSift::RateLimitExceededError</a>
-  
-    <li><a href="../DataSift/StreamConsumer.html">DataSift::StreamConsumer</a>
-  
-    <li><a href="../DataSift/StreamConsumer_HTTP.html">DataSift::StreamConsumer_HTTP</a>
-  
-    <li><a href="../DataSift/StreamError.html">DataSift::StreamError</a>
-  
-    <li><a href="../DataSift/User.html">DataSift::User</a>
-  
-    <li><a href="../Test.html">Test</a>
-  
-    <li><a href="../Test/Unit.html">Test::Unit</a>
-  
-    <li><a href="../Test/Unit/TestCase.html">Test::Unit::TestCase</a>
-  
-    <li><a href="../Env.html">Env</a>
-  
-    <li><a href="../Object.html">Object</a>
-  
-    <li><a href="../TestDefinition.html">TestDefinition</a>
-  
-    <li><a href="../TestHistorics.html">TestHistorics</a>
-  
-    <li><a href="../TestPushDefinition.html">TestPushDefinition</a>
-  
-    <li><a href="../TestPushSubscription.html">TestPushSubscription</a>
-  
-    <li><a href="../TestUser.html">TestUser</a>
-  
-  </ul>
-</nav>
-
-  </div>
-</nav>
-
-<div id="documentation">
-  <h1 class="class">class DataSift::Definition</h1>
-
-  <div id="description" class="description">
-    
+    <div id="description" class="description">
+      
 <p>The <a href="Definition.html">Definition</a> class represents a stream
 definition.</p>
 
-  </div><!-- description -->
-
-  
-  
-  
-  <section id="5Buntitled-5D" class="documentation-section">
-    
+    </div><!-- description -->
 
     
-
     
-
     
-    <!-- Attributes -->
-    <section id="attribute-method-details" class="method-section section">
-      <h3 class="section-header">Attributes</h3>
+    <div id="5Buntitled-5D" class="documentation-section">
+      
 
       
-      <div id="attribute-i-csdl" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">csdl</span><span
-            class="attribute-access-type">[R]</span>
-        </div>
 
-        <div class="method-description">
-        
-        <p>The CSDL for this <a href="Definition.html">Definition</a>.</p>
-        
-        </div>
-      </div>
       
-    </section><!-- attribute-method-details -->
-    
 
-    <!-- Methods -->
-    
-     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
-      <h3 class="section-header">Public Instance Methods</h3>
+      
+      <!-- Attributes -->
+      <div id="attribute-method-details" class="method-section section">
+        <h3 class="section-header">Attributes</h3>
 
-    
-      <div id="method-i-clearHash" class="method-detail ">
         
-        <div class="method-heading">
-          <span class="method-name">clearHash</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
+        <div id="csdl-attribute-method" class="method-detail">
+          <a name="csdl"></a>
           
-          <p>Reset the hash to false. The effect of this is to mark the definition as
+          <div class="method-heading attribute-method-heading">
+            <span class="method-name">csdl</span><span
+              class="attribute-access-type">[R]</span>
+          </div>
+
+          <div class="method-description">
+          
+          <p>The CSDL for this <a href="Definition.html">Definition</a>.</p>
+          
+          </div>
+        </div>
+        
+      </div><!-- attribute-method-details -->
+      
+
+      <!-- Methods -->
+      
+      <div id="public-class-method-details" class="method-section section">
+        <h3 class="section-header">Public Class Methods</h3>
+
+      
+        <div id="new-method" class="method-detail ">
+          <a name="method-c-new"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">new</span><span
+              class="method-args">(user, csdl = '', hash = false)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Constructor. A <a href="User.html">User</a> object is required, and you can
+optionally supply a default CSDL string.</p>
+
+<h3>Parameters</h3>
+<ul><li>
+<p><tt>user</tt> - The <a href="User.html">DataSift::User</a> object.</p>
+</li><li>
+<p><tt>csdl</tt> - Optional default CSDL string.</p>
+</li><li>
+<p><tt>hash</tt> - Optional default hash string.</p>
+</li></ul>
+            
+
+            
+            <div class="method-source-code" id="new-source">
+<pre>
+<span class="ruby-comment"># File lib/DataSift/definition.rb, line 15</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">user</span>, <span class="ruby-identifier">csdl</span> = <span class="ruby-string">''</span>, <span class="ruby-identifier">hash</span> = <span class="ruby-keyword">false</span>)
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'Please supply a valid User object when creating a Definition object.'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">DataSift</span><span class="ruby-operator">::</span><span class="ruby-constant">User</span>
+        <span class="ruby-ivar">@user</span> = <span class="ruby-identifier">user</span>
+        <span class="ruby-identifier">clearHash</span>()
+        <span class="ruby-ivar">@hash</span> = <span class="ruby-identifier">hash</span>
+        <span class="ruby-keyword">self</span>.<span class="ruby-identifier">csdl</span> = <span class="ruby-identifier">csdl</span>
+        <span class="ruby-ivar">@total_dpu</span> = <span class="ruby-keyword">false</span>
+        <span class="ruby-ivar">@created_at</span> = <span class="ruby-keyword">false</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- new-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- new-method -->
+
+      
+      </div><!-- public-class-method-details -->
+    
+      <div id="public-instance-method-details" class="method-section section">
+        <h3 class="section-header">Public Instance Methods</h3>
+
+      
+        <div id="clearHash-method" class="method-detail ">
+          <a name="method-i-clearHash"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">clearHash</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Reset the hash to false. The effect of this is to mark the definition as
 requiring compilation.</p>
-          
+            
 
-          
-          <div class="method-source-code" id="clearHash-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/definition.rb, line 67</span>
+            
+            <div class="method-source-code" id="clearHash-source">
+<pre>
+<span class="ruby-comment"># File lib/DataSift/definition.rb, line 67</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">clearHash</span>()
         <span class="ruby-ivar">@csdl</span> = <span class="ruby-string">''</span> <span class="ruby-keyword">unless</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@csdl</span>.<span class="ruby-identifier">nil?</span>
         <span class="ruby-ivar">@hash</span> = <span class="ruby-keyword">false</span>
         <span class="ruby-ivar">@total_dpu</span> = <span class="ruby-keyword">false</span>
         <span class="ruby-ivar">@created_at</span> = <span class="ruby-keyword">false</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- clearHash-source -->
+            </div><!-- clearHash-source -->
+            
+          </div>
+
           
-        </div>
 
-        
-
-        
-      </div><!-- clearHash-method -->
-
-    
-      <div id="method-i-compile" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">compile</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
           
-          <p>Call the <a href="../DataSift.html">DataSift</a> API to compile this
+        </div><!-- clearHash-method -->
+
+      
+        <div id="compile-method" class="method-detail ">
+          <a name="method-i-compile"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">compile</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Call the <a href="../DataSift.html">DataSift</a> API to compile this
 definition. On success it will store the returned hash.</p>
-          
+            
 
-          
-          <div class="method-source-code" id="compile-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/definition.rb, line 76</span>
+            
+            <div class="method-source-code" id="compile-source">
+<pre>
+<span class="ruby-comment"># File lib/DataSift/definition.rb, line 76</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">compile</span>()
         <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'Cannot compile an empty definition.'</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@csdl</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
 
@@ -315,113 +389,122 @@ definition. On success it will store the returned hash.</p>
                 <span class="ruby-keyword">end</span>
         <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- compile-source -->
+            </div><!-- compile-source -->
+            
+          </div>
+
           
-        </div>
 
-        
-
-        
-      </div><!-- compile-method -->
-
-    
-      <div id="method-i-createHistoric" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">createHistoric</span><span
-            class="method-args">(start_date, end_date, sources, sample, name)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
           
-          <p>Create a Historics query based on this <a
+        </div><!-- compile-method -->
+
+      
+        <div id="createHistoric-method" class="method-detail ">
+          <a name="method-i-createHistoric"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">createHistoric</span><span
+              class="method-args">(start_date, end_date, sources, sample, name)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Create a Historics query based on this <a
 href="Definition.html">Definition</a>.</p>
 
-<h3 id="method-i-createHistoric-label-Parameters">Parameters</h3>
+<h3>Parameters</h3>
 <ul><li>
-<p><code>start_date</code> - The start date for a new Historics query.</p>
+<p><tt>start_date</tt> - The start date for a new Historics query.</p>
 </li><li>
-<p><code>end_date</code> - The end date for a new Historics query.</p>
+<p><tt>end_date</tt> - The end date for a new Historics query.</p>
 </li><li>
-<p><code>sources</code> - An array of sources for a new Historics query.</p>
+<p><tt>sources</tt> - An array of sources for a new Historics query.</p>
 </li><li>
-<p><code>name</code> - The name for a new Historics query.</p>
+<p><tt>name</tt> - The name for a new Historics query.</p>
 </li><li>
-<p><code>sample</code> - The sample rate for the new Historics query.</p>
+<p><tt>sample</tt> - The sample rate for the new Historics query.</p>
 </li></ul>
 
-<h3 id="method-i-createHistoric-label-Returns">Returns</h3>
+<h3>Returns</h3>
 
 <p>A <a href="Historic.html">Historic</a> object.</p>
-          
+            
 
-          
-          <div class="method-source-code" id="createHistoric-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/definition.rb, line 188</span>
+            
+            <div class="method-source-code" id="createHistoric-source">
+<pre>
+<span class="ruby-comment"># File lib/DataSift/definition.rb, line 188</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">createHistoric</span>(<span class="ruby-identifier">start_date</span>, <span class="ruby-identifier">end_date</span>, <span class="ruby-identifier">sources</span>, <span class="ruby-identifier">sample</span>, <span class="ruby-identifier">name</span>)
         <span class="ruby-keyword">return</span> <span class="ruby-constant">Historic</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@user</span>, <span class="ruby-identifier">hash</span>, <span class="ruby-identifier">start_date</span>, <span class="ruby-identifier">end_date</span>, <span class="ruby-identifier">sources</span>, <span class="ruby-identifier">sample</span>, <span class="ruby-identifier">name</span>)
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- createHistoric-source -->
-          
-        </div>
+            </div><!-- createHistoric-source -->
+            
+          </div>
 
-        
-
-        
-      </div><!-- createHistoric-method -->
-
-    
-      <div id="method-i-created_at" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">created_at</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Created at getter.</p>
           
 
           
-          <div class="method-source-code" id="created_at-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/definition.rb, line 50</span>
+        </div><!-- createHistoric-method -->
+
+      
+        <div id="created_at-method" class="method-detail ">
+          <a name="method-i-created_at"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">created_at</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Created at getter.</p>
+            
+
+            
+            <div class="method-source-code" id="created_at-source">
+<pre>
+<span class="ruby-comment"># File lib/DataSift/definition.rb, line 50</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">created_at</span>
         <span class="ruby-identifier">compile</span>() <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@created_at</span>
         <span class="ruby-keyword">return</span> <span class="ruby-ivar">@created_at</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- created_at-source -->
+            </div><!-- created_at-source -->
+            
+          </div>
+
           
-        </div>
 
-        
-
-        
-      </div><!-- created_at-method -->
-
-    
-      <div id="method-i-csdl-3D" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">csdl=</span><span
-            class="method-args">(csdl)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
           
-          <p>CSDL setter. Strips the incoming string and resets the hash if it’s
+        </div><!-- created_at-method -->
+
+      
+        <div id="csdl-3D-method" class="method-detail ">
+          <a name="method-i-csdl-3D"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">csdl=</span><span
+              class="method-args">(csdl)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>CSDL setter. Strips the incoming string and resets the hash if it’s
 changed.</p>
-          
+            
 
-          
-          <div class="method-source-code" id="csdl-3D-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/definition.rb, line 32</span>
+            
+            <div class="method-source-code" id="csdl-3D-source">
+<pre>
+<span class="ruby-comment"># File lib/DataSift/definition.rb, line 32</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">csdl=</span>(<span class="ruby-identifier">csdl</span>)
         <span class="ruby-keyword">if</span> <span class="ruby-identifier">csdl</span>.<span class="ruby-identifier">nil?</span>
                 <span class="ruby-ivar">@csdl</span> = <span class="ruby-keyword">nil</span>
@@ -432,45 +515,48 @@ changed.</p>
                 <span class="ruby-ivar">@csdl</span> = <span class="ruby-identifier">csdl</span>
         <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- csdl-3D-source -->
+            </div><!-- csdl-3D-source -->
+            
+          </div>
+
           
-        </div>
 
-        
-
-        
-      </div><!-- csdl-3D-method -->
-
-    
-      <div id="method-i-getBuffered" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">getBuffered</span><span
-            class="method-args">(count = false, from_id = false)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
           
-          <p>Call the <a href="../DataSift.html">DataSift</a> API to get buffered
+        </div><!-- csdl-3D-method -->
+
+      
+        <div id="getBuffered-method" class="method-detail ">
+          <a name="method-i-getBuffered"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">getBuffered</span><span
+              class="method-args">(count = false, from_id = false)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Call the <a href="../DataSift.html">DataSift</a> API to get buffered
 interactions.</p>
 
-<h3 id="method-i-getBuffered-label-Parameters">Parameters</h3>
+<h3>Parameters</h3>
 <ul><li>
-<p><code>count</code> - Optional number of interactions to return (max 200).</p>
+<p><tt>count</tt> - Optional number of interactions to return (max 200).</p>
 </li><li>
-<p><code>from_id</code> - Optional start ID.</p>
+<p><tt>from_id</tt> - Optional start ID.</p>
 </li></ul>
 
-<h3 id="method-i-getBuffered-label-Returns">Returns</h3>
+<h3>Returns</h3>
 
 <p>An array of Hashes where each Hash is an interaction.</p>
-          
+            
 
-          
-          <div class="method-source-code" id="getBuffered-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/definition.rb, line 159</span>
+            
+            <div class="method-source-code" id="getBuffered-source">
+<pre>
+<span class="ruby-comment"># File lib/DataSift/definition.rb, line 159</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">getBuffered</span>(<span class="ruby-identifier">count</span> = <span class="ruby-keyword">false</span>, <span class="ruby-identifier">from_id</span> = <span class="ruby-keyword">false</span>)
         <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">&quot;Cannot get buffered interactions for an empty definition.&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@csdl</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
 
@@ -490,116 +576,125 @@ interactions.</p>
 
         <span class="ruby-keyword">return</span> <span class="ruby-identifier">retval</span>[<span class="ruby-string">'stream'</span>]
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- getBuffered-source -->
+            </div><!-- getBuffered-source -->
+            
+          </div>
+
           
-        </div>
 
-        
-
-        
-      </div><!-- getBuffered-method -->
-
-    
-      <div id="method-i-getConsumer" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">getConsumer</span><span
-            class="method-args">(type = nil, on_interaction = nil, on_stopped = nil)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
           
-          <p>Returns a StreamConsumer-derived object for this definition, for the given
+        </div><!-- getBuffered-method -->
+
+      
+        <div id="getConsumer-method" class="method-detail ">
+          <a name="method-i-getConsumer"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">getConsumer</span><span
+              class="method-args">(type = nil, on_interaction = nil, on_stopped = nil)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Returns a StreamConsumer-derived object for this definition, for the given
 type.</p>
 
-<h3 id="method-i-getConsumer-label-Parameters">Parameters</h3>
+<h3>Parameters</h3>
 <ul><li>
-<p><code>type</code> - The consumer type for which to construct a consumer.</p>
+<p><tt>type</tt> - The consumer type for which to construct a consumer.</p>
 </li></ul>
 
-<h3 id="method-i-getConsumer-label-Returns">Returns</h3>
+<h3>Returns</h3>
 
 <p>A StreamConsumer-derived object.</p>
-          
+            
 
-          
-          <div class="method-source-code" id="getConsumer-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/definition.rb, line 198</span>
+            
+            <div class="method-source-code" id="getConsumer-source">
+<pre>
+<span class="ruby-comment"># File lib/DataSift/definition.rb, line 198</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">getConsumer</span>(<span class="ruby-identifier">type</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">on_interaction</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">on_stopped</span> = <span class="ruby-keyword">nil</span>)
         <span class="ruby-constant">StreamConsumer</span>.<span class="ruby-identifier">factory</span>(<span class="ruby-ivar">@user</span>, <span class="ruby-identifier">type</span>, <span class="ruby-keyword">self</span>)
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- getConsumer-source -->
+            </div><!-- getConsumer-source -->
+            
+          </div>
+
           
-        </div>
 
-        
-
-        
-      </div><!-- getConsumer-method -->
-
-    
-      <div id="method-i-getDPUBreakdown" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">getDPUBreakdown</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
           
-          <p>Call the <a href="../DataSift.html">DataSift</a> API to get the DPU for
+        </div><!-- getConsumer-method -->
+
+      
+        <div id="getDPUBreakdown-method" class="method-detail ">
+          <a name="method-i-getDPUBreakdown"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">getDPUBreakdown</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Call the <a href="../DataSift.html">DataSift</a> API to get the DPU for
 this definition. Returns</p>
 
-<h3 id="method-i-getDPUBreakdown-label-Returns">Returns</h3>
+<h3>Returns</h3>
 
 <p>A Hash containing…</p>
 <ul><li>
-<p><code>detail</code> - The breakdown of running the rule</p>
+<p><tt>detail</tt> - The breakdown of running the rule</p>
 </li><li>
-<p><code>dpu</code> - The total DPU of the rule</p>
+<p><tt>dpu</tt> - The total DPU of the rule</p>
 </li></ul>
-          
+            
 
-          
-          <div class="method-source-code" id="getDPUBreakdown-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/definition.rb, line 147</span>
+            
+            <div class="method-source-code" id="getDPUBreakdown-source">
+<pre>
+<span class="ruby-comment"># File lib/DataSift/definition.rb, line 147</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">getDPUBreakdown</span>()
         <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">&quot;Cannot get the DPU for an empty definition.&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@csdl</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
 
         <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">callAPI</span>(<span class="ruby-string">'dpu'</span>, { <span class="ruby-string">'hash'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">hash</span> })
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- getDPUBreakdown-source -->
+            </div><!-- getDPUBreakdown-source -->
+            
+          </div>
+
           
-        </div>
 
-        
-
-        
-      </div><!-- getDPUBreakdown-method -->
-
-    
-      <div id="method-i-hash" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">hash</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
           
-          <p>Hash getter. If the hash has not yet been obtained the CSDL will be
+        </div><!-- getDPUBreakdown-method -->
+
+      
+        <div id="hash-method" class="method-detail ">
+          <a name="method-i-hash"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">hash</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Hash getter. If the hash has not yet been obtained the CSDL will be
 compiled first.</p>
-          
+            
 
-          
-          <div class="method-source-code" id="hash-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/definition.rb, line 57</span>
+            
+            <div class="method-source-code" id="hash-source">
+<pre>
+<span class="ruby-comment"># File lib/DataSift/definition.rb, line 57</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">hash</span>
         <span class="ruby-keyword">if</span> <span class="ruby-ivar">@hash</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">false</span>
                 <span class="ruby-identifier">compile</span>()
@@ -607,65 +702,71 @@ compiled first.</p>
 
         <span class="ruby-keyword">return</span> <span class="ruby-ivar">@hash</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- hash-source -->
-          
-        </div>
+            </div><!-- hash-source -->
+            
+          </div>
 
-        
-
-        
-      </div><!-- hash-method -->
-
-    
-      <div id="method-i-total_dpu" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">total_dpu</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Total DPU getter.</p>
           
 
           
-          <div class="method-source-code" id="total_dpu-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/definition.rb, line 44</span>
+        </div><!-- hash-method -->
+
+      
+        <div id="total_dpu-method" class="method-detail ">
+          <a name="method-i-total_dpu"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">total_dpu</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Total DPU getter.</p>
+            
+
+            
+            <div class="method-source-code" id="total_dpu-source">
+<pre>
+<span class="ruby-comment"># File lib/DataSift/definition.rb, line 44</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">total_dpu</span>
         <span class="ruby-identifier">compile</span>() <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@total_dpu</span>
         <span class="ruby-keyword">return</span> <span class="ruby-ivar">@total_dpu</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- total_dpu-source -->
+            </div><!-- total_dpu-source -->
+            
+          </div>
+
           
-        </div>
 
-        
-
-        
-      </div><!-- total_dpu-method -->
-
-    
-      <div id="method-i-validate" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">validate</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
           
-          <p>Call the <a href="../DataSift.html">DataSift</a> API to validate this
+        </div><!-- total_dpu-method -->
+
+      
+        <div id="validate-method" class="method-detail ">
+          <a name="method-i-validate"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">validate</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Call the <a href="../DataSift.html">DataSift</a> API to validate this
 definition. On success it will store the details in the response.</p>
-          
+            
 
-          
-          <div class="method-source-code" id="validate-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/definition.rb, line 113</span>
+            
+            <div class="method-source-code" id="validate-source">
+<pre>
+<span class="ruby-comment"># File lib/DataSift/definition.rb, line 113</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">validate</span>()
         <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'Cannot validate an empty definition.'</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@csdl</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
 
@@ -694,78 +795,29 @@ definition. On success it will store the details in the response.</p>
                 <span class="ruby-keyword">end</span>
         <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- validate-source -->
+            </div><!-- validate-source -->
+            
+          </div>
+
           
-        </div>
 
-        
+          
+        </div><!-- validate-method -->
 
-        
-      </div><!-- validate-method -->
-
+      
+      </div><!-- public-instance-method-details -->
     
-    </section><!-- public-instance-method-details -->
+    </div><!-- 5Buntitled-5D -->
   
-     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
-      <h3 class="section-header">Public Class Methods</h3>
 
-    
-      <div id="method-c-new" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">new</span><span
-            class="method-args">(user, csdl = '', hash = false)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
+  </div><!-- documentation -->
 
-        <div class="method-description">
-          
-          <p>Constructor. A <a href="User.html">User</a> object is required, and you can
-optionally supply a default CSDL string.</p>
+  <div id="validator-badges">
+    <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+    <p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+      Rdoc Generator</a> 2</small>.</p>
+  </div>
 
-<h3 id="method-c-new-label-Parameters">Parameters</h3>
-<ul><li>
-<p><code>user</code> - The <a href="User.html">DataSift::User</a> object.</p>
-</li><li>
-<p><code>csdl</code> - Optional default CSDL string.</p>
-</li><li>
-<p><code>hash</code> - Optional default hash string.</p>
-</li></ul>
-          
-
-          
-          <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/DataSift/definition.rb, line 15</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">user</span>, <span class="ruby-identifier">csdl</span> = <span class="ruby-string">''</span>, <span class="ruby-identifier">hash</span> = <span class="ruby-keyword">false</span>)
-        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidDataError</span>, <span class="ruby-string">'Please supply a valid User object when creating a Definition object.'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">DataSift</span><span class="ruby-operator">::</span><span class="ruby-constant">User</span>
-        <span class="ruby-ivar">@user</span> = <span class="ruby-identifier">user</span>
-        <span class="ruby-identifier">clearHash</span>()
-        <span class="ruby-ivar">@hash</span> = <span class="ruby-identifier">hash</span>
-        <span class="ruby-keyword">self</span>.<span class="ruby-identifier">csdl</span> = <span class="ruby-identifier">csdl</span>
-        <span class="ruby-ivar">@total_dpu</span> = <span class="ruby-keyword">false</span>
-        <span class="ruby-ivar">@created_at</span> = <span class="ruby-keyword">false</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- new-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- new-method -->
-
-    
-    </section><!-- public-class-method-details -->
-  
-  </section><!-- 5Buntitled-5D -->
-
-</div><!-- documentation -->
-
-
-<footer id="validator-badges">
-  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
-  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.
-  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
-</footer>
+</body>
+</html>
 
