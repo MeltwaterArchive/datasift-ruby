@@ -246,6 +246,7 @@ module DataSift
 			case res['response_code']
 			when 200
 			when 201
+                        when 202
 			when 204
 				# Do nothing
 			when 401
