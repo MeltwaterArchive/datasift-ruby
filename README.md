@@ -43,18 +43,20 @@ end
 
 See the DataSift documentation for full details of the data contained within
 each interaction. See this page on our developer site for an example tweet:
-http://dev.datasift.com/docs/targets/twitter/twitter-output-format
+http://dev.datasift.com/docs/targets/twitter/tweet-output-format
 
 License
 -------
 
-All code contained in this repository is Copyright 2011-2012 MediaSift Ltd.
+All code contained in this repository is Copyright 2011-2013 MediaSift Ltd.
 
 This code is released under the BSD license. Please see the LICENSE file for
 more details.
 
 Changelog
 ---------
+
+* v.2.0.4 Bug fix to handle HTTP 202 response codes (2013-03-18)
 
 * v.2.0.3 Stability improvement and bug fix (2013-03-04)
   
