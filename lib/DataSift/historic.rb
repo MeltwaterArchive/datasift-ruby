@@ -58,6 +58,8 @@ module DataSift
 		attr_reader :sample
 		#The DPU cost of running this Historics query.
 		attr_reader :dpus
+		#The estimated completion timestamp for this Historic
+		attr_reader :estimated_completion
 		#True if this Historics query has been deleted.
 		attr_reader :is_deleted
 
@@ -97,17 +99,18 @@ module DataSift
 				end_date = DateTime.strptime(end_date, '%s') unless end_date.is_a? Date
 				raise InvalidDataError, 'Please supply an array of sources' unless sources.kind_of?(Array)
 
-				@playback_id  = false
-				@stream_hash  = hash
-				@start_date   = start_date
-				@end_date     = end_date
-				@sources      = sources
-				@name         = name
-				@sample       = sample
-				@progress     = 0
-				@dpus         = false
-				@availability = {}
-				@is_deleted   = false
+				@playback_id          = false
+				@stream_hash          = hash
+				@start_date           = start_date
+				@end_date             = end_date
+				@sources              = sources
+				@name                 = name
+				@sample               = sample
+				@progress             = 0
+				@dpus                 = false
+				@availability         = {}
+				@estimated_completion = 19700101000000
+				@is_deleted           = false
 			end
 		end
 
@@ -165,6 +168,8 @@ module DataSift
 
 			raise APIError, 'No sample in the response' unless data.has_key?('sample')
 			@sample = data['sample']
+
+			@estimated_completion = DateTime.strptime(String(data['estimated_completion']), '%s') unless !data.has_key?('estimated_completion')
 
 			@is_deleted = (@status == 'deleted')
 

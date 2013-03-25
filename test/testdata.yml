@@ -11,6 +11,7 @@ historic_created_at: 2012-08-01 12:00:00
 historic_sources: twitter
 historic_sample: 10.0
 historic_name: Historic for unit tests
+historic_estimated_completion: 2012-08-02 20:30:00
 
 # PushSubscription
 push_id: b665761917bbcb7afd3102b4a645b41e
