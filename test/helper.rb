@@ -21,6 +21,7 @@ class Test::Unit::TestCase
 		@testdata['push_last_request'] = DateTime.parse(@testdata['push_last_request'].to_s)
 		@testdata['push_last_success'] = DateTime.parse(@testdata['push_last_success'].to_s)
 		@testdata['historic_sources'] = @testdata['historic_sources'].split(',')
+		@testdata['estimated_completion'] = DateTime.parse(@testdata['historic_estimated_completion'].to_s)
 
 		@user = DataSift::User.new(@config['username'], @config['api_key'])
 		@user.setApiClient(DataSift::MockApiClient.new())
@@ -43,6 +44,7 @@ class Test::Unit::TestCase
 				'progress' => 0,
 				'sources' => @testdata['historic_sources'],
 				'sample' => @testdata['historic_sample'],
+				'estimated_completion' => @testdata['historic_estimated_completion'],
 			}
 		@user.api_client.setResponse(200, data.merge(changes), 200, 150)
 	end

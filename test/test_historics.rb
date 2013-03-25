@@ -41,6 +41,10 @@ class TestHistorics < Test::Unit::TestCase
 			assert_equal @testdata['historic_sample'], @historic.sample
 		end
 
+		should "have the correct estimated_completion timestamp" do
+			assert_equal @testdata['historic_estimated_completion'], @historic.estimated_completion
+		end
+
 		should "be able to change the name before preparing" do
 			assert_equal @testdata['historic_name'], @historic.name
 
@@ -174,6 +178,10 @@ class TestHistorics < Test::Unit::TestCase
 		should "have the correct sample" do
 			assert_equal @testdata['historic_sample'], @historic.sample
 		end
+
+		should "have the correct estimated_completion timestamp" do
+			assert_equal @testdata['historic_estimated_completion'], @historic.estimated_completion
+		end
 	end
 
 	context "Given a Historic object retrieved from the API" do
@@ -216,6 +224,10 @@ class TestHistorics < Test::Unit::TestCase
 			assert_equal @testdata['historic_sample'], @historic.sample
 		end
 
+		should "have the correct estimated_completion" do
+			assert_equal @testdata['historic_estimated_completion'], @historic.estimated_completion
+		end
+		
 		should "not be able to prepare the query" do
 			assert_raise(DataSift::InvalidDataError) { @historic.prepare() }
 		end
