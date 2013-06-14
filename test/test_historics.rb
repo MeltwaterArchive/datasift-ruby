@@ -41,6 +41,10 @@ class TestHistorics < Test::Unit::TestCase
 			assert_equal @testdata['historic_sample'], @historic.sample
 		end
 
+		should "have the correct estimated completion" do
+			assert_not_nil @historic.estimated_completion
+		end
+
 		should "be able to change the name before preparing" do
 			assert_equal @testdata['historic_name'], @historic.name
 
@@ -173,6 +177,10 @@ class TestHistorics < Test::Unit::TestCase
 
 		should "have the correct sample" do
 			assert_equal @testdata['historic_sample'], @historic.sample
+		end
+
+		should "have the correct estimated completion" do
+			assert_not_nil @historic.estimated_completion
 		end
 	end
 

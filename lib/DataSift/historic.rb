@@ -56,6 +56,8 @@ module DataSift
 		attr_reader :sources
 		#The sample percentage that this Historics query will match.
 		attr_reader :sample
+		#The estimated time at which this Historic will finish processing.
+		attr_reader :estimated_completion
 		#The DPU cost of running this Historics query.
 		attr_reader :dpus
 		#True if this Historics query has been deleted.
@@ -97,17 +99,18 @@ module DataSift
 				end_date = DateTime.strptime(end_date, '%s') unless end_date.is_a? Date
 				raise InvalidDataError, 'Please supply an array of sources' unless sources.kind_of?(Array)
 
-				@playback_id  = false
-				@stream_hash  = hash
-				@start_date   = start_date
-				@end_date     = end_date
-				@sources      = sources
-				@name         = name
-				@sample       = sample
-				@progress     = 0
-				@dpus         = false
-				@availability = {}
-				@is_deleted   = false
+				@playback_id  				= false
+				@stream_hash  				= hash
+				@start_date   				= start_date
+				@end_date     				= end_date
+				@sources      				= sources
+				@name         				= name
+				@sample       				= sample
+				@progress     				= 0
+				@dpus         				= false
+				@availability 				= {}
+				@estimated_completion = DateTime.strptime('0', '%s')
+				@is_deleted   				= false
 			end
 		end
 
@@ -120,7 +123,7 @@ module DataSift
 			raise InvalidDataError, 'Cannot reload the data with a Historics query with no playback ID' unless @playback_id
 
 			begin
-				initFromArray(@user.callAPI('historics/get', { 'id' => @playback_id }))
+				initFromArray(@user.callAPI('historics/get', { 'id' => @playback_id, 'with_estimate' => 1 }))
 			rescue APIError => err
 				case err.http_code
 				when 400
@@ -165,6 +168,10 @@ module DataSift
 
 			raise APIError, 'No sample in the response' unless data.has_key?('sample')
 			@sample = data['sample']
+
+			if data.has_key?('estimated_completion')
+				@estimated_completion = DateTime.strptime(String(data['estimated_completion']), '%s')
+			end
 
 			@is_deleted = (@status == 'deleted')
 
