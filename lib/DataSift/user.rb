@@ -10,6 +10,8 @@ module DataSift
 		API_BASE_URL = 'api.datasift.com/';
 		#The base URL for streams.
 		STREAM_BASE_URL = 'stream.datasift.com/';
+		#API Version
+		API_VERSION = '1';
 
 		#The User's DataSift username.
 		attr_reader :username

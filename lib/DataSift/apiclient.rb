@@ -18,7 +18,7 @@ module DataSift
 		#* +rate_limit_remaining+ - The number of API credits you have remaining for this hour.
 		def call(user, endpoint, params = {}, user_agent = User::USER_AGENT)
 			# Build the full endpoint URL
-			url = 'http' + (user.use_ssl ? 's' : '') + '://' + User::API_BASE_URL + endpoint
+			url = 'http' + (user.use_ssl ? 's' : '') + '://' + User::API_BASE_URL + 'v' + User::API_VERSION + '/' + endpoint
 
 			retval = {
 				'response_code' => 500,
