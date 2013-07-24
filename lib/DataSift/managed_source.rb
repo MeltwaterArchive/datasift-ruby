@@ -4,7 +4,7 @@
 module DataSift
   #The ManagedSource class represents a ManagedSource query.
   class ManagedSource
-    #The ID of this Historics query.
+    #The ID of this Managed Source
     attr_reader :managed_source_id
     #The current status of this Managed Source.
     attr_reader :status
@@ -80,7 +80,7 @@ module DataSift
         end
     end
     
-    #Call the DataSift API to prepare this Historics query
+    #Call the DataSift API to create the Managed Source
      def create()
        raise InvalidDataError, 'This Managed Source has already been created' unless not @managed_source_id
 
@@ -173,7 +173,7 @@ module DataSift
            # Missing or invalid parameters
            raise InvalidDataError, err
          when 404
-           # Historics query not found
+           # Managed Source not found
            raise InvalidDataError, err
          else
            raise APIError.new(err.http_code), 'Unexpected APIError code: ' + err.http_code.to_s + ' [' + err.message + ']'
@@ -181,7 +181,7 @@ module DataSift
        end
      end
 
-     #Stop this Historics query.
+     #Stop this Managed Source
      def stop()
        raise InvalidDataError, 'Cannot stop a Managed Source query that hasn\'t been prepared' unless @managed_source_id
 
@@ -193,7 +193,7 @@ module DataSift
            # Missing or invalid parameters
            raise InvalidDataError, err
          when 404
-           # Historics query not found
+           # Managed Source not found
            raise InvalidDataError, err
          else
            raise APIError.new(err.http_code), 'Unexpected APIError code: ' + err.http_code.to_s + ' [' + err.message + ']'
@@ -201,7 +201,7 @@ module DataSift
        end
      end
 
-     #Delete this Historics query.
+     #Delete this Managed Source
      def delete()
        raise InvalidDataError, 'Cannot delete a Managed source query that hasn\'t been prepared' unless @managed_source_id
 
@@ -213,7 +213,7 @@ module DataSift
            # Missing or invalid parameters
            raise InvalidDataError, err
          when 404
-           # Historics query not found
+           # Managed Source not found
            raise InvalidDataError, err
          else
            raise APIError.new(err.http_code), 'Unexpected APIError code: ' + err.http_code.to_s + ' [' + err.message + ']'
