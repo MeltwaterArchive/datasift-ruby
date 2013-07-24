@@ -96,7 +96,7 @@ module DataSift
     #=== Returns
     #A Managed Source object.
     def createManagedSource(hash = {})
-      managed_source = hash["source_type"].classify.constantize.new(self, hash)
+      managed_source = hash[:source_type].classify.constantize.new(self, hash)
       managed_source.create
       return managed_source
     end
