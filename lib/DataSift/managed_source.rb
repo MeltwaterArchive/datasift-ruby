@@ -54,7 +54,7 @@ module DataSift
     
     #Return the right Managed Source Class
     def get
-      source_type_object = "DataSift::#{self.source_type.classify}".constantize.new(@user, @raw_attributes)
+      "DataSift::#{self.source_type.classify}".constantize.new(@user, @raw_attributes)
     end
     
     def self.list(user, page = 1, per_page = 20)
