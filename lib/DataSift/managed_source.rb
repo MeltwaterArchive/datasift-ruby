@@ -1,4 +1,6 @@
-# user = DataSift::User.new(CONFIG["datasift_user_name"], CONFIG["datasift_api_key"])
+require 'json'
+### Usage ###
+# user = DataSift::User.new(config['username'], config['api_key'])
 # user.createManagedSource(:token => "CAAIUKbXn8xsBAILlxGCZADEZAM87tRqJXo9OqWskCs6jej3wfQ1LRRZAgHJQEZCHU0ABBXDwiq9o7D4uytC5LpsAcx7oiDusagsJiKtmPaZBeMkuGh4jYt1zsXo4EQuZCWPcZAIdQQLZBtjTpQlbbAZCTuJ4SSrlmOPQZD", :source_type => "facebook_page", :name => "test", :parameters=> {:likes => true, :posts_by_others =>  true, :comments => true}, :resources => [{ :url =>  "http://www.facebook.com/theguardian", :title =>  "The Guardian", :id => 10513336322 } ] )
 
 module DataSift
@@ -6,6 +8,8 @@ module DataSift
   class ManagedSource
     #The ID of this Managed Source
     attr_reader :managed_source_id
+    #The Managed Source type
+    attr_reader :source_type
     #The current status of this Managed Source.
     attr_reader :status
     #The title for this Managed Source.
@@ -29,17 +33,16 @@ module DataSift
     #=== Parameters
     #* +user+ - The DataSift::User object.
     def initialize(user, hash)
-      #Like ActiveRecord self.abstract_class = true 
-      raise "Can't initialize a ManagedSource object" if abstract_class?
       raise InvalidDataError, 'Please supply a valid User object when creating a Managed Source object.' unless user.is_a? DataSift::User
       @user = user
-      
+
       if hash.kind_of?(Hash)
-        if hash['id'].present?
+        if hash.has_key?('id')
           # Initialising from an array
           @managed_source_id = hash['id']
           initFromArray(hash)
         else
+          @source_type = hash[:source_type]
           @name = hash[:name]
           @token = hash[:token]
           @parameters = hash[:parameters]
@@ -52,9 +55,13 @@ module DataSift
       end
     end
     
-    #Return the right Managed Source Class
-    def get
-      "DataSift::#{self.source_type.classify}".constantize.new(@user, @raw_attributes)
+    #Get a single Managed Source by ID.
+    #=== Parameters
+    #* +id+ - The Managed Source ID.
+    #=== Returns
+    #A ManagedSource object
+    def self.get(user, managed_source_id)
+      return new(user, user.callAPI('source/get', { 'id' => managed_source_id }))
     end
     
     def self.list(user, page = 1, per_page = 20)
@@ -66,7 +73,7 @@ module DataSift
           })
           retval = { 'count' => res['count'], 'managed_sources' => [] }
           for source in res['sources']
-           retval['managed_sources'].push("DataSift::#{source["source_type"].classify}".constantize.new(user, source))
+           retval['managed_sources'].push(new(user, source))
           end
           retval
         rescue APIError => err
@@ -81,53 +88,52 @@ module DataSift
     end
     
     #Call the DataSift API to create the Managed Source
-     def create()
-       raise InvalidDataError, 'This Managed Source has already been created' unless not @managed_source_id
+    def create()
+      raise InvalidDataError, 'This Managed Source has already been created' unless not @managed_source_id
 
-       begin
-         res = @user.callAPI(
-         'source/create', {
-           'source_type' => @source_type,
-           'name' => @name,
-           'parameters' => @parameters.to_json,
-           'resources' => @resources.map{ |resource| { 'parameters' => resource }}.to_json, 
-           'auth' => [ 'parameters' => { 'value' => @token } ].to_json
-         })
-         raise InvalidDataError, 'Prepared successfully but no managed_source_id ID in the response' unless res.has_key?('id')
-         @managed_source_id = res['id']
+      begin
+        res = @user.callAPI(
+        'source/create', {
+          'source_type' => @source_type,
+          'name' => @name,
+          'parameters' => @parameters.to_json,
+          'resources' => @resources.to_json,
+          'auth' => [ 'parameters' => { 'value' => @token } ].to_json
+        })
+        raise InvalidDataError, 'Prepared successfully but no managed_source_id ID in the response' unless res.has_key?('id')
+        @managed_source_id = res['id']
 
-       rescue APIError => err
-         case err.http_code
-         when 400
-           raise InvalidDataError, err
-         else
-           raise APIError.new(err.http_code), 'Unexpected APIError code: ' + err.http_code.to_s + ' [' + err.message + ']'
-         end
-       end
+      rescue APIError => err
+        case err.http_code
+        when 400
+          raise InvalidDataError, err
+        else
+          raise APIError.new(err.http_code), 'Unexpected APIError code: ' + err.http_code.to_s + ' [' + err.message + ']'
+        end
+      end
 
-       # Reload the data so we get the created_at date, initial status and the rest.
-       reloadData()
-     end
+      # Reload the data so we get the created_at date, initial status and the rest.
+      reloadData()
+    end
 
+    #Reload the data for this object from the API.
+    def reloadData()
+      #Can't do this without a playback ID
+      raise InvalidDataError, 'Cannot reload the data with a Managed Source with no Managed Source ID' unless @managed_source_id
 
-     #Reload the data for this object from the API.
-     def reloadData()
-       #Can't do this without a playback ID
-       raise InvalidDataError, 'Cannot reload the data with a Managed Source with no managed source ID' unless @managed_source_id
-
-       begin
-         initFromArray(@user.callAPI('source/get', { 'id' => @managed_source_id }))
-       rescue APIError => err
-         case err.http_code
-         when 400
-           raise InvalidDataError, err
-         else
-           raise APIError.new(err.http_code), 'Unexpected APIError code: ' + err.http_code.to_s + ' [' + err.message + ']'
-         end
-       end
-     end
+      begin
+        initFromArray(@user.callAPI('source/get', { 'id' => @managed_source_id }))
+      rescue APIError => err
+        case err.http_code
+        when 400
+          raise InvalidDataError, err
+        else
+          raise APIError.new(err.http_code), 'Unexpected APIError code: ' + err.http_code.to_s + ' [' + err.message + ']'
+        end
+      end
+    end
      
-     #Initialise this obejct from the data in a Hash.
+    #Initialise this object from the data in a Hash.
  		#=== Parameters
     #* +data+ - The Hash containing the data.
     def initFromArray(data)
@@ -161,71 +167,65 @@ module DataSift
       return true
     end
      
-     #Start this Managed Source query.
-     def start()
-       raise InvalidDataError, 'Cannot start a Managed souce query that hasn\'t been created' unless @managed_source_id
+    #Start this Managed Source query.
+    def start()
+      raise InvalidDataError, 'Cannot start a Managed souce query that hasn\'t been created' unless @managed_source_id
 
-       begin
-         res = @user.callAPI('source/start', { 'id' => @managed_source_id })
-       rescue APIError => err
-         case err.http_code
-         when 400
-           # Missing or invalid parameters
-           raise InvalidDataError, err
-         when 404
-           # Managed Source not found
-           raise InvalidDataError, err
-         else
-           raise APIError.new(err.http_code), 'Unexpected APIError code: ' + err.http_code.to_s + ' [' + err.message + ']'
-         end
-       end
-     end
+      begin
+        res = @user.callAPI('source/start', { 'id' => @managed_source_id })
+      rescue APIError => err
+        case err.http_code
+        when 400
+          # Missing or invalid parameters
+          raise InvalidDataError, err
+        when 404
+          # Managed Source not found
+          raise InvalidDataError, err
+        else
+          raise APIError.new(err.http_code), 'Unexpected APIError code: ' + err.http_code.to_s + ' [' + err.message + ']'
+        end
+      end
+    end
 
-     #Stop this Managed Source
-     def stop()
-       raise InvalidDataError, 'Cannot stop a Managed Source query that hasn\'t been prepared' unless @managed_source_id
+    #Stop this Managed Source
+    def stop()
+      raise InvalidDataError, 'Cannot stop a Managed Source query that hasn\'t been prepared' unless @managed_source_id
 
-       begin
-         res = @user.callAPI('source/stop', { 'id' => @managed_source_id })
-       rescue APIError => err
-         case err.http_code
-         when 400
-           # Missing or invalid parameters
-           raise InvalidDataError, err
-         when 404
-           # Managed Source not found
-           raise InvalidDataError, err
-         else
-           raise APIError.new(err.http_code), 'Unexpected APIError code: ' + err.http_code.to_s + ' [' + err.message + ']'
-         end
-       end
-     end
+      begin
+        res = @user.callAPI('source/stop', { 'id' => @managed_source_id })
+      rescue APIError => err
+        case err.http_code
+        when 400
+          # Missing or invalid parameters
+          raise InvalidDataError, err
+        when 404
+          # Managed Source not found
+          raise InvalidDataError, err
+        else
+          raise APIError.new(err.http_code), 'Unexpected APIError code: ' + err.http_code.to_s + ' [' + err.message + ']'
+        end
+      end
+    end
 
-     #Delete this Managed Source
-     def delete()
-       raise InvalidDataError, 'Cannot delete a Managed source query that hasn\'t been prepared' unless @managed_source_id
+    #Delete this Managed Source
+    def delete()
+      raise InvalidDataError, 'Cannot delete a Managed source query that hasn\'t been prepared' unless @managed_source_id
 
-       begin
-         @user.callAPI('source/delete', { 'id' => @managed_source_id })
-       rescue APIError => err
-         case err.http_code
-         when 400
-           # Missing or invalid parameters
-           raise InvalidDataError, err
-         when 404
-           # Managed Source not found
-           raise InvalidDataError, err
-         else
-           raise APIError.new(err.http_code), 'Unexpected APIError code: ' + err.http_code.to_s + ' [' + err.message + ']'
-         end
-       end
-     end
-     
-     private
-     
-     def abstract_class?
-       self.class == DataSift::ManagedSource
-     end
-     
+      begin
+        @user.callAPI('source/delete', { 'id' => @managed_source_id })
+      rescue APIError => err
+        case err.http_code
+        when 400
+          # Missing or invalid parameters
+          raise InvalidDataError, err
+        when 404
+          # Managed Source not found
+          raise InvalidDataError, err
+        else
+          raise APIError.new(err.http_code), 'Unexpected APIError code: ' + err.http_code.to_s + ' [' + err.message + ']'
+        end
+      end
+    end
+
   end
 end

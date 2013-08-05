@@ -91,23 +91,22 @@ module DataSift
 
     #Create a Managed Source query based on this Definition.
     #=== Options
-    #* Depends on managed source
-    
+    #* +hash+ - Contains parameters to set up your Managed Source
     #=== Returns
     #A Managed Source object.
     def createManagedSource(hash = {})
-      managed_source = "DataSift::#{hash[:source_type].classify}".constantize.new(self, hash)
+      managed_source = ManagedSource.new(self, hash)
       managed_source.create
       return managed_source
     end
 
     #Get a Manged Source query from the API.
     #=== Parameters
-    #* +managed_source_id+ - The playback ID of the Historics query to retrieve.
+    #* +managed_source_id+ - The ID of the Managed Source to retrieve.
     #=== Returns
     #A Managed Source object.
     def getManagedSource(managed_source_id)
-      return ManagedSource.new(self, managed_source_id).get
+      return ManagedSource.get(self, managed_source_id)
     end
 
     # Get a list of ManagedSources in your account.
@@ -116,7 +115,7 @@ module DataSift
     #* +per_page+ - The number of items per page.
     #=== Returns
     #A Hash containing...
-    #* +count+ - The total number of Historics queries in your account.
+    #* +count+ - The total number of Managed Sources in your account.
     #* +managed_sources+ - An array of Hashes where each Hash is a managed source.
     def listManagedSources(page = 1, per_page = 20)
       return ManagedSource::list(self, page, per_page)
