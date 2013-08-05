@@ -55,6 +55,7 @@ more details.
 
 Changelog
 ---------
+* v.2.1.0.beta Adding Managed Sources support. Thanks to [giovannelli](https://github.com/giovannelli) for the contribution (2013-08-05)
 
 * v.2.0.4 Bug fix to handle HTTP 202 response codes (2013-03-18)
 
