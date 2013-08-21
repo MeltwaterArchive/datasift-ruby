@@ -10,6 +10,7 @@ Gem::Specification.new do |s|
 	s.description = %q{The official Ruby library for accessing the DataSift API. See http://datasift.com/ for full details and to sign up for an account.}
 	s.summary     = %q{DataSift is a simple wrapper for the DataSift API.}
 	s.homepage    = 'http://github.com/datasift/datasift-ruby'
+	s.license     = 'BSD'
 
 	s.platform                  = Gem::Platform::RUBY
 	s.rubygems_version          = %q{1.3.6}
