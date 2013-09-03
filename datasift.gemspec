@@ -18,7 +18,6 @@ Gem::Specification.new do |s|
 
 	s.add_runtime_dependency('rest-client', '~> 1.6.3')
 	s.add_runtime_dependency('yajl-ruby', '~> 1.1.0')
-	s.add_runtime_dependency('json', '~> 1.5.4')
 	s.add_development_dependency('rdoc', '> 0')
 	s.add_development_dependency('shoulda', '~> 2.11.3')
 	s.add_development_dependency('rspec', '~> 2.6.0')

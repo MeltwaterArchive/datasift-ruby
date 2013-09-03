@@ -1,4 +1,4 @@
-require 'json'
+require 'yajl/json_gem'
 ### Usage ###
 # user = DataSift::User.new(config['username'], config['api_key'])
 # user.createManagedSource(:token => "CAAIUKbXn8xsBAILlxGCZADEZAM87tRqJXo9OqWskCs6jej3wfQ1LRRZAgHJQEZCHU0ABBXDwiq9o7D4uytC5LpsAcx7oiDusagsJiKtmPaZBeMkuGh4jYt1zsXo4EQuZCWPcZAIdQQLZBtjTpQlbbAZCTuJ4SSrlmOPQZD", :source_type => "facebook_page", :name => "test", :parameters=> {:likes => true, :posts_by_others =>  true, :comments => true}, :resources => [{ :url =>  "http://www.facebook.com/theguardian", :title =>  "The Guardian", :id => 10513336322 } ] )
@@ -28,7 +28,7 @@ module DataSift
     attr_reader :auth
     #Api raw response
     attr_reader :raw_attributes
-    
+
     #Constructor. Pass all parameters to create a new Managed Source, or provide a User object and a managed_source_id to load an existing Managed Source from the API.
     #=== Parameters
     #* +user+ - The DataSift::User object.
@@ -54,7 +54,7 @@ module DataSift
         reloadData()
       end
     end
-    
+
     #Get a single Managed Source by ID.
     #=== Parameters
     #* +id+ - The Managed Source ID.
@@ -63,7 +63,7 @@ module DataSift
     def self.get(user, managed_source_id)
       return new(user, user.callAPI('source/get', { 'id' => managed_source_id }))
     end
-    
+
     def self.list(user, page = 1, per_page = 20)
       begin
         res = user.callAPI(
@@ -86,7 +86,7 @@ module DataSift
           end
         end
     end
-    
+
     #Call the DataSift API to create the Managed Source
     def create()
       raise InvalidDataError, 'This Managed Source has already been created' unless not @managed_source_id
@@ -132,7 +132,7 @@ module DataSift
         end
       end
     end
-     
+
     #Initialise this object from the data in a Hash.
  		#=== Parameters
     #* +data+ - The Hash containing the data.
@@ -158,15 +158,15 @@ module DataSift
 
       raise APIError, 'No parameters in the response' unless data.has_key?('parameters')
       @parameters = data['parameters']
-      
+
       raise APIError, 'No resources in the response' unless data.has_key?('resources')
       @resources = data['resources']
-      
+
       @raw_attributes = data
-      
+
       return true
     end
-     
+
     #Start this Managed Source query.
     def start()
       raise InvalidDataError, 'Cannot start a Managed souce query that hasn\'t been created' unless @managed_source_id
