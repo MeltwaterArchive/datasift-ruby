@@ -56,12 +56,13 @@ more details.
 Changelog
 ---------
 * v.2.1.0 Final fixes for v.2.1.0  (2013-09-13)
-  Adds /source/log call
-  Updated /source/create call to comply with latest version of the API
-  Removed JSON gem - now dependant on Yajl-Ruby for JSON parsing
-  Added license info to gemspec
-  Fixed edge case when passing refresh token to authentication with G+ API
-  Fixed /source/get call
+
+  - Adds /source/log call
+  - Updated /source/create call to comply with latest version of the API
+  - Removed JSON gem - now dependant on Yajl-Ruby for JSON parsing
+  - Added license info to gemspec
+  - Fixed edge case when passing refresh token to authentication with G+ API
+  - Fixed /source/get call
 
 * v.2.1.0.beta Adding Managed Sources support. Thanks to [giovannelli](https://github.com/giovannelli) for the contribution (2013-08-05)
 
@@ -85,7 +86,7 @@ Changelog
 
 * v.1.4.0 Added SSL support (2012-05-15)
 
-  This is enabled by default and can be disabled by passing false as the third
+  - This is enabled by default and can be disabled by passing false as the third
   parameter to the User constructor, or calling enableSSL(false) on the User
   object.
 
@@ -93,18 +94,18 @@ Changelog
 
 * v.1.3.0 Improved error handling (2012-03-08)
 
-  Added onError and onWarning events - see examples/consume-stream.rb for an
+  - Added onError and onWarning events - see examples/consume-stream.rb for an
   example.
 
-  Stopped the HTTP consumer from attempting to reconnect when it receives a
+  - Stopped the HTTP consumer from attempting to reconnect when it receives a
   4xx response from the server.
 
 * v.1.2.0 Twitter Compliance (2012-02-28)
 
-  The consumer now has an onDeleted method to which you can assign a block
+  - The consumer now has an onDeleted method to which you can assign a block
   that will be called to handle DELETE requests from Twitter. See delete.rb
   in the examples folder for a sample implementation.
   (@see http://dev.datasift.com/docs/twitter-deletes)
 
-  NB: if you are storing tweets you must implement this method in your code
+  - NB: if you are storing tweets you must implement this method in your code
   and take appropriate action to maintain compliance with the Twitter license.
