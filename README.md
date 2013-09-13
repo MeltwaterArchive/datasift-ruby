@@ -55,12 +55,20 @@ more details.
 
 Changelog
 ---------
+* v.2.1.0 Final fixes for v.2.1.0  (2013-09-13)
+  Adds /source/log call
+  Updated /source/create call to comply with latest version of the API
+  Removed JSON gem - now dependant on Yajl-Ruby for JSON parsing
+  Added license info to gemspec
+  Fixed edge case when passing refresh token to authentication with G+ API
+  Fixed /source/get call
+
 * v.2.1.0.beta Adding Managed Sources support. Thanks to [giovannelli](https://github.com/giovannelli) for the contribution (2013-08-05)
 
 * v.2.0.4 Bug fix to handle HTTP 202 response codes (2013-03-18)
 
 * v.2.0.3 Stability improvement and bug fix (2013-03-04)
-  
+
   Removed references to deprecated Historic output field 'volume_info'.
   Added 65s timeout on live streaming to handle 'silent' server disconnects.
   Minor changes to ensure Ruby 2.0 compatibility.
