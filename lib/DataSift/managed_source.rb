@@ -44,9 +44,9 @@ module DataSift
         else
           @source_type = hash[:source_type]
           @name = hash[:name]
-          @token = hash[:token]
           @parameters = hash[:parameters]
           @resources = hash[:resources]
+          @auth = hash[:auth]
         end
       else
         # Fetching from the API
@@ -64,12 +64,13 @@ module DataSift
       return new(user, user.callAPI('source/get', { 'id' => managed_source_id }))
     end
 
-    def self.list(user, page = 1, per_page = 20)
+    def self.list(user, page = 1, per_page = 20, source_type = '')
       begin
         res = user.callAPI(
         'source/get', {
           'page' => page,
-          'max' => per_page
+          'per_page' => per_page,
+          'source_type' => source_type
           })
           retval = { 'count' => res['count'], 'managed_sources' => [] }
           for source in res['sources']
@@ -98,7 +99,7 @@ module DataSift
           'name' => @name,
           'parameters' => @parameters.to_json,
           'resources' => @resources.to_json,
-          'auth' => [ 'parameters' => { 'value' => @token } ].to_json
+          'auth' => @auth.to_json
         })
         raise InvalidDataError, 'Prepared successfully but no managed_source_id ID in the response' unless res.has_key?('id')
         @managed_source_id = res['id']
@@ -220,6 +221,37 @@ module DataSift
           raise InvalidDataError, err
         when 404
           # Managed Source not found
+          raise InvalidDataError, err
+        else
+          raise APIError.new(err.http_code), 'Unexpected APIError code: ' + err.http_code.to_s + ' [' + err.message + ']'
+        end
+      end
+    end
+
+    #Page through recent Managed Sources log entries
+    #=== Parameters
+    #* +page+ - The page number to get.
+    #* +per_page+ - The number of items per page.
+    #=== Returns
+    #A Hash containing...
+    #* +count+ - The total number of matching log entries.
+    #* +log_entries+ - An array of Hashes where each Hash is a log entry.
+    def getLogs(page = 1, per_page = 20)
+      begin
+        raise InvalidDataError, 'The specified page number is invalid' unless page >= 1
+        raise InvalidDataError, 'The specified per_page value is invalid' unless per_page >= 1
+
+        params = {
+          'id'        => @managed_source_id,
+          'page'      => page,
+          'per_page'  => per_page
+        }
+
+        return @user.callAPI('source/log', params)
+      rescue APIError => err
+        case err.http_code
+        when 400
+          # Missing or invalid parameters
           raise InvalidDataError, err
         else
           raise APIError.new(err.http_code), 'Unexpected APIError code: ' + err.http_code.to_s + ' [' + err.message + ']'

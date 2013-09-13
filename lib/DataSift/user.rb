@@ -117,8 +117,19 @@ module DataSift
     #A Hash containing...
     #* +count+ - The total number of Managed Sources in your account.
     #* +managed_sources+ - An array of Hashes where each Hash is a managed source.
-    def listManagedSources(page = 1, per_page = 20)
-      return ManagedSource::list(self, page, per_page)
+    def listManagedSources(page = 1, per_page = 20, source_type = '')
+      return ManagedSource::list(self, page, per_page, source_type)
+    end
+
+    #Get the log entries for all Managed Sources or the given Managed Source.
+    #=== Parameters
+    #* +managed_source_id+ - Optional Managed Source ID.
+    #=== Returns
+    #A Hash containing...
+    #* +count+ - The total number of matching log entries.
+    #* +log_entries+ - An array of Hashes where each Hash is a log entry.
+    def getManagedSourcesLog(managed_source_id, page = 1, per_page = 20)
+      return getManagedSource(managed_source_id).getLogs(page = 1, per_page = 20)
     end
 
     #Create a new PushDefinition object for this user.
