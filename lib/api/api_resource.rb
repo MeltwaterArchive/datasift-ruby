@@ -1,11 +1,17 @@
 module DataSift
   class ApiResource
-    # mix-in the API methods
     include DataSift
 
-    def initialize (username, api_key)
-      @username = username
-      @api_key = api_key
+    def initialize (config)
+      @config = config
+    end
+
+    def requires params
+      params.each { |k, v|
+        if v == nil || v.to_s.length == 0
+          raise InvalidParamError.new "#{k} is a required parameter, it cannot be nil or empty"
+        end
+      }
     end
   end
 end
