@@ -11,11 +11,12 @@ require dir + '/errors'
 require dir + '/push'
 require dir + '/historics'
 require dir + '/managed_source'
+require dir + '/live_stream'
 
 module DataSift
   API_URL    = 'https://api.datasift.com/v1/'
   STREAM_URL = 'ws://websocket.datasift.com/'
-  VERSION    = '3.0 .0'
+  VERSION    = '3.0.0'
 
   class Client < ApiResource
     #+config+:: A hash containing configuration options for the client for e.g.
@@ -32,9 +33,10 @@ module DataSift
       @historics      = DataSift::Historics.new(config)
       @push           = DataSift::Push.new(config)
       @managed_source = DataSift::ManagedSource.new(config)
+      @stream         = DataSift::LiveStream.new(config)
     end
 
-    attr_reader :historics, :push, :managed_source
+    attr_reader :historics, :push, :managed_source, :stream
 
     ##
     # Checks if the syntax of the given CSDL is valid
@@ -126,7 +128,7 @@ module DataSift
           }
       }
     rescue MultiJson::DecodeError
-      raise DataSiftError.new response.http_code, response.http_body
+      raise DataSiftError.new response.http_code, response.body
     rescue SocketError => e
       process_client_error(e)
     rescue RestClient::ExceptionWithResponse => e

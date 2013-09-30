@@ -1,21 +1,21 @@
 class DataSiftError < StandardError
-  attr_reader :http_status
-  attr_reader :http_body
+  attr_reader :status
+  attr_reader :body
 
   def initialize(http_status = nil, http_body = nil)
-    @http_status = http_status
-    @http_body   = http_body
+    @status = http_status
+    @body   = http_body
   end
 
   def message
-    :http_body == nil ? @http_status : @http_body
+    @body == nil ? @status : @body
   end
 
   def to_s
     #if both body and status were provided then message is the body otherwise the status contains the message
-    msg           = !@http_body.nil? && !@http_status.nil? ? @http_body : @http_status
+    msg           = !@body.nil? && !@status.nil? ? @body : @status
     #if body is nil then status is the message body so no status is included
-    status_string = @http_body.nil? ? '' : "(Status #{@http_status}) "
+    status_string = @body.nil? ? '' : "(Status #{@status}) "
     "#{status_string} : #{msg}"
   end
 end
@@ -39,4 +39,16 @@ class InvalidConfigError < DataSiftError
 end
 
 class InvalidParamError < DataSiftError
+end
+
+class NotConnectedError < DataSiftError
+end
+
+class ReconnectTimeoutError < DataSiftError
+end
+
+class NotConfiguredError < DataSiftError
+end
+
+class InvalidTypeError < DataSiftError
 end
