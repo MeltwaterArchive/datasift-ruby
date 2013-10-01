@@ -14,7 +14,7 @@ require dir + '/managed_source'
 require dir + '/live_stream'
 
 module DataSift
-  API_URL    = 'https://api.datasift.com/v1/'
+  API_URL    = 'https://api.datasift.com/'
   STREAM_URL = 'ws://websocket.datasift.com/'
   VERSION    = '3.0.0'
 
@@ -74,6 +74,12 @@ module DataSift
       DataSift.request(:POST, 'balance', @config, {})
     end
 
+    ##
+    # Collect a batch of interactions from a push queue
+    def pull(id, size = 20971520, cursor='')
+      DataSift.request(:POST, 'pull', @config, {:id => id, :size => size, :cursor => cursor})
+    end
+
   end
 
   # Generates and executes an HTTP request from the params provided
@@ -128,7 +134,7 @@ module DataSift
           }
       }
     rescue MultiJson::DecodeError
-      raise DataSiftError.new response.http_code, response.body
+      raise DataSiftError.new response.code, response.body
     rescue SocketError => e
       process_client_error(e)
     rescue RestClient::ExceptionWithResponse => e
@@ -137,7 +143,7 @@ module DataSift
         body = e.http_body
         if code && body
           error = MultiJson.load(body)
-          handle_api_error(e.http_code, error['error'])
+          handle_api_error(e.http_code, error['error'] + " for URL #{url}")
         else
           process_client_error(e)
         end

@@ -77,9 +77,7 @@ module DataSift
     end
 
     def subscribe hash
-      puts 'before:'+hash
       connect
-      puts 'after:'+hash
       @stream.send "{ \"action\":\"subscribe\",\"hash\":\"#{hash}\"}"
     end
 
