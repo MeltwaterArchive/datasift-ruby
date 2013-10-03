@@ -10,6 +10,7 @@ require dir + '/api/api_resource'
 require dir + '/errors'
 require dir + '/push'
 require dir + '/historics'
+require dir + '/historics_preview'
 require dir + '/managed_source'
 require dir + '/live_stream'
 
@@ -29,14 +30,15 @@ module DataSift
         raise InvalidConfigError.new('A valid username and API key are required')
       end
 
-      @config         = config
-      @historics      = DataSift::Historics.new(config)
-      @push           = DataSift::Push.new(config)
-      @managed_source = DataSift::ManagedSource.new(config)
-      @stream         = DataSift::LiveStream.new(config)
+      @config            = config
+      @historics         = DataSift::Historics.new(config)
+      @push              = DataSift::Push.new(config)
+      @managed_source    = DataSift::ManagedSource.new(config)
+      @stream            = DataSift::LiveStream.new(config)
+      @historics_preview = DataSift::HistoricsPreview.new(config)
     end
 
-    attr_reader :historics, :push, :managed_source, :stream
+    attr_reader :historics, :push, :managed_source, :stream, :historics_preview
 
     ##
     # Checks if the syntax of the given CSDL is valid

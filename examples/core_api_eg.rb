@@ -1,5 +1,5 @@
 require './auth'
-class CoreApi < DataSiftExample
+class CoreApiEg < DataSiftExample
   def initialize
     super
     @datasift = DataSift::Client.new(@config)
@@ -40,4 +40,4 @@ class CoreApi < DataSiftExample
     end
   end
 end
-CoreApi.new
+CoreApiEg.new
