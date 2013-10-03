@@ -120,7 +120,11 @@ module DataSift
 
     begin
       response = RestClient::Request.execute options
-      data     = MultiJson.load response, :symbolize_keys => true
+      if response != nil && response.length > 0
+        data = MultiJson.load response, :symbolize_keys => true
+      else
+        data = {}
+      end
       {
           :data     => data,
           :datasift => {
@@ -133,8 +137,8 @@ module DataSift
               :headers => response.headers
           }
       }
-    rescue MultiJson::DecodeError
-      raise DataSiftError.new response.code, response.body
+    rescue MultiJson::DecodeError => de
+      raise DataSiftError.new response
     rescue SocketError => e
       process_client_error(e)
     rescue RestClient::ExceptionWithResponse => e

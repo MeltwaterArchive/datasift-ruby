@@ -60,7 +60,7 @@ module DataSift
     def delete(id)
       params = {:id => id}
       requires params
-      DataSift.request(:POST, 'push/delete', @config, params)
+      DataSift.request(:DELETE, 'push/delete', @config, params)
     end
 
     ##
@@ -73,7 +73,7 @@ module DataSift
           :order_by  => order_by,
           :order_dir => order_dir
       }
-      DataSift.request(:POST, 'push/log', @config, params)
+      DataSift.request(:GET, 'push/log', @config, params)
     end
 
     ##
@@ -85,7 +85,7 @@ module DataSift
           :order_by  => order_by,
           :order_dir => order_dir
       }
-      DataSift.request(:POST, 'push/log', @config, params)
+      DataSift.request(:GET, 'push/log', @config, params)
     end
 
     ##
@@ -98,7 +98,7 @@ module DataSift
           :order_by  => order_by,
           :order_dir => order_dir
       }
-      DataSift.request(:POST, 'push/get', @config, params)
+      DataSift.request(:GET, 'push/get', @config, params)
     end
 
     ##
@@ -111,7 +111,7 @@ module DataSift
           :order_by  => order_by,
           :order_dir => order_dir
       }
-      DataSift.request(:POST, 'push/get', @config, params)
+      DataSift.request(:GET, 'push/get', @config, params)
     end
 
     ##
@@ -124,7 +124,7 @@ module DataSift
           :order_by     => order_by,
           :order_dir    => order_dir
       }
-      DataSift.request(:POST, 'push/get', @config, params)
+      DataSift.request(:GET, 'push/get', @config, params)
     end
 
     ##
@@ -136,7 +136,7 @@ module DataSift
           :order_by  => order_by,
           :order_dir => order_dir
       }
-      DataSift.request(:POST, 'push/get', @config, params)
+      DataSift.request(:GET, 'push/get', @config, params)
     end
   end
 end

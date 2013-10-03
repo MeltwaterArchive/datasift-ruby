@@ -2,37 +2,14 @@ require './auth'
 class PushApi < DataSiftExample
   def initialize
     super
-    @datasift = DataSift::Client.new(@config)
-    run
   end
 
   def run
     begin
-      params = {
-          :output_type                       => 's3',
-          'output_params.bucket'             => 'apitests',
-          'output_params.directory'          => 'ruby',
-          'output_params.acl'                => 'private',
-          'output_params.auth.access_key'    => 'AKIAIINK5C4FH75RSWNA',
-          'output_params.auth.secret_key'    => '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',
-          'output_params.delivery_frequency' => 0,
-          'output_params.max_size'           => 10485760,
-          'output_params.file_prefix'        => 'DataSift',
-      }
       puts 'Validating'
-      if @datasift.push.valid? params
-        stream        = @datasift.compile 'interaction.content contains "datasift"'
-        create_params = params.merge ({
-            #hash or playback_id can be used but not both
-            :hash           => stream[:data][:hash],
-            :name           => 'My awesome push subscription',
-            :initial_status => 'active', # or 'paused' or 'waiting_for_start'
-            :start          => Time.now.to_i,
-            :end            => Time.now.to_i + 320
-        })
-        puts 'Creating subscription'
-        subscription = @datasift.push.create create_params
-        puts 'Create push => ' + subscription.to_s
+      if @datasift.push.valid? @params
+        stream       = @datasift.compile 'interaction.content contains "datasift"'
+        subscription = create_push(stream[:data][:hash])
 
         subscription_id = subscription[:data][:id]
         #pull a bunch of interactions from the push queue - only work if we had set the output_type above to pull
@@ -41,7 +18,7 @@ class PushApi < DataSiftExample
         puts 'updating subscription'
         # update the info we just used to create
         # id, name and output_params.* are valid
-        puts @datasift.push.update params.merge({:id => subscription_id, :name => 'My updated awesome name'})
+        puts @datasift.push.update @params.merge({:id => subscription_id, :name => 'My updated awesome name'})
 
         puts 'getting subscription info'
         # get details for a subscription also available are
@@ -74,5 +51,6 @@ class PushApi < DataSiftExample
       puts dse.message
     end
   end
+
 end
-PushApi.new
+PushApi.new().run
