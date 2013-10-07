@@ -19,6 +19,8 @@ class DataSiftExample
     @datasift = DataSift::Client.new(@config)
   end
 
+  attr_reader :datasift
+
   def create_push(hash, is_historics_id = false)
     create_params = @params.merge ({
         #hash or playback_id can be used but not both

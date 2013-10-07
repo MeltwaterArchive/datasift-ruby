@@ -9,19 +9,30 @@ class StreamingApi < DataSiftExample
 
   def run
     begin
-      csdl = 'interaction.content contains "test"'
+      csdl = 'interaction.content contains "php"'
 
       stream = @datasift.compile csdl
-      puts 'subscribing to '+stream[:data][:hash]
 
-      @datasift.stream.on_delete = lambda { |m| puts 'We must delete this to be compliant ==> ' + m }
+      on_delete = lambda { |m| puts 'We must delete this to be compliant ==> ' + m }
 
-      @datasift.stream.on_error = lambda do |e|
+      on_error = lambda do |e|
         puts 'A serious error has occurred'
         puts e.message
       end
 
-      @datasift.stream.subscribe stream
+      on_connect = lambda do
+        puts 'subscribing to '+ stream[:data][:hash]
+        @datasift.stream.subscribe stream
+      end
+      #em_thread  = Thread.new do
+      EM.run do
+        @datasift.stream.connect(on_connect, on_delete, on_error)
+      end
+        #end
+        #while !@datasift.stream.connected?
+        #  sleep 1
+        #end
+        #em_thread.join
         #rescue DataSiftError
     rescue DataSiftError => dse
       puts dse.message

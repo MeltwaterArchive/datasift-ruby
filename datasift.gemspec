@@ -15,9 +15,10 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency('rest-client', '~> 1.6.3')
   s.add_development_dependency('multi_json', '~> 1.8.0')
   s.add_runtime_dependency('websocket-eventmachine-client', '~> 1.0.1')
+  s.add_runtime_dependency('websocket', '~> 1.1.1')
   s.add_development_dependency('rdoc', '> 0')
   s.add_development_dependency('shoulda', '~> 2.11.3')
-  s.add_development_dependency('rspec', '~> 2.6.0')
+  s.add_development_dependency('test-unit', '>= 2.5.5')
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
