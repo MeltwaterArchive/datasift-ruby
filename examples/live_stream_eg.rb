@@ -9,30 +9,69 @@ class StreamingApi < DataSiftExample
 
   def run
     begin
-      csdl = 'interaction.content contains "php"'
+      rubyReceived   = 0
+      coffeeReceived = 0
+      ruby           = 'interaction.content contains "ruby"'
+      rubyStream     = @datasift.compile ruby
 
-      stream = @datasift.compile csdl
+      coffee       = 'interaction.content contains "coffee"'
+      coffeeStream = @datasift.compile coffee
 
-      on_delete = lambda { |m| puts 'We must delete this to be compliant ==> ' + m }
+      on_delete = lambda { |stream, m| puts 'We must delete this to be compliant ==> ' + m }
 
-      on_error = lambda do |e|
+      on_error = lambda do |stream, e|
         puts 'A serious error has occurred'
         puts e.message
       end
 
-      on_connect = lambda do
-        puts 'subscribing to '+ stream[:data][:hash]
-        @datasift.stream.subscribe stream
+      on_message_ruby = lambda do |message, stream, hash|
+        rubyReceived += 1
+        puts "Ruby #{rubyReceived}, #{message}"
+
+        if rubyReceived >= 10
+          puts 'un-subscribing from ruby stream '+ hash
+          stream.unsubscribe hash
+        end
       end
-      #em_thread  = Thread.new do
+
+      on_message_coffee = lambda do |message, stream, hash|
+        coffeeReceived += 1
+        puts "Coffee #{coffeeReceived}, #{message}"
+
+        if coffeeReceived >= 10
+          puts 'un-subscribing from coffee stream '+ hash
+          stream.unsubscribe hash
+        end
+      end
+
+      on_connect = lambda do |stream|
+        #
+        puts 'subscribing to coffee stream '+ coffeeStream[:data][:hash]
+        stream.subscribe(coffeeStream[:data][:hash], on_message_coffee)
+        puts 'Subscribed to '+ coffeeStream[:data][:hash]
+        #
+        puts 'subscribing to ruby stream '+ rubyStream[:data][:hash]
+        stream.subscribe(rubyStream[:data][:hash], on_message_ruby)
+        puts 'Subscribed to '+ rubyStream[:data][:hash]
+      end
+
+      on_close = lambda do |stream|
+        puts 'closed'
+      end
+
+      on_datasift_message = lambda do |stream, message, hash|
+        #not all messages have a hash
+        puts "is_success =  #{message[:is_success]}, is_failure =  #{message[:is_failure]}, is_warning =  #{message[:is_warning]}, is_tick =  #{message[:is_tick]}"
+        puts "DataSift Message #{hash} ==> #{message}"
+      end
+
       EM.run do
-        @datasift.stream.connect(on_connect, on_delete, on_error)
+        stream                     = DataSift::new_stream(@config, on_delete, on_error, on_connect, on_close)
+        stream.on_datasift_message = on_datasift_message
+        #can do something else here now...
+        puts 'Do some other business stuff...'
       end
-        #end
-        #while !@datasift.stream.connected?
-        #  sleep 1
-        #end
-        #em_thread.join
+
         #rescue DataSiftError
     rescue DataSiftError => dse
       puts dse.message

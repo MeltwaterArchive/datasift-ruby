@@ -52,3 +52,6 @@ end
 
 class InvalidTypeError < DataSiftError
 end
+
+class StreamingMessageError < DataSiftError
+end

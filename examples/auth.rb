@@ -3,7 +3,7 @@ class DataSiftExample
 
   def initialize
     @username = 'zcourts'
-    @api_key  ='44067e0ff342b76b52b36a63eea8e21a'
+    @api_key  ='91207449dd5b89a4ff38879a770975bf'
     @config   ={:username => @username, :api_key => @api_key}
     @params   = {
         :output_type                       => 's3',

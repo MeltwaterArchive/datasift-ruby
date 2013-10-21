@@ -15,9 +15,11 @@ require dir + '/managed_source'
 require dir + '/live_stream'
 
 module DataSift
-  API_URL    = 'https://api.datasift.com/'
-  STREAM_URL = 'ws://websocket.datasift.com/'
-  VERSION    = '3.0.0'
+  API_URL        = 'http://api.datasift.com/'
+  STREAM_URL     = 'ws://websocket.datasift.com/'
+  VERSION        = '3.0.0'
+  # max 320 seconds retry - http://dev.datasift.com/docs/streaming-api/reconnecting
+  MAX_RETRY_TIME = 320
 
   class Client < ApiResource
     #+config+:: A hash containing configuration options for the client for e.g.
@@ -34,11 +36,10 @@ module DataSift
       @historics         = DataSift::Historics.new(config)
       @push              = DataSift::Push.new(config)
       @managed_source    = DataSift::ManagedSource.new(config)
-      @stream            = DataSift::LiveStream.new(config)
       @historics_preview = DataSift::HistoricsPreview.new(config)
     end
 
-    attr_reader :historics, :push, :managed_source, :stream, :historics_preview
+    attr_reader :historics, :push, :managed_source, :historics_preview
 
     ##
     # Checks if the syntax of the given CSDL is valid
@@ -83,6 +84,7 @@ module DataSift
     end
 
   end
+
 
   # Generates and executes an HTTP request from the params provided
   # Params:
@@ -201,5 +203,76 @@ module DataSift
         message = 'Unexpected error.'
     end
     raise ConnectionError.new(message + " (Network error: #{e.message})")
+  end
+
+  ##
+  # a Proc/lambda callback to receive delete messages
+  # DataSift and its customers are required to process Twitter's delete request, a delete handler must be provided
+  # a Proc/lambda callback to receive errors
+  # Because EventMachine is used errors can be raised from another thread, this method will receive any such errors
+  def self.new_stream(config, on_delete, on_error, on_open = nil, on_close = nil)
+    if on_delete == nil || on_error == nil
+      raise NotConfiguredError.new 'on_delete and on_error are required before you can connect'
+    end
+
+    #raise InvalidTypeError.new 'on_delete must be a Proc, e.g. lambda{ |e| puts e.message}' unless proc.kind_of?(Proc)
+    #raise InvalidTypeError.new 'on_error must be a Proc, e.g. lambda{ |e| puts e.message}' unless proc.kind_of?(Proc)
+
+    ws_url = "ws://websocket.datasift.com/multi?username=#{config[:username]}&api_key=#{config[:api_key]}"
+    begin
+      stream     = WebSocket::EventMachine::Client.connect(:uri => ws_url)
+      connection = LiveStream.new(config, stream)
+
+      stream.onopen do
+        connection.connected     = true
+        connection.retry_timeout = 0
+        on_open.call(connection) if on_open != nil
+      end
+
+      stream.onclose do
+        connection.connected = false
+        retry_connect(config, connection, on_delete, on_error, on_open, on_close, '', true)
+      end
+      stream.onerror do
+        connection.connected = false
+        on_error.call(connection) if on_close != nil
+        retry_connect(config, connection, on_delete, on_error, on_open, on_close)
+      end
+      stream.onmessage do |msg, type|
+        data = MultiJson.load(msg, :symbolize_keys => true)
+        if data.has_key?(:deleted)
+          on_delete.call(connection, data)
+        elsif data.has_key?(:status)
+          connection.fire_ds_message(data)
+        else
+          connection.fire_on_message(data[:hash], data[:data])
+        end
+      end
+    rescue EventMachine::ConnectionError => e
+      retry_connect(config, connection, on_delete, on_error, on_open, on_close, e.message)
+    rescue Exception => e
+      puts e.message
+      retry_connect(config, connection, on_delete, on_error, on_open, on_close, e.message)
+    end
+    connection
+  end
+
+  def self.retry_connect(config, connection, on_delete, on_error, on_open, on_close, message = '', use_closed = false)
+    connection.retry_timeout = connection.retry_timeout == 0 ? 10 : connection.retry_timeout * 2
+    if connection.retry_timeout > MAX_RETRY_TIME
+      if use_closed && on_close != nil
+        on_close.call(connection)
+      else
+        on_error.call ReconnectTimeoutError.new "Connecting to DataSift has failed, re-connection was attempted but
+                                         multiple consecutive failures where encountered. As a result no further
+                                         re-connection will be automatically attempted. Manually invoke connect() after
+                                          investigating the cause of the failure, be sure to observe DataSift's
+                                          re-connect policies available at http://dev.datasift.com/docs/streaming-api/reconnecting
+                                          - Error { #{message}}"
+      end
+    else
+      sleep connection.retry_timeout
+      new_stream(config, on_delete, on_error, on_open, on_close)
+    end
   end
 end

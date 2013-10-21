@@ -21,7 +21,7 @@ class ManagedSourceApi < DataSiftExample
                     }]
       auth       = [{
                         :parameters => {
-                            :value => 'CAAIUKbXn8xsBAFETaaoZCYCFdXe15dS0SzACfQ4aV66GZBcL4Bs6I5w3jEgPlbWQxragMkgBad9UhSTfsQFwMBdQmU65UGQkuUI2ADncL7puFKdTiFLb7fUoboTTeCJAAUQ3ltuTRjZAf4P83IUsFqI6jbbXFUCw03jcVROR8PZABRXzUFiM6'
+                            :value => 'CAAIUKbXn8xsBAN5MnINICUT9gEBsZBh3hKoSEeIMP0ZA4zadMr64X6ljvZC4VBZCyYr9tyhih5nO0R39A1FQ848v0mZA6d3ehIHuSbKb7avtfLOtL5XKDYRIXHmRWreyxxVc3jk7CIa4ZCI5AAKeUUO3GUS8EaPdYVh9rO5FvvNmIatzz6k8el'
                         }
                     }]
 
