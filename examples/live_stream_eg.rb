@@ -10,12 +10,12 @@ class StreamingApi < DataSiftExample
   def run
     begin
       rubyReceived   = 0
-      coffeeReceived = 0
+      pythonReceived = 0
       ruby           = 'interaction.content contains "ruby"'
       rubyStream     = @datasift.compile ruby
 
-      coffee       = 'interaction.content contains "coffee"'
-      coffeeStream = @datasift.compile coffee
+      python       = 'interaction.content contains "python"'
+      pythonStream = @datasift.compile python
 
       on_delete = lambda { |stream, m| puts 'We must delete this to be compliant ==> ' + m }
 
@@ -28,27 +28,28 @@ class StreamingApi < DataSiftExample
         rubyReceived += 1
         puts "Ruby #{rubyReceived}, #{message}"
 
-        if rubyReceived >= 10
+        if rubyReceived >= 100
           puts 'un-subscribing from ruby stream '+ hash
           stream.unsubscribe hash
         end
       end
 
-      on_message_coffee = lambda do |message, stream, hash|
-        coffeeReceived += 1
-        puts "Coffee #{coffeeReceived}, #{message}"
+      on_message_python = lambda do |message, stream, hash|
+        pythonReceived += 1
+        puts "python #{pythonReceived}, #{message}"
 
-        if coffeeReceived >= 10
-          puts 'un-subscribing from coffee stream '+ hash
+        if pythonReceived >= 100
+          puts 'un-subscribing from python stream '+ hash
           stream.unsubscribe hash
         end
       end
 
       on_connect = lambda do |stream|
         #
-        puts 'subscribing to coffee stream '+ coffeeStream[:data][:hash]
-        stream.subscribe(coffeeStream[:data][:hash], on_message_coffee)
-        puts 'Subscribed to '+ coffeeStream[:data][:hash]
+        puts 'subscribing to python stream '+ pythonStream[:data][:hash]
+        stream.subscribe(pythonStream[:data][:hash], on_message_python)
+        puts 'Subscribed to '+ pythonStream[:data][:hash]
+        sleep 1
         #
         puts 'subscribing to ruby stream '+ rubyStream[:data][:hash]
         stream.subscribe(rubyStream[:data][:hash], on_message_ruby)
@@ -65,16 +66,14 @@ class StreamingApi < DataSiftExample
         puts "DataSift Message #{hash} ==> #{message}"
       end
 
-      EM.run do
-        stream                     = DataSift::new_stream(@config, on_delete, on_error, on_connect, on_close)
-        stream.on_datasift_message = on_datasift_message
-        #can do something else here now...
-        puts 'Do some other business stuff...'
-      end
-
+      conn                     = DataSift::new_stream(@config, on_delete, on_error, on_connect, on_close)
+      conn.on_datasift_message = on_datasift_message
+      #can do something else here now...
+      puts 'Do some other business stuff...'
+      conn.stream.read_thread.join
         #rescue DataSiftError
     rescue DataSiftError => dse
-      puts dse.message
+      puts "Error #{dse.message}"
       # Then match specific one to take action - All errors thrown by the client extend DataSiftError
       case dse
         when ConnectionError

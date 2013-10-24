@@ -43,9 +43,7 @@ module DataSift
 
     def subscribe(hash, on_message)
       @subscriptions[hash] = on_message
-      EM.defer do
-        @stream.send "{ \"action\":\"subscribe\",\"hash\":\"#{hash}\"}"
-      end
+      @stream.send "{ \"action\":\"subscribe\",\"hash\":\"#{hash}\"}"
     end
 
     def unsubscribe hash

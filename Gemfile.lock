@@ -1,15 +1,13 @@
 PATH
   remote: .
   specs:
-    datasift (2.0.4)
+    datasift (3.0.0.pre.ALPHA1)
       rest-client (~> 1.6.3)
-      websocket (~> 1.1.1)
-      websocket-eventmachine-client (~> 1.0.1)
+      websocket-td (~> 0.0.3)
 
 GEM
   remote: https://rubygems.org/
   specs:
-    eventmachine (1.0.3)
     json (1.8.0)
     mime-types (1.25)
     multi_json (1.8.0)
@@ -20,13 +18,8 @@ GEM
     shoulda (2.11.3)
     test-unit (2.5.5)
     websocket (1.1.1)
-    websocket-eventmachine-base (1.0.2)
-      eventmachine (~> 1.0)
-      websocket (~> 1.0)
-      websocket-native (~> 1.0)
-    websocket-eventmachine-client (1.0.1)
-      websocket-eventmachine-base (~> 1.0)
-    websocket-native (1.0.0)
+    websocket-td (0.0.3)
+      websocket (~> 1.1.1)
 
 PLATFORMS
   ruby

@@ -3,7 +3,7 @@ dir = File.dirname(__FILE__)
 require 'uri'
 require 'rest_client'
 require 'multi_json'
-require 'websocket-eventmachine-client'
+require 'websocket_td'
 #
 require dir + '/api/api_resource'
 #
@@ -13,15 +13,16 @@ require dir + '/historics'
 require dir + '/historics_preview'
 require dir + '/managed_source'
 require dir + '/live_stream'
+#
+require 'rbconfig'
 
 module DataSift
-  API_URL        = 'http://api.datasift.com/'
-  STREAM_URL     = 'ws://websocket.datasift.com/'
-  VERSION        = '3.0.0'
-  # max 320 seconds retry - http://dev.datasift.com/docs/streaming-api/reconnecting
-  MAX_RETRY_TIME = 320
+  #
+  IS_WINDOWS = (RbConfig::CONFIG['host_os'] =~ /mswin|mingw|cygwin/)
+  VERSION    = File.open('../VERSION').first
 
   class Client < ApiResource
+
     #+config+:: A hash containing configuration options for the client for e.g.
     # {username => 'some_user', api_key => 'ds_api_key', open_timeout => 30, timeout => 30}
     def initialize (config)
@@ -43,7 +44,7 @@ module DataSift
 
     ##
     # Checks if the syntax of the given CSDL is valid
-    def valid? csdl
+    def valid?(csdl)
       requires({:csdl => csdl})
       res= DataSift.request(:POST, 'validate', @config, {:csdl => csdl})
       res[:http][:status] == 200
@@ -52,7 +53,7 @@ module DataSift
     ##
     # Compile CSDL code.
     #+csdl+:: The CSDL you wish to compile
-    def compile csdl
+    def compile(csdl)
       requires({:csdl => csdl})
       DataSift.request(:POST, 'compile', @config, {:csdl => csdl})
     end
@@ -60,13 +61,13 @@ module DataSift
     ##
     # Check the number of objects processed and delivered for a given time period.
     #+period+:: Can be "day", "hour", or "current", defaults to hour
-    def usage period = :hour
+    def usage(period = :hour)
       DataSift.request(:POST, 'usage', @config, {:period => period})
     end
 
     ##
     # Calculate the DPU cost of consuming a stream.
-    def dpu hash
+    def dpu(hash)
       requires ({:hash => hash})
       DataSift.request(:POST, 'dpu', @config, {:hash => hash})
     end
@@ -98,7 +99,7 @@ module DataSift
   def self.request(method, path, config, params = {}, headers = {}, timeout=30, open_timeout=30)
     validate config
     options = {}
-    url     = API_URL + path
+    url     = build_url(path, config)
     case method.to_s.downcase.to_sym
       when :get, :head, :delete
         url     += "#{URI.parse(url).query ? '&' : '?'}#{encode params}"
@@ -121,6 +122,7 @@ module DataSift
         :payload      => payload,
         :url          => url
     )
+    puts url
 
     begin
       response = RestClient::Request.execute options
@@ -161,6 +163,10 @@ module DataSift
     rescue RestClient::Exception, Errno::ECONNREFUSED => e
       process_client_error (e)
     end
+  end
+
+  def self.build_url(path, config)
+    'http' + (config[:enable_ssl] ? 's' : '') + '://' + config[:api_host] + '/' + config[:api_version] + '/' + path
   end
 
   #returns true if username and api key are set
@@ -218,28 +224,27 @@ module DataSift
     #raise InvalidTypeError.new 'on_delete must be a Proc, e.g. lambda{ |e| puts e.message}' unless proc.kind_of?(Proc)
     #raise InvalidTypeError.new 'on_error must be a Proc, e.g. lambda{ |e| puts e.message}' unless proc.kind_of?(Proc)
 
-    ws_url = "ws://websocket.datasift.com/multi?username=#{config[:username]}&api_key=#{config[:api_key]}"
     begin
-      stream     = WebSocket::EventMachine::Client.connect(:uri => ws_url)
+      stream     = WebsocketTD::Websocket.new('websocket.datasift.com', '/multi', "username=#{config[:username]}&api_key=#{config[:api_key]}")
       connection = LiveStream.new(config, stream)
 
-      stream.onopen do
+      stream.on_open = lambda {
         connection.connected     = true
         connection.retry_timeout = 0
         on_open.call(connection) if on_open != nil
-      end
+      }
 
-      stream.onclose do
+      stream.on_close   = lambda {
         connection.connected = false
         retry_connect(config, connection, on_delete, on_error, on_open, on_close, '', true)
-      end
-      stream.onerror do
+      }
+      stream.on_error   = lambda {
         connection.connected = false
         on_error.call(connection) if on_close != nil
         retry_connect(config, connection, on_delete, on_error, on_open, on_close)
-      end
-      stream.onmessage do |msg, type|
-        data = MultiJson.load(msg, :symbolize_keys => true)
+      }
+      stream.on_message =lambda { |msg|
+        data = MultiJson.load(msg.data, :symbolize_keys => true)
         if data.has_key?(:deleted)
           on_delete.call(connection, data)
         elsif data.has_key?(:status)
@@ -247,11 +252,8 @@ module DataSift
         else
           connection.fire_on_message(data[:hash], data[:data])
         end
-      end
-    rescue EventMachine::ConnectionError => e
-      retry_connect(config, connection, on_delete, on_error, on_open, on_close, e.message)
+      }
     rescue Exception => e
-      puts e.message
       retry_connect(config, connection, on_delete, on_error, on_open, on_close, e.message)
     end
     connection
@@ -259,7 +261,7 @@ module DataSift
 
   def self.retry_connect(config, connection, on_delete, on_error, on_open, on_close, message = '', use_closed = false)
     connection.retry_timeout = connection.retry_timeout == 0 ? 10 : connection.retry_timeout * 2
-    if connection.retry_timeout > MAX_RETRY_TIME
+    if connection.retry_timeout > config[:max_retry_time]
       if use_closed && on_close != nil
         on_close.call(connection)
       else
