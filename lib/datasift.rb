@@ -109,7 +109,7 @@ module DataSift
     end
 
     headers.update ({
-        :user_agent    => "DataSift/v1 RubyBindings/#{VERSION} - Ruby V#{RUBY_PLATFORM}",
+        :user_agent    => "DataSift/#{config[:api_version]} Ruby/v#{VERSION}",
         :authorization => "#{config[:username]}:#{config[:api_key]}",
         :content_type  => 'application/x-www-form-urlencoded'
     })
@@ -122,7 +122,6 @@ module DataSift
         :payload      => payload,
         :url          => url
     )
-    puts url
 
     begin
       response = RestClient::Request.execute options
@@ -220,9 +219,6 @@ module DataSift
     if on_delete == nil || on_error == nil
       raise NotConfiguredError.new 'on_delete and on_error are required before you can connect'
     end
-
-    #raise InvalidTypeError.new 'on_delete must be a Proc, e.g. lambda{ |e| puts e.message}' unless proc.kind_of?(Proc)
-    #raise InvalidTypeError.new 'on_error must be a Proc, e.g. lambda{ |e| puts e.message}' unless proc.kind_of?(Proc)
 
     begin
       stream     = WebsocketTD::Websocket.new('websocket.datasift.com', '/multi', "username=#{config[:username]}&api_key=#{config[:api_key]}")
