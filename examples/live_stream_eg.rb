@@ -28,7 +28,7 @@ class StreamingApi < DataSiftExample
         rubyReceived += 1
         puts "Ruby #{rubyReceived}, #{message}"
 
-        if rubyReceived >= 100
+        if rubyReceived >= 10
           puts 'un-subscribing from ruby stream '+ hash
           stream.unsubscribe hash
         end
@@ -38,7 +38,7 @@ class StreamingApi < DataSiftExample
         pythonReceived += 1
         puts "python #{pythonReceived}, #{message}"
 
-        if pythonReceived >= 100
+        if pythonReceived >= 10
           puts 'un-subscribing from python stream '+ hash
           stream.unsubscribe hash
         end

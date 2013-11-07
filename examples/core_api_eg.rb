@@ -17,13 +17,16 @@ class CoreApiEg < DataSiftExample
       puts stream[:data][:hash]
 
       # http://dev.datasift.com/docs/rest-api/dpu
-      puts @datasift.dpu stream[:data][:hash]
+      dpu = @datasift.dpu stream[:data][:hash]
+      puts dpu[:data][:dpu]
 
       # http://dev.datasift.com/docs/rest-api/balance
-      puts @datasift.balance
+      balance = @datasift.balance
+      puts balance[:data]
 
       #http://dev.datasift.com/docs/rest-api/usage
-      puts @datasift.usage
+      usage = @datasift.usage
+      puts usage[:data]
 
         #rescue DataSiftError
     rescue DataSiftError => dse
