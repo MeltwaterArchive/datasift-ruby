@@ -4,8 +4,6 @@ DataSift
 The official Ruby library for accessing the DataSift API. See
 http://datasift.com/ for full details and to sign up for an account.
 
-The examples use the username and API key in config.yml unless otherwise noted.
-
 Install Instructions
 --------------------
 
@@ -16,34 +14,56 @@ Dependencies
 
 If you're using the source you'll need to install the dependencies.
 
-sudo gem install yajl-ruby rest-client
+sudo gem install rest-client multi_json websocket-td
 
 The library will use SSL connections by default. While we recommend using SSL
-you may disable it if required by passing false as the third parameter when
-creating a user, or by calling user.enableSSL(false) on the user object.
+you may disable it if required by passing ':enable_ssl => false' as the third
+parameter when creating your @config object.
 
 Simple example
 --------------
 
-This example looks for anything that contains the word "datasift" and simply
-prints the content to the screen as they come in.
+This example looks for anything that contains the word "football" in real-time,
+and simply prints the content to the screen as they come in.
 
 ```ruby
-require 'rubygems'
 require 'datasift'
-user = DataSift::User.new("your username", "your api_key")
-definition = user.createDefinition('interaction.content contains "football"')
-consumer = definition.getConsumer(DataSift::StreamConsumer::TYPE_HTTP)
-consumer.consume(true) do |interaction|
-	if interaction
-		puts interaction['interaction']['content']
-	end
+@config = {:username => 'DATASIFT_USERNAME', :api_key => 'DATASIFT_API_KEY', :enable_ssl => true}
+@datasift = DataSift::Client.new(@config)
+csdl = 'interaction.content contains "football"'
+filter = @datasift.compile csdl
+receivedCount = 0
+
+on_delete = lambda { |stream, m| puts 'We must delete this to be compliant ==> ' + m }
+on_error = lambda { |stream, e| puts "A serious error has occurred: #{e.message}" }
+on_message = lambda do |message, stream, hash|
+  receivedCount += 1
+  puts "Received interaction: #{message}"
+
+  if receivedCount >= 5
+    puts "Unsubscribing from hash #{hash}"
+    stream.unsubscribe hash
+  end
 end
+
+on_connect = lambda do |stream|
+  stream.subscribe(filter[:data][:hash], on_message)
+  puts 'Subscribed to '+ filter[:data][:hash]
+end
+
+on_datasift_message = lambda do |stream, message, hash|
+  #not all messages have a hash
+  puts "is_success =  #{message[:is_success]}, is_failure =  #{message[:is_failure]}, is_warning =  #{message[:is_warning]}, is_tick =  #{message[:is_tick]}"
+  puts "DataSift Message #{hash} ==> #{message}"
+end
+
+conn = DataSift::new_stream(@config, on_delete, on_error, on_connect)
+conn.on_datasift_message = on_datasift_message
+conn.stream.read_thread.join
 ```
 
-See the DataSift documentation for full details of the data contained within
-each interaction. See this page on our developer site for an example tweet:
-http://dev.datasift.com/docs/targets/twitter/tweet-output-format
+See the [Understanding the Output Data](http://dev.datasift.com/docs/getting-started/data) page on the DataSift Developer site for
+full details of the data contained within each interaction.
 
 License
 -------
@@ -52,50 +72,3 @@ All code contained in this repository is Copyright 2011-2013 MediaSift Ltd.
 
 This code is released under the BSD license. Please see the LICENSE file for
 more details.
-
-Changelog
----------
-
-* v.2.0.4 Bug fix to handle HTTP 202 response codes (2013-03-18)
-
-* v.2.0.3 Stability improvement and bug fix (2013-03-04)
-  
-  Removed references to deprecated Historic output field 'volume_info'.
-  Added 65s timeout on live streaming to handle 'silent' server disconnects.
-  Minor changes to ensure Ruby 2.0 compatibility.
-
-* v.2.0.2 Added missing Historic sample size into historic/prepare requests (2012-12-03)
-
-* v.2.0.1 Fixed a bug that was preventing streaming connections from being established (2012-09-03)
-
-* v.2.0.0 Added support for Historics queries and Push delivery (2012-08-31)
-
-* v.1.5.0 Added getBalance to the User class [joncooper](https://github.com/joncooper) (2012-05-24)
-
-* v.1.4.1 Fixed a minor bug in the SSL support (2012-05-15)
-
-* v.1.4.0 Added SSL support (2012-05-15)
-
-  This is enabled by default and can be disabled by passing false as the third
-  parameter to the User constructor, or calling enableSSL(false) on the User
-  object.
-
-* v.1.3.1 Exposed compile failures when getting the stream hash (2012-04-20)
-
-* v.1.3.0 Improved error handling (2012-03-08)
-
-  Added onError and onWarning events - see examples/consume-stream.rb for an
-  example.
-
-  Stopped the HTTP consumer from attempting to reconnect when it receives a
-  4xx response from the server.
-
-* v.1.2.0 Twitter Compliance (2012-02-28)
-
-  The consumer now has an onDeleted method to which you can assign a block
-  that will be called to handle DELETE requests from Twitter. See delete.rb
-  in the examples folder for a sample implementation.
-  (@see http://dev.datasift.com/docs/twitter-deletes)
-
-  NB: if you are storing tweets you must implement this method in your code
-  and take appropriate action to maintain compliance with the Twitter license.
