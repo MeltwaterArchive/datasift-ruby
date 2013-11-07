@@ -16,7 +16,7 @@ module DataSift
     ##
     #Create a new subscription to a live stream or historics query
     # Possible params are
-    # hash, playback_id, name, output_type, initial_status, start, end and output_params.*
+    # hash, historics_id, name, output_type, initial_status, start, end and output_params.*
     # where output_params.* depends on the output_type for specific options see the documentation at
     # http://dev.datasift.com/docs/rest-api/pushcreate
     # For a list of available connectors see http://dev.datasift.com/docs/push/connectors
@@ -137,6 +137,17 @@ module DataSift
           :order_dir => order_dir
       }
       DataSift.request(:GET, 'push/get', @config, params)
+    end
+
+    ##
+    # Pull data from a 'pull' type Push Subscription
+    def pull(id, size = 20971520, cursor = '')
+      params = {
+          :id     => id,
+          :size   => size,
+          :cursor => cursor
+      }
+      DataSift.request(:GET, 'pull', @config, params)
     end
   end
 end
