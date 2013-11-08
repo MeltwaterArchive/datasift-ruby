@@ -147,7 +147,7 @@ module DataSift
           :size   => size,
           :cursor => cursor
       }
-      DataSift.request(:GET, 'pull', @config, params)
+      DataSift.request(:GET, 'pull', @config, params, {}, 30, 30, true)
     end
   end
 end

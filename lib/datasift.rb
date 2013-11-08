@@ -96,7 +96,7 @@ module DataSift
   # +params+:: A hash representing the params to use in the request, if it's a get,head or delete request these params
   # are used as query string params, if not they become form url encoded params
   # +headers+:: any headers to pass to the API, Authorization header is automatically included
-  def self.request(method, path, config, params = {}, headers = {}, timeout=30, open_timeout=30)
+  def self.request(method, path, config, params = {}, headers = {}, timeout=30, open_timeout=30, new_line_separated=false)
     validate config
     options = {}
     url     = build_url(path, config)
@@ -126,7 +126,13 @@ module DataSift
     begin
       response = RestClient::Request.execute options
       if response != nil && response.length > 0
-        data = MultiJson.load response, :symbolize_keys => true
+        if new_line_separated
+          res_arr = response.split("\n")
+          data = []
+          res_arr.each { |e| data.push(MultiJson.load(e, :symbolize_keys => true)) }
+        else
+          data = MultiJson.load(response, :symbolize_keys => true)
+        end
       else
         data = {}
       end

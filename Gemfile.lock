@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    datasift (3.0.0.pre.ALPHA1)
+    datasift (3.0.0.beta)
       rest-client (~> 1.6.3)
       websocket-td (~> 0.0.3)
 
