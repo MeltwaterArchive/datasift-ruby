@@ -141,12 +141,15 @@ module DataSift
 
     ##
     # Pull data from a 'pull' type Push Subscription
-    def pull(id, size = 20971520, cursor = '')
+    def pull(id, size = 20971520, cursor = '', callback = nil)
       params = {
           :id     => id,
           :size   => size,
           :cursor => cursor
       }
+      if callback
+          params.merge!({:on_interaction => callback})
+      end
       DataSift.request(:GET, 'pull', @config, params, {}, 30, 30, true)
     end
   end

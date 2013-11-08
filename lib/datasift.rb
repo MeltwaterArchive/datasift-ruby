@@ -129,7 +129,13 @@ module DataSift
         if new_line_separated
           res_arr = response.split("\n")
           data = []
-          res_arr.each { |e| data.push(MultiJson.load(e, :symbolize_keys => true)) }
+          res_arr.each { |e|
+            interaction = MultiJson.load(e, :symbolize_keys => true)
+            data.push(interaction)
+            if params.has_key? :on_interaction
+              params[:on_interaction].call(interaction)
+            end
+          }
         else
           data = MultiJson.load(response, :symbolize_keys => true)
         end

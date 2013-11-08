@@ -27,7 +27,9 @@ class PushApi < DataSiftExample
         sleep 10
 
         puts 'pullingc'
-        @datasift.push.pull(subscription_id).each { |e| puts e }
+        #passing a lambda is more efficient because it is executed once for each interaction received
+        #this saves having to iterate over the array returned so the same iteration isn't done twice
+        @datasift.push.pull(subscription_id,20971520,'', lambda{ |e| puts "on_message => #{e}" })
 
         puts 'pullingdelete'
         @datasift.push.delete subscription_id
