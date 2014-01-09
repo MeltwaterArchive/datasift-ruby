@@ -65,6 +65,12 @@ def run_core_command (c, command, p)
   case command
     when 'compile'
       c.compile(p['csdl'])
+    when 'usage'
+      c.usage(usage = p['period'] ? p['period'].to_sym : :hour)
+    when 'balance'
+      c.balance
+    when 'dpu'
+      c.dpu(p['hash'])
     else
       puts 'Unknown command for the core endpoint'
       exit
@@ -76,7 +82,8 @@ def to_output(r)
                      :status  => r[:http][:status],
                      :headers => r[:http][:headers],
                      :body    => r[:data]
-                 }, :pretty => true)
+                 },
+                 :pretty => true)
 end
 
 begin
@@ -88,7 +95,7 @@ begin
     puts parse(%w(-h))
     exit
   end
-  config =
+  config   =
       {
           :username => options.auth[:username],
           :api_key  => options.auth[:api_key],
