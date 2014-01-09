@@ -9,13 +9,13 @@ class StreamingApi < DataSiftExample
 
   def run
     begin
-      rubyReceived   = 0
-      pythonReceived = 0
+      ruby_received   = 0
+      python_received = 0
       ruby           = 'interaction.content contains "ruby"'
-      rubyStream     = @datasift.compile ruby
+      ruby_stream     = @datasift.compile ruby
 
       python       = 'interaction.content contains "python"'
-      pythonStream = @datasift.compile python
+      python_stream = @datasift.compile python
 
       on_delete = lambda { |stream, m| puts 'We must delete this to be compliant ==> ' + m }
 
@@ -25,20 +25,20 @@ class StreamingApi < DataSiftExample
       end
 
       on_message_ruby = lambda do |message, stream, hash|
-        rubyReceived += 1
-        puts "Ruby #{rubyReceived}, #{message}"
+        ruby_received += 1
+        puts "Ruby #{ruby_received}, #{message}"
 
-        if rubyReceived >= 10
+        if ruby_received >= 10
           puts 'un-subscribing from ruby stream '+ hash
           stream.unsubscribe hash
         end
       end
 
       on_message_python = lambda do |message, stream, hash|
-        pythonReceived += 1
-        puts "python #{pythonReceived}, #{message}"
+        python_received += 1
+        puts "python #{python_received}, #{message}"
 
-        if pythonReceived >= 10
+        if python_received >= 10
           puts 'un-subscribing from python stream '+ hash
           stream.unsubscribe hash
         end
@@ -46,18 +46,18 @@ class StreamingApi < DataSiftExample
 
       on_connect = lambda do |stream|
         #
-        puts 'subscribing to python stream '+ pythonStream[:data][:hash]
-        stream.subscribe(pythonStream[:data][:hash], on_message_python)
-        puts 'Subscribed to '+ pythonStream[:data][:hash]
+        puts 'subscribing to python stream '+ python_stream[:data][:hash]
+        stream.subscribe(python_stream[:data][:hash], on_message_python)
+        puts 'Subscribed to '+ python_stream[:data][:hash]
         sleep 1
         #
-        puts 'subscribing to ruby stream '+ rubyStream[:data][:hash]
-        stream.subscribe(rubyStream[:data][:hash], on_message_ruby)
-        puts 'Subscribed to '+ rubyStream[:data][:hash]
+        puts 'subscribing to ruby stream '+ ruby_stream[:data][:hash]
+        stream.subscribe(ruby_stream[:data][:hash], on_message_ruby)
+        puts 'Subscribed to '+ ruby_stream[:data][:hash]
       end
 
-      on_close = lambda do |stream|
-        puts 'closed'
+      on_close = lambda do |stream,msg|
+        puts msg
       end
 
       on_datasift_message = lambda do |stream, message, hash|

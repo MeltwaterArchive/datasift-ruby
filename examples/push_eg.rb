@@ -4,53 +4,30 @@ class PushApi < DataSiftExample
     super
   end
 
-  def run
+  def run(count)
     begin
-      puts 'Validating'
-      if @datasift.push.valid? @params
-        stream       = @datasift.compile 'interaction.content contains "datasift"'
-        subscription = create_push(stream[:data][:hash])
+      subscription = create_push('5cdb0c8b4f3f6ca26f6ba1b086f22edd', count)
 
-        subscription_id = subscription[:data][:id]
-        #pull a bunch of interactions from the push queue - only work if we had set the output_type above to pull
-        #pull @datasift.pull subscription_id
+      subscription_id = subscription[:data][:id]
+      #pull a bunch of interactions from the push queue - only work if we had set the output_type above to pull
+      #pull @datasift.pull subscription_id
 
-        puts 'updating subscription'
-        # update the info we just used to create
-        # id, name and output_params.* are valid
-        puts @datasift.push.update @params.merge({:id => subscription_id, :name => 'My updated awesome name'})
-
-        puts 'getting subscription info'
-        # get details for a subscription also available are
-        # push.[get, get_by_hash,get_by_historics_id]
-        puts @datasift.push.get_by_subscription subscription_id
-
-        puts 'getting logs for subscription'
-        # get log messages for a subscription id
-        #also available push.logs to fetch logs for all subscriptions
-        puts @datasift.push.logs_for subscription_id
-
-        puts 'pausing subscription'
-        #pause the subscription that was created
-        puts @datasift.push.pause subscription_id
-
-        puts 'resuming subscription'
-        # resume the subscription that was just paused
-        puts @datasift.push.resume subscription_id
-
-        puts 'stopping subscription'
-        # stop the subscription
-        puts @datasift.push.stop subscription_id
-
-        puts 'deleting subscription'
-        #and delete it
-        puts @datasift.push.delete subscription_id
-      end
-        #rescue DataSiftError
+      puts 'getting subscription info'
+      # get details for a subscription also available are
+      # push.[get, get_by_hash,get_by_historics_id]
+      puts @datasift.push.get_by_subscription subscription_id
     rescue DataSiftError => dse
       puts dse.message
     end
   end
 
+  def get_all
+    puts MultiJson.dump(@datasift.push.get(1, 500))
+  end
 end
-PushApi.new().run
+
+p = PushApi.new()
+#for i in 1..1000
+#  p.run(i)
+#end
+p.get_all()

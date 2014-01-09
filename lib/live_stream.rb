@@ -13,7 +13,12 @@ module DataSift
     end
 
     attr_reader :connected, :stream, :retry_timeout, :subscriptions
-    attr_writer :connected, :retry_timeout, :on_datasift_message
+    attr_writer :connected, :retry_timeout
+
+    def on_datasift_message=(p)
+      raise BadParametersError.new('on_ds_message - 3 parameters required') unless p.arity == 3
+      @on_datasift_message = p
+    end
 
     def connected?
       @connected
@@ -42,6 +47,7 @@ module DataSift
     end
 
     def subscribe(hash, on_message)
+      raise BadParametersError.new('on_message - 3 parameters required') unless on_message.arity == 3
       @subscriptions[hash] = on_message
       @stream.send "{ \"action\":\"subscribe\",\"hash\":\"#{hash}\"}"
     end

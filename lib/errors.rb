@@ -57,3 +57,5 @@ class StreamingMessageError < DataSiftError
 end
 class WebSocketOnWindowsError < DataSiftError
 end
+class BadParametersError < DataSiftError
+end

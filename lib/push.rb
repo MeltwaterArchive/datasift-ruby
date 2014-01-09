@@ -67,10 +67,10 @@ module DataSift
     # Retrieve log messages for a specific subscription
     def logs_for (id, page = 1, per_page = 20, order_by = :request_time, order_dir = :desc)
       params = {
-          :id        => id,
-          :page      => page,
-          :per_page  => per_page,
-          :order_by  => order_by,
+          :id => id,
+          :page => page,
+          :per_page => per_page,
+          :order_by => order_by,
           :order_dir => order_dir
       }
       DataSift.request(:GET, 'push/log', @config, params)
@@ -80,9 +80,9 @@ module DataSift
     # Retrieve log messages for all subscriptions
     def logs (page = 1, per_page = 20, order_by = :request_time, order_dir = :desc)
       params = {
-          :page      => page,
-          :per_page  => per_page,
-          :order_by  => order_by,
+          :page => page,
+          :per_page => per_page,
+          :order_by => order_by,
           :order_dir => order_dir
       }
       DataSift.request(:GET, 'push/log', @config, params)
@@ -92,10 +92,10 @@ module DataSift
     # Get details of the subscription with the given ID
     def get_by_subscription(id, page = 1, per_page = 20, order_by = :request_time, order_dir = :desc)
       params = {
-          :id        => id,
-          :page      => page,
-          :per_page  => per_page,
-          :order_by  => order_by,
+          :id => id,
+          :page => page,
+          :per_page => per_page,
+          :order_by => order_by,
           :order_dir => order_dir
       }
       DataSift.request(:GET, 'push/get', @config, params)
@@ -105,10 +105,10 @@ module DataSift
     # Get details of the subscription with the given stream ID/hash
     def get_by_hash(hash, page = 1, per_page = 20, order_by = :request_time, order_dir = :desc)
       params = {
-          :hash      => hash,
-          :page      => page,
-          :per_page  => per_page,
-          :order_by  => order_by,
+          :hash => hash,
+          :page => page,
+          :per_page => per_page,
+          :order_by => order_by,
           :order_dir => order_dir
       }
       DataSift.request(:GET, 'push/get', @config, params)
@@ -119,21 +119,21 @@ module DataSift
     def get_by_historics_id(id, page = 1, per_page = 20, order_by = :request_time, order_dir = :desc)
       params = {
           :historics_id => id,
-          :page         => page,
-          :per_page     => per_page,
-          :order_by     => order_by,
-          :order_dir    => order_dir
+          :page => page,
+          :per_page => per_page,
+          :order_by => order_by,
+          :order_dir => order_dir
       }
       DataSift.request(:GET, 'push/get', @config, params)
     end
 
     ##
     # Get details of all subscriptions within the given page constraints
-    def get(page = 1, per_page = 20, order_by = :request_time, order_dir = :desc)
+    def get(page = 1, per_page = 20, order_by = :created_at, order_dir = :desc)
       params = {
-          :page      => page,
-          :per_page  => per_page,
-          :order_by  => order_by,
+          :page => page,
+          :per_page => per_page,
+          :order_by => order_by,
           :order_dir => order_dir
       }
       DataSift.request(:GET, 'push/get', @config, params)
@@ -143,12 +143,12 @@ module DataSift
     # Pull data from a 'pull' type Push Subscription
     def pull(id, size = 20971520, cursor = '', callback = nil)
       params = {
-          :id     => id,
-          :size   => size,
+          :id => id,
+          :size => size,
           :cursor => cursor
       }
       if callback
-          params.merge!({:on_interaction => callback})
+        params.merge!({:on_interaction => callback})
       end
       DataSift.request(:GET, 'pull', @config, params, {}, 30, 30, true)
     end
