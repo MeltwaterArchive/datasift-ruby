@@ -12,8 +12,6 @@ module DataSift
       params.merge!({:auth => auth.is_a?(String) ? auth : MultiJson.dump(auth)}) unless auth.empty?
       params.merge!({:parameters => parameters.is_a?(String) ? parameters : MultiJson.dump(parameters)}) unless parameters.empty?
       params.merge!({:resources => resources.is_a?(String) ? resources : MultiJson.dump(resources)}) if resources.length > 0
-      puts params
-      exit 0
       DataSift.request(:POST, 'source/create', @config, params)
     end
 
