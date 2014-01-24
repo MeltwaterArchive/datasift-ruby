@@ -7,10 +7,10 @@ module DataSift
 
     ##
     # Check that a subscription is defined correctly
-    def valid?(params)
+    def valid?(params, bool_response = true)
       requires params
       res = DataSift.request(:POST, 'push/validate', @config, params)
-      res[:http][:status] == 200
+      bool_response ? res[:http][:status] == 200 : res
     end
 
     ##

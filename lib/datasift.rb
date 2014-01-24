@@ -19,7 +19,7 @@ require 'rbconfig'
 module DataSift
   #
   IS_WINDOWS              = (RbConfig::CONFIG['host_os'] =~ /mswin|mingw|cygwin/)
-  VERSION                 = File.open('../VERSION').first
+  VERSION                 = File.open(File.join(File.dirname(__FILE__), '../') + '/VERSION').first
   KNOWN_SOCKETS           = {}
   DETECT_DEAD_SOCKETS     = true
   SOCKET_DETECTOR_TIMEOUT = 6.5
@@ -59,10 +59,12 @@ module DataSift
 
     ##
     # Checks if the syntax of the given CSDL is valid
-    def valid?(csdl)
+    #+boolResponse+ If true then a boolean is returned indicating whether the CSDL is valid, otherwise
+    # the response object itself is returned
+    def valid?(csdl, boolResponse = true)
       requires({:csdl => csdl})
       res= DataSift.request(:POST, 'validate', @config, {:csdl => csdl})
-      res[:http][:status] == 200
+      boolResponse ? res[:http][:status] == 200 : res
     end
 
     ##
@@ -230,7 +232,7 @@ module DataSift
       when RestClient::SSLCertificateNotVerified
         message = 'Failed to complete SSL verification'
       when SocketError
-        message = 'Communication with DataSift failed. Are you able to resolve api.datasift.com?'
+        message = 'Communication with DataSift failed. Are you able to resolve the API hostname?'
       else
         message = 'Unexpected error.'
     end

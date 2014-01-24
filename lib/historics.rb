@@ -5,12 +5,12 @@ module DataSift
     # Create a new historics query and return its id.
     def prepare (hash, start, end_time, name, sources = 'twitter', sample = 100)
       params = {
-          :hash    => hash,
-          :start   => start,
-          :end     => end_time,
-          :name    => name,
+          :hash => hash,
+          :start => start,
+          :end => end_time,
+          :name => name,
           :sources => sources,
-          :sample  => sample
+          :sample => sample
       }
       requires params
       DataSift.request(:POST, 'historics/prepare', @config, params)
@@ -26,9 +26,10 @@ module DataSift
 
     ##
     # Stop historics query.
-    def stop(id)
+    def stop(id, reason = '')
       params = {:id => id}
       requires params
+      params[:reason] = reason
       DataSift.request(:POST, 'historics/stop', @config, params)
     end
 

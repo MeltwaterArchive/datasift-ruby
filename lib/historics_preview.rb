@@ -7,7 +7,7 @@ module DataSift
           :parameters => parameters,
           :start      => start
       }
-      params.merge!(end_time) if end_time != nil
+      params.merge!(:end => end_time) if end_time != nil
 
       DataSift.request(:POST, 'preview/create', @config, params)
     end
