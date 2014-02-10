@@ -181,7 +181,7 @@ module DataSift
         body = e.http_body
         if code && body
           error = MultiJson.load(body)
-          handle_api_error(e.http_code, error['error'] + " for URL #{url}")
+          handle_api_error(e.http_code, (error['error'] ? error['error'] : '') + " for URL #{url}")
         else
           process_client_error(e)
         end
