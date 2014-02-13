@@ -49,7 +49,7 @@ module DataSift
     end
 
     def log(id, page = 1, per_page = 20)
-      DataSift.request(:POST, 'source/get', @config, {:id => id, :page => page, :per_page => per_page})
+      DataSift.request(:POST, 'source/log', @config, {:id => id, :page => page, :per_page => per_page})
     end
 
   end
