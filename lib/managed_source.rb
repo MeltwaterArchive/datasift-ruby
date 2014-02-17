@@ -16,6 +16,7 @@ module DataSift
     end
 
     def update(id, source_type, name, parameters = {}, resources = [], auth = [])
+      id.nil? || source_type.nil? || name.nil? ? raise BadParametersError : ''
       params = {
           :id          => id,
           :source_type => source_type,
