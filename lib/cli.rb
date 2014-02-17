@@ -134,7 +134,7 @@ def run_sources_command (c, command, p)
       c.managed_source.create(p['source_type'],p['name'], opt(p['parameters'], {}),
                               opt(p['resources'], []), opt(p['auth'], []))
     when 'update'
-      c.managed_source.update(p['id'], p['source_type'], opt(p['parameters'], {}),
+      c.managed_source.update(p['id'], p['source_type'], p['name'], opt(p['parameters'], {}),
                               opt(p['resources'], []),
                               opt(p['auth'], []))
     when 'delete'
