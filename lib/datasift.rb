@@ -137,7 +137,8 @@ module DataSift
         :open_timeout => open_timeout,
         :timeout      => timeout,
         :payload      => payload,
-        :url          => url
+        :url          => url,
+        :ssl_version => 'TLSv1'
     )
 
     begin

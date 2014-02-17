@@ -2,9 +2,13 @@ class DataSiftExample
   require '../lib/datasift'
 
   def initialize
+    #only SSLv3 and TLSv1 currently supported, TLSv1 preferred
+    # this is fixed in REST client and is scheduled for the 1.7.0 release
+    # see https://github.com/rest-client/rest-client/pull/123
+    OpenSSL::SSL::SSLContext::DEFAULT_PARAMS[:ssl_version] = 'TLSv1'
     @username = 'zcourts'
     @api_key  ='9dc2e16075de005b1a23444fbc6dd269'
-    @config   ={:username => @username, :api_key => @api_key, :enable_ssl => false}
+    @config   ={:username => @username, :api_key => @api_key, :enable_ssl => true}
     @params   = {
         :output_type                       => 's3',
         'output_params.bucket'             => 'apitests',

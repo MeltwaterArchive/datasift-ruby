@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.6}
   s.required_rubygems_version = Gem::Requirement.new(">= 1.3.6") if s.respond_to? :required_rubygems_version=
 
-  s.add_runtime_dependency('rest-client', '~> 1.6.3')
+  s.add_runtime_dependency('rest-client', '~> 1.6.7')
   s.add_runtime_dependency('multi_json', '~> 1.8.0')
   s.add_runtime_dependency('websocket-td', '~> 0.0.4')
   s.add_development_dependency('rdoc', '> 0')
