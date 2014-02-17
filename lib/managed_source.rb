@@ -54,6 +54,7 @@ module DataSift
     end
 
     def log(id, page = 1, per_page = 20)
+      raise BadParametersError.new('id is required') if id.nil?
       DataSift.request(:POST, 'source/log', @config, {:id => id, :page => page, :per_page => per_page})
     end
 
