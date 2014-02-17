@@ -5,6 +5,7 @@ module DataSift
     # Creates a new managed source
     #+source_type+:: can be facebook_page, googleplus, instagram or yammer
     def create(source_type, name, parameters = {}, resources = [], auth = [])
+      raise BadParametersError.new('source_type and name are required') if source_type.nil? || name.nil?
       params = {
           :source_type => source_type,
           :name        => name
@@ -30,14 +31,17 @@ module DataSift
     end
 
     def delete(id)
+      raise BadParametersError.new('id is required') if id.nil?
       DataSift.request(:DELETE, 'source/delete', @config, {:id => id})
     end
 
     def stop(id)
+      raise BadParametersError.new('id is required') if id.nil?
       DataSift.request(:POST, 'source/stop', @config, {:id => id})
     end
 
     def start(id)
+      raise BadParametersError.new('id is required') if id.nil?
       DataSift.request(:POST, 'source/start', @config, {:id => id})
     end
 
