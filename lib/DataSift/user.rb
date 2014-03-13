@@ -32,8 +32,8 @@ module DataSift
     #* +username+ - The User's DataSift username
     #* +api_key+ - The User's DataSift API key
     def initialize(username, api_key, use_ssl = true)
-      username.strip!
-      api_key.strip!
+      username = username.strip
+      api_key = api_key.strip
 
       raise EInvalidData, 'Please supply valid credentials when creating a User object.' unless username.size > 0 and api_key.size > 0
 
