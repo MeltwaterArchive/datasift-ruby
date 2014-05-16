@@ -55,6 +55,10 @@ more details.
 
 Changelog
 ---------
+* v.2.1.1 (2014-05-16)
+  - Allow use of more recent versions of required gems
+  - Minor bug fixes
+
 * v.2.1.0 Final fixes for v.2.1.0  (2013-09-13)
 
   - Adds /source/log call
