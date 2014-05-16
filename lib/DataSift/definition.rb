@@ -34,7 +34,7 @@ module DataSift
 				@csdl = nil
 			else
 				raise InvalidDataError, 'The CSDL must be a string.' unless csdl.is_a? String
-				csdl.strip!
+				csdl = csdl.strip
 				clearHash() unless csdl == @csdl
 				@csdl = csdl
 			end

@@ -25,7 +25,12 @@ require 'yaml'
 config = YAML::load(File.open(File.join(File.dirname(__FILE__), '..', 'config.yml')))
 
 # Get the CSDL from the command line or STDIN
-if ARGV.size > 0
+# Make sure we have some arguments
+if ARGV.size == 0
+	puts 'ERR: Please specify the hash to consume!'
+	puts
+	exit!
+elsif ARGV.size > 0
 	csdl = ARGV[0]
 else
 	csdl = ARGF.read
@@ -44,7 +49,7 @@ puts 'Getting DPU...'
 begin
 	dpu = definition.getDPUBreakdown()
 rescue DataSift::CompileFailedError => e
-	puts 'CSDL compilation failed: ' + e
+	puts 'CSDL compilation failed: ' + e.message
 	puts
 	exit!
 end
