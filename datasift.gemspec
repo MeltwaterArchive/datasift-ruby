@@ -16,11 +16,11 @@ Gem::Specification.new do |s|
 	s.rubygems_version          = %q{1.3.6}
 	s.required_rubygems_version	= Gem::Requirement.new(">= 1.3.6") if s.respond_to? :required_rubygems_version=
 
-	s.add_runtime_dependency('rest-client', '~> 1.6.3')
-	s.add_runtime_dependency('yajl-ruby', '~> 1.1.0')
+	s.add_runtime_dependency('rest-client', '~> 1.6')
+	s.add_runtime_dependency('yajl-ruby', '~> 1.1')
 	s.add_development_dependency('rdoc', '> 0')
-	s.add_development_dependency('shoulda', '~> 2.11.3')
-	s.add_development_dependency('rspec', '~> 2.6.0')
+	s.add_development_dependency('shoulda', '>= 2.11')
+	s.add_development_dependency('rspec', '~> 2.6')
 
 	s.files         = `git ls-files`.split("\n")
 	s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
