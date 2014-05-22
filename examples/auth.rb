@@ -27,12 +27,12 @@ class DataSiftExample
 
   def create_push(hash, is_historics_id = false)
     create_params = @params.merge ({
-        #hash or playback_id can be used but not both
+        #hash or historics_id can be used but not both
         :name           => 'My awesome push subscription',
         :initial_status => 'active', # or 'paused' or 'waiting_for_start'
     })
     if is_historics_id
-      create_params.merge!({:playback_id => hash})
+      create_params.merge!({:historics_id => hash})
     else
       create_params.merge!({:hash  => hash,
                             #start and end are not valid for historics
