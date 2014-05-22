@@ -63,7 +63,7 @@ module DataSift
     # the response object itself is returned
     def valid?(csdl, boolResponse = true)
       requires({:csdl => csdl})
-      res= DataSift.request(:POST, 'validate', @config, {:csdl => csdl})
+      res = DataSift.request(:POST, 'validate', @config, {:csdl => csdl})
       boolResponse ? res[:http][:status] == 200 : res
     end
 
@@ -92,7 +92,7 @@ module DataSift
     ##
     # Determine your credit balance or DPU balance.
     def balance
-      DataSift.request(:POST, 'balance', @config, {})
+      DataSift.request(:POST, 'balance', @config)
     end
 
     ##
