@@ -10,13 +10,14 @@ class ManagedSourceApi < DataSiftExample
       puts 'Creating a managed source'
       parameters = {:likes           => true,
                     :posts_by_others => true,
-                    :comments        => true
+                    :comments        => true,
+                    :page_likes      => true
       }
       resources  = [{
                         :parameters => {
-                            :url   => 'http://www.facebook.com/thegaurdian',
+                            :url   => 'http://www.facebook.com/theguardian',
                             :title => 'Some news page',
-                            :id    => :thegaurdian
+                            :id    => :theguardian
                         }
                     }]
       auth       = [{
