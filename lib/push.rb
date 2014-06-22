@@ -103,7 +103,7 @@ module DataSift
 
     ##
     # Get details of the subscription with the given stream ID/hash
-    def get_by_hash(hash, page = 1, per_page = 20, order_by = :request_time, order_dir = :desc)
+    def get_by_hash(hash, page = 1, per_page = 20, order_by = :created_at, order_dir = :desc)
       params = {
           :hash => hash,
           :page => page,
@@ -116,7 +116,7 @@ module DataSift
 
     ##
     # Get details of the subscription with the given Historics ID
-    def get_by_historics_id(id, page = 1, per_page = 20, order_by = :request_time, order_dir = :desc)
+    def get_by_historics_id(id, page = 1, per_page = 20, order_by = :created_at, order_dir = :desc)
       params = {
           :historics_id => id,
           :page => page,
