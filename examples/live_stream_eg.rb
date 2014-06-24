@@ -86,4 +86,5 @@ class StreamingApi < DataSiftExample
     end
   end
 end
+
 StreamingApi.new

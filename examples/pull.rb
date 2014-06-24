@@ -39,6 +39,6 @@ class PushApi < DataSiftExample
       puts dse.inspect
     end
   end
-
 end
+
 PushApi.new().run

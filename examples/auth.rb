@@ -11,14 +11,18 @@ class DataSiftExample
     @config   = {:username => @username, :api_key => @api_key, :enable_ssl => true}
     @params   = {
         :output_type                       => 's3',
-        'output_params.bucket'             => 'apitests',
+        'output_params.bucket'             => 'YOUR_BUCKET_NAME',
         'output_params.directory'          => 'ruby',
         'output_params.acl'                => 'private',
-        'output_params.auth.access_key'    => 'AKIAIINK5C4FH75RSWNA',
-        'output_params.auth.secret_key'    => 'F9mLnLoFFGuCNgbMUhdhHmm5YCcNAt/OG32SUhPy',
+        'output_params.auth.access_key'    => 'ADD_YOUR_ACCESS_KEY',
+        'output_params.auth.secret_key'    => 'ADD_YOUR_SECRET_KEY',
         'output_params.delivery_frequency' => 0,
-        'output_params.max_size'           => 10485760,
+        'output_params.max_size'           => 104857600,
         'output_params.file_prefix'        => 'DataSift',
+    }
+    @pull_params = {
+      :output_type => 'pull',
+      'output_params.max_size' => 52428800
     }
     @datasift = DataSift::Client.new(@config)
   end
