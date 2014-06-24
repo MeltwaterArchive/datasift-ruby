@@ -1,8 +1,6 @@
 require File.expand_path('../../test_helper', __FILE__)
 
 describe 'DataSift' do
-  #WebMock.disable_net_connect!(allow: %w{codeclimate.com})
-  #https://github.com/sferik/twitter/blob/a14c426e40f739922bad7dbefa51ea6be3176667/spec/helper.rb
 
   before do
     auth      = DataSiftExample.new
@@ -10,12 +8,11 @@ describe 'DataSift' do
     @data     = OpenStruct.new
     @statuses = OpenStruct.new
     @headers  = OpenStruct.new
-  #
+
     @data.valid_csdl    = 'interaction.content contains "test"'
     @data.invalid_csdl  = 'interaction.nonsense is not valid'
 
     @statuses.valid        = 200
-    @statuses.invalid_csdl = 400
     @statuses.bad_request  = 400
 
   end
@@ -36,7 +33,7 @@ describe 'DataSift' do
       #invalid CSDL
       stub_request(:post, /api.datasift.com\/.*\/validate/).
           with(:body => {"csdl" => @data.invalid_csdl}).
-          to_return(:status  => @statuses.invalid_csdl,
+          to_return(:status  => @statuses.bad_request,
                     :body    => fixture('validate_csdl_invalid.json'),
                     :headers => @headers.csdl_compile)
       #valid stream compilation

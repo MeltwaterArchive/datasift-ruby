@@ -119,7 +119,7 @@ describe 'DataSift::Push' do
   describe '#push/stop' do
     before do
       #valid /push/stop request
-      stub_request(:post, "https://api.datasift.com/v1/push/stop").
+      stub_request(:put, "https://api.datasift.com/v1/push/stop").
         with(:body => {:id => @data.subscription_params[:id]}).
         to_return(status: @statuses.valid,
                   body:   fixture('push_stop_valid.json'))
@@ -127,7 +127,7 @@ describe 'DataSift::Push' do
 
     it 'can stop a push subscription' do
       @datasift.push.stop @data.subscription_params[:id]
-      assert_requested(:post, 'https://api.datasift.com/v1/push/stop', :body => {:id => @data.subscription_params[:id]})
+      assert_requested(:put, 'https://api.datasift.com/v1/push/stop', :body => {:id => @data.subscription_params[:id]})
     end
   end
 
