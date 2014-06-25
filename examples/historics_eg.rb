@@ -28,6 +28,12 @@ class HistoricsApi < DataSiftExample
       puts "Starting historics #{id}"
       puts @datasift.historics.start id
 
+      puts "Pausing historics #{id}"
+      puts @datasift.historics.pause id
+
+      puts "Resuming historics #{id}"
+      puts @datasift.historics.resume id
+
       puts 'Updating historics'
       puts @datasift.historics.update(id, 'The new name of my historics')
 
