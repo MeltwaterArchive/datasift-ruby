@@ -109,7 +109,7 @@ on_message is called when we receive [user status messages](http://dev.datasift.
 * @datasift.push.update @params.merge({:id => subscription_id, :name => 'Updated name'})
 * @datasift.push.stop subscription_id
 * @datasift.push.delete subscription_id
-* @datasift.push.logs
+* @datasift.push.log
 * @datasift.push.get_by_subscription subscription_id
 * @datasift.push.get
 * @datasift.pull

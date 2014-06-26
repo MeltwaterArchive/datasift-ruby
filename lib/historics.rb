@@ -16,6 +16,22 @@ module DataSift
       DataSift.request(:POST, 'historics/prepare', @config, params)
     end
 
+    # Pause historics query.
+    def pause(id, reason = '')
+      params = {:id => id}
+      requires params
+      params[:reason] = reason
+      DataSift.request(:PUT, 'historics/pause', @config, params)
+    end
+
+    ##
+    # Resume historics query.
+    def resume(id)
+      params = {:id => id}
+      requires params
+      DataSift.request(:PUT, 'historics/resume', @config, params)
+    end
+
     ##
     # Starts historics query.
     def start(id)
@@ -32,6 +48,7 @@ module DataSift
       params[:reason] = reason
       DataSift.request(:POST, 'historics/stop', @config, params)
     end
+    ##
 
     ##
     # Check the data coverage in the archive for a specified interval.

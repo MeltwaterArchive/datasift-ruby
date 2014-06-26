@@ -48,7 +48,7 @@ historic_id=$(echo ${historic} | jq -r .body.id)
 echo "Historic created with ID $historic_id"
 
 echo 'Validating Push subscription'
-push_v=$(ds -e push -c validate -p playback_id ${historic_id} -p name "Playback CLI @ $start" -p output_type http \
+push_v=$(ds -e push -c validate -p historics_id ${historic_id} -p name "Playback CLI @ $start" -p output_type http \
 -p output_params.method post -p output_params.url 'http://ec2-50-19-63-138.compute-1.amazonaws.com:80' \
 -p output_params.delivery_frequency 0 -p output_params.max_size 102400 -p output_params.auth.type none \
 -p output_params.verify_ssl false -p output_params.use_gzip true)
@@ -61,7 +61,7 @@ if [ ${push_status} != 200 ]; then
 fi
 
 echo 'Creating Push from Historic'
-push=$(ds -e push -c create -p playback_id ${historic_id} -p name "Playback CLI @ $start" -p output_type http \
+push=$(ds -e push -c create -p historics_id ${historic_id} -p name "Playback CLI @ $start" -p output_type http \
 -p output_params.method post -p output_params.url 'http://ec2-50-19-63-138.compute-1.amazonaws.com:80' \
 -p output_params.delivery_frequency 0 -p output_params.max_size 102400 -p output_params.auth.type none \
 -p output_params.verify_ssl false -p output_params.use_gzip true)

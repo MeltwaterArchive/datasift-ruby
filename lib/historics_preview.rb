@@ -1,9 +1,10 @@
 module DataSift
   class HistoricsPreview < DataSift::ApiResource
 
-    def create(hash, parameters, start, end_time = nil)
+    def create(hash, sources, parameters, start, end_time = nil)
       params = {
           :hash       => hash,
+          :sources    => sources,
           :parameters => parameters,
           :start      => start
       }

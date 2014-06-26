@@ -24,7 +24,6 @@ module DataSift
       DataSift.request(:POST, 'push/create', @config, params)
     end
 
-
     ##
     # Update the name or output parameters for an existing subscription
     def update (params)
@@ -36,7 +35,7 @@ module DataSift
     def pause(id)
       params = {:id => id}
       requires params
-      DataSift.request(:POST, 'push/pause', @config, params)
+      DataSift.request(:PUT, 'push/pause', @config, params)
     end
 
     ##
@@ -44,7 +43,7 @@ module DataSift
     def resume(id)
       params = {:id => id}
       requires params
-      DataSift.request(:POST, 'push/resume', @config, params)
+      DataSift.request(:PUT, 'push/resume', @config, params)
     end
 
     ##
@@ -52,7 +51,7 @@ module DataSift
     def stop(id)
       params = {:id => id}
       requires params
-      DataSift.request(:POST, 'push/stop', @config, params)
+      DataSift.request(:PUT, 'push/stop', @config, params)
     end
 
     ##
@@ -65,7 +64,7 @@ module DataSift
 
     ##
     # Retrieve log messages for a specific subscription
-    def logs_for (id, page = 1, per_page = 20, order_by = :request_time, order_dir = :desc)
+    def log_for(id, page = 1, per_page = 20, order_by = :request_time, order_dir = :desc)
       params = {
           :id => id,
           :page => page,
@@ -78,7 +77,7 @@ module DataSift
 
     ##
     # Retrieve log messages for all subscriptions
-    def logs (page = 1, per_page = 20, order_by = :request_time, order_dir = :desc)
+    def log(page = 1, per_page = 20, order_by = :request_time, order_dir = :desc)
       params = {
           :page => page,
           :per_page => per_page,
@@ -90,20 +89,14 @@ module DataSift
 
     ##
     # Get details of the subscription with the given ID
-    def get_by_subscription(id, page = 1, per_page = 20, order_by = :request_time, order_dir = :desc)
-      params = {
-          :id => id,
-          :page => page,
-          :per_page => per_page,
-          :order_by => order_by,
-          :order_dir => order_dir
-      }
+    def get_by_subscription(id)
+      params = { :id => id }
       DataSift.request(:GET, 'push/get', @config, params)
     end
 
     ##
     # Get details of the subscription with the given stream ID/hash
-    def get_by_hash(hash, page = 1, per_page = 20, order_by = :request_time, order_dir = :desc)
+    def get_by_hash(hash, page = 1, per_page = 20, order_by = :created_at, order_dir = :desc)
       params = {
           :hash => hash,
           :page => page,
@@ -116,7 +109,7 @@ module DataSift
 
     ##
     # Get details of the subscription with the given Historics ID
-    def get_by_historics_id(id, page = 1, per_page = 20, order_by = :request_time, order_dir = :desc)
+    def get_by_historics_id(id, page = 1, per_page = 20, order_by = :created_at, order_dir = :desc)
       params = {
           :historics_id => id,
           :page => page,
@@ -141,7 +134,7 @@ module DataSift
 
     ##
     # Pull data from a 'pull' type Push Subscription
-    def pull(id, size = 20971520, cursor = '', callback = nil)
+    def pull(id, size = 52428800, cursor = '', callback = nil)
       params = {
           :id => id,
           :size => size,
