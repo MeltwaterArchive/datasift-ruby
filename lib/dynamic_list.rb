@@ -27,7 +27,7 @@ module DataSift
           :id => id
       }
       requires params
-      DataSift.request(:POST, 'list/delete', @config, params)
+      DataSift.request(:DELETE, 'list/delete', @config, params)
     end
 
     ##

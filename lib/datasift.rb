@@ -59,7 +59,7 @@ module DataSift
       @dynamic_list_replace = DataSift::DynamicListReplace.new(config)
     end
 
-    attr_reader :historics, :push, :managed_source, :historics_preview
+    attr_reader :historics, :push, :managed_source, :historics_preview, :dynamic_list, :dynamic_list_replace
 
     ##
     # Checks if the syntax of the given CSDL is valid
