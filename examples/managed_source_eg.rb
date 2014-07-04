@@ -31,22 +31,22 @@ class ManagedSourceApi < DataSiftExample
 
       id = source[:data][:id]
 
-      puts 'Starting delivery for my private source'
+      puts "\nStarting delivery for my Managed Source"
       puts @datasift.managed_source.start id
 
-      puts 'Updating'
+      puts "\nUpdating"
       puts @datasift.managed_source.update(id, 'facebook_page', 'Updated source', parameters, resources, auth)
 
-      puts 'Getting info from DataSift about my page'
+      puts "\nGetting info from DataSift about my page"
       puts @datasift.managed_source.get id
 
-      puts 'Fetching logs'
+      puts "\nFetching logs"
       puts @datasift.managed_source.log id
 
-      puts 'Stopping'
+      puts "\nStopping"
       puts @datasift.managed_source.stop id
 
-      puts 'Deleting'
+      puts "\nDeleting"
       puts @datasift.managed_source.delete id
     rescue DataSiftError => dse
       puts dse.message

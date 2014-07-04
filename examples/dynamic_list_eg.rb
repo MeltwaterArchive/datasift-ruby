@@ -22,7 +22,7 @@ class DynamicListApi < DataSiftExample
       puts "\nGet a list of your Dynamic Lists: /list/get"
       puts @datasift.dynamic_list.get
 
-      puts "Adding items to the dynamic list: #{items}: /list/add"
+      puts "\nAdding items to the dynamic list: #{items}: /list/add"
       puts @datasift.dynamic_list.add(id, items)
 
       csdl = "interaction.content list_any \"#{id}\""
@@ -46,7 +46,7 @@ class DynamicListApi < DataSiftExample
 
       ##
       # Integer Dynamic Lists
-      puts "\n --- \n\nCreating a Dynamic List containing integers"
+      puts "\n --- \nCreating a Dynamic List containing integers"
       puts 'Creating a dynamic list: /list/create'
       list = @datasift.dynamic_list.create('integer', 'My dynamic integer list')
       puts list
