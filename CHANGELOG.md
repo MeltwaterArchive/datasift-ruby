@@ -1,13 +1,14 @@
 CHANGELOG
 ================================
 
-v.3.0.0 (2014-06-25)
+v.3.0.0 (2014-07-04)
 --------------------
 
 Final fixes for v.3.0.0!
 This release does break backwards compatibility with version 2.x and earlier. A [migration guide](https://github.com/datasift/datasift-ruby/blob/3.0.0/MIGRATING_TO_V.3.0.0.md) is available.
 * Adds support for the [Pull Push Destination](http://dev.datasift.com/docs/push/connectors/pull)
 * Adds support for DataSift [Historics Preview](http://dev.datasift.com/docs/historics/preview)
+* Adds support for the new Dynamic Lists feature
 * Adds support for multi-streaming via WebSockets
 * Added a CLI to the library
 * Updated test suite

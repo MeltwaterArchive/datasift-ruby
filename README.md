@@ -20,6 +20,14 @@ The library will use SSL connections by default. While we recommend using SSL
 you may disable it if required by passing ':enable_ssl => false' as the third
 parameter when creating your @config object.
 
+Getting Started
+---------------
+Before you can begin using this library, you will need to have an active [DataSift](http://datasift.com) account - you can sign up for a new account at [datasift.com/get-started](http://datasift.com/get-started/).
+
+Many of the examples and API endpoints used in this library require you have enabled certain data sources before you can receive any data (you should do this at [datasift.com/source](https://datasift.com/source)). Certain API features, such as [Historics](http://datasift.com/platform/historics/) and [Managed Sources](http://datasift.com/platform/datasources/) will require you have signed up to a monthly subscription before you can access them. 
+
+If you are interested in using these features, or would like more information about DataSift, please [get in touch](http://datasift.com/contact-us/)!
+
 Simple example
 --------------
 
@@ -65,10 +73,23 @@ conn.stream.read_thread.join
 See the [Understanding the Output Data](http://dev.datasift.com/docs/getting-started/data) page on the DataSift Developer site for
 full details of the data contained within each interaction.
 
+Supported Operating Environment
+-------------------------------
+This version of the client library has been tested, and is known to work against the following language versions and Operating Systems:
+
+### Language Versions
+* Ruby 2.0.0
+* Ruby 2.1.0
+
+### Operating Systems
+* Linux
+* OS X
+* Windows 7/8
+
 License
 -------
 
-All code contained in this repository is Copyright 2011-2013 MediaSift Ltd.
+All code contained in this repository is Copyright 2011-2014 MediaSift Ltd.
 
-This code is released under the BSD license. Please see the LICENSE file for
+This code is released under the BSD license. Please see the [LICENSE](https://github.com/datasift/datasift-ruby/blob/master/LICENSE) file for
 more details.
