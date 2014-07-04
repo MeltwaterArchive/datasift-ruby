@@ -7,7 +7,7 @@ class PushApi < DataSiftExample
   def run
     begin
       @params = {:output_type => 'pull'}
-      puts 'Validating'
+      puts 'Validating the Pull subscription'
       if @datasift.push.valid? @params
         stream = @datasift.compile 'interaction.content contains "music"'
         subscription = create_push(stream[:data][:hash])
@@ -16,22 +16,22 @@ class PushApi < DataSiftExample
         #pull a bunch of interactions from the push queue - only work if we had set the output_type above to pull
         #pull @datasift.pull subscription_id
 
-        puts 'pullinga'
+        puts "\nPulling data a first time, then waiting 10 seconds"
         @datasift.push.pull(subscription_id).each { |e| puts e }
 
         sleep 10
 
-        puts 'pullingb'
+        puts "\nPulling data a second time, then waiting 10 seconds"
         @datasift.push.pull(subscription_id).each { |e| puts e }
 
         sleep 10
 
-        puts 'pullingc'
+        puts "\nPulling data the third and final time time"
         #passing a lambda is more efficient because it is executed once for each interaction received
         #this saves having to iterate over the array returned so the same iteration isn't done twice
-        @datasift.push.pull(subscription_id,20971520,'', lambda{ |e| puts "on_message => #{e}" })
+        @datasift.push.pull(subscription_id, 20971520, '', lambda{ |e| puts "on_message => #{e}" })
 
-        puts 'pullingdelete'
+        puts "\nDeleting the Pull subscription"
         @datasift.push.delete subscription_id
       end
         #rescue DataSiftError

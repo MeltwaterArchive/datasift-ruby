@@ -11,7 +11,7 @@ class HistoricsPreviewApi < DataSiftExample
       stream = @datasift.compile 'interaction.content contains "datasift"'
       hash   = stream[:data][:hash]
 
-      puts 'Creating a preview'
+      puts "\nCreating a preview"
       # see http://dev.datasift.com/docs/rest-api/previewcreate for docs
       sources    = 'facebook,twitter'
       parameters = 'interaction.author.link,targetVol,hour;interaction.type,freqDist,10'
@@ -19,7 +19,7 @@ class HistoricsPreviewApi < DataSiftExample
       source     = @datasift.historics_preview.create(hash, sources, parameters, start)
       puts source
 
-      puts 'Getting preview data'
+      puts "\nGetting preview data"
       puts @datasift.historics_preview.get source[:data][:id]
 
     rescue DataSiftError => dse
