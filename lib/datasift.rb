@@ -41,8 +41,13 @@ module DataSift
   class Client < ApiResource
 
     #+config+:: A hash containing configuration options for the client for e.g.
-    # {username => 'some_user', api_key => 'ds_api_key', open_timeout => 30, timeout => 30}
+    # {username => 'some_user', api_key => 'ds_api_key', 'enable_ssl' => true, open_timeout => 30, timeout => 30}
     def initialize (config)
+      #only SSLv3 and TLSv1 currently supported, TLSv1 preferred
+      # this is fixed in REST client and is scheduled for the 1.7.0 release
+      # see https://github.com/rest-client/rest-client/pull/123
+      OpenSSL::SSL::SSLContext::DEFAULT_PARAMS[:ssl_version] = 'TLSv1'
+
       if config == nil
         raise InvalidConfigError.new ('Config cannot be nil')
       end
