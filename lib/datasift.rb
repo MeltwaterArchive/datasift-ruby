@@ -12,6 +12,8 @@ require dir + '/push'
 require dir + '/historics'
 require dir + '/historics_preview'
 require dir + '/managed_source'
+require dir + '/managed_source_auth'
+require dir + '/managed_source_resource'
 require dir + '/live_stream'
 require dir + '/dynamic_list'
 require dir + '/dynamic_list_replace'
@@ -52,19 +54,23 @@ module DataSift
         raise InvalidConfigError.new ('Config cannot be nil')
       end
       if config.key?(:api_key) == false || config.key?(:username) == false
-        raise InvalidConfigError.new('A valid username and API key are required')
+        raise InvalidConfigError.new('A valid username and API key are required. ' +
+          'You can check your API credentials at https://datasift.com/settings')
       end
 
-      @config            = config
-      @historics         = DataSift::Historics.new(config)
-      @push              = DataSift::Push.new(config)
-      @managed_source    = DataSift::ManagedSource.new(config)
-      @historics_preview = DataSift::HistoricsPreview.new(config)
-      @dynamic_list      = DataSift::DynamicList.new(config)
-      @dynamic_list_replace = DataSift::DynamicListReplace.new(config)
+      @config                   = config
+      @historics                = DataSift::Historics.new(config)
+      @push                     = DataSift::Push.new(config)
+      @managed_source           = DataSift::ManagedSource.new(config)
+      @managed_source_resource  = DataSift::ManagedSourceResource.new(config)
+      @managed_source_auth      = DataSift::ManagedSourceAuth.new(config)
+      @historics_preview        = DataSift::HistoricsPreview.new(config)
+      @dynamic_list             = DataSift::DynamicList.new(config)
+      @dynamic_list_replace     = DataSift::DynamicListReplace.new(config)
     end
 
-    attr_reader :historics, :push, :managed_source, :historics_preview, :dynamic_list, :dynamic_list_replace
+    attr_reader :historics, :push, :managed_source, :managed_source_resource, :managed_source_auth,
+      :historics_preview, :dynamic_list, :dynamic_list_replace
 
     ##
     # Checks if the syntax of the given CSDL is valid
@@ -126,19 +132,22 @@ module DataSift
     validate config
     options = {}
     url     = build_url(path, config)
-    case method.to_s.downcase.to_sym
-      when :get, :head, :delete
-        url     += "#{URI.parse(url).query ? '&' : '?'}#{encode params}"
-        payload = nil
-      else
-        payload = encode params
-    end
 
     headers.update ({
         :user_agent    => "DataSift/#{config[:api_version]} Ruby/v#{VERSION}",
         :authorization => "#{config[:username]}:#{config[:api_key]}",
         :content_type  => 'application/x-www-form-urlencoded'
     })
+
+    case method.to_s.downcase.to_sym
+      when :get, :head, :delete
+        url     += "#{URI.parse(url).query ? '&' : '?'}#{encode params}"
+        payload = nil
+      else
+        #payload = encode params
+        payload = MultiJson.dump(params)
+        headers.update ({ :content_type => 'application/json' })
+    end
 
     options.update(
         :headers      => headers,
