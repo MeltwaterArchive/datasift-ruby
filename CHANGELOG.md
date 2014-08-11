@@ -1,6 +1,19 @@
 CHANGELOG
 ================================
 
+v.3.1.0 (2014-07-30)
+--------------------
+
+####New Feature
+Added support for four new Managed Sources API endpoints to improve usability of the Managed Sources API, and make it easier to add or remove resources or authentication tokens
+* /source/auth/add
+* /source/auth/remove
+* /source/resource/add
+* /source/resource/remove
+
+####Improvements
+Ensure all POST and PUT API requests are sent JSON encoded with correct headers
+
 v.3.0.1 (2014-07-17)
 --------------------
 
