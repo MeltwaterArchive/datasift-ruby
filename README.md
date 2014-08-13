@@ -1,20 +1,31 @@
 DataSift
 ========
 
+[![Gem Version](http://img.shields.io/gem/v/datasift.svg)][gem]
+[![Build Status](http://img.shields.io/travis/datasift/datasift-ruby.svg)][travis]
+
+[gem]: https://rubygems.org/gems/datasift
+[travis]: https://travis-ci.org/datasift/datasift-ruby
+
+
 The official Ruby library for accessing the DataSift API. See
-http://datasift.com/ for full details and to sign up for an account.
+[datasift.com](http://datasift.com/) for full details and to sign up for an account.
 
 Install Instructions
 --------------------
 
+```
 sudo gem install datasift
+```
 
 Dependencies
 ------------
 
 If you're using the source you'll need to install the dependencies.
 
+```
 sudo gem install rest-client multi_json websocket-td
+```
 
 The library will use SSL connections by default. While we recommend using SSL
 you may disable it if required by passing ':enable_ssl => false' as the third
@@ -24,7 +35,7 @@ Getting Started
 ---------------
 Before you can begin using this library, you will need to have an active [DataSift](http://datasift.com) account - you can sign up for a new account at [datasift.com/get-started](http://datasift.com/get-started/).
 
-Many of the examples and API endpoints used in this library require you have enabled certain data sources before you can receive any data (you should do this at [datasift.com/source](https://datasift.com/source)). Certain API features, such as [Historics](http://datasift.com/platform/historics/) and [Managed Sources](http://datasift.com/platform/datasources/) will require you have signed up to a monthly subscription before you can access them. 
+Many of the examples and API endpoints used in this library require you have enabled certain data sources before you can receive any data (you should do this at [datasift.com/source](https://datasift.com/source)). Certain API features, such as [Historics](http://datasift.com/platform/historics/) and [Managed Sources](http://datasift.com/platform/datasources/) will require you have signed up to a monthly subscription before you can access them.
 
 If you are interested in using these features, or would like more information about DataSift, please [get in touch](http://datasift.com/contact-us/)!
 
