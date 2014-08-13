@@ -1,0 +1,155 @@
+#!/bin/bash
+command -v jq >/dev/null 2>&1 || { echo >&2 "jq command must be available. See http://stedolan.github.io/jq/.  Aborting."; exit 1; }
+
+set -e
+
+DEFAULT_API='api.datasift.com'
+
+CC=${1:$CC}
+DU=${2:-$DU}
+DK=${3:-$DK}
+API=${4:-$DEFAULT_API}
+
+function ds(){
+    ${CC} -a ${DU} ${DK} --u ${API} "$@" #| jq .
+}
+
+# core API - validate our hash, compile it, check our usage, dpu and balance
+echo 'Validating CSDL'
+csdl='interaction.content contains "music"'
+valid=$(ds -e core -c validate -p csdl "$csdl" | jq .status)
+
+if [ ${valid} != 200 ]; then
+    echo "Validating CSDL failed"
+    echo ${valid}
+    exit -1
+fi
+
+echo 'Compiling'
+hash=$(ds -e core -c compile -p csdl "$csdl" | jq -r .body.hash)
+echo "Compiled and got $hash"
+
+echo 'Usage :'
+ds -e core -c usage | jq .
+
+echo 'DPU :'
+ds -e core -c dpu -p hash $hash | jq .
+
+echo 'Balance :'
+ds -e core -c usage | jq .
+
+echo 'Preparing Historic query'
+end=`expr $(date +%s) - 7200`
+start=`expr $end - 3600`
+
+historic=$(ds -e historics -c prepare -p start ${start} -p end ${end} -p name "Historics CLI @ $start" -p hash ${hash})
+echo ${historic} | jq .
+historic_id=$(echo ${historic} | jq -r .body.id)
+echo "Historic created with ID $historic_id"
+
+echo 'Validating Push subscription'
+push_v=$(ds -e push -c validate -p historics_id ${historic_id} -p name "Playback CLI @ $start" -p output_type http \
+-p output_params.method post -p output_params.url 'http://ec2-50-19-63-138.compute-1.amazonaws.com:80' \
+-p output_params.delivery_frequency 0 -p output_params.max_size 102400 -p output_params.auth.type none \
+-p output_params.verify_ssl false -p output_params.use_gzip true)
+push_status=$(echo ${push_v} | jq .status)
+echo ${push_v} | jq .
+
+if [ ${push_status} != 200 ]; then
+    echo "Validating Push subscription failed"
+    exit -1
+fi
+
+echo 'Creating Push from Historic'
+push=$(ds -e push -c create -p historics_id ${historic_id} -p name "Playback CLI @ $start" -p output_type http \
+-p output_params.method post -p output_params.url 'http://ec2-50-19-63-138.compute-1.amazonaws.com:80' \
+-p output_params.delivery_frequency 0 -p output_params.max_size 102400 -p output_params.auth.type none \
+-p output_params.verify_ssl false -p output_params.use_gzip true)
+
+echo "Created push subscription for historic"
+echo ${push} | jq .
+push_id=$(echo ${push} | jq -r .body.id)
+
+echo 'Starting Historic query'
+ds -e historics -c start -p id ${historic_id} | jq .
+
+echo 'Getting Historic status'
+ds -e historics -c status -p start ${start} -p end ${end} | jq .
+
+echo 'Getting Historics'
+ds -e historics -c get -p id ${historic_id} | jq .
+
+echo 'Updating historic'
+ds -e historics -c update -p id ${historic_id} -p name "Some name @ $start - CLI" | jq .
+
+echo 'Getting push'
+ds -e push -c get -p id ${push_id} | jq .
+
+echo 'Getting push logs'
+ds -e push -c log -p id ${push_id} | jq .
+
+echo 'Pausing push'
+ds -e push -c pause -p id ${push_id} | jq .
+
+echo 'Resuming push'
+ds -e push -c resume -p id ${push_id} | jq .
+
+echo 'Stopping Historic'
+ds -e historics -c stop -p id ${historic_id} | jq .
+
+echo 'Deleting Historic'
+ds -e historics -c delete -p id ${historic_id} | jq .
+
+echo 'Stopping push'
+ds -e push -c stop -p id ${push_id} | jq .
+
+echo 'Deleting push'
+ds -e push -c delete -p id ${push_id} | jq .
+#todo update push, pull
+
+echo "Attempting to create a Historics preview"
+preview=$(ds -e preview -c create -p start ${start} -p end ${end} -p hash ${hash} -p sources twitter \
+-p parameters 'interaction.author.link,targetVol,hour;interaction.type,freqDist,10')
+
+echo ${preview} | jq .
+preview_id=$(echo ${preview} | jq -r .body.id)
+
+
+echo "Getting the preview we created"
+ds -e preview -c get -p id ${preview_id} | jq .
+
+echo "Creating a managed source"
+source=$(ds -e managed_sources -c create -p source_type instagram -p name api \
+     -p auth "[{\"parameters\":{\"value\":\"$start$end\"}}]" \
+     -p resources '[{"parameters":{"value":"cats","type":"tag"}}]' \
+     -p parameters '{"comments":true,"likes":false}')
+echo ${source}
+source_id=$(echo ${source}| jq -r .body.id)
+echo ${source_id}
+
+echo "Starting managed source"
+ds -e managed_sources -c start -p source_id ${source_id} | jq .
+
+echo "Getting managed sources"
+ds -e managed_sources -c get | jq .
+
+echo "Getting Instagram sources"
+ds -e managed_sources -c get -p source_type instagram | jq .
+
+echo "Getting Facebook page sources"
+ds -e managed_sources -c get -p source_type facebook_page | jq .
+
+echo "Getting page 2 of instagram sources"
+ds -e managed_sources -c get -p source_type instagram -p page 2 | jq .
+
+echo "Getting source for $source_id"
+ds -e managed_sources -c get -p source_id ${source_id} | jq .
+
+echo "Getting logs for source $source_id"
+ds -e managed_sources -c log -p source_id ${source_id} -p page 2 -p per_page 1 | jq .
+
+echo "Stopping managed source"
+ds -e managed_sources -c stop -p source_id ${source_id} | jq .
+
+echo "Deleting managed source $source_id"
+ds -e managed_sources -c delete -p source_id ${source_id} | jq .
