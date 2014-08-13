@@ -15,12 +15,12 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency('multi_json', '~> 1.8.0')
   s.add_runtime_dependency('websocket-td', '~> 0.0.4')
 
-  s.add_development_dependency('rdoc', '~> 0')
+  s.add_development_dependency('rdoc', '>= 0')
   s.add_development_dependency('webmock', '~> 1.17.1')
   s.add_development_dependency('shoulda', '~> 2.11.3')
   s.add_development_dependency('minitest', '~> 5.0')
-  s.add_development_dependency('rake', '~> 0')
-  s.add_development_dependency('simplecov', '~> 0')
+  s.add_development_dependency('rake', '>= 0')
+  s.add_development_dependency('simplecov', '>= 0')
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test}/*`.split("\n")
