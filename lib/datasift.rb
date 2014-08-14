@@ -1,6 +1,7 @@
 dir = File.dirname(__FILE__)
 #
 require 'uri'
+require 'cgi'
 require 'rest_client'
 require 'multi_json'
 require 'websocket_td'
@@ -134,9 +135,9 @@ module DataSift
     url     = build_url(path, config)
 
     headers.update ({
-        :user_agent    => "DataSift/#{config[:api_version]} Ruby/v#{VERSION}",
-        :authorization => "#{config[:username]}:#{config[:api_key]}",
-        :content_type  => 'application/x-www-form-urlencoded'
+      :user_agent    => "DataSift/#{config[:api_version]} Ruby/v#{VERSION}",
+      :authorization => "#{config[:username]}:#{config[:api_key]}",
+      :content_type  => 'application/x-www-form-urlencoded'
     })
 
     case method.to_s.downcase.to_sym
@@ -144,19 +145,18 @@ module DataSift
         url     += "#{URI.parse(url).query ? '&' : '?'}#{encode params}"
         payload = nil
       else
-        #payload = encode params
         payload = MultiJson.dump(params)
         headers.update ({ :content_type => 'application/json' })
     end
 
     options.update(
-        :headers      => headers,
-        :method       => method,
-        :open_timeout => open_timeout,
-        :timeout      => timeout,
-        :payload      => payload,
-        :url          => url,
-        :ssl_version => 'TLSv1'
+      :headers      => headers,
+      :method       => method,
+      :open_timeout => open_timeout,
+      :timeout      => timeout,
+      :payload      => payload,
+      :url          => url,
+      :ssl_version => 'TLSv1'
     )
 
     begin
@@ -179,16 +179,16 @@ module DataSift
         data = {}
       end
       {
-          :data     => data,
-          :datasift => {
-              :x_ratelimit_limit     => response.headers[:x_ratelimit_limit],
-              :x_ratelimit_remaining => response.headers[:x_ratelimit_remaining],
-              :x_ratelimit_cost      => response.headers[:x_ratelimit_cost]
-          },
-          :http     => {
-              :status  => response.code,
-              :headers => response.headers
-          }
+        :data     => data,
+        :datasift => {
+          :x_ratelimit_limit     => response.headers[:x_ratelimit_limit],
+          :x_ratelimit_remaining => response.headers[:x_ratelimit_remaining],
+          :x_ratelimit_cost      => response.headers[:x_ratelimit_cost]
+        },
+        :http => {
+          :status  => response.code,
+          :headers => response.headers
+        }
       }
     rescue MultiJson::DecodeError => de
       raise DataSiftError.new response
@@ -228,7 +228,7 @@ module DataSift
   end
 
   def self.encode params
-    URI.escape(params.collect { |k, v| "#{k}=#{v}" }.join('&'))
+    params.collect { |param, value| [param, CGI.escape(value.to_s)].join('=') }.join('&')
   end
 
   def self.handle_api_error(code, body)
@@ -282,7 +282,7 @@ module DataSift
       stream.on_ping            = lambda { |data|
         KNOWN_SOCKETS[connection] = Time.new.to_i
       }
-      stream.on_open            =lambda {
+      stream.on_open            = lambda {
         connection.connected     = true
         connection.retry_timeout = 0
         on_open.call(connection) if on_open != nil
