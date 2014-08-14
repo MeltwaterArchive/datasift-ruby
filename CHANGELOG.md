@@ -1,6 +1,12 @@
 CHANGELOG
 ================================
 
+v.3.1.1 (2014-08-14)
+--------------------
+
+####Fixes
+Resolves [#59](https://github.com/datasift/datasift-ruby/issues/59); we now use CGI.escape rather than URI.escape to ensure special characters such as '+' or '\' are escaped correctly when submitted. 
+
 v.3.1.0 (2014-07-30)
 --------------------
 
