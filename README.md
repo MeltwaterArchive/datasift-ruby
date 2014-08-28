@@ -89,11 +89,13 @@ Supported Operating Environment
 This version of the client library has been tested, and is known to work against the following language versions and Operating Systems:
 
 ### Language Versions
+* Ruby 1.9.3 (Seems to work, but NOT officially supported/thoroughly tested)
 * Ruby 2.0.0
 * Ruby 2.1.0
 
 ### Operating Systems
 * Linux
+* Ubuntu
 * OS X
 * Windows 7/8
 

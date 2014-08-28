@@ -1,11 +1,18 @@
 CHANGELOG
 ================================
 
+v.3.1.2 (2014-08-28)
+--------------------
+
+####Improvements
+* Relaxed gem dependencies; resolves [#65](https://github.com/datasift/datasift-ruby/issues/65)
+* Minor changes to improve support for Ruby 1.9.3 tests
+
 v.3.1.1 (2014-08-14)
 --------------------
 
 ####Fixes
-Resolves [#59](https://github.com/datasift/datasift-ruby/issues/59); we now use CGI.escape rather than URI.escape to ensure special characters such as '+' or '\' are escaped correctly when submitted. 
+Resolves [#59](https://github.com/datasift/datasift-ruby/issues/59); we now use CGI.escape rather than URI.escape to ensure special characters such as '+' or '\' are escaped correctly when submitted.
 
 v.3.1.0 (2014-07-30)
 --------------------
