@@ -11,13 +11,13 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.required_rubygems_version = Gem::Requirement.new(">= 1.3.6") if s.respond_to? :required_rubygems_version=
 
-  s.add_runtime_dependency('rest-client', '~> 1.6.7')
-  s.add_runtime_dependency('multi_json', '~> 1.8.0')
+  s.add_runtime_dependency('rest-client', '~> 1.6')
+  s.add_runtime_dependency('multi_json', '~> 1.8')
   s.add_runtime_dependency('websocket-td', '~> 0.0.4')
 
   s.add_development_dependency('rdoc', '>= 0')
-  s.add_development_dependency('webmock', '~> 1.17.1')
-  s.add_development_dependency('shoulda', '~> 2.11.3')
+  s.add_development_dependency('webmock', '~> 1.17')
+  s.add_development_dependency('shoulda', '~> 2.11')
   s.add_development_dependency('minitest', '~> 5.0')
   s.add_development_dependency('rake', '>= 0')
   s.add_development_dependency('simplecov', '>= 0')

@@ -1,8 +1,10 @@
 require 'simplecov'
 SimpleCov.start
 
-require File.expand_path('./../../examples/auth', __FILE__)
 require 'datasift'
+require 'minitest'
+
+require File.expand_path('./../../examples/auth', __FILE__)
 require 'minitest/autorun'
 require 'webmock/minitest'
 require 'multi_json'
