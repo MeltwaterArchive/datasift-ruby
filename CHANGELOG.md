@@ -5,8 +5,8 @@ v.3.1.2 (2014-08-28)
 --------------------
 
 ####Improvements
-Relaxed gem dependencies; resolves #65
-Minor changes to improve support for Ruby 1.9.3 tests
+* Relaxed gem dependencies; resolves [#65](https://github.com/datasift/datasift-ruby/issues/65)
+* Minor changes to improve support for Ruby 1.9.3 tests
 
 v.3.1.1 (2014-08-14)
 --------------------
