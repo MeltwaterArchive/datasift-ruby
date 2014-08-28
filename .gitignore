@@ -7,3 +7,5 @@ rdoc/
 Gemfile.lock
 coverage/*
 TODO
+pkg/*
+*.gem
