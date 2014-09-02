@@ -8,8 +8,13 @@ DataSift
 [travis]: https://travis-ci.org/datasift/datasift-ruby
 
 
-The official Ruby library for accessing the DataSift API. See
-[datasift.com](http://datasift.com/) for full details and to sign up for an account.
+The official Ruby library for accessing the DataSift API. 
+
+Getting Started
+---------------
+
+**Read our [Ruby Getting Started Guide](http://dev.datasift.com/quickstart/ruby) to get started with the DataSift platform.** This guide will take you through creating a [DataSift](http://datasift.com) account, and activating data sources which you will need to do before using the DataSift API.
+
 
 Install Instructions
 --------------------
