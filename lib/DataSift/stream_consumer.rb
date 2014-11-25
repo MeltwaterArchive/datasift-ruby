@@ -62,9 +62,10 @@ module DataSift
 		#Called when a deletion notification is received.
 		#=== Parameters
 		#* +interaction+ - Minimal details about the interaction that was deleted.
-		def onDeleted(&block)
+		def onDeleted(interaction, &block)
 			if block_given?
 				@on_deleted = block
+				yield interaction
 				self
 			else
 				@on_deleted
@@ -74,9 +75,10 @@ module DataSift
 		#This is called when an error message is received.
 		#=== Parameters
 		#* +message+ - The error message.
-		def onError(&block)
+		def onError(message, &block)
 			if block_given?
 				@on_error = block
+				yield message
 				self
 			else
 				@on_error
@@ -86,9 +88,10 @@ module DataSift
 		#This is called when an error message is received.
 		#=== Parameters
 		#* +message+ - The error message.
-		def onWarning(&block)
+		def onWarning(message, &block)
 			if block_given?
 				@on_warning = block
+				yield message
 				self
 			else
 				@on_warning
@@ -98,9 +101,10 @@ module DataSift
 		#This is called when the consumer is stopped.
 		#=== Parameters
 		#* +reason+ - The reason why the consumer stopped.
-		def onStopped(&block)
+		def onStopped(reason, &block)
 			if block_given?
 				@on_stopped = block
+				yield reason
 				self
 			else
 				@on_stopped
@@ -121,15 +125,15 @@ module DataSift
 			onStart do |interaction|
 				if interaction.has_key?('status')
 					if interaction['status'] == 'error' || interaction['status'] == 'failure'
-						onError.call(interaction['message'])
+						method(:onError).call(interaction['message']) { |message| puts "Error: #{message}" unless message.nil? }
 					elsif interaction['status'] == 'warning'
-						onWarning.call(interaction['message'])
+						method(:onWarning).call(interaction['message']){ |message| puts "Warning: #{message}" unless message.nil? }
 					else
 						# Tick
 					end
 				else
 					if interaction.has_key?('deleted') and interaction['deleted']
-						onDeleted.call(interaction) unless onDeleted.nil?
+						method(:onDeleted).call(interaction) { |interaction| puts "Deleted: #{interaction.inspect}" unless interaction.nil? }
 					else
 						block.call(interaction) unless block.nil?
 					end
@@ -160,6 +164,7 @@ module DataSift
 			reason = 'Unexpected' unless @state != StreamConsumer::STATE_STOPPING and reason.length == 0
 			@state = StreamConsumer::STATE_STOPPED
 			@stop_reason = reason
+			onStopped = method(:onStopped)
 			onStopped.call(reason) unless onStopped.nil?
 		end
 	end
