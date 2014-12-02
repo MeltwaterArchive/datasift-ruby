@@ -10,6 +10,7 @@ module DataSift
       config[:enable_ssl] = false unless config.has_key?(:enable_ssl)
       # max 320 seconds retry - http://dev.datasift.com/docs/streaming-api/reconnecting
       config[:max_retry_time] = 320 unless config.has_key?(:max_retry_time)
+      config[:retry_timeout] = 0 unless config.has_key?(:retry_timeout)
     end
 
     def requires params

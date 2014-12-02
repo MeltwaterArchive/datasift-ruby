@@ -1,6 +1,12 @@
 CHANGELOG
 ================================
 
+v.3.1.3 (2014-12-02)
+--------------------
+####Fixes
+* Resolves #57; ensures config is not overridden when initializing LiveStream
+* Relaxed version dependency on multi_json to resolve #67
+
 v.3.1.2 (2014-08-28)
 --------------------
 
