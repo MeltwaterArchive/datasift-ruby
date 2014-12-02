@@ -8,8 +8,17 @@ DataSift
 [travis]: https://travis-ci.org/datasift/datasift-ruby
 
 
-The official Ruby library for accessing the DataSift API. See
-[datasift.com](http://datasift.com/) for full details and to sign up for an account.
+The official Ruby library for accessing the DataSift API. 
+
+Getting Started
+---------------
+
+**Read our [Ruby Getting Started Guide](http://dev.datasift.com/quickstart/ruby) to get started with the DataSift platform.** The guide will take you through creating a [DataSift](http://datasift.com) account, and activating data sources which you will need to do before using the DataSift API.
+
+Many of the examples and API endpoints used in this library require you have enabled certain data sources before you can receive any data (you should do this at [datasift.com/source](https://datasift.com/source)). Certain API features, such as [Historics](http://datasift.com/platform/historics/) and [Managed Sources](http://datasift.com/platform/datasources/) will require you have signed up to a monthly subscription before you can access them.
+
+If you are interested in using these features, or would like more information about DataSift, please [get in touch](http://datasift.com/contact-us/)!
+
 
 Install Instructions
 --------------------
@@ -31,13 +40,6 @@ The library will use SSL connections by default. While we recommend using SSL
 you may disable it if required by passing ':enable_ssl => false' as the third
 parameter when creating your @config object.
 
-Getting Started
----------------
-Before you can begin using this library, you will need to have an active [DataSift](http://datasift.com) account - you can sign up for a new account at [datasift.com/get-started](http://datasift.com/get-started/).
-
-Many of the examples and API endpoints used in this library require you have enabled certain data sources before you can receive any data (you should do this at [datasift.com/source](https://datasift.com/source)). Certain API features, such as [Historics](http://datasift.com/platform/historics/) and [Managed Sources](http://datasift.com/platform/datasources/) will require you have signed up to a monthly subscription before you can access them.
-
-If you are interested in using these features, or would like more information about DataSift, please [get in touch](http://datasift.com/contact-us/)!
 
 Simple example
 --------------
