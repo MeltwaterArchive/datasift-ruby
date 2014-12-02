@@ -5,7 +5,7 @@ module DataSift
     @on_datasift_message = lambda {}
 
     def initialize (config, stream)
-      @config        = config
+      super(config)
       @stream        = stream
       @retry_timeout = 0
       @subscriptions = {}

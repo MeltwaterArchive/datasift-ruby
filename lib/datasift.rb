@@ -156,7 +156,7 @@ module DataSift
       :timeout      => timeout,
       :payload      => payload,
       :url          => url,
-      :ssl_version => 'TLSv1'
+      :ssl_version  => OpenSSL::SSL::SSLContext::DEFAULT_PARAMS[:ssl_version]
     )
 
     begin
@@ -323,6 +323,7 @@ module DataSift
   def self.retry_connect(config, connection, on_delete, on_error, on_open, on_close, message = '', use_closed = false)
     config[:retry_timeout]   = config[:retry_timeout] == 0 || config[:retry_timeout] == nil ? 10 : config[:retry_timeout] * 2
     connection.retry_timeout = config[:retry_timeout]
+
     if config[:retry_timeout] > config[:max_retry_time]
       if use_closed && on_close != nil
         on_close.call(connection, message)

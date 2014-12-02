@@ -20,6 +20,7 @@ class StreamingApi < DataSiftExample
       on_delete = lambda { |stream, m| puts 'We must delete this to be compliant ==> ' + m }
 
       on_error = lambda do |stream, e|
+        # This is called when an error occurs on your connection; you should probably log this event
         puts 'A serious error has occurred'
         puts e.message
       end
@@ -57,6 +58,7 @@ class StreamingApi < DataSiftExample
       end
 
       on_close = lambda do |stream,msg|
+        # This is called when a connection is closed; you should probably log this event
         puts msg
       end
 
