@@ -18,6 +18,7 @@ require dir + '/managed_source_resource'
 require dir + '/live_stream'
 require dir + '/dynamic_list'
 require dir + '/dynamic_list_replace'
+require dir + '/analysis'
 #
 require 'rbconfig'
 
@@ -68,10 +69,11 @@ module DataSift
       @historics_preview        = DataSift::HistoricsPreview.new(config)
       @dynamic_list             = DataSift::DynamicList.new(config)
       @dynamic_list_replace     = DataSift::DynamicListReplace.new(config)
+      @analysis                 = DataSift::Analysis.new(config)
     end
 
     attr_reader :historics, :push, :managed_source, :managed_source_resource, :managed_source_auth,
-      :historics_preview, :dynamic_list, :dynamic_list_replace
+      :historics_preview, :dynamic_list, :dynamic_list_replace, :analysis
 
     ##
     # Checks if the syntax of the given CSDL is valid
