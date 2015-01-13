@@ -50,5 +50,10 @@ module DataSift
       DataSift.request(:POST, 'analysis/analyze', @config, params)
     end
 
+    def tags(hash = '')
+      params = {:hash => hash}
+      DataSift.request(:GET, 'analysis/tags', @config, params)
+    end
+
   end
 end
