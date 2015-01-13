@@ -25,13 +25,13 @@ module DataSift
         :name => name
       }
       requires params
-      DataSift.request(:POST, 'analysis/start', @config, params)
+      DataSift.request(:PUT, 'analysis/start', @config, params)
     end
 
     def stop(hash)
       params = {:hash => hash}
       requires params
-      DataSift.request(:POST, 'analysis/stop', @config, params)
+      DataSift.request(:PUT, 'analysis/stop', @config, params)
     end
 
     def analyze(hash, parameters, filter = '', start_time = '', end_time = '')
