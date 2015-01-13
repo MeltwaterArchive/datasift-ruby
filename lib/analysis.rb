@@ -34,7 +34,7 @@ module DataSift
       DataSift.request(:POST, 'analysis/stop', @config, params)
     end
 
-    def analyze(hash, parameters, filter = '', start_time = '', end_time = '', include_parameters_in_reply = false)
+    def analyze(hash, parameters, filter = '', start_time = '', end_time = '')
       params = {
         :hash                         => hash,
         :parameters                   => parameters,
@@ -44,8 +44,7 @@ module DataSift
       optional_params = {
         :filter                       => filter,
         :start                        => start_time,
-        :end                          => end_time,
-        :include_parameters_in_reply  => include_parameters_in_reply
+        :end                          => end_time
       }
       params.merge! optional_params
       DataSift.request(:POST, 'analysis/analyze', @config, params)
