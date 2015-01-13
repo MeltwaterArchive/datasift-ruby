@@ -1,6 +1,21 @@
 CHANGELOG
 ================================
 
+v.3.2.0-pre.2
+--------------------------
+####New Feature
+* Added /analysis/tags API endpoint + example
+
+####Fixes
+* include_parameters_in_reply param was removed from /analysis/analyze call
+* Use PUT requests for /analysis/start and /end calls
+
+v.3.2.0-pre.1
+--------------------------
+####New Feature
+* Added Pylon /analysis/* API endpoints
+* Added basic Pylon API examples
+
 v.3.1.3 (2014-12-02)
 --------------------
 ####Fixes

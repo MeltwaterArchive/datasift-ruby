@@ -2,9 +2,9 @@ class DataSiftExample
   require 'datasift'
 
   def initialize
-    @username = 'dtsn'
-    @api_key  = 'af10bf9030e93bba28af1fec1cf76d9d'
-    @config   = {:username => @username, :api_key => @api_key, :enable_ssl => false, :api_host => 'api.fido.daniel2.devms.net'}
+    @username = 'choult'
+    @api_key  = 'eed85f6b316fb18930ee28e8754f4963'
+    @config   = {:username => @username, :api_key => @api_key, :enable_ssl => false, :api_host => 'api.fido.dpr-229.devms.net'}
     @params   = {
       :output_type => 's3',
       :output_params => {
