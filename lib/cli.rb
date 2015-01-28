@@ -191,6 +191,28 @@ def run_push_command (c, command, p)
   end
 end
 
+def run_analysis_command (c, command, p)
+  case command
+    when 'validate'
+      c.analysis.valid?(p['csdl'], false)
+    when 'compile'
+      c.analysis.compile(p['csdl'])
+    when 'start'
+      c.analysis.start(p['hash'], p['name'])
+    when 'stop'
+      c.analysis.stop(p['hash'])
+    when 'get'
+      c.analysis.get(opt(p['id'], ''))
+    when 'analyze'
+      c.analysis.analyze(p['hash'], MultiJson.load(p['parameters']), opt(p['filter'], ''), opt(p['start'], ''), opt(p['end'], ''))
+    when 'tags'
+      c.analysis.stop(p['hash'])
+    else
+      err 'Unknown command for the analysis endpoint'
+      exit
+  end
+end
+
 begin
   options = parse(ARGV)
   req = [:auth, :command]
@@ -200,6 +222,7 @@ begin
     err parse(%w(-h))
     exit
   end
+
   config =
       {
           :username => options.auth[:username],
@@ -219,11 +242,14 @@ begin
             run_preview_command(datasift, options.command, options.params)
           when 'managed_sources'
             run_sources_command(datasift, options.command, options.params)
+          when 'analysis'
+            run_analysis_command(datasift, options.command, options.params)
           else
             err 'Unsupported/Unknown endpoint'
             exit
         end
   puts to_output(res)
+  
 rescue DataSiftError => e
   err e.message
 rescue OptionParser::InvalidOption, OptionParser::MissingArgument
