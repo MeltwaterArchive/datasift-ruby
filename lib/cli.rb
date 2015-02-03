@@ -204,7 +204,11 @@ def run_analysis_command (c, command, p)
     when 'get'
       c.analysis.get(opt(p['id'], ''))
     when 'analyze'
-      c.analysis.analyze(p['hash'], MultiJson.load(p['parameters']), opt(p['filter'], ''), opt(p['start'], ''), opt(p['end'], ''))
+      params = nil
+      if p['parameters']
+        params = MultiJson.load(p['parameters'])
+      end
+      c.analysis.analyze(p['hash'], params, opt(p['filter'], ''), opt(p['start'], ''), opt(p['end'], ''))
     when 'tags'
       c.analysis.stop(p['hash'])
     else
