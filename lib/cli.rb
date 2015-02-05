@@ -198,7 +198,7 @@ def run_analysis_command (c, command, p)
     when 'compile'
       c.analysis.compile(p['csdl'])
     when 'start'
-      c.analysis.start(p['hash'], p['name'])
+      c.analysis.start(p['hash'], opt(p['name'], ''))
     when 'stop'
       c.analysis.stop(p['hash'])
     when 'get'
