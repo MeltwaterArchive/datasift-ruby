@@ -1,6 +1,13 @@
 CHANGELOG
 ================================
 
+v.3.1.4 (2015-02-10)
+--------------------
+####Improvements
+* Use TLSv1.2 by default, and allow users to specify SSL version in config with the :ssl_version parameter
+* Minor refactoring according to Rubocop style guides
+* Test against Ruby 2.2 on Travis
+
 v.3.1.3 (2014-12-02)
 --------------------
 ####Fixes
