@@ -9,12 +9,12 @@ class StreamingApi < DataSiftExample
 
   def run
     begin
-      ruby_received   = 0
+      ruby_received = 0
       python_received = 0
-      ruby           = 'interaction.content contains "ruby"'
+      ruby = 'interaction.content contains "ruby"'
       ruby_stream     = @datasift.compile ruby
 
-      python       = 'interaction.content contains "python"'
+      python = 'interaction.content contains "python"'
       python_stream = @datasift.compile python
 
       on_delete = lambda { |stream, m| puts 'We must delete this to be compliant ==> ' + m }
