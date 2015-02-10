@@ -11,7 +11,14 @@ module DataSift
       # Only SSLv3, TLSv1 and TLSv1.2 currently supported, TLSv1.2 preferred
       #   this is fixed in REST client and is scheduled for the 1.7.0 release
       #   see https://github.com/rest-client/rest-client/pull/123
-      OpenSSL::SSL::SSLContext::DEFAULT_PARAMS[:ssl_version] = config[:ssl_version] || 'TLSv1_2'
+
+      ssl_default = "TLSv1_2"
+      if RUBY_VERSION.to_i == 1
+        ssl_default = "TLSv1"
+      end
+      OpenSSL::SSL::SSLContext::DEFAULT_PARAMS[:ssl_version] = config[:ssl_version] ||
+        ssl_default
+
       # max 320 seconds retry - http://dev.datasift.com/docs/streaming-api/reconnecting
       config[:max_retry_time] = 320 unless config.has_key?(:max_retry_time)
       config[:retry_timeout] = 0 unless config.has_key?(:retry_timeout)
