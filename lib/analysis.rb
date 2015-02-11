@@ -19,12 +19,17 @@ module DataSift
       DataSift.request(:GET, 'analysis/get', @config, params)
     end
 
-    def start(hash, name)
+    def start(hash, name = '')
       params = {
-        :hash => hash,
-        :name => name
+        :hash                         => hash
       }
       requires params
+
+      optional_params = {
+        :name                       => name
+      }
+      params.merge! optional_params
+
       DataSift.request(:PUT, 'analysis/start', @config, params)
     end
 
