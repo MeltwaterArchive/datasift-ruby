@@ -210,7 +210,7 @@ def run_analysis_command (c, command, p)
       end
       c.analysis.analyze(p['hash'], params, opt(p['filter'], ''), opt(p['start'], ''), opt(p['end'], ''))
     when 'tags'
-      c.analysis.stop(p['hash'])
+      c.analysis.tags(p['hash'])
     else
       err 'Unknown command for the analysis endpoint'
       exit
@@ -253,7 +253,7 @@ begin
             exit
         end
   puts to_output(res)
-  
+
 rescue DataSiftError => e
   err e.message
 rescue OptionParser::InvalidOption, OptionParser::MissingArgument
