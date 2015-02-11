@@ -34,7 +34,7 @@ def parse(args)
     opts.banner = 'Usage: cli.rb [-c] [--api] -a -e [-p*]'
     opts.separator 'Specific options:'
 
-    opts.on('-a', '--auth AUTH', 'DataSift username:api_key') do |username|
+    opts.on('-a', '--auth AUTH', 'DataSift username and API key (formatted as "username api_key")') do |username|
       api_key = ARGV.length>0 && ARGV[0].index('-') == 0 ? '' : ARGV[0]
       if username == nil || api_key == nil || username.empty? || api_key.empty?
         err 'Unable to parse username and API key, they must be in the format username api_key'
@@ -44,7 +44,7 @@ def parse(args)
       options.auth = {:username => username, :api_key => api_key}
     end
 
-    opts.on('-e', '--endpoint ENDPOINT', 'Defaults to core, must be one of core,push,historics,preview,sources') do |e|
+    opts.on('-e', '--endpoint ENDPOINT', 'Defaults to core, must be one of core, push, historics, preview, sources, analysis') do |e|
       options.endpoint = e
     end
 
@@ -62,12 +62,12 @@ def parse(args)
     end
 
     opts.on_tail('-h', '--help', 'Show this message') do
-      err opts
+      puts opts
       exit
     end
 
-    opts.on_tail('--version', 'Show version') do
-      err :: DataSift::VERSION
+    opts.on_tail('-v', '--version', 'DataSift client library version') do
+      puts DataSift::VERSION
       exit
     end
   end
