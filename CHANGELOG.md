@@ -1,6 +1,50 @@
 CHANGELOG
 ================================
 
+v.3.1.4 (2015-02-10)
+--------------------
+####Improvements
+* Use TLSv1.2 by default, and allow users to specify SSL version in config with the :ssl_version parameter
+* Minor refactoring according to Rubocop style guides
+* Test against Ruby 2.2 on Travis
+
+v.3.1.3 (2014-12-02)
+--------------------
+####Fixes
+* Resolves #57; ensures config is not overridden when initializing LiveStream
+* Relaxed version dependency on multi_json to resolve #67
+
+v.3.1.2 (2014-08-28)
+--------------------
+
+####Improvements
+* Relaxed gem dependencies; resolves [#65](https://github.com/datasift/datasift-ruby/issues/65)
+* Minor changes to improve support for Ruby 1.9.3 tests
+
+v.3.1.1 (2014-08-14)
+--------------------
+
+####Fixes
+Resolves [#59](https://github.com/datasift/datasift-ruby/issues/59); we now use CGI.escape rather than URI.escape to ensure special characters such as '+' or '\' are escaped correctly when submitted.
+
+v.3.1.0 (2014-07-30)
+--------------------
+
+####New Feature
+Added support for four new Managed Sources API endpoints to improve usability of the Managed Sources API, and make it easier to add or remove resources or authentication tokens
+* /source/auth/add
+* /source/auth/remove
+* /source/resource/add
+* /source/resource/remove
+
+####Improvements
+Ensure all POST and PUT API requests are sent JSON encoded with correct headers
+
+v.3.0.1 (2014-07-17)
+--------------------
+
+Ensure we use TLSv1 when using SSL
+
 v.3.0.0 (2014-07-04)
 --------------------
 

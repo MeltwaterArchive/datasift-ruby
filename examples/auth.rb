@@ -2,27 +2,29 @@ class DataSiftExample
   require 'datasift'
 
   def initialize
-    #only SSLv3 and TLSv1 currently supported, TLSv1 preferred
-    # this is fixed in REST client and is scheduled for the 1.7.0 release
-    # see https://github.com/rest-client/rest-client/pull/123
-    OpenSSL::SSL::SSLContext::DEFAULT_PARAMS[:ssl_version] = 'TLSv1'
     @username = 'DATASIFT_USERNAME'
     @api_key  = 'DATASIFT_API_KEY'
     @config   = {:username => @username, :api_key => @api_key, :enable_ssl => true}
     @params   = {
-        :output_type                       => 's3',
-        'output_params.bucket'             => 'YOUR_BUCKET_NAME',
-        'output_params.directory'          => 'ruby',
-        'output_params.acl'                => 'private',
-        'output_params.auth.access_key'    => 'ADD_YOUR_ACCESS_KEY',
-        'output_params.auth.secret_key'    => 'ADD_YOUR_SECRET_KEY',
-        'output_params.delivery_frequency' => 0,
-        'output_params.max_size'           => 104857600,
-        'output_params.file_prefix'        => 'DataSift',
+      :output_type => 's3',
+      :output_params => {
+        :bucket             => 'YOUR_BUCKET_NAME',
+        :directory          => 'ruby',
+        :acl                => 'private',
+        :delivery_frequency => 0,
+        :max_size           => 104857600,
+        :file_prefix        => 'DataSift',
+        :auth => {
+          :access_key => 'ADD_YOUR_ACCESS_KEY',
+          :secret_key => 'ADD_YOUR_SECRET_KEY',
+        }
+      }
     }
     @pull_params = {
       :output_type => 'pull',
-      'output_params.max_size' => 52428800
+      :output_params => {
+        :max_size => 52428800
+      }
     }
     @datasift = DataSift::Client.new(@config)
   end
