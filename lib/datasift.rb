@@ -241,6 +241,8 @@ module DataSift
         raise AuthError.new(code, body)
       when 404
         raise ApiResourceNotFoundError.new(code, body)
+      when 409
+        raise ConflictError.new(code, body)
       else
         raise DataSiftError.new(code, body)
     end

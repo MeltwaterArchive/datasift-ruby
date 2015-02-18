@@ -1,3 +1,4 @@
+# Custom error class for rescuing DataSift errors
 class DataSiftError < StandardError
   attr_reader :status
   attr_reader :body
@@ -8,13 +9,14 @@ class DataSiftError < StandardError
   end
 
   def message
-    @body == nil ? @status : @body
+    @body.nil? ? @status : @body
   end
 
   def to_s
-    #if both body and status were provided then message is the body otherwise the status contains the message
-    msg           = !@body.nil? && !@status.nil? ? @body : @status
-    #if body is nil then status is the message body so no status is included
+    # If both body and status were provided then message is the body otherwise
+    #   the status contains the message
+    msg = !@body.nil? && !@status.nil? ? @body : @status
+    # If body is nil then status is the message body so no status is included
     status_string = @body.nil? ? '' : "(Status #{@status}) "
     "#{status_string} : #{msg}"
   end
@@ -33,6 +35,9 @@ class ConnectionError < DataSiftError
 end
 
 class ApiResourceNotFoundError < DataSiftError
+end
+
+class ConflictError < DataSiftError
 end
 
 class InvalidConfigError < DataSiftError
@@ -55,7 +60,9 @@ end
 
 class StreamingMessageError < DataSiftError
 end
+
 class WebSocketOnWindowsError < DataSiftError
 end
+
 class BadParametersError < DataSiftError
 end
