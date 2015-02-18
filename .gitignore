@@ -5,7 +5,7 @@ sftp-config.json
 rdoc/
 .bundle/
 Gemfile.lock
-coverage/*
+coverage/
 TODO
 pkg/*
 *.gem
