@@ -1,6 +1,16 @@
 CHANGELOG
 ================================
 
+## v.3.2.0-pre.3 (2015-02-18)
+### Added
+* Full test suite for /analysis/* API endpoints
+* Support for 409 ConflictError
+* Added Pylon endpoints to CLI interface
+
+### Changed
+* Use VCR with MiniTest to mock API calls in test suite
+* 'hash' is now a required parameter for /analysis/tags endpoint
+
 v.3.2.0-pre.2
 --------------------------
 ####New Feature
