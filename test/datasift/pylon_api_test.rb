@@ -22,245 +22,245 @@ describe 'DataSift' do
   end
 
   ##
-  # /analysis/validate
+  # /pylon/validate
   #
-  describe '#analysis/validate' do
+  describe '#pylon/validate' do
     it 'csdl_cant_be_nil_when_validating' do
       assert_raises InvalidParamError do
-        @datasift.analysis.valid?(nil)
+        @datasift.pylon.valid?(nil)
       end
     end
 
     it 'csdl_cant_be_empty_when_validating' do
       assert_raises InvalidParamError do
-        @datasift.analysis.valid?('')
+        @datasift.pylon.valid?('')
       end
     end
 
     it 'if_user_can_get_successful_validation_as_bool' do
-      VCR.use_cassette('analysis_validate_success_bool') do
-        assert @datasift.analysis.valid?(@data.valid_csdl)
+      VCR.use_cassette('pylon/pylon_validate_success_bool') do
+        assert @datasift.pylon.valid?(@data.valid_csdl)
       end
     end
 
     it 'if_user_can_get_successful_validation_as_hash' do
-      VCR.use_cassette('analysis_validate_success_hash') do
-        response = @datasift.analysis.valid?(@data.valid_csdl, false)
+      VCR.use_cassette('pylon/pylon_validate_success_hash') do
+        response = @datasift.pylon.valid?(@data.valid_csdl, false)
         assert_kind_of Hash, response, 'Valid should return a Ruby hash here'
         assert_equal @statuses.valid, response[:http][:status]
       end
     end
 
     it 'failing_csdl_validation' do
-      VCR.use_cassette('analysis_validate_invalid_hash') do
+      VCR.use_cassette('pylon/pylon_validate_invalid_hash') do
         assert_raises BadRequestError do
-          @datasift.analysis.valid?(@data.invalid_csdl)
+          @datasift.pylon.valid?(@data.invalid_csdl)
         end
       end
     end
   end
 
   ##
-  # /analysis/compile
+  # /pylon/compile
   #
-  describe '#analysis/compile' do
+  describe '#pylon/compile' do
     it 'csdl_cant_be_nil_when_compiling' do
       assert_raises InvalidParamError do
-        @datasift.analysis.compile(nil)
+        @datasift.pylon.compile(nil)
       end
     end
 
     it 'csdl_cant_be_empty_when_compiling' do
       assert_raises InvalidParamError do
-        @datasift.analysis.compile('')
+        @datasift.pylon.compile('')
       end
     end
 
     it 'if_user_can_successfully_compile_valid_csdl' do
-      VCR.use_cassette('analysis_compile_valid_csdl_compilation') do
-        response = @datasift.analysis.compile @data.valid_csdl
+      VCR.use_cassette('pylon/pylon_compile_valid_csdl_compilation') do
+        response = @datasift.pylon.compile @data.valid_csdl
         assert_kind_of Hash, response, 'Valid should return a Ruby hash here'
         assert_equal @statuses.valid, response[:http][:status]
       end
     end
 
     it 'invalid_csdl_fails_compilation' do
-      VCR.use_cassette('analysis_compile_invalid_csdl_compilation') do
+      VCR.use_cassette('pylon/pylon_compile_invalid_csdl_compilation') do
         assert_raises BadRequestError do
-          @datasift.analysis.valid?(@data.invalid_csdl)
+          @datasift.pylon.valid?(@data.invalid_csdl)
         end
       end
     end
   end
 
   ##
-  # /analysis/get
+  # /pylon/get
   #
-  describe 'successful #analysis/get' do
+  describe 'successful #pylon/get' do
     before do
-      VCR.use_cassette('before_analysis_get') do
-        @hash = @datasift.analysis.compile(@data.valid_csdl)[:data][:hash]
-        @datasift.analysis.start(@hash, 'ruby-lib-test')
+      VCR.use_cassette('pylon/before_pylon_get') do
+        @hash = @datasift.pylon.compile(@data.valid_csdl)[:data][:hash]
+        @datasift.pylon.start(@hash, 'ruby-lib-test')
       end
     end
 
     after do
-      VCR.use_cassette('after_analysis_get') do
-        @datasift.analysis.stop @hash
+      VCR.use_cassette('pylon/after_pylon_get') do
+        @datasift.pylon.stop @hash
       end
     end
 
     it 'can_get_list' do
-      VCR.use_cassette('analysis_get_list') do
-        response = @datasift.analysis.get
+      VCR.use_cassette('pylon/pylon_get_list') do
+        response = @datasift.pylon.get
         assert_equal @statuses.valid, response[:http][:status]
       end
     end
 
     it 'can_get_by_hash' do
-      VCR.use_cassette('analysis_get_by_hash') do
-        response = @datasift.analysis.get @hash
+      VCR.use_cassette('pylon/pylon_get_by_hash') do
+        response = @datasift.pylon.get @hash
         assert_equal @statuses.valid, response[:http][:status]
       end
     end
 
     it 'cannot_get_by_invalid_hash' do
-      VCR.use_cassette('analysis_get_by_invalid_hash') do
+      VCR.use_cassette('pylon/pylon_get_by_invalid_hash') do
         assert_raises ApiResourceNotFoundError do
-          @datasift.analysis.get @data.invalid_hash
+          @datasift.pylon.get @data.invalid_hash
         end
       end
     end
   end
 
   ##
-  # /analysis/start
+  # /pylon/start
   #
-  describe 'successful #analysis/start' do
+  describe 'successful #pylon/start' do
     before do
-      VCR.use_cassette('before_successful_analysis_start') do
-        @hash = @datasift.analysis.compile(@data.valid_csdl)[:data][:hash]
+      VCR.use_cassette('pylon/before_successful_pylon_start') do
+        @hash = @datasift.pylon.compile(@data.valid_csdl)[:data][:hash]
       end
     end
 
     after do
-      VCR.use_cassette('after_successful_analysis_start') do
-        @datasift.analysis.stop @hash
+      VCR.use_cassette('pylon/after_successful_pylon_start') do
+        @datasift.pylon.stop @hash
       end
     end
 
     it 'can_start_valid_hash' do
-      VCR.use_cassette('analysis_start_valid_hash') do
-        response = @datasift.analysis.start(@hash, 'ruby-lib-test')
+      VCR.use_cassette('pylon/pylon_start_valid_hash') do
+        response = @datasift.pylon.start(@hash, 'ruby-lib-test')
         assert_equal @statuses.valid_empty, response[:http][:status]
       end
     end
   end
 
-  describe 'unsuccessful #analysis/start' do
+  describe 'unsuccessful #pylon/start' do
     before do
-      VCR.use_cassette('before_unsuccessful_analysis_start') do
-        @hash = @datasift.analysis.compile(@data.valid_csdl)[:data][:hash]
+      VCR.use_cassette('pylon/before_unsuccessful_pylon_start') do
+        @hash = @datasift.pylon.compile(@data.valid_csdl)[:data][:hash]
       end
     end
 
     it 'cannot_start_valid_hash_with_no_name' do
-      VCR.use_cassette('analysis_start_valid_hash_no_name') do
+      VCR.use_cassette('pylon/pylon_start_valid_hash_no_name') do
         assert_raises ArgumentError do
-          @datasift.analysis.start(@hash)
+          @datasift.pylon.start(@hash)
         end
       end
     end
 
     it 'cannot_start_with_no_params' do
-      VCR.use_cassette('analysis_start_no_params') do
+      VCR.use_cassette('pylon/pylon_start_no_params') do
         assert_raises ArgumentError do
-          @datasift.analysis.start
+          @datasift.pylon.start
         end
       end
     end
 
     it 'cannot_start_invalid_hash' do
-      VCR.use_cassette('analysis_start_invalid_hash') do
+      VCR.use_cassette('pylon/pylon_start_invalid_hash') do
         assert_raises BadRequestError do
-          @datasift.analysis.start(@data.invalid_hash, 'ruby-lib-test')
+          @datasift.pylon.start(@data.invalid_hash, 'ruby-lib-test')
         end
       end
     end
   end
 
   ##
-  # /analysis/stop
+  # /pylon/stop
   #
-  describe 'successful #analysis/stop' do
+  describe 'successful #pylon/stop' do
     before do
-      VCR.use_cassette('before_successful_analysis_stop') do
-        @hash = @datasift.analysis.compile(@data.valid_csdl)[:data][:hash]
-        @datasift.analysis.start(@hash, 'ruby-lib-test')
+      VCR.use_cassette('pylon/before_successful_pylon_stop') do
+        @hash = @datasift.pylon.compile(@data.valid_csdl)[:data][:hash]
+        @datasift.pylon.start(@hash, 'ruby-lib-test')
       end
     end
 
     it 'can_stop_valid_hash' do
-      VCR.use_cassette('analysis_stop_valid_hash') do
-        response = @datasift.analysis.stop @hash
+      VCR.use_cassette('pylon/pylon_stop_valid_hash') do
+        response = @datasift.pylon.stop @hash
         assert_equal @statuses.valid_empty, response[:http][:status]
       end
     end
   end
 
-  describe 'conflicting #analysis/stop' do
+  describe 'conflicting #pylon/stop' do
     before do
-      VCR.use_cassette('before_conflicting_analysis_stop') do
-        @hash = @datasift.analysis.compile(@data.valid_csdl)[:data][:hash]
-        @datasift.analysis.start(@hash, 'ruby-lib-test')
+      VCR.use_cassette('pylon/before_conflicting_pylon_stop') do
+        @hash = @datasift.pylon.compile(@data.valid_csdl)[:data][:hash]
+        @datasift.pylon.start(@hash, 'ruby-lib-test')
       end
     end
 
     it 'cannot_stop_stopped_hash' do
-      VCR.use_cassette('analysis_stop_stopped_hash') do
-        @datasift.analysis.stop @hash
+      VCR.use_cassette('pylon/pylon_stop_stopped_hash') do
+        @datasift.pylon.stop @hash
         assert_raises ConflictError do
-          @datasift.analysis.stop @hash
+          @datasift.pylon.stop @hash
         end
       end
     end
   end
 
-  describe 'nothing to stop #analysis/stop' do
+  describe 'nothing to stop #pylon/stop' do
     it 'cannot_stop_invalid_hash' do
-      VCR.use_cassette('analysis_stop_invalid_hash') do
+      VCR.use_cassette('pylon/pylon_stop_invalid_hash') do
         assert_raises BadRequestError do
-          @datasift.analysis.stop @data.invalid_hash
+          @datasift.pylon.stop @data.invalid_hash
         end
       end
     end
 
     it 'cannot_stop_missing_hash' do
       assert_raises ArgumentError do
-        @datasift.analysis.stop
+        @datasift.pylon.stop
       end
     end
   end
 
   ##
-  # /analysis/analyze
+  # /pylon/analyze
   #
-  describe '#analysis/analyze' do
+  describe '#pylon/analyze' do
     before do
-      VCR.use_cassette('before_analysis_analyze') do
-        @hash = @datasift.analysis.compile(@data.valid_csdl)[:data][:hash]
-        @datasift.analysis.start(@hash, 'ruby-lib-test')
+      VCR.use_cassette('pylon/before_pylon_analyze') do
+        @hash = @datasift.pylon.compile(@data.valid_csdl)[:data][:hash]
+        @datasift.pylon.start(@hash, 'ruby-lib-test')
       end
     end
 
     after do
-      VCR.use_cassette('after_analysis_analyze') do
-        @datasift.analysis.stop @hash
+      VCR.use_cassette('pylon/after_pylon_analyze') do
+        @datasift.pylon.stop @hash
       end
     end
 
     it 'can_freq_dist_valid' do
-      VCR.use_cassette('analysis_analyze_freq_dist') do
+      VCR.use_cassette('pylon/pylon_analyze_freq_dist') do
         params = {
           :analysis_type => "freqDist",
           :parameters => {
@@ -268,13 +268,13 @@ describe 'DataSift' do
             :target => "fb.author.country"
           }
         }
-        response = @datasift.analysis.analyze(@hash, params)
+        response = @datasift.pylon.analyze(@hash, params)
         assert_equal @statuses.valid, response[:http][:status]
       end
     end
 
     it 'can_time_series_valid' do
-      VCR.use_cassette('analysis_analyze_time_series') do
+      VCR.use_cassette('pylon/pylon_analyze_time_series') do
         params = {
           :analysis_type => "timeSeries",
           :parameters => {
@@ -282,15 +282,15 @@ describe 'DataSift' do
             :span => 12
           }
         }
-        response = @datasift.analysis.analyze(@hash, params)
+        response = @datasift.pylon.analyze(@hash, params)
         assert_equal @statuses.valid, response[:http][:status]
       end
     end
   end
 
-  describe 'unsuccessful #analysis/analyze' do
+  describe 'unsuccessful #pylon/analyze' do
     it 'cannot_analyze_invalid_hash' do
-      VCR.use_cassette('analysis_analyze_invalid_hash') do
+      VCR.use_cassette('pylon/pylon_analyze_invalid_hash') do
         params = {
           :analysis_type => "freqDist",
           :parameters => {
@@ -299,47 +299,47 @@ describe 'DataSift' do
           }
         }
         assert_raises BadRequestError do
-          @datasift.analysis.analyze(@data.invalid_hash, params)
+          @datasift.pylon.analyze(@data.invalid_hash, params)
         end
       end
     end
 
     it 'cannot_analyze_missing_hash_and_params' do
       assert_raises ArgumentError do
-        @datasift.analysis.analyze
+        @datasift.pylon.analyze
       end
     end
   end
 
   ##
-  # /analysis/tags
+  # /pylon/tags
   #
-  describe 'successful #analysis/tags' do
+  describe 'successful #pylon/tags' do
     before do
-      VCR.use_cassette('before_analysis_tags') do
-        @vedohash = @datasift.analysis.compile(@data.vedo_csdl)[:data][:hash]
-        @datasift.analysis.start(@vedohash, 'vedo-ruby-lib-test')
+      VCR.use_cassette('pylon/before_pylon_tags') do
+        @vedohash = @datasift.pylon.compile(@data.vedo_csdl)[:data][:hash]
+        @datasift.pylon.start(@vedohash, 'vedo-ruby-lib-test')
       end
     end
 
     after do
-      VCR.use_cassette('after_analysis_tags') do
-        @datasift.analysis.stop @vedohash
+      VCR.use_cassette('pylon/after_pylon_tags') do
+        @datasift.pylon.stop @vedohash
       end
     end
 
     it 'can_analyze_tags' do
-      VCR.use_cassette('analysis_tags_vedo_csdl') do
-        response = @datasift.analysis.tags @vedohash
+      VCR.use_cassette('pylon/pylon_tags_vedo_csdl') do
+        response = @datasift.pylon.tags @vedohash
         assert_equal @statuses.valid, response[:http][:status]
       end
     end
   end
 
-  describe 'unsuccessful #analysis/tags' do
+  describe 'unsuccessful #pylon/tags' do
     it 'cannot_analyze_tags_with_missing_hash' do
       assert_raises ArgumentError do
-        @datasift.analysis.tags
+        @datasift.pylon.tags
       end
     end
   end
