@@ -31,6 +31,8 @@ VCR.configure do |c|
     preserve_exact_body_bytes:  true
   }
   c.hook_into :webmock
+  c.filter_sensitive_data('<USERNAME:API_KEY>') { |interaction| interaction.request.headers['Authorization'].first }
+  c.filter_sensitive_data('<BASE64_STRING>') { |interaction| interaction.request.body }
 end
 
 include WebMock::API
