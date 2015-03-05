@@ -10,22 +10,22 @@ class AnalysisApi < DataSiftExample
       csdl = 'return { fb.content contains "the" }'
 
       puts "Check this CSDL is valid: #{csdl}"
-      puts "Valid? #{@datasift.analysis.valid? csdl}"
+      puts "Valid? #{@datasift.pylon.valid? csdl}"
 
       puts "\nCompile my CSDL"
-      compiled = @datasift.analysis.compile csdl
+      compiled = @datasift.pylon.compile csdl
       hash = compiled[:data][:hash]
       puts "Hash: #{hash}"
 
      puts "\nStart recording filter with hash #{hash}"
-     filter = @datasift.analysis.start(hash, 'Facebook Pylon Test Filter')
+     filter = @datasift.pylon.start(hash, 'Facebook Pylon Test Filter')
      puts filter[:data].to_json
 
      puts "\nSleep for 10 seconds to record a little data"
      sleep(10)
 
      puts "\nGet details of our running recording"
-     puts @datasift.analysis.get(hash)[:data].to_json
+     puts @datasift.pylon.get(hash)[:data].to_json
 
      puts "\nFrequency distribution analysis on fb.author.country"
      params = {
@@ -35,7 +35,7 @@ class AnalysisApi < DataSiftExample
          :target => "fb.author.country"
        }
      }
-     puts @datasift.analysis.analyze(hash, params)[:data].to_json
+     puts @datasift.pylon.analyze(hash, params)[:data].to_json
 
      puts "\nFrequency distribution analysis on fb.author.age with filter"
      params = {
@@ -46,7 +46,7 @@ class AnalysisApi < DataSiftExample
        }
      }
      filter = 'fb.content contains "starbucks"'
-     puts @datasift.analysis.analyze(hash, params, filter)[:data].to_json
+     puts @datasift.pylon.analyze(hash, params, filter)[:data].to_json
 
       puts "\nTime series analysis"
       params = {
@@ -59,13 +59,13 @@ class AnalysisApi < DataSiftExample
       filter = ''
       start_time = Time.now.to_i - (60 * 60 * 12) # 7 days ago
       end_time = Time.now.to_i
-      puts @datasift.analysis.analyze(hash, params, filter, start_time, end_time)[:data].to_json
+      puts @datasift.pylon.analyze(hash, params, filter, start_time, end_time)[:data].to_json
 
       puts "\nTags analysis"
-      puts @datasift.analysis.tags(hash)[:data].to_json
+      puts @datasift.pylon.tags(hash)[:data].to_json
 
       puts "\nStop recording filter with hash #{hash}"
-      filter = @datasift.analysis.stop hash
+      filter = @datasift.pylon.stop hash
       puts filter[:data].to_json
 
     rescue DataSiftError => dse
