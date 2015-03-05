@@ -1,7 +1,12 @@
 module DataSift
+  # Base API class
   class ApiResource
     include DataSift
 
+    # Initializer to create global @config object
+    #
+    # @param config [Hash] Pass config object, including your DataSift username,
+    #   API key and any other custom config parameters
     def initialize(config)
       @config = config
       config[:api_host] = 'api.datasift.com' unless config.key?(:api_host)
@@ -13,6 +18,10 @@ module DataSift
       config[:retry_timeout] = 0 unless config.key?(:retry_timeout)
     end
 
+    # Ensure parameters have been set
+    #
+    # @param params [Hash] Hash of parameters you need to check exist and are
+    #   non-null values
     def requires(params)
       params.each { |k, v|
         if v == nil || v.to_s.length == 0

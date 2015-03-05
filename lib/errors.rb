@@ -25,18 +25,22 @@ end
 class NotSupportedError < DataSiftError
 end
 
+# Standard error returned when receiving a 400 response from the API
 class BadRequestError < DataSiftError
 end
 
+# Standard error returned when receiving a 401 response from the API
 class AuthError < DataSiftError
 end
 
 class ConnectionError < DataSiftError
 end
 
+# Standard error returned when receiving a 404 response from the API
 class ApiResourceNotFoundError < DataSiftError
 end
 
+# Standard error returned when receiving a 409 response from the API
 class ConflictError < DataSiftError
 end
 
@@ -64,5 +68,6 @@ end
 class WebSocketOnWindowsError < DataSiftError
 end
 
+# Standard error returned when trying to use a method while missing parameters
 class BadParametersError < DataSiftError
 end
