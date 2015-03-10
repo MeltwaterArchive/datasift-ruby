@@ -18,7 +18,7 @@ require dir + '/managed_source_resource'
 require dir + '/live_stream'
 require dir + '/dynamic_list'
 require dir + '/dynamic_list_replace'
-require dir + '/analysis'
+require dir + '/pylon'
 #
 require 'rbconfig'
 
@@ -42,11 +42,11 @@ module DataSift
     end
   end
 
+  # All API requests must be made by a Client object
   class Client < ApiResource
 
-    #+config+:: A hash containing configuration options for the client for e.g.
-    # {username => 'some_user', api_key => 'ds_api_key', 'enable_ssl' => true, open_timeout => 30, timeout => 30}
-    def initialize (config)
+    # @param config [Hash] A hash containing config options for the client
+    def initialize(config)
       #only SSLv3 and TLSv1 currently supported, TLSv1 preferred
       # this is fixed in REST client and is scheduled for the 1.7.0 release
       # see https://github.com/rest-client/rest-client/pull/123
@@ -69,69 +69,75 @@ module DataSift
       @historics_preview        = DataSift::HistoricsPreview.new(config)
       @dynamic_list             = DataSift::DynamicList.new(config)
       @dynamic_list_replace     = DataSift::DynamicListReplace.new(config)
-      @analysis                 = DataSift::Analysis.new(config)
+      @pylon                    = DataSift::Pylon.new(config)
     end
 
     attr_reader :historics, :push, :managed_source, :managed_source_resource, :managed_source_auth,
-      :historics_preview, :dynamic_list, :dynamic_list_replace, :analysis
+      :historics_preview, :dynamic_list, :dynamic_list_replace, :pylon
 
-    ##
     # Checks if the syntax of the given CSDL is valid
-    #+boolResponse+ If true then a boolean is returned indicating whether the CSDL is valid, otherwise
-    # the response object itself is returned
+    #
+    # @param boolResponse [Boolean] If true a boolean is returned indicating
+    # whether the CSDL is valid, otherwise the full response object is returned
     def valid?(csdl, boolResponse = true)
       requires({:csdl => csdl})
       res = DataSift.request(:POST, 'validate', @config, {:csdl => csdl})
       boolResponse ? res[:http][:status] == 200 : res
     end
 
-    ##
     # Compile CSDL code.
-    #+csdl+:: The CSDL you wish to compile
+    # @param csdl [String] The CSDL you wish to compile
+    # @return [Object] API reponse object
     def compile(csdl)
       requires({:csdl => csdl})
       DataSift.request(:POST, 'compile', @config, {:csdl => csdl})
     end
 
-    ##
-    # Check the number of objects processed and delivered for a given time period.
-    #+period+:: Can be "day", "hour", or "current", defaults to hour
+    # Check the number of objects processed for a given time period
+    # @param period [String] Can be "day", "hour", or "current"
+    # @return [Object] API reponse object
     def usage(period = :hour)
       DataSift.request(:POST, 'usage', @config, {:period => period})
     end
 
-    ##
     # Calculate the DPU cost of consuming a stream.
+    # @param hash [String] CSDL hash for which you wish to find the DPU cost
+    # @return [Object] API reponse object
     def dpu(hash)
       requires ({:hash => hash})
       DataSift.request(:POST, 'dpu', @config, {:hash => hash})
     end
 
-    ##
     # Determine your credit balance or DPU balance.
+    # @return [Object] API reponse object
     def balance
       DataSift.request(:POST, 'balance', @config)
     end
 
-    ##
     # Collect a batch of interactions from a push queue
-    def pull(id, size = 20971520, cursor='')
-      DataSift.request(:POST, 'pull', @config, {:id => id, :size => size, :cursor => cursor})
+    # @param id [String] ID of the Push subscription you wish to pull data from
+    # @param size [Integer] Max size (bytes) of the data you can receive from a
+    #   /pull API call
+    # @param cursor [String] A pointer into the Push queue associated with your
+    #   last delivery
+    # @return [Object] API reponse object
+    def pull(id, size = 20_971_520, cursor='')
+      DataSift.request(:POST, 'pull', @config, { :id => id, :size => size,
+        :cursor => cursor })
     end
-
   end
 
-
   # Generates and executes an HTTP request from the params provided
-  # Params:
-  # +method+:: the HTTP method to use e.g. GET,POST
-  # +path+:: the DataSift path relevant to the base URL of the API
-  # +username+:: API username
-  # +api_key+:: DS api key
-  # +params+:: A hash representing the params to use in the request, if it's a get,head or delete request these params
-  # are used as query string params, if not they become form url encoded params
-  # +headers+:: any headers to pass to the API, Authorization header is automatically included
-  def self.request(method, path, config, params = {}, headers = {}, timeout=30, open_timeout=30, new_line_separated=false)
+  # @param method [Symbol] The HTTP method to use
+  # @param path [String] The DataSift path relevant to the base URL of the API
+  # @param config [Object] The config object containing user details
+  # @param params [Hash] A hash representing the params to use in the request
+  # @param headers [Hash] Any headers to pass to the API
+  # @param timeout [Integer] Set the request timeout
+  # @param open_timeout [Integer] Set the request open timeout
+  # @param new_line_separated [Boolean] Will response be newline separated?
+  def self.request(method, path, config, params = {}, headers = {},
+    timeout = 30, open_timeout = 30, new_line_separated = false)
     validate config
     options = {}
     url     = build_url(path, config)
@@ -163,14 +169,14 @@ module DataSift
 
     begin
       response = RestClient::Request.execute options
-      if response != nil && response.length > 0
+      if !response.nil? && response.length > 0
         if new_line_separated
           res_arr = response.split("\n")
           data    = []
           res_arr.each { |e|
             interaction = MultiJson.load(e, :symbolize_keys => true)
             data.push(interaction)
-            if params.has_key? :on_interaction
+            if params.key? :on_interaction
               params[:on_interaction].call(interaction)
             end
           }
@@ -210,9 +216,11 @@ module DataSift
         process_client_error(e)
       end
     rescue RestClient::Exception, Errno::ECONNREFUSED => e
-      process_client_error (e)
+      process_client_error(e)
     end
   end
+
+  private
 
   def self.build_url(path, config)
     'http' + (config[:enable_ssl] ? 's' : '') + '://' + config[:api_host] + '/' + config[:api_version] + '/' + path
@@ -262,7 +270,6 @@ module DataSift
     raise ConnectionError.new(message + " (Network error: #{e.message})")
   end
 
-  ##
   # a Proc/lambda callback to receive delete messages
   # DataSift and its customers are required to process Twitter's delete request, a delete handler must be provided
   # a Proc/lambda callback to receive errors
@@ -303,11 +310,11 @@ module DataSift
       stream.on_message=lambda { |msg|
         data                      = MultiJson.load(msg.data, :symbolize_keys => true)
         KNOWN_SOCKETS[connection] = Time.new.to_i
-        if data.has_key?(:deleted)
+        if data.key?(:deleted)
           on_delete.call(connection, data)
-        elsif data.has_key?(:status)
+        elsif data.key?(:status)
           connection.fire_ds_message(data)
-        elsif data.has_key?(:reconnect)
+        elsif data.key?(:reconnect)
           connection.stream.reconnect
         else
           connection.fire_on_message(data[:hash], data[:data])

@@ -1,5 +1,13 @@
 CHANGELOG
 ================================
+## v.3.2.0.rc1 (2015-03-10)
+### Added
+* Comprehensive Yard Docs for all classes and methods
+
+### Changed
+* Test suite; we now use [VCR](https://github.com/vcr/vcr) across the board
+* Renamed /analysis endpoints to /pylon due to API change
+* Updated some methods due to deprecations in the Ruby language
 
 ## v.3.2.0-pre.3 (2015-02-18)
 ### Added
