@@ -46,7 +46,7 @@ def parse(args)
       options.auth = { :username => username, :api_key => api_key }
     end
 
-    opts.on('-e', '--endpoint ENDPOINT', 'Defaults to core, must be one of core, push, historics, preview, sources, analysis') do |e|
+    opts.on('-e', '--endpoint ENDPOINT', 'Defaults to core, must be one of core, push, historics, preview, sources, pylon') do |e|
       options.endpoint = e
     end
 
@@ -194,29 +194,29 @@ def run_push_command(c, command, p)
   end
 end
 
-def run_analysis_command(c, command, p)
+def run_pylon_command(c, command, p)
   case command
   when 'validate'
-    c.analysis.valid?(p['csdl'], false)
+    c.pylon.valid?(p['csdl'], false)
   when 'compile'
-    c.analysis.compile(p['csdl'])
+    c.pylon.compile(p['csdl'])
   when 'start'
-    c.analysis.start(p['hash'], opt(p['name'], ''))
+    c.pylon.start(p['hash'], opt(p['name'], ''))
   when 'stop'
-    c.analysis.stop(p['hash'])
+    c.pylon.stop(p['hash'])
   when 'get'
-    c.analysis.get(opt(p['id'], ''))
+    c.pylon.get(opt(p['id'], ''))
   when 'analyze'
     params = nil
     if p['parameters']
       params = MultiJson.load(p['parameters'])
     end
-    c.analysis.analyze(p['hash'], params, opt(p['filter'], ''),
+    c.pylon.analyze(p['hash'], params, opt(p['filter'], ''),
       opt(p['start'], ''), opt(p['end'], ''))
   when 'tags'
-    c.analysis.tags(p['hash'])
+    c.pylon.tags(p['hash'])
   else
-    err 'Unknown command for the analysis endpoint'
+    err 'Unknown command for the pylon endpoint'
     exit
   end
 end
@@ -249,8 +249,8 @@ begin
           run_preview_command(datasift, options.command, options.params)
         when 'managed_sources'
           run_sources_command(datasift, options.command, options.params)
-        when 'analysis'
-          run_analysis_command(datasift, options.command, options.params)
+        when 'pylon'
+          run_pylon_command(datasift, options.command, options.params)
         else
           err 'Unsupported/Unknown endpoint'
           exit

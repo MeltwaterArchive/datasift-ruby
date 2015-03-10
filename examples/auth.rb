@@ -2,10 +2,10 @@ class DataSiftExample
   require 'datasift'
 
   def initialize
-    @username = 'choult'
-    @api_key  = 'eed85f6b316fb18930ee28e8754f4963'
-    @config   = {:username => @username, :api_key => @api_key, :enable_ssl => false, :api_host => 'api.fido.dpr-229.devms.net'}
-    @params   = {
+    @username = 'DATASIFT_USERNAME'
+    @api_key = 'DATASIFT_API_KEY'
+    @config = { :username => @username, :api_key => @api_key }
+    @params = {
       :output_type => 's3',
       :output_params => {
         :bucket             => 'YOUR_BUCKET_NAME',
@@ -29,7 +29,7 @@ class DataSiftExample
     @datasift = DataSift::Client.new(@config)
   end
 
-  attr_reader :datasift
+  attr_reader :datasift, :params
 
   def create_push(hash, is_historics_id = false)
     create_params = @params.merge ({
