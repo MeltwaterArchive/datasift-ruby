@@ -19,6 +19,8 @@ require dir + '/live_stream'
 require dir + '/dynamic_list'
 require dir + '/dynamic_list_replace'
 require dir + '/pylon'
+require dir + '/account'
+require dir + '/account_identity'
 #
 require 'rbconfig'
 
@@ -70,10 +72,12 @@ module DataSift
       @dynamic_list             = DataSift::DynamicList.new(config)
       @dynamic_list_replace     = DataSift::DynamicListReplace.new(config)
       @pylon                    = DataSift::Pylon.new(config)
+      @account                  = DataSift::Account.new(config)
+      @identity                 = DataSift::Identity.new(config)
     end
 
     attr_reader :historics, :push, :managed_source, :managed_source_resource, :managed_source_auth,
-      :historics_preview, :dynamic_list, :dynamic_list_replace, :pylon
+      :historics_preview, :dynamic_list, :dynamic_list_replace, :pylon, :account, :account_identity
 
     # Checks if the syntax of the given CSDL is valid
     #
