@@ -73,7 +73,7 @@ module DataSift
       @dynamic_list_replace     = DataSift::DynamicListReplace.new(config)
       @pylon                    = DataSift::Pylon.new(config)
       @account                  = DataSift::Account.new(config)
-      @identity                 = DataSift::Identity.new(config)
+      @account_identity         = DataSift::AccountIdentity.new(config)
     end
 
     attr_reader :historics, :push, :managed_source, :managed_source_resource, :managed_source_auth,

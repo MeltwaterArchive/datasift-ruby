@@ -2,7 +2,6 @@ module DataSift
   #
   # Class for accessing DataSift's Account API Identities
   class AccountIdentity < DataSift::ApiResource
-    PATH = 'account/identity'
 
     # Creates a new Identity
     #
@@ -26,20 +25,20 @@ module DataSift
     #
     # @param id [String] ID of the Identity you wish to return
     # @return [Object] API reponse object
-    def read(id)
-      requires { id: id }
+    def get(id)
+      params = { id: id }
+      requires params
       DataSift.request(:GET, "account/identity/#{id}", @config)
     end
 
     # Returns a list of Identities
     #
-    # @param label [String] 
-    # @param per_page [Integer] 
-    # @param page [Integer] 
+    # @param label [String] (Optional) Search by a given Identity label 
+    # @param per_page [Integer] (Optional) How many Identities should be
+    #   returned per page of results
+    # @param page [Integer] (Optional) Which page of results to return
     # @return [Object] API reponse object
     def list(label: '', per_page: '', page: '')
-      puts '------------path'
-      puts PATH
       params = {}
       params.merge!(label: label) unless label.empty?
       params.merge!(per_page: per_page) unless per_page.empty?
@@ -49,27 +48,40 @@ module DataSift
 
     # Updates a specific Identity by ID
     #
-    # @param  
+    # @param id [String] ID of the Identity you are updating
+    # @param label [String] (Optional) New label value
+    # @param status [String] (Optional) New status for this Identity
+    # @param master [Boolean] (Optional) Whether this Identity should be master
     # @return [Object] API reponse object
-    def update(id, label: '', status: '', master: '')
-      params = {}
+    #def update(id, label: '', status: '', master: '')
+    def update(id, *opts)
+
+      puts '====================='
+      puts 'params'
+      puts id
+      puts opts.inspect
+      puts label
+      puts status
+      puts master
+
+      params = { id: id }
+      requires params
       params.merge!(label: label) unless label.empty?
+      params.merge!(status: status) unless status.empty?
+      params.merge!(master: master) unless master.empty?
 
-
-      
       DataSift.request(:PUT, "account/identity/#{id}", @config, params)
     end
 
     # Deletes a specific Identity by ID
     #
     # @param id [String] ID of the Identity you wish to delete
-    # @return []
+    # @return [Object] API response object
     def delete(id)
       params = { id: id }
       requires params
       DataSift.request(:DELETE, "account/identity/#{id}", @config, params)
     end
 
-    end
   end
 end
