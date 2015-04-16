@@ -21,6 +21,8 @@ require dir + '/dynamic_list_replace'
 require dir + '/pylon'
 require dir + '/account'
 require dir + '/account_identity'
+require dir + '/account_identity_token'
+require dir + '/account_identity_limit'
 #
 require 'rbconfig'
 
@@ -75,11 +77,12 @@ module DataSift
       @account                  = DataSift::Account.new(config)
       @account_identity         = DataSift::AccountIdentity.new(config)
       @account_identity_token   = DataSift::AccountIdentityToken.new(config)
+      @account_identity_limit   = DataSift::AccountIdentityLimit.new(config)
     end
 
     attr_reader :historics, :push, :managed_source, :managed_source_resource, :managed_source_auth,
       :historics_preview, :dynamic_list, :dynamic_list_replace, :pylon, :account, :account_identity,
-      :account_identity_token
+      :account_identity_token, :account_identity_limit
 
     # Checks if the syntax of the given CSDL is valid
     #
