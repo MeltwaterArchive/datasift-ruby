@@ -74,10 +74,12 @@ module DataSift
       @pylon                    = DataSift::Pylon.new(config)
       @account                  = DataSift::Account.new(config)
       @account_identity         = DataSift::AccountIdentity.new(config)
+      @account_identity_token   = DataSift::AccountIdentityToken.new(config)
     end
 
     attr_reader :historics, :push, :managed_source, :managed_source_resource, :managed_source_auth,
-      :historics_preview, :dynamic_list, :dynamic_list_replace, :pylon, :account, :account_identity
+      :historics_preview, :dynamic_list, :dynamic_list_replace, :pylon, :account, :account_identity,
+      :account_identity_token
 
     # Checks if the syntax of the given CSDL is valid
     #

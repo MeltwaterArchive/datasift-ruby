@@ -55,15 +55,6 @@ module DataSift
     # @return [Object] API reponse object
     #def update(id, label: '', status: '', master: '')
     def update(id, *opts)
-
-      puts '====================='
-      puts 'params'
-      puts id
-      puts opts.inspect
-      puts label
-      puts status
-      puts master
-
       params = { id: id }
       requires params
       params.merge!(label: label) unless label.empty?
@@ -82,6 +73,5 @@ module DataSift
       requires params
       DataSift.request(:DELETE, "account/identity/#{id}", @config, params)
     end
-
   end
 end
