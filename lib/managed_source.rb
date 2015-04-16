@@ -17,13 +17,14 @@ module DataSift
       DataSift.request(:POST, 'source/create', @config, params)
     end
 
-    def update(id, source_type, name, parameters = {}, resources = [], auth = [])
+    def update(id, source_type, name, parameters = {}, resources = [], auth = [], options = {})
       raise BadParametersError.new('id,source_type and name are required') if id.nil? || source_type.nil? || name.nil?
       params = {
           :id          => id,
           :source_type => source_type,
           :name        => name
       }
+      params.merge!(options) unless options.empty?
       params.merge!({:auth => MultiJson.dump(auth)}) if !auth.empty?
       params.merge!({:parameters => MultiJson.dump(parameters)}) if !parameters.empty?
       params.merge!({:resources => MultiJson.dump(resources)}) if resources.length > 0
