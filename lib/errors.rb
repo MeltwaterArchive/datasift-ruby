@@ -44,6 +44,10 @@ end
 class ConflictError < DataSiftError
 end
 
+# Standard error returned when receiving a 410 response from the API
+class GoneError < DataSiftError
+end
+
 class InvalidConfigError < DataSiftError
 end
 
