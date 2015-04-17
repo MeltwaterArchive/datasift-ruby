@@ -38,6 +38,11 @@ v.3.2.0-pre.1
 * Added Pylon /analysis/* API endpoints
 * Added basic Pylon API examples
 
+v.3.1.5 (2015-04-16)
+--------------------
+####Fixes
+* Resolves #73; Ensure we can pass the ```validate``` flag and other optional params on /source/create and /update API calls
+
 v.3.1.4 (2015-02-10)
 --------------------
 ####Improvements
