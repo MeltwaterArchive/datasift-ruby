@@ -70,7 +70,7 @@ module DataSift
       params.merge!(token: token) unless token.empty?
       params.merge!(expires_at: expires_at) unless expires_at.nil?
 
-      DataSift.request(:PUT, "account/identity/#{id}/token/#{service}", @config, params)
+      DataSift.request(:PUT, "account/identity/#{identity_id}/token/#{service}", @config, params)
     end
 
     # Deletes a specific Token by Identity and Service
@@ -83,7 +83,7 @@ module DataSift
       raise BadParametersError.new('identity_id missing') if identity_id.empty?
       raise BadParametersError.new('service missing') if service.empty?
 
-      DataSift.request(:DELETE, "account/identity/#{id}/token/#{service}", @config, params)
+      DataSift.request(:DELETE, "account/identity/#{identity_id}/token/#{service}", @config, params)
     end
   end
 end

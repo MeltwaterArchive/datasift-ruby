@@ -22,7 +22,7 @@ class AccountIdentityTokenEg < DataSiftExample
         token: 'YOUR_TOKEN'
       )
       
-      puts "\nList all existing tokens for this Identity"
+      puts "\nList all existing Tokens for this Identity"
       puts @datasift.account_identity_token.list(
         identity_id: identity_id
       ).to_json
