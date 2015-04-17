@@ -8,7 +8,7 @@ DataSift
 [travis]: https://travis-ci.org/datasift/datasift-ruby
 
 
-The official Ruby library for accessing the DataSift API. 
+The official Ruby library for accessing the DataSift API.
 
 Getting Started
 ---------------
@@ -93,7 +93,8 @@ This version of the client library has been tested, and is known to work against
 ### Language Versions
 * Ruby 1.9.3 (Seems to work, but NOT officially supported/thoroughly tested)
 * Ruby 2.0.0
-* Ruby 2.1.0
+* Ruby 2.1
+* Ruby 2.2
 
 ### Operating Systems
 * Linux
@@ -104,7 +105,7 @@ This version of the client library has been tested, and is known to work against
 License
 -------
 
-All code contained in this repository is Copyright 2011-2014 MediaSift Ltd.
+All code contained in this repository is Copyright 2011-2015 MediaSift Ltd.
 
 This code is released under the BSD license. Please see the [LICENSE](https://github.com/datasift/datasift-ruby/blob/master/LICENSE) file for
 more details.

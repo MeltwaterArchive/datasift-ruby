@@ -1,5 +1,9 @@
 CHANGELOG
 ================================
+## v.3.2.0.rc2 ()
+### Added
+*
+
 ## v.3.2.0.rc1 (2015-03-10)
 ### Added
 * Comprehensive Yard Docs for all classes and methods
@@ -33,6 +37,13 @@ v.3.2.0-pre.1
 ####New Feature
 * Added Pylon /analysis/* API endpoints
 * Added basic Pylon API examples
+
+v.3.1.4 (2015-02-10)
+--------------------
+####Improvements
+* Use TLSv1.2 by default, and allow users to specify SSL version in config with the :ssl_version parameter
+* Minor refactoring according to Rubocop style guides
+* Test against Ruby 2.2 on Travis
 
 v.3.1.3 (2014-12-02)
 --------------------
