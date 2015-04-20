@@ -13,8 +13,8 @@ module DataSift
     #   this token will expire
     # @return [Object] API reponse object
     def create(identity_id: '', service: '', token: '', expires_at: nil)
-      raise BadParametersError.new('identity_id missing') if identity_id.empty?
-      params = { 
+      fail BadParametersError, 'identity_id is required' if identity_id.empty?
+      params = {
         service: service,
         token: token
       }
@@ -26,13 +26,13 @@ module DataSift
 
     # Get a Token for a given Identity and Service
     #
-    # @param identity_id [String] ID of the Identity you wish to return tokens 
+    # @param identity_id [String] ID of the Identity you wish to return tokens
     #   for
     # @param service [String] Name of the service you are retreiving tokens for
     # @return [Object] API reponse object
     def get(identity_id: '', service: '')
-      raise BadParametersError.new('identity_id missing') if identity_id.empty?
-      raise BadParametersError.new('service missing') if service.empty?
+      fail BadParametersError, 'identity_id is required' if identity_id.empty?
+      fail BadParametersError, 'service is required' if service.empty?
 
       DataSift.request(:GET, "account/identity/#{identity_id}/token/#{service}", @config)
     end
@@ -55,7 +55,7 @@ module DataSift
 
     # Updates a specific Token by Identity ID and Service
     #
-    # @param identity_id [String] ID of the Identity you are updating a token 
+    # @param identity_id [String] ID of the Identity you are updating a token
     #   for
     # @param service [String] The service this token will be used to access. For
     #   example; 'facebook'
@@ -64,8 +64,8 @@ module DataSift
     #   this token will expire
     # @return [Object] API reponse object
     def update(identity_id: '', service: '', token: '', expires_at: nil)
-      raise BadParametersError.new('identity_id missing') if identity_id.empty?
-      raise BadParametersError.new('service missing') if service.empty?
+      fail BadParametersError, 'identity_id is required' if identity_id.empty?
+      fail BadParametersError, 'service is required' if service.empty?
       params = {}
       params.merge!(token: token) unless token.empty?
       params.merge!(expires_at: expires_at) unless expires_at.nil?
@@ -75,13 +75,13 @@ module DataSift
 
     # Deletes a specific Token by Identity and Service
     #
-    # @param identity_id [String] ID of the Identity for which you wish to 
+    # @param identity_id [String] ID of the Identity for which you wish to
     #   delete a token
     # @param service [String] Service from which you wish to delete a token
     # @return [Object] API response object
     def delete(identity_id: '', service: '')
-      raise BadParametersError.new('identity_id missing') if identity_id.empty?
-      raise BadParametersError.new('service missing') if service.empty?
+      fail BadParametersError, 'identity_id is required' if identity_id.empty?
+      fail BadParametersError, 'service is required' if service.empty?
 
       DataSift.request(:DELETE, "account/identity/#{identity_id}/token/#{service}", @config, params)
     end

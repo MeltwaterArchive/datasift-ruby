@@ -11,9 +11,9 @@ module DataSift
     # @param total_allowance [Integer] The limit for this Identity
     # @return [Object] API reponse object
     def create(identity_id: '', service: '', total_allowance: nil)
-      raise BadParametersError.new('identity_id missing') if identity_id.empty?
-      raise BadParametersError.new('service missing') if service.empty?
-      raise BadParametersError.new('total_allowance can not be "nil"') if total_allowance.nil?
+      fail BadParametersError, 'identity_id is required' if identity_id.empty?
+      fail BadParametersError, 'service is required' if service.empty?
+      fail BadParametersError, 'total_allowance can not be "nil"' if total_allowance.nil?
       params = {
         service: service,
         total_allowance: total_allowance
@@ -24,13 +24,13 @@ module DataSift
 
     # Get the Limit for a given Identity and Service
     #
-    # @param identity_id [String] ID of the Identity you wish to return tokens 
+    # @param identity_id [String] ID of the Identity you wish to return tokens
     #   for
     # @param service [String] Name of the service you are retreiving tokens for
     # @return [Object] API reponse object
     def get(identity_id: '', service: '')
-      raise BadParametersError.new('identity_id missing') if identity_id.empty?
-      raise BadParametersError.new('service missing') if service.empty?
+      fail BadParametersError, 'identity_id is required' if identity_id.empty?
+      fail BadParametersError, 'service is required' if service.empty?
 
       DataSift.request(:GET, "account/identity/#{identity_id}/token/#{service}", @config)
     end
@@ -43,7 +43,7 @@ module DataSift
     # @param page [Integer] (Optional) Which page of results to return
     # @return [Object] API reponse object
     def list(service: '', per_page: '', page: '')
-      raise BadParametersError.new('service missing') if service.empty?
+      fail BadParametersError, 'service is required' if service.empty?
       params.merge!(per_page: per_page) unless per_page.empty?
       params.merge!(page: page) unless page.empty?
 
@@ -59,9 +59,9 @@ module DataSift
     # @param total_allowance [Integer] The new limit for this Identity
     # @return [Object] API reponse object
     def update(identity_id: '', service: '', total_allowance: nil)
-      raise BadParametersError.new('identity_id missing') if identity_id.empty?
-      raise BadParametersError.new('service missing') if service.empty?
-      raise BadParametersError.new('total_allowance can not be "nil"') if total_allowance.nil?
+      fail BadParametersError, 'identity_id is required' if identity_id.empty?
+      fail BadParametersError, 'service is required' if service.empty?
+      fail BadParametersError, 'total_allowance can not be "nil"' if total_allowance.nil?
       params = { total_allowance: total_allowance }
 
       DataSift.request(:PUT, "account/identity/#{identity_id}/limit/#{service}", @config, params)
@@ -69,13 +69,13 @@ module DataSift
 
     # Removes a Service Limit for an Identity
     #
-    # @param identity_id [String] ID of the Identity for which you wish to 
+    # @param identity_id [String] ID of the Identity for which you wish to
     #   remove the Limit
     # @param service [String] Service from which you wish to remove the Limit
     # @return [Object] API response object
     def delete(identity_id: '', service: '')
-      raise BadParametersError.new('identity_id missing') if identity_id.empty?
-      raise BadParametersError.new('service missing') if service.empty?
+      fail BadParametersError, 'identity_id is required' if identity_id.empty?
+      fail BadParametersError, 'service is required' if service.empty?
 
       DataSift.request(:DELETE, "account/identity/#{identity_id}/limit/#{service}", @config, params)
     end

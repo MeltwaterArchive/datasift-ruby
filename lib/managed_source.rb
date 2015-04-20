@@ -11,7 +11,7 @@ module DataSift
     # @param resources [Array] Array of source-specific resources
     # @param auth [Array] Array of source-specific auth credentials
     def create(source_type, name, parameters = {}, resources = [], auth = [], options = {})
-      raise BadParametersError.new('source_type and name are required') if source_type.nil? || name.nil?
+      fail BadParametersError, 'source_type and name are required' if source_type.nil? || name.nil?
       params = {
         :source_type => source_type,
         :name => name
@@ -38,7 +38,7 @@ module DataSift
     # @param resources [Array] Array of source-specific resources
     # @param auth [Array] Array of source-specific auth credentials
     def update(id, source_type, name, parameters = {}, resources = [], auth = [], options = {})
-      raise BadParametersError.new('id, source_type and name are required') if id.nil? || source_type.nil? || name.nil?
+      fail BadParametersError, 'ID, source_type and name are required' if id.nil? || source_type.nil? || name.nil?
       params = {
         :id => id,
         :source_type => source_type,
@@ -56,7 +56,7 @@ module DataSift
     #
     # @param id [String] ID of the Managed Source you are deleting
     def delete(id)
-      raise BadParametersError.new('id is required') if id.nil?
+      fail BadParametersError, 'ID is required' if id.nil?
       DataSift.request(:DELETE, 'source/delete', @config, { :id => id })
     end
 
@@ -64,7 +64,7 @@ module DataSift
     #
     # @param id [String] ID of the Managed Source you are stopping
     def stop(id)
-      raise BadParametersError.new('id is required') if id.nil?
+      fail BadParametersError, 'ID is required' if id.nil?
       DataSift.request(:POST, 'source/stop', @config, { :id => id })
     end
 
@@ -72,7 +72,7 @@ module DataSift
     #
     # @param id [String] ID of the Managed Source you are starting
     def start(id)
-      raise BadParametersError.new('id is required') if id.nil?
+      fail BadParametersError, 'ID is required' if id.nil?
       DataSift.request(:POST, 'source/start', @config, { :id => id })
     end
 
@@ -101,7 +101,7 @@ module DataSift
     #   of results
     # @param per_page [Integer] Number of Managed Source logs to return per page
     def log(id, page = 1, per_page = 20)
-      raise BadParametersError.new('id is required') if id.nil?
+      fail BadParametersError, 'ID is required' if id.nil?
       DataSift.request(:POST, 'source/log', @config, { :id => id, :page => page, :per_page => per_page })
     end
   end
