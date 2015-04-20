@@ -7,7 +7,6 @@ class AnalysisApi < DataSiftExample
 
   def run_analysis
     begin
-      @datasift.pylon.stop '9d6a51222820c22df00ad96aad43d84b'
       csdl = 'return { fb.content contains "the" }'
 
       puts "Check this CSDL is valid: #{csdl}"
