@@ -221,6 +221,96 @@ def run_pylon_command(c, command, p)
   end
 end
 
+def run_account_identity_command(c, command, p)
+  case command
+  when 'create'
+    c.account_identity.create(
+      label: p['label'], status: p['status'], master: p['master']
+    )
+  when 'get'
+    c.account_identity.get(p['id'])
+  when 'list'
+    c.account_identity.list(
+      label: p['label'], per_page: p['per_page'], page: p['page']
+    )
+  when 'update'
+    c.account_identity.update(
+      id: p['id'], label: p['label'], status: p['status'], master: p['master']
+    )
+  when 'delete'
+    c.account_identity.delete(p['id'])
+  else
+    err 'Unknown command for the account/identity endpoint'
+    exit
+  end
+end
+
+def run_account_token_command(c, command, p)
+  case command
+  when 'create'
+    c.account_identity_token.create(
+      identity_id: p['identity_id'],
+      service: p['service'],
+      token: p['token'],
+      expires_at: p['expires_at']
+    )
+  when 'get'
+    c.account_identity_token.get(
+      identity_id: p['identity_id'], service: p['service']
+    )
+  when 'list'
+    c.account_identity_token.list(
+      identity_id: p['identity_id'], per_page: p['per_page'], page: p['page']
+    )
+  when 'update'
+    c.account_identity_token.update(
+      identity_id: p['identity_id'],
+      service: p['service'],
+      token: p['token'],
+      expires_at: p['expires_at']
+    )
+  when 'delete'
+    c.account_identity_token.delete(
+      identity_id: p['identity_id'], service: p['service']
+    )
+  else
+    err 'Unknown command for the account/identity/token endpoint'
+    exit
+  end
+end
+
+def run_account_limit_command(c, command, p)
+  case command
+  when 'create'
+    c.account_identity_limit.create(
+      identity_id: p['identity_id'],
+      service: p['service'],
+      total_allowance: p['total_allowance']
+    )
+  when 'get'
+    c.account_identity_limit.get(
+      identity_id: p['identity_id'], service: p['service']
+    )
+  when 'list'
+    c.account_identity_limit.list(
+      service: p['service'], per_page: p['per_page'], page: p['page']
+    )
+  when 'update'
+    c.account_identity_limit.update(
+      identity_id: p['identity_id'],
+      service: p['service'],
+      total_allowance: p['total_allowance']
+    )
+  when 'delete'
+    c.account_identity_limit.delete(
+      identity_id: p['identity_id'], service: p['service']
+    )
+  else
+    err 'Unknown command for the account/identity/limit endpoint'
+    exit
+  end
+end
+
 begin
   options = parse(ARGV)
   req = [:auth, :command]
@@ -251,6 +341,12 @@ begin
           run_sources_command(datasift, options.command, options.params)
         when 'pylon'
           run_pylon_command(datasift, options.command, options.params)
+        when 'identity'
+          run_account_identity_command(datasift, options.command, options.params)
+        when 'token'
+          run_account_token_command(datasift, options.command, options.params)
+        when 'limit'
+          run_account_limit_command(datasift, options.command, options.params)
         else
           err 'Unsupported/Unknown endpoint'
           exit
