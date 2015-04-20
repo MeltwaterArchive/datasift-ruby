@@ -3,6 +3,13 @@ CHANGELOG
 ## v.3.2.0.rc2 ()
 ### Added
 *
+### Changed
+*
+### Fixed
+*
+### Removed
+* Dropped support for Ruby 1.9. Only Ruby 2.0+ will be supported from this release
+
 
 ## v.3.2.0.rc1 (2015-03-10)
 ### Added
