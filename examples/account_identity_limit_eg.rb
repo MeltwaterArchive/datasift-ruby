@@ -17,11 +17,11 @@ class AccountIdentityLimitEg < DataSiftExample
 
       puts "\nCreate a Limit for our Identity"
       puts @datasift.account_identity_limit.create(
-        identity_id: identity_id, 
-        service: 'facebook', 
+        identity_id: identity_id,
+        service: 'facebook',
         total_allowance: 100_000
       )
-      
+
       puts "\nList all existing Limits for this Service"
       puts @datasift.account_identity_limit.list(
         service: 'facebook'
@@ -29,14 +29,14 @@ class AccountIdentityLimitEg < DataSiftExample
 
       puts "\nGet existing Limit by Identity and Service"
       puts @datasift.account_identity_limit.list(
-        identity_id: identity_id, 
+        identity_id: identity_id,
         service: 'facebook'
       ).to_json
 
       puts "\nUpdate a Limit for a given Identity"
       puts @datasift.account_identity_limit.update(
-        identity_id: identity_id, 
-        service: 'facebook', 
+        identity_id: identity_id,
+        service: 'facebook',
         total_allowance: 250_000
       ).to_json
 
