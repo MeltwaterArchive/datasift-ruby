@@ -225,17 +225,24 @@ def run_account_identity_command(c, command, p)
   case command
   when 'create'
     c.account_identity.create(
-      label: p['label'], status: p['status'], master: p['master']
+      label: p['label'],
+      status: p['status'] || '',
+      master: p['master'] || false
     )
   when 'get'
     c.account_identity.get(p['id'])
   when 'list'
     c.account_identity.list(
-      label: p['label'], per_page: p['per_page'], page: p['page']
+      label: p['label'],
+      per_page: p['per_page'] || '',
+      page: p['page'] || ''
     )
   when 'update'
     c.account_identity.update(
-      id: p['id'], label: p['label'], status: p['status'], master: p['master']
+      id: p['id'],
+      label: p['label'] || '',
+      status: p['status'] || '',
+      master: p['master'] || ''
     )
   when 'delete'
     c.account_identity.delete(p['id'])
@@ -250,28 +257,32 @@ def run_account_token_command(c, command, p)
   when 'create'
     c.account_identity_token.create(
       identity_id: p['identity_id'],
-      service: p['service'],
-      token: p['token'],
-      expires_at: p['expires_at']
+      service: p['service'] || '',
+      token: p['token'] || '',
+      expires_at: p['expires_at'] || ''
     )
   when 'get'
     c.account_identity_token.get(
-      identity_id: p['identity_id'], service: p['service']
+      identity_id: p['identity_id'] || '',
+      service: p['service'] || ''
     )
   when 'list'
     c.account_identity_token.list(
-      identity_id: p['identity_id'], per_page: p['per_page'], page: p['page']
+      identity_id: p['identity_id'],
+      per_page: p['per_page'] || '',
+      page: p['page'] || ''
     )
   when 'update'
     c.account_identity_token.update(
       identity_id: p['identity_id'],
       service: p['service'],
-      token: p['token'],
-      expires_at: p['expires_at']
+      token: p['token'] || '',
+      expires_at: p['expires_at'] || nil
     )
   when 'delete'
     c.account_identity_token.delete(
-      identity_id: p['identity_id'], service: p['service']
+      identity_id: p['identity_id'],
+      service: p['service']
     )
   else
     err 'Unknown command for the account/identity/token endpoint'
@@ -289,21 +300,25 @@ def run_account_limit_command(c, command, p)
     )
   when 'get'
     c.account_identity_limit.get(
-      identity_id: p['identity_id'], service: p['service']
+      identity_id: p['identity_id'],
+      service: p['service']
     )
   when 'list'
     c.account_identity_limit.list(
-      service: p['service'], per_page: p['per_page'], page: p['page']
+      service: p['service'] || '',
+      per_page: p['per_page'] || '',
+      page: p['page'] || ''
     )
   when 'update'
     c.account_identity_limit.update(
       identity_id: p['identity_id'],
-      service: p['service'],
-      total_allowance: p['total_allowance']
+      service: p['service'] || '',
+      total_allowance: p['total_allowance'] || nil
     )
   when 'delete'
     c.account_identity_limit.delete(
-      identity_id: p['identity_id'], service: p['service']
+      identity_id: p['identity_id'],
+      service: p['service']
     )
   else
     err 'Unknown command for the account/identity/limit endpoint'
@@ -342,6 +357,11 @@ begin
         when 'pylon'
           run_pylon_command(datasift, options.command, options.params)
         when 'identity'
+          puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+          puts "datasift - #{datasift}"
+          puts "options.command - #{options.command}"
+          puts "options.params - #{options.params}"
+          puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
           run_account_identity_command(datasift, options.command, options.params)
         when 'token'
           run_account_token_command(datasift, options.command, options.params)
