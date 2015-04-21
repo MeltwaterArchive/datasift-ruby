@@ -19,7 +19,8 @@ class AccountIdentityLimitEg < DataSiftExample
       puts @datasift.account_identity_limit.create(
         identity_id: identity_id,
         service: 'facebook',
-        total_allowance: 100_000
+        total_allowance: 100_000,
+        expires_at: 1577836800
       )
 
       puts "\nList all existing Limits for this Service"
@@ -37,7 +38,8 @@ class AccountIdentityLimitEg < DataSiftExample
       puts @datasift.account_identity_limit.update(
         identity_id: identity_id,
         service: 'facebook',
-        total_allowance: 250_000
+        total_allowance: 250_000,
+        expires_at: 1577836800
       ).to_json
 
       puts "\nRemove the Limit from a given Identity and Service"
