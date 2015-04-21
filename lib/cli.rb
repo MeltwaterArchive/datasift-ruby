@@ -197,22 +197,35 @@ end
 def run_pylon_command(c, command, p)
   case command
   when 'validate'
-    c.pylon.valid?(p['csdl'], false)
+    c.pylon.valid?(
+      csdl: p['csdl'],
+      boolResponse: opt(p['boolResponse'], true)
+    )
   when 'compile'
     c.pylon.compile(p['csdl'])
   when 'start'
-    c.pylon.start(p['hash'], opt(p['name'], ''))
+    c.pylon.start(
+      hash: p['hash'],
+      name: opt(p['name'], '')
+    )
   when 'stop'
     c.pylon.stop(p['hash'])
   when 'get'
-    c.pylon.get(opt(p['id'], ''))
+    c.pylon.get(p['id'])
+  when 'list'
+    c.pylon.list
   when 'analyze'
     params = nil
     if p['parameters']
       params = MultiJson.load(p['parameters'])
     end
-    c.pylon.analyze(p['hash'], params, opt(p['filter'], ''),
-      opt(p['start'], ''), opt(p['end'], ''))
+    c.pylon.analyze(
+      hash: p['hash'],
+      parameters: params,
+      fitler: opt(p['filter'], ''),
+      start_time: opt(p['start'], ''),
+      end_time: opt(p['end'], '')
+    )
   when 'tags'
     c.pylon.tags(p['hash'])
   else
@@ -226,23 +239,23 @@ def run_account_identity_command(c, command, p)
   when 'create'
     c.account_identity.create(
       label: p['label'],
-      status: p['status'] || '',
-      master: p['master'] || false
+      status: opt(p['status'], ''),
+      master: opt(p['master'], false)
     )
   when 'get'
     c.account_identity.get(p['id'])
   when 'list'
     c.account_identity.list(
       label: p['label'],
-      per_page: p['per_page'] || '',
-      page: p['page'] || ''
+      per_page: opt(p['per_page'], ''),
+      page: opt(p['page'], '')
     )
   when 'update'
     c.account_identity.update(
       id: p['id'],
-      label: p['label'] || '',
-      status: p['status'] || '',
-      master: p['master'] || ''
+      label: opt(p['label'], ''),
+      status: opt(p['status'], ''),
+      master: opt(p['master'], '')
     )
   when 'delete'
     c.account_identity.delete(p['id'])
@@ -257,27 +270,27 @@ def run_account_token_command(c, command, p)
   when 'create'
     c.account_identity_token.create(
       identity_id: p['identity_id'],
-      service: p['service'] || '',
-      token: p['token'] || '',
-      expires_at: p['expires_at'] || ''
+      service: opt(p['service'], ''),
+      token: opt(p['token'], ''),
+      expires_at: opt(p['expires_at'], '')
     )
   when 'get'
     c.account_identity_token.get(
-      identity_id: p['identity_id'] || '',
-      service: p['service'] || ''
+      identity_id: opt(p['identity_id'], ''),
+      service: opt(p['service'], '')
     )
   when 'list'
     c.account_identity_token.list(
       identity_id: p['identity_id'],
-      per_page: p['per_page'] || '',
-      page: p['page'] || ''
+      per_page: opt(p['per_page'], ''),
+      page: opt(p['page'], '')
     )
   when 'update'
     c.account_identity_token.update(
       identity_id: p['identity_id'],
       service: p['service'],
-      token: p['token'] || '',
-      expires_at: p['expires_at'] || nil
+      token: opt(p['token'], ''),
+      expires_at: opt(p['expires_at'], nil)
     )
   when 'delete'
     c.account_identity_token.delete(
@@ -305,15 +318,15 @@ def run_account_limit_command(c, command, p)
     )
   when 'list'
     c.account_identity_limit.list(
-      service: p['service'] || '',
-      per_page: p['per_page'] || '',
-      page: p['page'] || ''
+      service: opt(p['service'], ''),
+      per_page: opt(p['per_page'], ''),
+      page: opt(p['page'], '')
     )
   when 'update'
     c.account_identity_limit.update(
       identity_id: p['identity_id'],
-      service: p['service'] || '',
-      total_allowance: p['total_allowance'] || nil
+      service: opt(p['service'], ''),
+      total_allowance: opt(p['total_allowance'], nil)
     )
   when 'delete'
     c.account_identity_limit.delete(
@@ -357,11 +370,6 @@ begin
         when 'pylon'
           run_pylon_command(datasift, options.command, options.params)
         when 'identity'
-          puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
-          puts "datasift - #{datasift}"
-          puts "options.command - #{options.command}"
-          puts "options.params - #{options.params}"
-          puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
           run_account_identity_command(datasift, options.command, options.params)
         when 'token'
           run_account_token_command(datasift, options.command, options.params)
