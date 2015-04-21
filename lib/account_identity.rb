@@ -13,11 +13,9 @@ module DataSift
     def create(label: '', status: 'active', master: false)
       fail ArgumentError, 'label is missing' if label.empty?
 
-      params = {
-        label: label,
-        status: status,
-        master: master
-      }
+      params = { label: label }
+      params.merge!(status: status) unless status.empty?
+      params.merge!(master: master) unless master.empty?
       requires params
 
       DataSift.request(:POST, 'account/identity', @config, params)
