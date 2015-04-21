@@ -5,8 +5,6 @@ describe 'DataSift' do
     auth      = DataSiftExample.new
     @datasift = auth.datasift
     @data     = OpenStruct.new
-    @statuses = OpenStruct.new
-    @headers  = OpenStruct.new
 
     @data.valid_csdl = 'interaction.content contains "ruby"'
     @data.vedo_csdl = "tag.keyword \"ruby\" { interaction.content contains_any \"ruby\, #{Time.now}\" }
@@ -14,11 +12,6 @@ describe 'DataSift' do
     return { interaction.content contains \"ruby\" }"
     @data.invalid_csdl = 'interaction.nonsense is not valid'
     @data.invalid_filter = 'abc_invalid_filter_123'
-
-    @statuses.valid = 200
-    @statuses.valid_empty = 204
-    @statuses.bad_request = 400
-    @statuses.not_found = 404
   end
 
   ##
@@ -49,7 +42,7 @@ describe 'DataSift' do
           csdl: @data.valid_csdl, boolResponse: false
         )
         assert_kind_of Hash, response, 'Valid should return a Ruby hash here'
-        assert_equal @statuses.valid, response[:http][:status]
+        assert_equal STATUS.valid, response[:http][:status]
       end
     end
 
@@ -82,7 +75,7 @@ describe 'DataSift' do
       VCR.use_cassette('pylon/pylon_compile_valid_csdl_compilation') do
         response = @datasift.pylon.compile @data.valid_csdl
         assert_kind_of Hash, response, 'Valid should return a Ruby hash here'
-        assert_equal @statuses.valid, response[:http][:status]
+        assert_equal STATUS.valid, response[:http][:status]
       end
     end
 
@@ -115,14 +108,14 @@ describe 'DataSift' do
     it 'can_get_list' do
       VCR.use_cassette('pylon/pylon_get_list') do
         response = @datasift.pylon.get
-        assert_equal @statuses.valid, response[:http][:status]
+        assert_equal STATUS.valid, response[:http][:status]
       end
     end
 
     it 'can_get_by_filter' do
       VCR.use_cassette('pylon/pylon_get_by_filter') do
         response = @datasift.pylon.get @filter
-        assert_equal @statuses.valid, response[:http][:status]
+        assert_equal STATUS.valid, response[:http][:status]
       end
     end
 
@@ -154,7 +147,7 @@ describe 'DataSift' do
     it 'can_start_valid_filter' do
       VCR.use_cassette('pylon/pylon_start_valid_filter') do
         response = @datasift.pylon.start(hash: @filter, name: 'ruby-lib-test')
-        assert_equal @statuses.valid_empty, response[:http][:status]
+        assert_equal STATUS.valid_empty, response[:http][:status]
       end
     end
   end
@@ -216,7 +209,7 @@ describe 'DataSift' do
     it 'can_stop_valid_filter' do
       VCR.use_cassette('pylon/pylon_stop_valid_filter') do
         response = @datasift.pylon.stop @filter
-        assert_equal @statuses.valid_empty, response[:http][:status]
+        assert_equal STATUS.valid_empty, response[:http][:status]
       end
     end
   end
@@ -282,7 +275,7 @@ describe 'DataSift' do
           }
         }
         response = @datasift.pylon.analyze(hash: @filter, parameters: params)
-        assert_equal @statuses.valid, response[:http][:status]
+        assert_equal STATUS.valid, response[:http][:status]
       end
     end
 
@@ -296,7 +289,7 @@ describe 'DataSift' do
           }
         }
         response = @datasift.pylon.analyze(hash: @filter, parameters: params)
-        assert_equal @statuses.valid, response[:http][:status]
+        assert_equal STATUS.valid, response[:http][:status]
       end
     end
   end
@@ -346,7 +339,7 @@ describe 'DataSift' do
     it 'can_analyze_tags' do
       VCR.use_cassette('pylon/pylon_tags_vedo_csdl') do
         response = @datasift.pylon.tags @vedofilter
-        assert_equal @statuses.valid, response[:http][:status]
+        assert_equal STATUS.valid, response[:http][:status]
       end
     end
   end

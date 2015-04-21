@@ -6,11 +6,6 @@ describe 'DataSift::Push' do
     auth      = DataSiftExample.new
     @datasift = auth.datasift
     @data     = OpenStruct.new
-    @statuses = OpenStruct.new
-
-    @statuses.valid = 200
-    @statuses.no_content = 204
-    @statuses.bad_request = 400
 
     @data.valid_csdl = 'interaction.content contains "test"'
 
@@ -50,7 +45,7 @@ describe 'DataSift::Push' do
       VCR.use_cassette('push/push_create') do
         params = @data.params.merge('hash' => @filter, 'name' => 'Ruby Push Example')
         @response = @datasift.push.create params
-        assert_equal @statuses.valid, @response[:http][:status]
+        assert_equal STATUS.valid, @response[:http][:status]
       end
     end
   end
@@ -77,7 +72,7 @@ describe 'DataSift::Push' do
     it 'can get a specific push subscription' do
       VCR.use_cassette('push/push_get_by_id') do
         response = @datasift.push.get_by_subscription @id
-        assert_equal @statuses.valid, response[:http][:status]
+        assert_equal STATUS.valid, response[:http][:status]
       end
     end
   end
@@ -104,7 +99,7 @@ describe 'DataSift::Push' do
     it 'can stop a push subscription' do
       VCR.use_cassette('push/push_stop') do
         response = @datasift.push.stop @id
-        assert_equal @statuses.valid, response[:http][:status]
+        assert_equal STATUS.valid, response[:http][:status]
       end
     end
   end
@@ -131,7 +126,7 @@ describe 'DataSift::Push' do
     it 'can get the /push/log for a given subscription' do
       VCR.use_cassette('push/push_log_with_id') do
         response = @datasift.push.log_for @id
-        assert_equal @statuses.valid, response[:http][:status]
+        assert_equal STATUS.valid, response[:http][:status]
       end
     end
   end
@@ -158,7 +153,7 @@ describe 'DataSift::Push' do
     it 'can pause a push subscription' do
       VCR.use_cassette('push/push_pause') do
         response = @datasift.push.pause @id
-        assert_equal @statuses.valid, response[:http][:status]
+        assert_equal STATUS.valid, response[:http][:status]
       end
     end
   end
@@ -186,7 +181,7 @@ describe 'DataSift::Push' do
     it 'can resume a push subscription' do
       VCR.use_cassette('push/push_resume') do
         response = @datasift.push.resume @id
-        assert_equal @statuses.valid, response[:http][:status]
+        assert_equal STATUS.valid, response[:http][:status]
       end
     end
   end
@@ -215,7 +210,7 @@ describe 'DataSift::Push' do
         @data.params[:id] = @id
         @data.params[:output_params][:directory] = 'new_directory'
         response = @datasift.push.update @data.params
-        assert_equal @statuses.valid, response[:http][:status]
+        assert_equal STATUS.valid, response[:http][:status]
       end
     end
   end
@@ -236,7 +231,7 @@ describe 'DataSift::Push' do
     it 'can delete a push subscription' do
       VCR.use_cassette('push/push_delete') do
         response = @datasift.push.delete @id
-        assert_equal @statuses.no_content, response[:http][:status]
+        assert_equal STATUS.no_content, response[:http][:status]
       end
     end
   end

@@ -14,6 +14,17 @@ require 'multi_json'
 require 'ostruct'
 require 'vcr'
 
+STATUS = OpenStruct.new(
+  valid: 200,
+  created: 201,
+  accepted: 202,
+  no_content: 204,
+  bad_request: 400,
+  not_found: 404,
+  conflict: 409,
+  gone: 410
+)
+
 def fixture_path
   File.expand_path('../fixtures', __FILE__)
 end

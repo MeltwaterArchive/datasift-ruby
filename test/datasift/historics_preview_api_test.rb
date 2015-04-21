@@ -5,11 +5,6 @@ describe 'DataSift::HistoricsPreview' do
     auth      = DataSiftExample.new
     @datasift = auth.datasift
     @data     = OpenStruct.new
-    @statuses = OpenStruct.new
-    @headers  = OpenStruct.new
-
-    @statuses.valid = 200
-    @statuses.accepted = 202
 
     @data.valid_csdl = 'interaction.content contains "ruby"'
     @data.sources = 'facebook,twitter'
@@ -31,7 +26,7 @@ describe 'DataSift::HistoricsPreview' do
     it 'can_create_historics_preview' do
       VCR.use_cassette('preview/preview_create_success') do
         response = @datasift.historics_preview.create(@hash, @data.sources, @data.parameters, @data.start, @data.end)
-        assert_equal @statuses.accepted, response[:http][:status]
+        assert_equal STATUS.accepted, response[:http][:status]
       end
     end
   end
@@ -50,7 +45,7 @@ describe 'DataSift::HistoricsPreview' do
     it 'can get an Historics Preview' do
       VCR.use_cassette('preview/preview_get_success') do
         response = @datasift.historics_preview.get(@preview[:data][:id])
-        assert_equal @statuses.accepted, response[:http][:status]
+        assert_equal STATUS.accepted, response[:http][:status]
       end
     end
   end
