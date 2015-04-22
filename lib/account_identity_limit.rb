@@ -10,15 +10,13 @@ module DataSift
     #   'facebook'
     # @param total_allowance [Integer] The limit for this Identity
     # @return [Object] API reponse object
-    def create(identity_id: '', service: '', total_allowance: nil, expires_at: nil)
+    def create(identity_id: '', service: '', total_allowance: nil)
       fail BadParametersError, 'identity_id is required' if identity_id.empty?
       fail BadParametersError, 'service is required' if service.empty?
       fail BadParametersError, 'total_allowance can not be "nil"' if total_allowance.nil?
-      fail BadParametersError, 'expires_at can not be "nil"' if expires_at.nil?
       params = {
         service: service,
-        total_allowance: total_allowance,
-        expires_at: expires_at
+        total_allowance: total_allowance
       }
 
       DataSift.request(:POST, "account/identity/#{identity_id}/limit", @config, params)
@@ -60,15 +58,11 @@ module DataSift
     #   'facebook'
     # @param total_allowance [Integer] The new limit for this Identity
     # @return [Object] API reponse object
-    def update(identity_id: '', service: '', total_allowance: nil, expires_at: nil)
+    def update(identity_id: '', service: '', total_allowance: nil)
       fail BadParametersError, 'identity_id is required' if identity_id.empty?
       fail BadParametersError, 'service is required' if service.empty?
       fail BadParametersError, 'total_allowance can not be "nil"' if total_allowance.nil?
-      fail BadParametersError, 'expires_at can not be "nil"' if expires_at.nil?
-      params = {
-        total_allowance: total_allowance,
-        expires_at: expires_at
-      }
+      params = { total_allowance: total_allowance }
 
       DataSift.request(:PUT, "account/identity/#{identity_id}/limit/#{service}", @config, params)
     end

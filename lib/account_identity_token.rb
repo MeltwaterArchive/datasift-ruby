@@ -14,12 +14,14 @@ module DataSift
     # @return [Object] API reponse object
     def create(identity_id: '', service: '', token: '', expires_at: nil)
       fail BadParametersError, 'identity_id is required' if identity_id.empty?
+      fail BadParametersError, 'service is required' if service.empty?
+      fail BadParametersError, 'token is required' if token.empty?
+      fail BadParametersError, 'expires_at is required' if expires_at.nil?
       params = {
         service: service,
-        token: token
+        token: token,
+        expires_at: expires_at
       }
-      requires params
-      params.merge!(expires_at: expires_at) unless expires_at.nil?
 
       DataSift.request(:POST, "account/identity/#{identity_id}/token", @config, params)
     end
@@ -66,9 +68,12 @@ module DataSift
     def update(identity_id: '', service: '', token: '', expires_at: nil)
       fail BadParametersError, 'identity_id is required' if identity_id.empty?
       fail BadParametersError, 'service is required' if service.empty?
-      params = {}
-      params.merge!(token: token) unless token.empty?
-      params.merge!(expires_at: expires_at) unless expires_at.nil?
+      fail BadParametersError, 'token is required' if token.empty?
+      fail BadParametersError, 'expires_at is required' if expires_at.nil?
+      params = {
+        token: token,
+        expires_at: expires_at
+      }
 
       DataSift.request(:PUT, "account/identity/#{identity_id}/token/#{service}", @config, params)
     end
