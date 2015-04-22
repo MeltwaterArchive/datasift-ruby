@@ -31,7 +31,7 @@ class AccountIdentityTokenEg < DataSiftExample
       ).to_json
 
       puts "\nGet existing Token by Identity and Service"
-      puts @datasift.account_identity_token.list(
+      puts @datasift.account_identity_token.get(
         identity_id: identity_id,
         service: 'facebook'
       ).to_json
