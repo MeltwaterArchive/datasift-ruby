@@ -16,8 +16,6 @@ require dir + '/managed_source'
 require dir + '/managed_source_auth'
 require dir + '/managed_source_resource'
 require dir + '/live_stream'
-require dir + '/dynamic_list'
-require dir + '/dynamic_list_replace'
 require dir + '/pylon'
 require dir + '/account'
 require dir + '/account_identity'
@@ -46,8 +44,8 @@ module DataSift
 
   # All API requests must be made by a Client object
   class Client < ApiResource
-    # @param config [Hash] A hash containing configuration options for the 
-    #   client for e.g. { username: 'some_user', api_key: 'ds_api_key', 
+    # @param config [Hash] A hash containing configuration options for the
+    #   client for e.g. { username: 'some_user', api_key: 'ds_api_key',
     #   enable_ssl: true, open_timeout: 30, timeout: 30 }
     def initialize(config)
       raise InvalidConfigError.new('Config cannot be nil') if config.nil?
@@ -70,8 +68,8 @@ module DataSift
       @account_identity_limit   = DataSift::AccountIdentityLimit.new(config)
     end
 
-    attr_reader :historics, :push, :managed_source, :managed_source_resource, 
-      :managed_source_auth, :historics_preview, :pylon, :account, 
+    attr_reader :historics, :push, :managed_source, :managed_source_resource,
+      :managed_source_auth, :historics_preview, :pylon, :account,
       :account_identity, :account_identity_token, :account_identity_limit
 
     # Checks if the syntax of the given CSDL is valid
