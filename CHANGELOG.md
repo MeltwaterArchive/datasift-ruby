@@ -1,12 +1,17 @@
 CHANGELOG
 ================================
-## v.3.2.0.rc2 ()
+## v.3.2.0.rc2 (2015-04-27)
 ### Added
-*
+* Adds opts for Managed Sources create/update endpoints to allow passing of 'validate' param
+* Adds PYLON /account/* endpoints, examples, tests and CLI support
+* Adds support for HTTP 410 GONE error
+
 ### Changed
-*
+* Refactoring for Rubocop and dropping Ruby 1.x support
+
 ### Fixed
 *
+
 ### Removed
 * Dropped support for Ruby 1.9. Only Ruby 2.0+ will be supported from this release
 
