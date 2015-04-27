@@ -9,9 +9,6 @@ CHANGELOG
 ### Changed
 * Refactoring for Rubocop and dropping Ruby 1.x support
 
-### Fixed
-*
-
 ### Removed
 * Dropped support for Ruby 1.9. Only Ruby 2.0+ will be supported from this release
 
