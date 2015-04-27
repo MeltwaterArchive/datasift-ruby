@@ -161,10 +161,10 @@ describe 'DataSift' do
       end
     end
 
-    it 'can_update_identity' do
+    it 'can_update_token' do
       VCR.use_cassette('account/identity/token/update_success') do
         response = @datasift.account_identity_token.update(
-          id: @identity_id,
+          identity_id: @identity_id,
           label: "#{@data.label}-update",
           status: 'active',
           master: false
@@ -175,10 +175,10 @@ describe 'DataSift' do
   end
 
   describe 'unsuccessful :PUT' do
-    it 'cannot_update_with_unknown_id' do
+    it 'cannot_update_token_with_unknown_id' do
       VCR.use_cassette('account/identity/token/update_id_404') do
         response = @datasift.account_identity_token.update(
-          id: "fake_id",
+          identity_id: "fake_id",
           label: "#{@data.label}-update",
           status: 'active',
           master: false
@@ -187,7 +187,7 @@ describe 'DataSift' do
       assert_equal STATUS.not_found, response[:http][:status]
     end
 
-    it 'cannot_update_without_id' do
+    it 'cannot_update_without_identity_id' do
       assert_raises ArgumentError do
         @datasift.account_identity_token.update(
           label: "#{@data.label}-update",
