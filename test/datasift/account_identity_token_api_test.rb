@@ -223,11 +223,12 @@ describe 'DataSift' do
 
     it 'can_delete_identity' do
       VCR.use_cassette('account/identity/token/delete_success') do
-        @datasift.account_identity_token.delete(
+        response = @datasift.account_identity_token.delete(
           identity_id: @identity_id,
           service: @data.service
         )
       end
+      assert_equal STATUS.no_content, response[:http][:status]
     end
 
     it 'cannot_delete_without_id' do
