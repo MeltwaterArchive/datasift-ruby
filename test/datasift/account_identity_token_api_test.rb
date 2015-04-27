@@ -39,7 +39,6 @@ describe 'DataSift' do
           expires_at: @data.expires_at
         )
         assert_equal STATUS.created, response[:http][:status]
-        @identity_id = response[:data][:id]
       end
     end
   end
