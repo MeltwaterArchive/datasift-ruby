@@ -64,6 +64,10 @@ def parse(args)
       options.api = e
     end
 
+    opts.on('--no-ssl', 'Do not use SSL for API requests') do
+      options.enable_ssl = false
+    end
+
     opts.on_tail('-h', '--help', 'Show this message') do
       puts opts
       exit
@@ -350,10 +354,11 @@ begin
   end
 
   config = {
-    :username => options.auth[:username],
-    :api_key => options.auth[:api_key],
-    :api_host => options.api
+    username: options.auth[:username],
+    api_key: options.auth[:api_key],
+    api_host: options.api
   }
+  config.merge!(enable_ssl: options.enable_ssl) unless options.enable_ssl.nil?
   datasift = DataSift::Client.new(config)
 
   res = case options.endpoint
