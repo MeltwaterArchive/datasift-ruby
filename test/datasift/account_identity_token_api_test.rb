@@ -49,7 +49,7 @@ describe 'DataSift' do
     end
 
     it 'cannot_create_identity_for_invalid_service' do
-      VCR.use_cassette('account/identity/token/create_success') do
+      VCR.use_cassette('account/identity/token/create_invalid_service') do
         response = @datasift.account_identity_token.create(
           identity_id: @identity_id,
           service: 'INVALID_SERVICE',
