@@ -27,10 +27,6 @@ describe 'DataSift' do
     after do
       VCR.use_cassette('account/identity/token/after_create_success') do
         @datasift.account_identity.delete @identity_id
-        @datasift.account_identity_token.delete(
-          identity_id: @identity_id,
-          service: @data.service
-        )
       end
     end
 
@@ -87,10 +83,7 @@ describe 'DataSift' do
 
     after do
       VCR.use_cassette('account/identity/token/after_get_success') do
-        @datasift.account_identity_token.delete(
-          identity_id: @identity_id,
-          service: @data.service
-        )
+        @datasift.account_identity.delete @identity_id
       end
     end
 
