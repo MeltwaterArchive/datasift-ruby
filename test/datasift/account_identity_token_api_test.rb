@@ -41,12 +41,10 @@ describe 'DataSift' do
         assert_equal STATUS.created, response[:http][:status]
       end
     end
-  end
 
-  describe 'unsuccessful :POST' do
     it 'cannot_create_identity_without_params' do
       assert_raises ArgumentError do
-        @datasift.account_identity.create
+        @datasift.account_identity_token.create
       end
     end
 
