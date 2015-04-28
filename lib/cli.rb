@@ -244,7 +244,7 @@ def run_account_identity_command(c, command, p)
     c.account_identity.create(
       label: opt(p['label'], ''),
       status: opt(p['status'], ''),
-      master: opt(p['master'], false)
+      master: opt(p['master'], '')
     )
   when 'get'
     c.account_identity.get(opt(p['id'], ''))
