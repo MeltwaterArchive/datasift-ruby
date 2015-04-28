@@ -24,20 +24,20 @@ module DataSift
 
     # Get the Limit for a given Identity and Service
     #
-    # @param identity_id [String] ID of the Identity you wish to return tokens
+    # @param identity_id [String] ID of the Identity you wish to return limits
     #   for
-    # @param service [String] Name of the service you are retreiving tokens for
+    # @param service [String] Name of the service you are retreiving limits for
     # @return [Object] API reponse object
     def get(identity_id: '', service: '')
       fail BadParametersError, 'identity_id is required' if identity_id.empty?
       fail BadParametersError, 'service is required' if service.empty?
 
-      DataSift.request(:GET, "account/identity/#{identity_id}/token/#{service}", @config)
+      DataSift.request(:GET, "account/identity/#{identity_id}/limit/#{service}", @config)
     end
 
     # Returns a list Identities and their Limits for a given Service
     #
-    # @param service [String] ID of the Identity we are fetching Tokens for
+    # @param service [String] ID of the Identity we are fetching Limits for
     # @param per_page [Integer] (Optional) How many Identities and Limits should
     #   be returned per page of results
     # @param page [Integer] (Optional) Which page of results to return
