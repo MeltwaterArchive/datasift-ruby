@@ -202,20 +202,20 @@ def run_pylon_command(c, command, p)
   case command
   when 'validate'
     c.pylon.valid?(
-      csdl: p['csdl'],
+      csdl: opt(p['csdl'], ''),
       boolResponse: opt(p['boolResponse'], true)
     )
   when 'compile'
-    c.pylon.compile(p['csdl'])
+    c.pylon.compile(opt(p['csdl'], ''))
   when 'start'
     c.pylon.start(
-      hash: p['hash'],
+      hash: opt(p['hash'], ''),
       name: opt(p['name'], '')
     )
   when 'stop'
-    c.pylon.stop(p['hash'])
+    c.pylon.stop(opt(p['hash'], ''))
   when 'get'
-    c.pylon.get(p['id'])
+    c.pylon.get(opt(p['id'], ''))
   when 'list'
     c.pylon.list
   when 'analyze'
@@ -224,7 +224,7 @@ def run_pylon_command(c, command, p)
       params = MultiJson.load(p['parameters'])
     end
     c.pylon.analyze(
-      hash: p['hash'],
+      hash: opt(p['hash'], ''),
       parameters: params,
       fitler: opt(p['filter'], ''),
       start_time: opt(p['start'], ''),
@@ -242,27 +242,27 @@ def run_account_identity_command(c, command, p)
   case command
   when 'create'
     c.account_identity.create(
-      label: p['label'],
+      label: opt(p['label'], ''),
       status: opt(p['status'], ''),
       master: opt(p['master'], false)
     )
   when 'get'
-    c.account_identity.get(p['id'])
+    c.account_identity.get(opt(p['id'], ''))
   when 'list'
     c.account_identity.list(
-      label: p['label'],
+      label: opt(p['label'], ''),
       per_page: opt(p['per_page'], ''),
       page: opt(p['page'], '')
     )
   when 'update'
     c.account_identity.update(
-      id: p['id'],
+      id: opt(p['id'], ''),
       label: opt(p['label'], ''),
       status: opt(p['status'], ''),
       master: opt(p['master'], '')
     )
   when 'delete'
-    c.account_identity.delete(p['id'])
+    c.account_identity.delete(opt(p['id'], ''))
   else
     err 'Unknown command for the account/identity endpoint'
     exit
@@ -273,7 +273,7 @@ def run_account_token_command(c, command, p)
   case command
   when 'create'
     c.account_identity_token.create(
-      identity_id: p['identity_id'],
+      identity_id: opt(p['identity_id'], ''),
       service: opt(p['service'], ''),
       token: opt(p['token'], ''),
       expires_at: opt(p['expires_at'], '')
@@ -285,21 +285,21 @@ def run_account_token_command(c, command, p)
     )
   when 'list'
     c.account_identity_token.list(
-      identity_id: p['identity_id'],
+      identity_id: opt(p['identity_id'], ''),
       per_page: opt(p['per_page'], ''),
       page: opt(p['page'], '')
     )
   when 'update'
     c.account_identity_token.update(
-      identity_id: p['identity_id'],
-      service: p['service'],
+      identity_id: opt(p['identity_id'], ''),
+      service: opt(p['service'], ''),
       token: opt(p['token'], ''),
       expires_at: opt(p['expires_at'], nil)
     )
   when 'delete'
     c.account_identity_token.delete(
-      identity_id: p['identity_id'],
-      service: p['service']
+      identity_id: opt(p['identity_id'], ''),
+      service: opt(p['service'], '')
     )
   else
     err 'Unknown command for the account/identity/token endpoint'
@@ -311,14 +311,14 @@ def run_account_limit_command(c, command, p)
   case command
   when 'create'
     c.account_identity_limit.create(
-      identity_id: p['identity_id'],
-      service: p['service'],
-      total_allowance: p['total_allowance']
+      identity_id: opt(p['identity_id'], ''),
+      service: opt(p['service'], ''),
+      total_allowance: opt(p['total_allowance'], nil)
     )
   when 'get'
     c.account_identity_limit.get(
-      identity_id: p['identity_id'],
-      service: p['service']
+      identity_id: opt(p['identity_id'], ''),
+      service: opt(p['service'], '')
     )
   when 'list'
     c.account_identity_limit.list(
@@ -328,14 +328,14 @@ def run_account_limit_command(c, command, p)
     )
   when 'update'
     c.account_identity_limit.update(
-      identity_id: p['identity_id'],
+      identity_id: opt(p['identity_id'], ''),
       service: opt(p['service'], ''),
       total_allowance: opt(p['total_allowance'], nil)
     )
   when 'delete'
     c.account_identity_limit.delete(
-      identity_id: p['identity_id'],
-      service: p['service']
+      identity_id: opt(p['identity_id'], ''),
+      service: opt(p['service'], '')
     )
   else
     err 'Unknown command for the account/identity/limit endpoint'
