@@ -44,6 +44,8 @@ module DataSift
     # @return [Object] API reponse object
     def list(service: '', per_page: '', page: '')
       fail BadParametersError, 'service is required' if service.empty?
+
+      params = {}
       params.merge!(per_page: per_page) unless per_page.empty?
       params.merge!(page: page) unless page.empty?
 
