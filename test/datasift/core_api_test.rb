@@ -6,14 +6,10 @@ describe 'DataSift' do
     auth      = DataSiftExample.new
     @datasift = auth.datasift
     @data     = OpenStruct.new
-    @statuses = OpenStruct.new
-    @headers  = OpenStruct.new
 
     @data.valid_csdl    = 'interaction.content contains "test"'
     @data.invalid_csdl  = 'interaction.nonsense is not valid'
     @data.invalid_hash  = 'this_is_not_a_valid_stream_hash'
-    @statuses.valid        = 200
-    @statuses.bad_request  = 400
   end
 
   ##
@@ -43,8 +39,8 @@ describe 'DataSift' do
         validation = @datasift.valid?(@data.valid_csdl, false)
         assert_kind_of Hash, validation,
           "Successful validation will return a hash"
-        assert_equal @statuses.valid, validation[:http][:status],
-          "This request should have returned #{@statuses.validate_csdl} status"
+        assert_equal STATUS.valid, validation[:http][:status],
+          "This request should have returned #{STATUS.valid} status"
       end
     end
 
@@ -78,8 +74,8 @@ describe 'DataSift' do
         response = @datasift.compile @data.valid_csdl
         assert_kind_of Hash, response,
           "Successful compilation will return a hash"
-        assert_equal @statuses.valid, response[:http][:status],
-          "This request should have returned #{@statuses.validate_csdl} status"
+        assert_equal STATUS.valid, response[:http][:status],
+          "This request should have returned #{STATUS.valid} status"
       end
     end
   end
@@ -91,7 +87,7 @@ describe 'DataSift' do
     it 'can_get_users_usage' do
       VCR.use_cassette('core/usage_success') do
         response = @datasift.usage
-        assert_equal @statuses.valid, response[:http][:status]
+        assert_equal STATUS.valid, response[:http][:status]
         assert_kind_of Hash, response
       end
     end
@@ -110,7 +106,7 @@ describe 'DataSift' do
     it 'can_get_dpu_cost' do
       VCR.use_cassette('core/dpu_get_cost') do
         response = @datasift.dpu @hash
-        assert_equal @statuses.valid, response[:http][:status]
+        assert_equal STATUS.valid, response[:http][:status]
       end
     end
 
@@ -130,7 +126,7 @@ describe 'DataSift' do
     it 'can get account balance' do
       VCR.use_cassette('core/balance_get') do
         response = @datasift.balance
-        assert_equal @statuses.valid, response[:http][:status]
+        assert_equal STATUS.valid, response[:http][:status]
       end
     end
   end

@@ -64,6 +64,10 @@ def parse(args)
       options.api = e
     end
 
+    opts.on('--no-ssl', 'Do not use SSL for API requests') do
+      options.enable_ssl = false
+    end
+
     opts.on_tail('-h', '--help', 'Show this message') do
       puts opts
       exit
@@ -197,26 +201,144 @@ end
 def run_pylon_command(c, command, p)
   case command
   when 'validate'
-    c.pylon.valid?(p['csdl'], false)
+    c.pylon.valid?(
+      csdl: opt(p['csdl'], ''),
+      boolResponse: opt(p['boolResponse'], true)
+    )
   when 'compile'
-    c.pylon.compile(p['csdl'])
+    c.pylon.compile(opt(p['csdl'], ''))
   when 'start'
-    c.pylon.start(p['hash'], opt(p['name'], ''))
+    c.pylon.start(
+      hash: opt(p['hash'], ''),
+      name: opt(p['name'], '')
+    )
   when 'stop'
-    c.pylon.stop(p['hash'])
+    c.pylon.stop(opt(p['hash'], ''))
   when 'get'
     c.pylon.get(opt(p['id'], ''))
+  when 'list'
+    c.pylon.list
   when 'analyze'
     params = nil
     if p['parameters']
       params = MultiJson.load(p['parameters'])
     end
-    c.pylon.analyze(p['hash'], params, opt(p['filter'], ''),
-      opt(p['start'], ''), opt(p['end'], ''))
+    c.pylon.analyze(
+      hash: opt(p['hash'], ''),
+      parameters: params,
+      fitler: opt(p['filter'], ''),
+      start_time: opt(p['start'], ''),
+      end_time: opt(p['end'], '')
+    )
   when 'tags'
     c.pylon.tags(p['hash'])
   else
     err 'Unknown command for the pylon endpoint'
+    exit
+  end
+end
+
+def run_account_identity_command(c, command, p)
+  case command
+  when 'create'
+    c.account_identity.create(
+      label: opt(p['label'], ''),
+      status: opt(p['status'], ''),
+      master: opt(p['master'], '')
+    )
+  when 'get'
+    c.account_identity.get(opt(p['id'], ''))
+  when 'list'
+    c.account_identity.list(
+      label: opt(p['label'], ''),
+      per_page: opt(p['per_page'], ''),
+      page: opt(p['page'], '')
+    )
+  when 'update'
+    c.account_identity.update(
+      id: opt(p['id'], ''),
+      label: opt(p['label'], ''),
+      status: opt(p['status'], ''),
+      master: opt(p['master'], '')
+    )
+  when 'delete'
+    c.account_identity.delete(opt(p['id'], ''))
+  else
+    err 'Unknown command for the account/identity endpoint'
+    exit
+  end
+end
+
+def run_account_token_command(c, command, p)
+  case command
+  when 'create'
+    c.account_identity_token.create(
+      identity_id: opt(p['identity_id'], ''),
+      service: opt(p['service'], ''),
+      token: opt(p['token'], ''),
+      expires_at: opt(p['expires_at'], '')
+    )
+  when 'get'
+    c.account_identity_token.get(
+      identity_id: opt(p['identity_id'], ''),
+      service: opt(p['service'], '')
+    )
+  when 'list'
+    c.account_identity_token.list(
+      identity_id: opt(p['identity_id'], ''),
+      per_page: opt(p['per_page'], ''),
+      page: opt(p['page'], '')
+    )
+  when 'update'
+    c.account_identity_token.update(
+      identity_id: opt(p['identity_id'], ''),
+      service: opt(p['service'], ''),
+      token: opt(p['token'], ''),
+      expires_at: opt(p['expires_at'], nil)
+    )
+  when 'delete'
+    c.account_identity_token.delete(
+      identity_id: opt(p['identity_id'], ''),
+      service: opt(p['service'], '')
+    )
+  else
+    err 'Unknown command for the account/identity/token endpoint'
+    exit
+  end
+end
+
+def run_account_limit_command(c, command, p)
+  case command
+  when 'create'
+    c.account_identity_limit.create(
+      identity_id: opt(p['identity_id'], ''),
+      service: opt(p['service'], ''),
+      total_allowance: opt(p['total_allowance'], nil)
+    )
+  when 'get'
+    c.account_identity_limit.get(
+      identity_id: opt(p['identity_id'], ''),
+      service: opt(p['service'], '')
+    )
+  when 'list'
+    c.account_identity_limit.list(
+      service: opt(p['service'], ''),
+      per_page: opt(p['per_page'], ''),
+      page: opt(p['page'], '')
+    )
+  when 'update'
+    c.account_identity_limit.update(
+      identity_id: opt(p['identity_id'], ''),
+      service: opt(p['service'], ''),
+      total_allowance: opt(p['total_allowance'], nil)
+    )
+  when 'delete'
+    c.account_identity_limit.delete(
+      identity_id: opt(p['identity_id'], ''),
+      service: opt(p['service'], '')
+    )
+  else
+    err 'Unknown command for the account/identity/limit endpoint'
     exit
   end
 end
@@ -232,10 +354,11 @@ begin
   end
 
   config = {
-    :username => options.auth[:username],
-    :api_key => options.auth[:api_key],
-    :api_host => options.api
+    username: options.auth[:username],
+    api_key: options.auth[:api_key],
+    api_host: options.api
   }
+  config.merge!(enable_ssl: options.enable_ssl) unless options.enable_ssl.nil?
   datasift = DataSift::Client.new(config)
 
   res = case options.endpoint
@@ -251,6 +374,12 @@ begin
           run_sources_command(datasift, options.command, options.params)
         when 'pylon'
           run_pylon_command(datasift, options.command, options.params)
+        when 'identity'
+          run_account_identity_command(datasift, options.command, options.params)
+        when 'token'
+          run_account_token_command(datasift, options.command, options.params)
+        when 'limit'
+          run_account_limit_command(datasift, options.command, options.params)
         else
           err 'Unsupported/Unknown endpoint'
           exit

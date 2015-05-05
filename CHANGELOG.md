@@ -1,5 +1,18 @@
 CHANGELOG
 ================================
+## v.3.2.0.rc2 (2015-04-27)
+### Added
+* Adds opts for Managed Sources create/update endpoints to allow passing of 'validate' param
+* Adds PYLON /account/* endpoints, examples, tests and CLI support
+* Adds support for HTTP 410 GONE error
+
+### Changed
+* Refactoring for Rubocop and dropping Ruby 1.x support
+
+### Removed
+* Dropped support for Ruby 1.9. Only Ruby 2.0+ will be supported from this release
+
+
 ## v.3.2.0.rc1 (2015-03-10)
 ### Added
 * Comprehensive Yard Docs for all classes and methods
@@ -33,6 +46,18 @@ v.3.2.0-pre.1
 ####New Feature
 * Added Pylon /analysis/* API endpoints
 * Added basic Pylon API examples
+
+v.3.1.5 (2015-04-16)
+--------------------
+####Fixes
+* Resolves #73; Ensure we can pass the ```validate``` flag and other optional params on /source/create and /update API calls
+
+v.3.1.4 (2015-02-10)
+--------------------
+####Improvements
+* Use TLSv1.2 by default, and allow users to specify SSL version in config with the :ssl_version parameter
+* Minor refactoring according to Rubocop style guides
+* Test against Ruby 2.2 on Travis
 
 v.3.1.3 (2014-12-02)
 --------------------
