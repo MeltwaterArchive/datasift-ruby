@@ -13,6 +13,17 @@ describe 'DataSift' do
   end
 
   ##
+  # Client
+  #
+  describe 'client' do
+    it 'raises_InvalidConfigError_without_auth_credentials' do
+      assert_raises InvalidConfigError do
+        DataSift::Client.new({})
+      end
+    end
+  end
+
+  ##
   # /validate
   #
   describe '#validate' do
