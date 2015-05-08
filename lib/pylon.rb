@@ -42,10 +42,7 @@ module DataSift
     #
     # @return [Object] API reponse object
     def list
-      fail BadParametersError, 'hash is required' if hash.empty?
-      params = { hash: hash }
-
-      DataSift.request(:GET, 'pylon/get', @config, params)
+      DataSift.request(:GET, 'pylon/get', @config)
     end
 
     # Start recording a PYLON filter by making an /pylon/start API call
