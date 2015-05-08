@@ -107,7 +107,14 @@ describe 'DataSift' do
 
     it 'can_get_list' do
       VCR.use_cassette('pylon/pylon_get_list') do
-        response = @datasift.pylon.get
+        response = @datasift.pylon.list
+        assert_equal STATUS.valid, response[:http][:status]
+      end
+    end
+
+    it 'can_get_paginated_list' do
+      VCR.use_cassette('pylon/pylon_get_paginated_list') do
+        response = @datasift.pylon.list(page: 1, per_page: 1)
         assert_equal STATUS.valid, response[:http][:status]
       end
     end
