@@ -48,7 +48,9 @@ class AccountIdentityTokenEg < DataSiftExample
         'facebook'
       ).to_json
 
-    #rescue DataSiftError
+      puts "\nCleanup and remove the Identity"
+      @datasift.account_identity.delete(identity_id)
+
     rescue DataSiftError => dse
       puts dse.message
       # Then match specific error to take action;

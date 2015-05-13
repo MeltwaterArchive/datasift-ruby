@@ -28,7 +28,7 @@ class AccountIdentityLimitEg < DataSiftExample
       ).to_json
 
       puts "\nGet existing Limit by Identity and Service"
-      puts @datasift.account_identity_limit.list(
+      puts @datasift.account_identity_limit.get(
         identity_id,
         'facebook'
       ).to_json
@@ -46,7 +46,9 @@ class AccountIdentityLimitEg < DataSiftExample
         'facebook'
       ).to_json
 
-    #rescue DataSiftError
+      puts "\nCleanup and remove the Identity"
+      @datasift.account_identity.delete(identity_id)
+
     rescue DataSiftError => dse
       puts dse.message
       # Then match specific error to take action;

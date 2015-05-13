@@ -23,13 +23,12 @@ class AccountIdentityEg < DataSiftExample
 
       puts "\nUpdate an identity"
       puts @datasift.account_identity.update(
-        identity_id, 'new', 'active'
+        identity_id, 'Updated Ruby Identity'
       ).to_json
 
       puts "\nDelete an identity"
       puts @datasift.account_identity.delete(identity_id).to_json
 
-    #rescue DataSiftError
     rescue DataSiftError => dse
       puts dse.message
       # Then match specific error to take action;
