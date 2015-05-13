@@ -10,7 +10,6 @@ describe 'DataSift' do
     @data.label = 'minitest'
     @data.token = '4b7c38dbd1b4b74046a1cc0e3081e38e'
     @data.service = 'facebook'
-    @data.expires_at = 1577836800
     @data.total_allowance = 100_000
   end
 

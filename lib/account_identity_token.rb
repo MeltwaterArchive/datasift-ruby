@@ -9,18 +9,14 @@ module DataSift
     # @param service [String] The service this token will be used to access. For
     #   example; 'facebook'
     # @param token [String] The token provided by the PYLON data provider
-    # @param expires_at [Timestamp] (Optional, Default: nil) The time at which
-    #   this token will expire
     # @return [Object] API reponse object
-    def create(identity_id: '', service: '', token: '', expires_at: nil)
+    def create(identity_id: '', service: '', token: '')
       fail BadParametersError, 'identity_id is required' if identity_id.empty?
       fail BadParametersError, 'service is required' if service.empty?
       fail BadParametersError, 'token is required' if token.empty?
-      fail BadParametersError, 'expires_at is required' if expires_at.nil?
       params = {
         service: service,
-        token: token,
-        expires_at: expires_at
+        token: token
       }
 
       DataSift.request(:POST, "account/identity/#{identity_id}/token", @config, params)
@@ -62,17 +58,13 @@ module DataSift
     # @param service [String] The service this token will be used to access. For
     #   example; 'facebook'
     # @param token [String] The token provided by the PYLON data provider
-    # @param expires_at [Timestamp] (Optional, Default: nil) The time at which
-    #   this token will expire
     # @return [Object] API reponse object
-    def update(identity_id: '', service: '', token: '', expires_at: nil)
+    def update(identity_id: '', service: '', token: '')
       fail BadParametersError, 'identity_id is required' if identity_id.empty?
       fail BadParametersError, 'service is required' if service.empty?
       fail BadParametersError, 'token is required' if token.empty?
-      fail BadParametersError, 'expires_at is required' if expires_at.nil?
       params = {
-        token: token,
-        expires_at: expires_at
+        token: token
       }
 
       DataSift.request(:PUT, "account/identity/#{identity_id}/token/#{service}", @config, params)

@@ -10,7 +10,6 @@ describe 'DataSift' do
     @data.label       = 'minitest'
     @data.token       = '4b7c38dbd1b4b74046a1cc0e3081e38e'
     @data.service     = 'facebook'
-    @data.expires_at  = 1577836800
   end
 
   ##
@@ -35,8 +34,7 @@ describe 'DataSift' do
         response = @datasift.account_identity_token.create(
           identity_id: @identity_id,
           service: @data.service,
-          token: @data.token,
-          expires_at: @data.expires_at
+          token: @data.token
         )
         assert_equal STATUS.created, response[:http][:status]
       end
@@ -53,8 +51,7 @@ describe 'DataSift' do
         response = @datasift.account_identity_token.create(
           identity_id: @identity_id,
           service: 'INVALID_SERVICE',
-          token: @data.token,
-          expires_at: @data.expires_at
+          token: @data.token
         )
         assert_equal STATUS.bad_request, response[:http][:status]
       end
@@ -72,8 +69,7 @@ describe 'DataSift' do
         token = @datasift.account_identity_token.create(
           identity_id: @identity_id,
           service: @data.service,
-          token: @data.token,
-          expires_at: @data.expires_at
+          token: @data.token
         )
       end
     end
@@ -149,8 +145,7 @@ describe 'DataSift' do
         response = @datasift.account_identity_token.create(
           identity_id: @identity_id,
           service: @data.service,
-          token: @data.token,
-          expires_at: @data.expires_at
+          token: @data.token
         )
       end
     end
@@ -209,8 +204,7 @@ describe 'DataSift' do
         response = @datasift.account_identity_token.create(
           identity_id: @identity_id,
           service: @data.service,
-          token: @data.token,
-          expires_at: @data.expires_at
+          token: @data.token
         )
       end
     end

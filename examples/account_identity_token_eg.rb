@@ -21,8 +21,7 @@ class AccountIdentityTokenEg < DataSiftExample
       puts @datasift.account_identity_token.create(
         identity_id: identity_id,
         service: 'facebook',
-        token: 'YOUR_TOKEN',
-        expires_at: 1577836800
+        token: 'YOUR_TOKEN'
       )
 
       puts "\nList all existing Tokens for this Identity"
@@ -40,8 +39,7 @@ class AccountIdentityTokenEg < DataSiftExample
       puts @datasift.account_identity_token.update(
         identity_id: identity_id,
         service: 'facebook',
-        token: 'YOUR_NEW_TOKEN',
-        expires_at: 1577836800
+        token: 'YOUR_NEW_TOKEN'
       ).to_json
 
       puts "\nDelete an Token for a given Identity and Service"

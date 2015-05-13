@@ -275,8 +275,7 @@ def run_account_token_command(c, command, p)
     c.account_identity_token.create(
       identity_id: opt(p['identity_id'], ''),
       service: opt(p['service'], ''),
-      token: opt(p['token'], ''),
-      expires_at: opt(p['expires_at'], '')
+      token: opt(p['token'], '')
     )
   when 'get'
     c.account_identity_token.get(
@@ -293,8 +292,7 @@ def run_account_token_command(c, command, p)
     c.account_identity_token.update(
       identity_id: opt(p['identity_id'], ''),
       service: opt(p['service'], ''),
-      token: opt(p['token'], ''),
-      expires_at: opt(p['expires_at'], nil)
+      token: opt(p['token'], '')
     )
   when 'delete'
     c.account_identity_token.delete(
