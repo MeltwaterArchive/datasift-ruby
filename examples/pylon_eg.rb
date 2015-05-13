@@ -7,10 +7,31 @@ class AnalysisApi < DataSiftExample
 
   def run_analysis
     begin
-      csdl = 'return { fb.content contains "the" }'
+      puts "Create a new identity to make PYLON API calls"
+      identity = @datasift.account_identity.create(
+        "JASON_#{Time.now.to_i}",
+        "active",
+        false
+      )
+      identity_id = identity[:data][:id]
+      puts identity[:data].to_json
+
+      puts "\nCreate a Token for our Identity"
+      token = @datasift.account_identity_token.create(
+        identity_id,
+        'facebook',
+        'YOUR_TOKEN'
+      )
+      puts token[:data].to_json
+
+      puts "\nNow make PYLON API calls using the Identity's API key"
+      @config.merge!(api_key: identity[:data][:api_key])
+      @datasift = DataSift::Client.new(@config)
+
+      csdl = 'return { fb.content contains "data" }'
 
       puts "Check this CSDL is valid: #{csdl}"
-      puts "Valid? #{@datasift.pylon.valid?(csdl: csdl)}"
+      puts "Valid? #{@datasift.pylon.valid?(csdl)}"
 
       puts "\nCompile my CSDL"
       compiled = @datasift.pylon.compile csdl
@@ -87,7 +108,7 @@ class AnalysisApi < DataSiftExample
       puts @datasift.pylon.stop(hash)[:data].to_json
 
       rescue DataSiftError => dse
-        puts dse.message
+        puts dse.to_s
     end
   end
 end
