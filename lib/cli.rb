@@ -202,15 +202,15 @@ def run_pylon_command(c, command, p)
   case command
   when 'validate'
     c.pylon.valid?(
-      csdl: opt(p['csdl'], ''),
-      boolResponse: opt(p['boolResponse'], true)
+      opt(p['csdl'], ''),
+      opt(p['boolResponse'], true)
     )
   when 'compile'
     c.pylon.compile(opt(p['csdl'], ''))
   when 'start'
     c.pylon.start(
-      hash: opt(p['hash'], ''),
-      name: opt(p['name'], '')
+      opt(p['hash'], ''),
+      opt(p['name'], '')
     )
   when 'stop'
     c.pylon.stop(opt(p['hash'], ''))
@@ -224,11 +224,11 @@ def run_pylon_command(c, command, p)
       params = MultiJson.load(p['parameters'])
     end
     c.pylon.analyze(
-      hash: opt(p['hash'], ''),
-      parameters: params,
-      fitler: opt(p['filter'], ''),
-      start_time: opt(p['start'], ''),
-      end_time: opt(p['end'], '')
+      opt(p['hash'], ''),
+      params,
+      opt(p['filter'], ''),
+      opt(p['start'], ''),
+      opt(p['end'], '')
     )
   when 'tags'
     c.pylon.tags(p['hash'])

@@ -19,8 +19,8 @@ class AnalysisApi < DataSiftExample
 
       puts "\nStart recording filter with hash #{hash}"
       filter = @datasift.pylon.start(
-        hash: hash,
-        name: 'Facebook Pylon Test Filter'
+        hash,
+        'Facebook Pylon Test Filter'
       )
       puts filter[:data].to_json
 
@@ -39,8 +39,8 @@ class AnalysisApi < DataSiftExample
         }
       }
       puts @datasift.pylon.analyze(
-        hash: hash,
-        parameters: params
+        hash,
+        params
       )[:data].to_json
 
       puts "\nFrequency distribution analysis on fb.author.age with filter"
@@ -53,9 +53,9 @@ class AnalysisApi < DataSiftExample
       }
       filter = 'fb.content contains "starbucks"'
       puts @datasift.pylon.analyze(
-        hash: hash,
-        parameters: params,
-        filter: filter
+        hash,
+        params,
+        filter
       )[:data].to_json
 
       puts "\nTime series analysis"
@@ -70,11 +70,11 @@ class AnalysisApi < DataSiftExample
       start_time = Time.now.to_i - (60 * 60 * 12) # 7 days ago
       end_time = Time.now.to_i
       puts @datasift.pylon.analyze(
-        hash: hash,
-        parameters: params,
-        filter: filter,
-        start_time: start_time,
-        end_time: end_time
+        hash,
+        params,
+        filter,
+        start_time,
+        end_time
       )[:data].to_json
 
       puts "\nTags analysis"

@@ -20,26 +20,27 @@ describe 'DataSift' do
   describe '#pylon/validate' do
     it 'csdl_cant_be_nil_when_validating' do
       assert_raises InvalidParamError do
-        @datasift.pylon.valid?(csdl: nil)
+        @datasift.pylon.valid?(nil)
       end
     end
 
     it 'csdl_cant_be_empty_when_validating' do
       assert_raises InvalidParamError do
-        @datasift.pylon.valid?(csdl: '')
+        @datasift.pylon.valid?('')
       end
     end
 
     it 'if_user_can_get_successful_validation_as_bool' do
       VCR.use_cassette('pylon/pylon_validate_success_bool') do
-        assert @datasift.pylon.valid?(csdl: @data.valid_csdl)
+        assert @datasift.pylon.valid?(@data.valid_csdl)
       end
     end
 
     it 'if_user_can_get_successful_validation_as_filter' do
       VCR.use_cassette('pylon/pylon_validate_success_filter') do
         response = @datasift.pylon.valid?(
-          csdl: @data.valid_csdl, boolResponse: false
+          @data.valid_csdl,
+          false
         )
         assert_kind_of Hash, response, 'Valid should return a Ruby hash here'
         assert_equal STATUS.valid, response[:http][:status]
@@ -49,7 +50,7 @@ describe 'DataSift' do
     it 'failing_csdl_validation' do
       VCR.use_cassette('pylon/pylon_validate_invalid_filter') do
         assert_raises BadRequestError do
-          @datasift.pylon.valid?(csdl: @data.invalid_csdl)
+          @datasift.pylon.valid?(@data.invalid_csdl)
         end
       end
     end
@@ -95,7 +96,7 @@ describe 'DataSift' do
     before do
       VCR.use_cassette('pylon/before_pylon_get') do
         @filter = @datasift.pylon.compile(@data.valid_csdl)[:data][:hash]
-        @datasift.pylon.start(hash: @filter, name: 'ruby-lib-test')
+        @datasift.pylon.start(@filter, 'ruby-lib-test')
       end
     end
 
@@ -107,7 +108,7 @@ describe 'DataSift' do
 
     it 'can_get_list' do
       VCR.use_cassette('pylon/pylon_get_list') do
-        response = @datasift.pylon.get
+        response = @datasift.pylon.list
         assert_equal STATUS.valid, response[:http][:status]
       end
     end
@@ -146,7 +147,7 @@ describe 'DataSift' do
 
     it 'can_start_valid_filter' do
       VCR.use_cassette('pylon/pylon_start_valid_filter') do
-        response = @datasift.pylon.start(hash: @filter, name: 'ruby-lib-test')
+        response = @datasift.pylon.start(@filter, 'ruby-lib-test')
         assert_equal STATUS.valid_empty, response[:http][:status]
       end
     end
@@ -171,7 +172,7 @@ describe 'DataSift' do
       VCR.use_cassette('pylon/pylon_start_invalid_filter') do
         assert_raises BadRequestError do
           @datasift.pylon.start(
-            hash: @data.invalid_filter, name: 'ruby-lib-test'
+            @data.invalid_filter, 'ruby-lib-test'
           )
         end
       end
@@ -189,7 +190,7 @@ describe 'DataSift' do
     it 'cannot_start_valid_filter_with_no_name' do
       VCR.use_cassette('pylon/pylon_start_valid_filter_no_name') do
         assert_raises BadRequestError do
-          @datasift.pylon.start(hash: @filter)
+          @datasift.pylon.start(@filter)
         end
       end
     end
@@ -202,7 +203,7 @@ describe 'DataSift' do
     before do
       VCR.use_cassette('pylon/before_successful_pylon_stop') do
         @filter = @datasift.pylon.compile(@data.valid_csdl)[:data][:hash]
-        @datasift.pylon.start(hash: @filter, name: 'ruby-lib-test')
+        @datasift.pylon.start(@filter, 'ruby-lib-test')
       end
     end
 
@@ -218,7 +219,7 @@ describe 'DataSift' do
     before do
       VCR.use_cassette('pylon/before_conflicting_pylon_stop') do
         @filter = @datasift.pylon.compile(@data.valid_csdl)[:data][:hash]
-        @datasift.pylon.start(hash: @filter, name: 'ruby-lib-test')
+        @datasift.pylon.start(@filter, 'ruby-lib-test')
       end
     end
 
@@ -255,7 +256,7 @@ describe 'DataSift' do
     before do
       VCR.use_cassette('pylon/before_pylon_analyze') do
         @filter = @datasift.pylon.compile(@data.valid_csdl)[:data][:hash]
-        @datasift.pylon.start(hash: @filter, name: 'ruby-lib-test')
+        @datasift.pylon.start(@filter, 'ruby-lib-test')
       end
     end
 
@@ -274,7 +275,7 @@ describe 'DataSift' do
             :target => "fb.author.country"
           }
         }
-        response = @datasift.pylon.analyze(hash: @filter, parameters: params)
+        response = @datasift.pylon.analyze(@filter, params)
         assert_equal STATUS.valid, response[:http][:status]
       end
     end
@@ -288,7 +289,7 @@ describe 'DataSift' do
             :span => 12
           }
         }
-        response = @datasift.pylon.analyze(hash: @filter, parameters: params)
+        response = @datasift.pylon.analyze(@filter, params)
         assert_equal STATUS.valid, response[:http][:status]
       end
     end
@@ -306,7 +307,7 @@ describe 'DataSift' do
         }
         assert_raises BadRequestError do
           @datasift.pylon.analyze(
-            hash: @data.invalid_filter, parameters: params
+            @data.invalid_filter, params
           )
         end
       end
@@ -326,7 +327,7 @@ describe 'DataSift' do
     before do
       VCR.use_cassette('pylon/before_pylon_tags') do
         @vedofilter = @datasift.pylon.compile(@data.vedo_csdl)[:data][:hash]
-        @datasift.pylon.start(hash: @vedofilter, name: 'vedo-ruby-lib-test')
+        @datasift.pylon.start(@vedofilter, 'vedo-ruby-lib-test')
       end
     end
 
