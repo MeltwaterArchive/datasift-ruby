@@ -217,7 +217,12 @@ def run_pylon_command(c, command, p)
   when 'get'
     c.pylon.get(opt(p['id'], ''))
   when 'list'
-    c.pylon.list
+    c.pylon.list(
+      opt(p['page'], 0),
+      opt(p['per_page'], 20),
+      opt(p['order_by'], :created_at),
+      opt(p['order_dir'], :desc)
+    )
   when 'analyze'
     params = nil
     if p['parameters']

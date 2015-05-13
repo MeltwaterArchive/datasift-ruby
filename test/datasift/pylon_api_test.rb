@@ -113,6 +113,13 @@ describe 'DataSift' do
       end
     end
 
+    it 'can_get_paginated_list' do
+      VCR.use_cassette('pylon/pylon_get_paginated_list') do
+        response = @datasift.pylon.list(1, 1)
+        assert_equal STATUS.valid, response[:http][:status]
+      end
+    end
+
     it 'can_get_by_filter' do
       VCR.use_cassette('pylon/pylon_get_by_filter') do
         response = @datasift.pylon.get @filter
