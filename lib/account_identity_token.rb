@@ -10,7 +10,7 @@ module DataSift
     #   example; 'facebook'
     # @param token [String] The token provided by the PYLON data provider
     # @return [Object] API reponse object
-    def create(identity_id: '', service: '', token: '')
+    def create(identity_id = '', service = '', token = '')
       fail BadParametersError, 'identity_id is required' if identity_id.empty?
       fail BadParametersError, 'service is required' if service.empty?
       fail BadParametersError, 'token is required' if token.empty?
@@ -28,7 +28,7 @@ module DataSift
     #   for
     # @param service [String] Name of the service you are retreiving tokens for
     # @return [Object] API reponse object
-    def get(identity_id: '', service: '')
+    def get(identity_id = '', service = '')
       fail BadParametersError, 'identity_id is required' if identity_id.empty?
       fail BadParametersError, 'service is required' if service.empty?
 
@@ -42,7 +42,7 @@ module DataSift
     #   per page of results
     # @param page [Integer] (Optional) Which page of results to return
     # @return [Object] API reponse object
-    def list(identity_id: '', per_page: '', page: '')
+    def list(identity_id = '', per_page = '', page = '')
       params = { identity_id: identity_id }
       requires params
       params.merge!(per_page: per_page) unless per_page.empty?
@@ -59,7 +59,7 @@ module DataSift
     #   example; 'facebook'
     # @param token [String] The token provided by the PYLON data provider
     # @return [Object] API reponse object
-    def update(identity_id: '', service: '', token: '')
+    def update(identity_id = '', service = '', token = '')
       fail BadParametersError, 'identity_id is required' if identity_id.empty?
       fail BadParametersError, 'service is required' if service.empty?
       fail BadParametersError, 'token is required' if token.empty?
@@ -76,7 +76,7 @@ module DataSift
     #   delete a token
     # @param service [String] Service from which you wish to delete a token
     # @return [Object] API response object
-    def delete(identity_id: '', service: '')
+    def delete(identity_id = '', service = '')
       fail BadParametersError, 'identity_id is required' if identity_id.empty?
       fail BadParametersError, 'service is required' if service.empty?
 

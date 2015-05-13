@@ -273,31 +273,31 @@ def run_account_token_command(c, command, p)
   case command
   when 'create'
     c.account_identity_token.create(
-      identity_id: opt(p['identity_id'], ''),
-      service: opt(p['service'], ''),
-      token: opt(p['token'], '')
+      opt(p['identity_id'], ''),
+      opt(p['service'], ''),
+      opt(p['token'], '')
     )
   when 'get'
     c.account_identity_token.get(
-      identity_id: opt(p['identity_id'], ''),
-      service: opt(p['service'], '')
+      opt(p['identity_id'], ''),
+      opt(p['service'], '')
     )
   when 'list'
     c.account_identity_token.list(
-      identity_id: opt(p['identity_id'], ''),
-      per_page: opt(p['per_page'], ''),
-      page: opt(p['page'], '')
+      opt(p['identity_id'], ''),
+      opt(p['per_page'], ''),
+      opt(p['page'], '')
     )
   when 'update'
     c.account_identity_token.update(
-      identity_id: opt(p['identity_id'], ''),
-      service: opt(p['service'], ''),
-      token: opt(p['token'], '')
+      opt(p['identity_id'], ''),
+      opt(p['service'], ''),
+      opt(p['token'], '')
     )
   when 'delete'
     c.account_identity_token.delete(
-      identity_id: opt(p['identity_id'], ''),
-      service: opt(p['service'], '')
+      opt(p['identity_id'], ''),
+      opt(p['service'], '')
     )
   else
     err 'Unknown command for the account/identity/token endpoint'
