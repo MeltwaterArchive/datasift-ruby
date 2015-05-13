@@ -311,31 +311,31 @@ def run_account_limit_command(c, command, p)
   case command
   when 'create'
     c.account_identity_limit.create(
-      identity_id: opt(p['identity_id'], ''),
-      service: opt(p['service'], ''),
-      total_allowance: opt(p['total_allowance'], nil)
+      opt(p['identity_id'], ''),
+      opt(p['service'], ''),
+      opt(p['total_allowance'], nil)
     )
   when 'get'
     c.account_identity_limit.get(
-      identity_id: opt(p['identity_id'], ''),
-      service: opt(p['service'], '')
+      opt(p['identity_id'], ''),
+      opt(p['service'], '')
     )
   when 'list'
     c.account_identity_limit.list(
-      service: opt(p['service'], ''),
-      per_page: opt(p['per_page'], ''),
-      page: opt(p['page'], '')
+      opt(p['service'], ''),
+      opt(p['per_page'], ''),
+      opt(p['page'], '')
     )
   when 'update'
     c.account_identity_limit.update(
-      identity_id: opt(p['identity_id'], ''),
-      service: opt(p['service'], ''),
-      total_allowance: opt(p['total_allowance'], nil)
+      opt(p['identity_id'], ''),
+      opt(p['service'], ''),
+      opt(p['total_allowance'], nil)
     )
   when 'delete'
     c.account_identity_limit.delete(
-      identity_id: opt(p['identity_id'], ''),
-      service: opt(p['service'], '')
+      opt(p['identity_id'], ''),
+      opt(p['service'], '')
     )
   else
     err 'Unknown command for the account/identity/limit endpoint'
