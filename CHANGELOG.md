@@ -1,51 +1,21 @@
 CHANGELOG
 ================================
-## v.3.2.0.rc2 (2015-04-27)
+## v.3.2.0 (2015-05-13)
 ### Added
+* Support for [PYLON API](http://dev.datasift.com/pylon/docs/api-endpoints)
+* Support for [Account Identities API](http://dev.datasift.com/pylon/docs/api/account-api)
 * Adds opts for Managed Sources create/update endpoints to allow passing of 'validate' param
-* Adds PYLON /account/* endpoints, examples, tests and CLI support
-* Adds support for HTTP 410 GONE error
-
-### Changed
-* Refactoring for Rubocop and dropping Ruby 1.x support
-
-### Removed
-* Dropped support for Ruby 1.9. Only Ruby 2.0+ will be supported from this release
-
-
-## v.3.2.0.rc1 (2015-03-10)
-### Added
+* Support for HTTP 409 Conflict error
+* Support for HTTP 410 Gone error
 * Comprehensive Yard Docs for all classes and methods
 
 ### Changed
-* Test suite; we now use [VCR](https://github.com/vcr/vcr) across the board
-* Renamed /analysis endpoints to /pylon due to API change
+* Some refactoring for Rubocop across the library
+* We now use [VCR](https://github.com/vcr/vcr) in our test suite for all outbound API calls
 * Updated some methods due to deprecations in the Ruby language
 
-## v.3.2.0-pre.3 (2015-02-18)
-### Added
-* Full test suite for /analysis/* API endpoints
-* Support for 409 ConflictError
-* Added Pylon endpoints to CLI interface
-
-### Changed
-* Use VCR with MiniTest to mock API calls in test suite
-* 'hash' is now a required parameter for /analysis/tags endpoint
-
-v.3.2.0-pre.2
---------------------------
-####New Feature
-* Added /analysis/tags API endpoint + example
-
-####Fixes
-* include_parameters_in_reply param was removed from /analysis/analyze call
-* Use PUT requests for /analysis/start and /end calls
-
-v.3.2.0-pre.1
---------------------------
-####New Feature
-* Added Pylon /analysis/* API endpoints
-* Added basic Pylon API examples
+### Deprecated
+* Support for Ruby 1.x is being dropped in the next major release; 4.0.0
 
 v.3.1.5 (2015-04-16)
 --------------------
