@@ -23,9 +23,9 @@ describe 'DataSift' do
     it 'can_create_identity' do
       VCR.use_cassette('account/identity/create_success') do
         response = @datasift.account_identity.create(
-          label: @data.label,
-          status: 'active',
-          master: false
+          @data.label,
+          'active',
+          false
         )
         assert_equal STATUS.created, response[:http][:status]
         @identity_id = response[:data][:id]
@@ -47,7 +47,7 @@ describe 'DataSift' do
   describe 'successful :GET' do
     before do
       VCR.use_cassette('account/identity/before_get_success') do
-        identity = @datasift.account_identity.create(label: @data.label)
+        identity = @datasift.account_identity.create(@data.label)
         @identity_id = identity[:data][:id]
       end
     end
@@ -75,9 +75,9 @@ describe 'DataSift' do
     it 'can_get_list_of_identities_with_params' do
       VCR.use_cassette('account/identity/list_success_with_params') do
         response = @datasift.account_identity.list(
-          label: @data.label,
-          per_page: 1,
-          page: 1
+          @data.label,
+          1,
+          1
         )
         assert_equal STATUS.valid, response[:http][:status]
       end
@@ -98,7 +98,7 @@ describe 'DataSift' do
   describe 'successful :PUT' do
     before do
       VCR.use_cassette('account/identity/before_successful_update') do
-        identity = @datasift.account_identity.create(label: @data.label)
+        identity = @datasift.account_identity.create(@data.label)
         @identity_id = identity[:data][:id]
       end
     end
@@ -112,10 +112,10 @@ describe 'DataSift' do
     it 'can_update_identity' do
       VCR.use_cassette('account/identity/update_success') do
         response = @datasift.account_identity.update(
-          id: @identity_id,
-          label: "#{@data.label}-update",
-          status: 'active',
-          master: false
+          @identity_id,
+          "#{@data.label}-update",
+          'active',
+          false
         )
         assert_equal STATUS.valid, response[:http][:status]
       end
@@ -126,10 +126,10 @@ describe 'DataSift' do
     it 'cannot_update_with_unknown_id' do
       VCR.use_cassette('account/identity/update_id_404') do
         response = @datasift.account_identity.update(
-          id: "fake_id",
-          label: "#{@data.label}-update",
-          status: 'active',
-          master: false
+          "fake_id",
+          "#{@data.label}-update",
+          'active',
+          false
         )
       end
       assert_equal STATUS.not_found, response[:http][:status]
@@ -138,9 +138,9 @@ describe 'DataSift' do
     it 'cannot_update_without_id' do
       assert_raises ArgumentError do
         @datasift.account_identity.update(
-          label: "#{@data.label}-update",
-          status: 'active',
-          master: false
+          "#{@data.label}-update",
+          'active',
+          false
         )
       end
     end
@@ -152,7 +152,7 @@ describe 'DataSift' do
   describe 'successful :DELETE' do
     before do
       VCR.use_cassette('account/identity/before_successful_delete') do
-        identity = @datasift.account_identity.create(label: @data.label)
+        identity = @datasift.account_identity.create(@data.label)
         @identity_id = identity[:data][:id]
       end
     end

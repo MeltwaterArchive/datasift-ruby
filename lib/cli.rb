@@ -242,24 +242,24 @@ def run_account_identity_command(c, command, p)
   case command
   when 'create'
     c.account_identity.create(
-      label: opt(p['label'], ''),
-      status: opt(p['status'], ''),
-      master: opt(p['master'], '')
+      opt(p['label'], ''),
+      opt(p['status'], ''),
+      opt(p['master'], '')
     )
   when 'get'
     c.account_identity.get(opt(p['id'], ''))
   when 'list'
     c.account_identity.list(
-      label: opt(p['label'], ''),
-      per_page: opt(p['per_page'], ''),
-      page: opt(p['page'], '')
+      opt(p['label'], ''),
+      opt(p['per_page'], ''),
+      opt(p['page'], '')
     )
   when 'update'
     c.account_identity.update(
-      id: opt(p['id'], ''),
-      label: opt(p['label'], ''),
-      status: opt(p['status'], ''),
-      master: opt(p['master'], '')
+      opt(p['id'], ''),
+      opt(p['label'], ''),
+      opt(p['status'], ''),
+      opt(p['master'], '')
     )
   when 'delete'
     c.account_identity.delete(opt(p['id'], ''))

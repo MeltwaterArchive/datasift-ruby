@@ -10,7 +10,7 @@ module DataSift
     # @param master [Boolean] (Optional, Default: false) Whether this is the
     #   master Identity for your account
     # @return [Object] API reponse object
-    def create(label: '', status: 'active', master: '')
+    def create(label = '', status = 'active', master = '')
       fail ArgumentError, 'label is missing' if label.empty?
 
       params = { label: label }
@@ -36,7 +36,7 @@ module DataSift
     #   returned per page of results
     # @param page [Integer] (Optional) Which page of results to return
     # @return [Object] API reponse object
-    def list(label: '', per_page: '', page: '')
+    def list(label = '', per_page = '', page = '')
       params = {}
       params.merge!(label: label) unless label.empty?
       params.merge!(per_page: per_page) unless per_page.empty?
@@ -52,7 +52,7 @@ module DataSift
     # @param status [String] (Optional) New status for this Identity
     # @param master [Boolean] (Optional) Whether this Identity should be master
     # @return [Object] API reponse object
-    def update(id: '', label: '', status: '', master: '')
+    def update(id = '', label = '', status = '', master = '')
       fail ArgumentError, 'id is missing' if id.empty?
 
       params = {}
