@@ -10,12 +10,12 @@ module DataSift
     # @param master [Boolean] (Optional, Default: false) Whether this is the
     #   master Identity for your account
     # @return [Object] API reponse object
-    def create(label = '', status = 'active', master = false)
+    def create(label = '', status = 'active', master = '')
       fail ArgumentError, 'label is missing' if label.empty?
 
       params = { label: label }
       params.merge!(status: status) unless status.empty?
-      params.merge!(master: master) if [true, false].include?(master)
+      params.merge!(master: master) if [TrueClass, FalseClass].include?(master.class)
 
       DataSift.request(:POST, 'account/identity', @config, params)
     end
@@ -57,7 +57,7 @@ module DataSift
       params = {}
       params.merge!(label: label) unless label.empty?
       params.merge!(status: status) unless status.empty?
-      params.merge!(master: master) unless master.empty?
+      params.merge!(master: master) if [TrueClass, FalseClass].include?(master.class)
 
       DataSift.request(:PUT, "account/identity/#{id}", @config, params)
     end
