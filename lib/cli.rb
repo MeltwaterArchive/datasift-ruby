@@ -184,14 +184,14 @@ def run_push_command(c, command, p)
     if p['id']
       c.push.get_by_subscription(p['id'], opt(p['page'], 0), opt(p['per_page'], 20), opt(p['order_by'], :request_time))
     elsif p['hash']
-      c.push.get_by_hash(p['hash'], opt(p['page'], 0), opt(p['per_page'], 20), opt(p['order_by'], :request_time), opt(p['order_dir'], :desc))
+      c.push.get_by_hash(p['hash'], opt(p['page'], 0), opt(p['per_page'], 20), opt(p['order_by'], :request_time), opt(p['order_dir'], :desc), opt(p['include_finished'], 0), opt(p['all'], false))
     elsif p['historics_id']
-      c.push.get_by_historics_id(p['historics_id'], opt(p['page'], 0), opt(p['per_page'], 20), opt(p['order_by'], :request_time), opt(p['order_dir'], :desc))
+      c.push.get_by_historics_id(p['historics_id'], opt(p['page'], 0), opt(p['per_page'], 20), opt(p['order_by'], :request_time), opt(p['order_dir'], :desc), opt(p['include_finished'], 0), opt(p['all'], false))
     else
-      c.push.get(opt(p['page'], 0), opt(p['per_page'], 20), opt(p['order_by'], :request_time), opt(p['order_dir'], :desc))
+      c.push.get(opt(p['page'], 0), opt(p['per_page'], 20), opt(p['order_by'], :request_time), opt(p['order_dir'], :desc), opt(p['include_finished'], 0), opt(p['all'], false))
     end
   when 'pull'
-    c.push.pull(p['id'], opt(p['size'], 20971520), opt(p['cursor'], ''))
+    c.push.pull(p['id'], opt(p['size'], 20_971_520), opt(p['cursor'], ''))
   else
     err 'Unknown command for the core endpoint'
     exit

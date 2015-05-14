@@ -125,7 +125,11 @@ module DataSift
     # @param per_page [Integer] How many logs to return per page
     # @param order_by [String, Symbol] Which field to sort results by
     # @param order_dir [String, Symbol] Order results in ascending or descending
-    def get_by_hash(hash, page = 1, per_page = 20, order_by = :created_at, order_dir = :desc)
+    # @param include_finished [Integer] Include Push subscriptions in a
+    #   'finished' state in your results
+    # @param all [Boolean] Also include Push subscriptions created via the web
+    #   UI in your results
+    def get_by_hash(hash, page = 1, per_page = 20, order_by = :created_at, order_dir = :desc, include_finished = 0, all = false)
       params = {
         :hash => hash
       }
@@ -134,7 +138,9 @@ module DataSift
         :page => page,
         :per_page => per_page,
         :order_by => order_by,
-        :order_dir => order_dir
+        :order_dir => order_dir,
+        :include_finished => include_finished,
+        :all => all
       )
       DataSift.request(:GET, 'push/get', @config, params)
     end
@@ -147,13 +153,19 @@ module DataSift
     # @param per_page [Integer] How many logs to return per page
     # @param order_by [String, Symbol] Which field to sort results by
     # @param order_dir [String, Symbol] Order results in ascending or descending
-    def get_by_historics_id(historics_id, page = 1, per_page = 20, order_by = :created_at, order_dir = :desc)
+    # @param include_finished [Integer] Include Push subscriptions in a
+    #   'finished' state in your results
+    # @param all [Boolean] Also include Push subscriptions created via the web
+    #   UI in your results
+    def get_by_historics_id(historics_id, page = 1, per_page = 20, order_by = :created_at, order_dir = :desc, include_finished = 0, all = false)
       params = {
         :historics_id => historics_id,
         :page => page,
         :per_page => per_page,
         :order_by => order_by,
-        :order_dir => order_dir
+        :order_dir => order_dir,
+        :include_finished => include_finished,
+        :all => all
       }
       DataSift.request(:GET, 'push/get', @config, params)
     end
@@ -164,12 +176,18 @@ module DataSift
     # @param per_page [Integer] How many logs to return per page
     # @param order_by [String, Symbol] Which field to sort results by
     # @param order_dir [String, Symbol] Order results in ascending or descending
-    def get(page = 1, per_page = 20, order_by = :created_at, order_dir = :desc)
+    # @param include_finished [Integer] Include Push subscriptions in a
+    #   'finished' state in your results
+    # @param all [Boolean] Also include Push subscriptions created via the web
+    #   UI in your results
+    def get(page = 1, per_page = 20, order_by = :created_at, order_dir = :desc, include_finished = 0, all = false)
       params = {
         :page => page,
         :per_page => per_page,
         :order_by => order_by,
-        :order_dir => order_dir
+        :order_dir => order_dir,
+        :include_finished => include_finished,
+        :all => all
       }
       DataSift.request(:GET, 'push/get', @config, params)
     end
