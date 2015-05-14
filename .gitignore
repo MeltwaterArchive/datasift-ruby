@@ -2,7 +2,6 @@
 sftp-config.json
 *.iml
 .idea/
-rdoc/
 .bundle/
 Gemfile.lock
 coverage/
@@ -10,3 +9,4 @@ TODO
 pkg/*
 *.gem
 .yardoc
+doc/

@@ -13,6 +13,17 @@ describe 'DataSift' do
   end
 
   ##
+  # Client
+  #
+  describe 'client' do
+    it 'raises_InvalidConfigError_without_auth_credentials' do
+      assert_raises InvalidConfigError do
+        DataSift::Client.new({})
+      end
+    end
+  end
+
+  ##
   # /validate
   #
   describe '#validate' do
@@ -115,6 +126,41 @@ describe 'DataSift' do
         assert_raises BadRequestError do
           @datasift.dpu @data.invalid_hash
         end
+      end
+    end
+
+    it 'requires_at_least_one_param' do
+      assert_raises ArgumentError do
+        @datasift.dpu
+      end
+    end
+  end
+
+  describe '#dpu for Historics' do
+    before do
+      VCR.use_cassette('core/before_historic_dpu') do
+        @hash = @datasift.compile(@data.valid_csdl)[:data][:hash]
+        @historic = @datasift.historics.prepare(
+          @hash,
+          Time.now.to_i - 10800,
+          Time.now.to_i - 7200,
+          'Ruby test suite',
+          'tumblr',
+          10
+        )
+      end
+    end
+
+    after do
+      VCR.use_cassette('core/after_historic_dpu') do
+        @datasift.historics.delete @historic[:data][:id]
+      end
+    end
+
+    it 'can_get_dpu_cost_for_historic' do
+      VCR.use_cassette('core/historic_dpu') do
+        response = @datasift.dpu('', @historic[:data][:id])
+        assert_equal STATUS.valid, response[:http][:status]
       end
     end
   end
