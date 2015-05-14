@@ -22,8 +22,11 @@ class HistoricsApi < DataSiftExample
 
       id = historics[:data][:id]
 
+      puts "\nCheck the DPU cost of this Historics query"
+      puts "#{@datasift.dpu('', id)[:data][:dpu]} DPUs"
+
       puts "\nCreating push subscription for historics"
-      puts create_push(id, true)
+      subscription = create_push(id, true)
 
       puts "\nStarting historics #{id}"
       puts @datasift.historics.start id
@@ -48,6 +51,9 @@ class HistoricsApi < DataSiftExample
 
       puts "\nDeleting historics"
       puts @datasift.historics.delete id
+
+      puts "\nCleanup and delete Push subscription"
+      puts @datasift.push.delete subscription[:data][:id]
     rescue DataSiftError => dse
       puts dse.message
     end

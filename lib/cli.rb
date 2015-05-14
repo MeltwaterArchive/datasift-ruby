@@ -94,7 +94,7 @@ def run_core_command(c, command, p)
   when 'balance'
     c.balance
   when 'dpu'
-    c.dpu(p['hash'])
+    c.dpu(opt(p['hash'], ''), opt(p['historics_id'], ''))
   else
     err 'Unknown command for the core endpoint'
     exit

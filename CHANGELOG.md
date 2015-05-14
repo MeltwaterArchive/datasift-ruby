@@ -1,5 +1,14 @@
 CHANGELOG
 ================================
+## v.3.2.0.rc3 (2015-05-06)
+### Added
+* Support for historics_id param for /dpu endpoint
+* Minor additional tests for core code
+
+### Fixed
+* Fix open ended dependencies when building gem
+
+## v.3.2.0.rc2 (2015-04-27)
 ## v.3.2.0 (2015-05-13)
 ### Added
 * Support for [PYLON API](http://dev.datasift.com/pylon/docs/api-endpoints)
