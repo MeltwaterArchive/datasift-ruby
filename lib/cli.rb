@@ -249,7 +249,7 @@ def run_account_identity_command(c, command, p)
     c.account_identity.create(
       opt(p['label'], ''),
       opt(p['status'], ''),
-      opt(p['master'], '')
+      to_bool(opt(p['master'], ''))
     )
   when 'get'
     c.account_identity.get(opt(p['id'], ''))
@@ -264,7 +264,7 @@ def run_account_identity_command(c, command, p)
       opt(p['id'], ''),
       opt(p['label'], ''),
       opt(p['status'], ''),
-      opt(p['master'], '')
+      to_bool(opt(p['master'], ''))
     )
   when 'delete'
     c.account_identity.delete(opt(p['id'], ''))
@@ -343,6 +343,15 @@ def run_account_limit_command(c, command, p)
   else
     err 'Unknown command for the account/identity/limit endpoint'
     exit
+  end
+end
+
+def to_bool(str)
+  if ['true', 'false', '1', '0'].include?(str.to_s.downcase)
+    bool = true if ['true', '1'].include?str.to_s.downcase
+    bool = false if ['false', '0'].include?str.to_s.downcase
+
+    return bool
   end
 end
 
