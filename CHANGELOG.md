@@ -1,5 +1,21 @@
 CHANGELOG
 ================================
+## v.3.2.0 (2015-05-13)
+### Added
+* Support for [PYLON API](http://dev.datasift.com/pylon/docs/api-endpoints)
+* Support for [Account Identities API](http://dev.datasift.com/pylon/docs/api/account-api)
+* Adds opts for Managed Sources create/update endpoints to allow passing of 'validate' param
+* Support for HTTP 409 Conflict error
+* Support for HTTP 410 Gone error
+* Comprehensive Yard Docs for all classes and methods
+
+### Changed
+* Some refactoring for Rubocop across the library
+* We now use [VCR](https://github.com/vcr/vcr) in our test suite for all outbound API calls
+* Updated some methods due to deprecations in the Ruby language
+
+### Deprecated
+* Support for Ruby 1.x is being dropped in the next major release; 4.0.0
 
 v.3.1.5 (2015-04-16)
 --------------------

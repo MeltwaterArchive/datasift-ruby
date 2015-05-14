@@ -16,8 +16,11 @@ require dir + '/managed_source'
 require dir + '/managed_source_auth'
 require dir + '/managed_source_resource'
 require dir + '/live_stream'
-require dir + '/dynamic_list'
-require dir + '/dynamic_list_replace'
+require dir + '/pylon'
+require dir + '/account'
+require dir + '/account_identity'
+require dir + '/account_identity_token'
+require dir + '/account_identity_limit'
 #
 require 'rbconfig'
 
@@ -39,13 +42,13 @@ module DataSift
     end
   end
 
+  # All API requests must be made by a Client object
   class Client < ApiResource
-    #+config+:: A hash containing configuration options for the client for e.g.
-    # {username => 'some_user', api_key => 'ds_api_key', 'enable_ssl' => true, open_timeout => 30, timeout => 30}
+    # @param config [Hash] A hash containing configuration options for the
+    #   client for e.g. { username: 'some_user', api_key: 'ds_api_key',
+    #   enable_ssl: true, open_timeout: 30, timeout: 30 }
     def initialize(config)
-      if config.nil?
-        raise InvalidConfigError.new('Config cannot be nil')
-      end
+      raise InvalidConfigError.new('Config cannot be nil') if config.nil?
       if !config.key?(:username) || !config.key?(:api_key)
         raise InvalidConfigError.new('A valid username and API key are required. ' +
           'You can check your API credentials at https://datasift.com/settings')
@@ -58,71 +61,87 @@ module DataSift
       @managed_source_resource  = DataSift::ManagedSourceResource.new(config)
       @managed_source_auth      = DataSift::ManagedSourceAuth.new(config)
       @historics_preview        = DataSift::HistoricsPreview.new(config)
-      @dynamic_list             = DataSift::DynamicList.new(config)
-      @dynamic_list_replace     = DataSift::DynamicListReplace.new(config)
+      @pylon                    = DataSift::Pylon.new(config)
+      @account                  = DataSift::Account.new(config)
+      @account_identity         = DataSift::AccountIdentity.new(config)
+      @account_identity_token   = DataSift::AccountIdentityToken.new(config)
+      @account_identity_limit   = DataSift::AccountIdentityLimit.new(config)
     end
 
     attr_reader :historics, :push, :managed_source, :managed_source_resource,
-      :managed_source_auth, :historics_preview, :dynamic_list,
-      :dynamic_list_replace
+      :managed_source_auth, :historics_preview, :pylon, :account,
+      :account_identity, :account_identity_token, :account_identity_limit
 
-    ##
     # Checks if the syntax of the given CSDL is valid
-    #+boolResponse+ If true then a boolean is returned indicating whether the
-    #   CSDL is valid, otherwise the response object itself is returned
+    #
+    # @param boolResponse [Boolean] If true a boolean is returned indicating
+    # whether the CSDL is valid, otherwise the full response object is returned
     def valid?(csdl, boolResponse = true)
       requires({ :csdl => csdl })
       res = DataSift.request(:POST, 'validate', @config, :csdl => csdl )
       boolResponse ? res[:http][:status] == 200 : res
     end
 
-    ##
     # Compile CSDL code.
-    #+csdl+:: The CSDL you wish to compile
+    #
+    # @param csdl [String] The CSDL you wish to compile
+    # @return [Object] API reponse object
     def compile(csdl)
       requires({ :csdl => csdl })
       DataSift.request(:POST, 'compile', @config, :csdl => csdl )
     end
 
-    ##
-    # Check the number of objects processed and delivered in a given period
-    #+period+:: Can be "day", "hour", or "current", defaults to hour
+    # Check the number of objects processed for a given time period
+    #
+    # @param period [String] Can be "day", "hour", or "current"
+    # @return [Object] API reponse object
     def usage(period = :hour)
       DataSift.request(:POST, 'usage', @config, :period => period )
     end
 
-    ##
     # Calculate the DPU cost of consuming a stream.
+    #
+    # @param hash [String] CSDL hash for which you wish to find the DPU cost
+    # @return [Object] API reponse object
     def dpu(hash)
       requires ({ :hash => hash })
       DataSift.request(:POST, 'dpu', @config, :hash => hash )
     end
 
-    ##
     # Determine your credit balance or DPU balance.
+    #
+    # @return [Object] API reponse object
     def balance
       DataSift.request(:POST, 'balance', @config)
     end
 
-    ##
     # Collect a batch of interactions from a push queue
-    def pull(id, size = 20_971_520, cursor = '')
-      DataSift.request(:POST, 'pull', @config, { :id => id, :size => size, :cursor => cursor })
+    #
+    # @param id [String] ID of the Push subscription you wish to pull data from
+    # @param size [Integer] Max size (bytes) of the data you can receive from a
+    #   /pull API call
+    # @param cursor [String] A pointer into the Push queue associated with your
+    #   last delivery
+    # @return [Object] API reponse object
+    def pull(id, size = 20_971_520, cursor='')
+      DataSift.request(:POST, 'pull', @config, { :id => id, :size => size,
+        :cursor => cursor })
     end
   end
 
   # Generates and executes an HTTP request from the params provided
-  # Params:
-  # +method+:: the HTTP method to use e.g. GET,POST
-  # +path+:: the DataSift path relevant to the base URL of the API
-  # +username+:: API username
-  # +api_key+:: DS api key
-  # +params+:: A hash representing the params to use in the request, if its a
-  #   GET, HEAD or DELETE request these params are used as query string params,
-  #   if not they become form url encoded params
-  # +headers+:: any headers to pass to the API, Authorization header is
-  #   automatically included
-  def self.request(method, path, config, params = {}, headers = {}, timeout = 30, open_timeout = 30, new_line_separated = false)
+  #
+  # @param method [Symbol] The HTTP method to use
+  # @param path [String] The DataSift path relevant to the base URL of the API
+  # @param config [Object] The config object containing user details
+  # @param params [Hash] A hash representing the params to use in the request
+  # @param headers [Hash] Any headers to pass to the API
+  # @param timeout [Integer] Set the request timeout
+  # @param open_timeout [Integer] Set the request open timeout
+  # @param new_line_separated [Boolean] Will response be newline separated?
+  def self.request(method, path, config, params = {}, headers = {},
+    timeout = 30, open_timeout = 30, new_line_separated = false)
+
     validate config
     options = {}
     url = build_url(path, config)
@@ -206,6 +225,8 @@ module DataSift
     end
   end
 
+  private
+
   def self.build_url(path, config)
     'http' + (config[:enable_ssl] ? 's' : '') + '://' + config[:api_host] +
       '/' + config[:api_version] + '/' + path
@@ -228,14 +249,18 @@ module DataSift
 
   def self.handle_api_error(code, body)
     case code
-    when 400
-      raise BadRequestError.new(code, body)
-    when 401
-      raise AuthError.new(code, body)
-    when 404
-      raise ApiResourceNotFoundError.new(code, body)
-    else
-      raise DataSiftError.new(code, body)
+      when 400
+        raise BadRequestError.new(code, body)
+      when 401
+        raise AuthError.new(code, body)
+      when 404
+        raise ApiResourceNotFoundError.new(code, body)
+      when 409
+        raise ConflictError.new(code, body)
+      when 410
+        raise GoneError.new(code, body)
+      else
+        raise DataSiftError.new(code, body)
     end
   end
 

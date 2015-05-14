@@ -16,7 +16,7 @@ class CoreApiEg < DataSiftExample
       # http://dev.datasift.com/docs/rest-api/compile
       puts "\nCompile the CSDL and get a stream hash"
       stream = @datasift.compile csdl
-      puts stream[:data][:hash]
+      puts stream[:data]
 
       # http://dev.datasift.com/docs/rest-api/dpu
       puts "\nGet the DPU cost of the compiled CSDL"
@@ -33,7 +33,6 @@ class CoreApiEg < DataSiftExample
       usage = @datasift.usage
       puts usage[:data]
 
-        #rescue DataSiftError
     rescue DataSiftError => dse
       puts dse.message
       # Then match specific one to take action - All errors thrown by the client extend DataSiftError
