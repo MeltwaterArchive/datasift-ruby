@@ -30,6 +30,9 @@ class AnalysisApi < DataSiftExample
       puts "\nGet details of our running recording"
       puts @datasift.pylon.get(hash)[:data].to_json
 
+      puts "\nYou can also list running recordings"
+      puts @datasift.pylon.list[:data].to_json
+
       puts "\nFrequency distribution analysis on fb.author.country"
       params = {
         analysis_type: 'freqDist',

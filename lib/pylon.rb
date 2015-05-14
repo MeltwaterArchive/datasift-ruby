@@ -40,10 +40,18 @@ module DataSift
 
     # Perform /pylon/get API call to list all PYLON Recordings
     #
+    # @param page [Integer] Which page of recordings to retreive
+    # @param per_page [Integer] How many recordings to return per page
+    # @param order_by [String, Symbol] Which field to sort results by
+    # @param order_dir [String, Symbol] Order results in ascending or descending
+    #   order
     # @return [Object] API reponse object
-    def list
-      fail BadParametersError, 'hash is required' if hash.empty?
-      params = { hash: hash }
+    def list(page: nil, per_page: nil, order_by: '', order_dir: '')
+      params = {}
+      params.merge!(page: page) unless page.nil?
+      params.merge!(per_page: per_page) unless per_page.nil?
+      params.merge!(order_by: order_by) unless order_by.empty?
+      params.merge!(order_dir: order_dir) unless order_dir.empty?
 
       DataSift.request(:GET, 'pylon/get', @config, params)
     end
