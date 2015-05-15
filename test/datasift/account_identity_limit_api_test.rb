@@ -10,7 +10,6 @@ describe 'DataSift' do
     @data.label = 'minitest'
     @data.token = '4b7c38dbd1b4b74046a1cc0e3081e38e'
     @data.service = 'facebook'
-    @data.expires_at = 1577836800
     @data.total_allowance = 100_000
   end
 
@@ -20,7 +19,7 @@ describe 'DataSift' do
   describe 'successful :POST' do
     before do
       VCR.use_cassette('account/identity/limit/before_create_success') do
-        identity = @datasift.account_identity.create(label: @data.label)
+        identity = @datasift.account_identity.create(@data.label)
         @identity_id = identity[:data][:id]
       end
     end
@@ -34,9 +33,9 @@ describe 'DataSift' do
     it 'can_create_identity_token' do
       VCR.use_cassette('account/identity/limit/create_success') do
         response = @datasift.account_identity_limit.create(
-          identity_id: @identity_id,
-          service: @data.service,
-          total_allowance: @data.total_allowance
+          @identity_id,
+          @data.service,
+          @data.total_allowance
         )
         assert_equal STATUS.created, response[:http][:status]
       end
@@ -51,9 +50,9 @@ describe 'DataSift' do
     it 'cannot_set_limit_for_invalid_service' do
       VCR.use_cassette('account/identity/limit/create_invalid_service') do
         response = @datasift.account_identity_limit.create(
-          identity_id: @identity_id,
-          service: 'INVALID_SERVICE',
-          total_allowance: @data.total_allowance
+          @identity_id,
+          'INVALID_SERVICE',
+          @data.total_allowance
         )
         assert_equal STATUS.bad_request, response[:http][:status]
       end
@@ -66,12 +65,12 @@ describe 'DataSift' do
   describe 'successful :GET' do
     before do
       VCR.use_cassette('account/identity/limit/before_get_success') do
-        identity = @datasift.account_identity.create(label: @data.label)
+        identity = @datasift.account_identity.create(@data.label)
         @identity_id = identity[:data][:id]
         limit = @datasift.account_identity_limit.create(
-          identity_id: @identity_id,
-          service: @data.service,
-          total_allowance: @data.total_allowance
+          @identity_id,
+          @data.service,
+          @data.total_allowance
         )
       end
     end
@@ -85,8 +84,8 @@ describe 'DataSift' do
     it 'can_get_limit_by_identity_id_and_service' do
       VCR.use_cassette('account/identity/limit/get_success') do
         response = @datasift.account_identity_limit.get(
-          identity_id: @identity_id,
-          service: @data.service
+          @identity_id,
+          @data.service
         )
         assert_equal STATUS.valid, response[:http][:status]
       end
@@ -95,7 +94,7 @@ describe 'DataSift' do
     it 'can_get_list_of_limits_for_service' do
       VCR.use_cassette('account/identity/limit/list_success') do
         response = @datasift.account_identity_limit.list(
-          service: @data.service
+          @data.service
         )
         assert_equal STATUS.valid, response[:http][:status]
       end
@@ -104,9 +103,9 @@ describe 'DataSift' do
     it 'can_get_list_of_limits_with_params' do
       VCR.use_cassette('account/identity/limit/list_success_with_params') do
         response = @datasift.account_identity_limit.list(
-          service: @data.service,
-          per_page: 1,
-          page: 1
+          @data.service,
+          1,
+          1
         )
         assert_equal STATUS.valid, response[:http][:status]
       end
@@ -123,8 +122,8 @@ describe 'DataSift' do
     it 'cannot_get_limit_for_invalid_identity' do
       VCR.use_cassette('account/identity/limit/get_failure_invalid_identity') do
         response = @datasift.account_identity_limit.get(
-          identity_id: 'INVALID_IDENTITY_ID',
-          service: @data.service
+          'INVALID_IDENTITY_ID',
+          @data.service
         )
       end
     end
@@ -136,12 +135,12 @@ describe 'DataSift' do
   describe 'successful :PUT' do
     before do
       VCR.use_cassette('account/identity/limit/before_successful_update') do
-        identity = @datasift.account_identity.create(label: @data.label)
+        identity = @datasift.account_identity.create(@data.label)
         @identity_id = identity[:data][:id]
         response = @datasift.account_identity_limit.create(
-          identity_id: @identity_id,
-          service: @data.service,
-          total_allowance: @data.total_allowance
+          @identity_id,
+          @data.service,
+          @data.total_allowance
         )
       end
     end
@@ -155,9 +154,9 @@ describe 'DataSift' do
     it 'can_update_limit' do
       VCR.use_cassette('account/identity/limit/update_success') do
         response = @datasift.account_identity_limit.update(
-          identity_id: @identity_id,
-          service: @data.service,
-          total_allowance: @data.total_allowance * 2
+          @identity_id,
+          @data.service,
+          @data.total_allowance * 2
         )
       end
       assert_equal STATUS.valid, response[:http][:status]
@@ -168,9 +167,9 @@ describe 'DataSift' do
     it 'cannot_update_with_unknown_identity_id' do
       VCR.use_cassette('account/identity/limit/update_id_404') do
         response = @datasift.account_identity_limit.update(
-          identity_id: @identity_id,
-          service: @data.service,
-          total_allowance: @data.total_allowance * 2
+          @identity_id,
+          @data.service,
+          @data.total_allowance * 2
         )
       end
       assert_equal STATUS.not_found, response[:http][:status]
@@ -179,8 +178,8 @@ describe 'DataSift' do
     it 'cannot_update_without_identity_id' do
       assert_raises ArgumentError do
         @datasift.account_identity_token.update(
-          service: @data.service,
-          total_allowance: @data.total_allowance * 2
+          @data.service,
+          @data.total_allowance * 2
         )
       end
     end
@@ -192,7 +191,7 @@ describe 'DataSift' do
   describe ':DELETE' do
     before do
       VCR.use_cassette('account/identity/limit/before_delete') do
-        identity = @datasift.account_identity.create(label: @data.label)
+        identity = @datasift.account_identity.create(@data.label)
         @identity_id = identity[:data][:id]
       end
     end
@@ -206,8 +205,8 @@ describe 'DataSift' do
     it 'can_delete_identity' do
       VCR.use_cassette('account/identity/limit/delete_success') do
         response = @datasift.account_identity_limit.delete(
-          identity_id: @identity_id,
-          service: @data.service
+          @identity_id,
+          @data.service
         )
       end
       assert_equal STATUS.no_content, response[:http][:status]
@@ -216,7 +215,8 @@ describe 'DataSift' do
     it 'cannot_delete_without_id' do
       assert_raises ArgumentError do
         @datasift.account_identity_limit.delete(
-          service: @data.service
+          '',
+          @data.service
         )
       end
     end
@@ -224,7 +224,8 @@ describe 'DataSift' do
     it 'cannot_delete_without_service' do
       assert_raises ArgumentError do
         @datasift.account_identity_limit.delete(
-          identity_id: @identity_id
+          @identity_id,
+          ''
         )
       end
     end

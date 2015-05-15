@@ -184,14 +184,14 @@ def run_push_command(c, command, p)
     if p['id']
       c.push.get_by_subscription(p['id'], opt(p['page'], 0), opt(p['per_page'], 20), opt(p['order_by'], :request_time))
     elsif p['hash']
-      c.push.get_by_hash(p['hash'], opt(p['page'], 0), opt(p['per_page'], 20), opt(p['order_by'], :request_time), opt(p['order_dir'], :desc))
+      c.push.get_by_hash(p['hash'], opt(p['page'], 0), opt(p['per_page'], 20), opt(p['order_by'], :request_time), opt(p['order_dir'], :desc), opt(p['include_finished'], 0), opt(p['all'], false))
     elsif p['historics_id']
-      c.push.get_by_historics_id(p['historics_id'], opt(p['page'], 0), opt(p['per_page'], 20), opt(p['order_by'], :request_time), opt(p['order_dir'], :desc))
+      c.push.get_by_historics_id(p['historics_id'], opt(p['page'], 0), opt(p['per_page'], 20), opt(p['order_by'], :request_time), opt(p['order_dir'], :desc), opt(p['include_finished'], 0), opt(p['all'], false))
     else
-      c.push.get(opt(p['page'], 0), opt(p['per_page'], 20), opt(p['order_by'], :request_time), opt(p['order_dir'], :desc))
+      c.push.get(opt(p['page'], 0), opt(p['per_page'], 20), opt(p['order_by'], :request_time), opt(p['order_dir'], :desc), opt(p['include_finished'], 0), opt(p['all'], false))
     end
   when 'pull'
-    c.push.pull(p['id'], opt(p['size'], 20971520), opt(p['cursor'], ''))
+    c.push.pull(p['id'], opt(p['size'], 20_971_520), opt(p['cursor'], ''))
   else
     err 'Unknown command for the core endpoint'
     exit
@@ -202,33 +202,38 @@ def run_pylon_command(c, command, p)
   case command
   when 'validate'
     c.pylon.valid?(
-      csdl: opt(p['csdl'], ''),
-      boolResponse: opt(p['boolResponse'], true)
+      opt(p['csdl'], ''),
+      opt(p['boolResponse'], true)
     )
   when 'compile'
     c.pylon.compile(opt(p['csdl'], ''))
   when 'start'
     c.pylon.start(
-      hash: opt(p['hash'], ''),
-      name: opt(p['name'], '')
+      opt(p['hash'], ''),
+      opt(p['name'], '')
     )
   when 'stop'
     c.pylon.stop(opt(p['hash'], ''))
   when 'get'
     c.pylon.get(opt(p['id'], ''))
   when 'list'
-    c.pylon.list
+    c.pylon.list(
+      opt(p['page'], 0),
+      opt(p['per_page'], 20),
+      opt(p['order_by'], :created_at),
+      opt(p['order_dir'], :desc)
+    )
   when 'analyze'
     params = nil
     if p['parameters']
       params = MultiJson.load(p['parameters'])
     end
     c.pylon.analyze(
-      hash: opt(p['hash'], ''),
-      parameters: params,
-      fitler: opt(p['filter'], ''),
-      start_time: opt(p['start'], ''),
-      end_time: opt(p['end'], '')
+      opt(p['hash'], ''),
+      params,
+      opt(p['filter'], ''),
+      opt(p['start'], ''),
+      opt(p['end'], '')
     )
   when 'tags'
     c.pylon.tags(p['hash'])
@@ -242,24 +247,24 @@ def run_account_identity_command(c, command, p)
   case command
   when 'create'
     c.account_identity.create(
-      label: opt(p['label'], ''),
-      status: opt(p['status'], ''),
-      master: opt(p['master'], '')
+      opt(p['label'], ''),
+      opt(p['status'], ''),
+      to_bool(opt(p['master'], ''))
     )
   when 'get'
     c.account_identity.get(opt(p['id'], ''))
   when 'list'
     c.account_identity.list(
-      label: opt(p['label'], ''),
-      per_page: opt(p['per_page'], ''),
-      page: opt(p['page'], '')
+      opt(p['label'], ''),
+      opt(p['per_page'], ''),
+      opt(p['page'], '')
     )
   when 'update'
     c.account_identity.update(
-      id: opt(p['id'], ''),
-      label: opt(p['label'], ''),
-      status: opt(p['status'], ''),
-      master: opt(p['master'], '')
+      opt(p['id'], ''),
+      opt(p['label'], ''),
+      opt(p['status'], ''),
+      to_bool(opt(p['master'], ''))
     )
   when 'delete'
     c.account_identity.delete(opt(p['id'], ''))
@@ -273,33 +278,31 @@ def run_account_token_command(c, command, p)
   case command
   when 'create'
     c.account_identity_token.create(
-      identity_id: opt(p['identity_id'], ''),
-      service: opt(p['service'], ''),
-      token: opt(p['token'], ''),
-      expires_at: opt(p['expires_at'], '')
+      opt(p['identity_id'], ''),
+      opt(p['service'], ''),
+      opt(p['token'], '')
     )
   when 'get'
     c.account_identity_token.get(
-      identity_id: opt(p['identity_id'], ''),
-      service: opt(p['service'], '')
+      opt(p['identity_id'], ''),
+      opt(p['service'], '')
     )
   when 'list'
     c.account_identity_token.list(
-      identity_id: opt(p['identity_id'], ''),
-      per_page: opt(p['per_page'], ''),
-      page: opt(p['page'], '')
+      opt(p['identity_id'], ''),
+      opt(p['per_page'], ''),
+      opt(p['page'], '')
     )
   when 'update'
     c.account_identity_token.update(
-      identity_id: opt(p['identity_id'], ''),
-      service: opt(p['service'], ''),
-      token: opt(p['token'], ''),
-      expires_at: opt(p['expires_at'], nil)
+      opt(p['identity_id'], ''),
+      opt(p['service'], ''),
+      opt(p['token'], '')
     )
   when 'delete'
     c.account_identity_token.delete(
-      identity_id: opt(p['identity_id'], ''),
-      service: opt(p['service'], '')
+      opt(p['identity_id'], ''),
+      opt(p['service'], '')
     )
   else
     err 'Unknown command for the account/identity/token endpoint'
@@ -311,35 +314,44 @@ def run_account_limit_command(c, command, p)
   case command
   when 'create'
     c.account_identity_limit.create(
-      identity_id: opt(p['identity_id'], ''),
-      service: opt(p['service'], ''),
-      total_allowance: opt(p['total_allowance'], nil)
+      opt(p['identity_id'], ''),
+      opt(p['service'], ''),
+      opt(p['total_allowance'], nil)
     )
   when 'get'
     c.account_identity_limit.get(
-      identity_id: opt(p['identity_id'], ''),
-      service: opt(p['service'], '')
+      opt(p['identity_id'], ''),
+      opt(p['service'], '')
     )
   when 'list'
     c.account_identity_limit.list(
-      service: opt(p['service'], ''),
-      per_page: opt(p['per_page'], ''),
-      page: opt(p['page'], '')
+      opt(p['service'], ''),
+      opt(p['per_page'], ''),
+      opt(p['page'], '')
     )
   when 'update'
     c.account_identity_limit.update(
-      identity_id: opt(p['identity_id'], ''),
-      service: opt(p['service'], ''),
-      total_allowance: opt(p['total_allowance'], nil)
+      opt(p['identity_id'], ''),
+      opt(p['service'], ''),
+      opt(p['total_allowance'], nil)
     )
   when 'delete'
     c.account_identity_limit.delete(
-      identity_id: opt(p['identity_id'], ''),
-      service: opt(p['service'], '')
+      opt(p['identity_id'], ''),
+      opt(p['service'], '')
     )
   else
     err 'Unknown command for the account/identity/limit endpoint'
     exit
+  end
+end
+
+def to_bool(str)
+  if ['true', 'false', '1', '0'].include?(str.to_s.downcase)
+    bool = true if ['true', '1'].include?str.to_s.downcase
+    bool = false if ['false', '0'].include?str.to_s.downcase
+
+    return bool
   end
 end
 

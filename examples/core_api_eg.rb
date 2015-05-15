@@ -33,7 +33,6 @@ class CoreApiEg < DataSiftExample
       usage = @datasift.usage
       puts usage[:data]
 
-        #rescue DataSiftError
     rescue DataSiftError => dse
       puts dse.message
       # Then match specific one to take action - All errors thrown by the client extend DataSiftError

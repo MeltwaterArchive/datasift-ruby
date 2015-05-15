@@ -10,7 +10,7 @@ module DataSift
     #   'facebook'
     # @param total_allowance [Integer] The limit for this Identity
     # @return [Object] API reponse object
-    def create(identity_id: '', service: '', total_allowance: nil)
+    def create(identity_id = '', service = '', total_allowance = nil)
       fail BadParametersError, 'identity_id is required' if identity_id.empty?
       fail BadParametersError, 'service is required' if service.empty?
       fail BadParametersError, 'total_allowance can not be "nil"' if total_allowance.nil?
@@ -28,7 +28,7 @@ module DataSift
     #   for
     # @param service [String] Name of the service you are retreiving limits for
     # @return [Object] API reponse object
-    def get(identity_id: '', service: '')
+    def get(identity_id = '', service = '')
       fail BadParametersError, 'identity_id is required' if identity_id.empty?
       fail BadParametersError, 'service is required' if service.empty?
 
@@ -42,7 +42,7 @@ module DataSift
     #   be returned per page of results
     # @param page [Integer] (Optional) Which page of results to return
     # @return [Object] API reponse object
-    def list(service: '', per_page: '', page: '')
+    def list(service = '', per_page = '', page = '')
       fail BadParametersError, 'service is required' if service.empty?
 
       params = {}
@@ -60,7 +60,7 @@ module DataSift
     #   'facebook'
     # @param total_allowance [Integer] The new limit for this Identity
     # @return [Object] API reponse object
-    def update(identity_id: '', service: '', total_allowance: nil)
+    def update(identity_id = '', service = '', total_allowance = nil)
       fail BadParametersError, 'identity_id is required' if identity_id.empty?
       fail BadParametersError, 'service is required' if service.empty?
       fail BadParametersError, 'total_allowance can not be "nil"' if total_allowance.nil?
@@ -75,7 +75,7 @@ module DataSift
     #   remove the Limit
     # @param service [String] Service from which you wish to remove the Limit
     # @return [Object] API response object
-    def delete(identity_id: '', service: '')
+    def delete(identity_id = '', service = '')
       fail BadParametersError, 'identity_id is required' if identity_id.empty?
       fail BadParametersError, 'service is required' if service.empty?
 

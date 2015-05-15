@@ -7,10 +7,31 @@ class AnalysisApi < DataSiftExample
 
   def run_analysis
     begin
-      csdl = 'return { fb.content contains "the" }'
+      puts "Create a new identity to make PYLON API calls"
+      identity = @datasift.account_identity.create(
+        "JASON_#{Time.now.to_i}",
+        "active",
+        false
+      )
+      identity_id = identity[:data][:id]
+      puts identity[:data].to_json
+
+      puts "\nCreate a Token for our Identity"
+      token = @datasift.account_identity_token.create(
+        identity_id,
+        'facebook',
+        'YOUR_TOKEN'
+      )
+      puts token[:data].to_json
+
+      puts "\nNow make PYLON API calls using the Identity's API key"
+      @config.merge!(api_key: identity[:data][:api_key])
+      @datasift = DataSift::Client.new(@config)
+
+      csdl = 'return { fb.content contains "data" }'
 
       puts "Check this CSDL is valid: #{csdl}"
-      puts "Valid? #{@datasift.pylon.valid?(csdl: csdl)}"
+      puts "Valid? #{@datasift.pylon.valid?(csdl)}"
 
       puts "\nCompile my CSDL"
       compiled = @datasift.pylon.compile csdl
@@ -19,8 +40,8 @@ class AnalysisApi < DataSiftExample
 
       puts "\nStart recording filter with hash #{hash}"
       filter = @datasift.pylon.start(
-        hash: hash,
-        name: 'Facebook Pylon Test Filter'
+        hash,
+        'Facebook Pylon Test Filter'
       )
       puts filter[:data].to_json
 
@@ -42,8 +63,8 @@ class AnalysisApi < DataSiftExample
         }
       }
       puts @datasift.pylon.analyze(
-        hash: hash,
-        parameters: params
+        hash,
+        params
       )[:data].to_json
 
       puts "\nFrequency distribution analysis on fb.author.age with filter"
@@ -56,9 +77,9 @@ class AnalysisApi < DataSiftExample
       }
       filter = 'fb.content contains "starbucks"'
       puts @datasift.pylon.analyze(
-        hash: hash,
-        parameters: params,
-        filter: filter
+        hash,
+        params,
+        filter
       )[:data].to_json
 
       puts "\nTime series analysis"
@@ -73,11 +94,11 @@ class AnalysisApi < DataSiftExample
       start_time = Time.now.to_i - (60 * 60 * 12) # 7 days ago
       end_time = Time.now.to_i
       puts @datasift.pylon.analyze(
-        hash: hash,
-        parameters: params,
-        filter: filter,
-        start_time: start_time,
-        end_time: end_time
+        hash,
+        params,
+        filter,
+        start_time,
+        end_time
       )[:data].to_json
 
       puts "\nTags analysis"
@@ -87,7 +108,7 @@ class AnalysisApi < DataSiftExample
       puts @datasift.pylon.stop(hash)[:data].to_json
 
       rescue DataSiftError => dse
-        puts dse.message
+        puts dse.to_s
     end
   end
 end

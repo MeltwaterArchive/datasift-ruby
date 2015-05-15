@@ -8,7 +8,7 @@ module DataSift
     # @param boolResponse [Boolean] True if you want a boolean response.
     #   False if you want the full response object
     # @return [Boolean, Object] Dependent on value of boolResponse
-    def valid?(csdl: '', boolResponse: true)
+    def valid?(csdl = '', boolResponse = true)
       fail BadParametersError, 'csdl is required' if csdl.empty?
       params = { csdl: csdl }
 
@@ -46,7 +46,7 @@ module DataSift
     # @param order_dir [String, Symbol] Order results in ascending or descending
     #   order
     # @return [Object] API reponse object
-    def list(page: nil, per_page: nil, order_by: '', order_dir: '')
+    def list(page = nil, per_page = nil, order_by = '', order_dir = '')
       params = {}
       params.merge!(page: page) unless page.nil?
       params.merge!(per_page: per_page) unless per_page.nil?
@@ -62,7 +62,7 @@ module DataSift
     # @param name [String] Give your recording a name. Required when starting a
     #   new recording
     # @return [Object] API reponse object
-    def start(hash: '', name: '')
+    def start(hash = '', name = '')
       fail BadParametersError, 'hash is required' if hash.empty?
       params = { hash: hash }
       params.merge!(name: name) unless name.empty?
@@ -93,7 +93,7 @@ module DataSift
     # @param start_time [Integer] Optional start timestamp for filtering by date
     # @param end_time [Integer] Optional end timestamp for filtering by date
     # @return [Object] API reponse object
-    def analyze(hash: '', parameters: '', filter: '', start_time: nil, end_time: nil)
+    def analyze(hash = '', parameters = '', filter = '', start_time = nil, end_time = nil)
       fail BadParametersError, 'hash is required' if hash.empty?
       fail BadParametersError, 'parameters is required' if parameters.empty?
       params = {

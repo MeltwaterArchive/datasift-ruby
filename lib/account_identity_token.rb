@@ -9,18 +9,14 @@ module DataSift
     # @param service [String] The service this token will be used to access. For
     #   example; 'facebook'
     # @param token [String] The token provided by the PYLON data provider
-    # @param expires_at [Timestamp] (Optional, Default: nil) The time at which
-    #   this token will expire
     # @return [Object] API reponse object
-    def create(identity_id: '', service: '', token: '', expires_at: nil)
+    def create(identity_id = '', service = '', token = '')
       fail BadParametersError, 'identity_id is required' if identity_id.empty?
       fail BadParametersError, 'service is required' if service.empty?
       fail BadParametersError, 'token is required' if token.empty?
-      fail BadParametersError, 'expires_at is required' if expires_at.nil?
       params = {
         service: service,
-        token: token,
-        expires_at: expires_at
+        token: token
       }
 
       DataSift.request(:POST, "account/identity/#{identity_id}/token", @config, params)
@@ -32,7 +28,7 @@ module DataSift
     #   for
     # @param service [String] Name of the service you are retreiving tokens for
     # @return [Object] API reponse object
-    def get(identity_id: '', service: '')
+    def get(identity_id = '', service = '')
       fail BadParametersError, 'identity_id is required' if identity_id.empty?
       fail BadParametersError, 'service is required' if service.empty?
 
@@ -46,7 +42,7 @@ module DataSift
     #   per page of results
     # @param page [Integer] (Optional) Which page of results to return
     # @return [Object] API reponse object
-    def list(identity_id: '', per_page: '', page: '')
+    def list(identity_id = '', per_page = '', page = '')
       params = { identity_id: identity_id }
       requires params
       params.merge!(per_page: per_page) unless per_page.empty?
@@ -62,17 +58,13 @@ module DataSift
     # @param service [String] The service this token will be used to access. For
     #   example; 'facebook'
     # @param token [String] The token provided by the PYLON data provider
-    # @param expires_at [Timestamp] (Optional, Default: nil) The time at which
-    #   this token will expire
     # @return [Object] API reponse object
-    def update(identity_id: '', service: '', token: '', expires_at: nil)
+    def update(identity_id = '', service = '', token = '')
       fail BadParametersError, 'identity_id is required' if identity_id.empty?
       fail BadParametersError, 'service is required' if service.empty?
       fail BadParametersError, 'token is required' if token.empty?
-      fail BadParametersError, 'expires_at is required' if expires_at.nil?
       params = {
-        token: token,
-        expires_at: expires_at
+        token: token
       }
 
       DataSift.request(:PUT, "account/identity/#{identity_id}/token/#{service}", @config, params)
@@ -84,7 +76,7 @@ module DataSift
     #   delete a token
     # @param service [String] Service from which you wish to delete a token
     # @return [Object] API response object
-    def delete(identity_id: '', service: '')
+    def delete(identity_id = '', service = '')
       fail BadParametersError, 'identity_id is required' if identity_id.empty?
       fail BadParametersError, 'service is required' if service.empty?
 
