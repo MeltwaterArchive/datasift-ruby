@@ -11,6 +11,7 @@ CHANGELOG
 * Due to API v1.1 change, we've added support for ```include_finished``` and ```all``` parameters when making calls to the ```/push/get``` API endpoint
 * Due to the API v1.1 change, a ```delivery_count``` field has been added to the main object, and individual chunks in the response from ```/historics/get``` calls
 * Due to the API v1.1 change, an ```interaction_count``` field has been added to the respomse from ```/push/get``` API calls
+* The ```dpu()``` method now also accepts the ```historics_id``` parameter, which allows you to get the DPU cost of an Historics query
 
 ### Changed
 * Some refactoring for the Rubocop across the library

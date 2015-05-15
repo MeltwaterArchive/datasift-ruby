@@ -99,13 +99,23 @@ module DataSift
       DataSift.request(:POST, 'usage', @config, :period => period )
     end
 
-    # Calculate the DPU cost of consuming a stream.
+    # Calculate the DPU cost of running a filter, or Historics query
     #
     # @param hash [String] CSDL hash for which you wish to find the DPU cost
+    # @param historics_id [String] ID of Historics query for which you wish to
+    #   find the DPU cost
     # @return [Object] API reponse object
-    def dpu(hash)
-      requires ({ :hash => hash })
-      DataSift.request(:POST, 'dpu', @config, :hash => hash )
+    def dpu(hash = '', historics_id = '')
+      fail ArgumentError, 'Must pass a filter hash or Historics ID' if
+        hash.empty? && historics_id.empty?
+      fail ArgumentError, 'Must only pass hash or Historics ID; not both' unless
+        hash.empty? || historics_id.empty?
+
+      params = {}
+      params.merge!(hash: hash) unless hash.empty?
+      params.merge!(historics_id: historics_id) unless historics_id.empty?
+
+      DataSift.request(:POST, 'dpu', @config, params)
     end
 
     # Determine your credit balance or DPU balance.
