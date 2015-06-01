@@ -66,11 +66,12 @@ module DataSift
       @account_identity         = DataSift::AccountIdentity.new(config)
       @account_identity_token   = DataSift::AccountIdentityToken.new(config)
       @account_identity_limit   = DataSift::AccountIdentityLimit.new(config)
+      @ingestion_service        = DataSift::IngestionService.new(config)
     end
 
     attr_reader :historics, :push, :managed_source, :managed_source_resource,
       :managed_source_auth, :historics_preview, :pylon, :account,
-      :account_identity, :account_identity_token, :account_identity_limit
+      :account_identity, :account_identity_token, :account_identity_limit, :ingestion_service
 
     # Checks if the syntax of the given CSDL is valid
     #
@@ -167,7 +168,7 @@ module DataSift
       url += "#{URI.parse(url).query ? '&' : '?'}#{encode params}"
       payload = nil
     else
-      payload = MultiJson.dump(params)
+      payload = params.is_a?(String) ? params : MultiJson.dump(params)
       headers.update({ :content_type => 'application/json' })
     end
 
@@ -238,10 +239,14 @@ module DataSift
   private
 
   def self.build_url(path, config)
-    'http' + (config[:enable_ssl] ? 's' : '') + '://' + config[:api_host] +
-      '/' + config[:api_version] + '/' + path
+    url = 'http' + (config[:enable_ssl] ? 's' : '') + '://' + config[:api_host]
+    if config[:api_version].present?
+      url += '/' + config[:api_version] + '/' + path
+    else
+      url += '/' + path
+    end
   end
-
+  
   # Returns true if username or api key are not set
   def self.is_invalid?(config)
     !config.key?(:username) || !config.key?(:api_key)
