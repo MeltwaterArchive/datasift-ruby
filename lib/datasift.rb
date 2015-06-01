@@ -241,7 +241,7 @@ module DataSift
 
   def self.build_url(path, config)
     url = 'http' + (config[:enable_ssl] ? 's' : '') + '://' + config[:api_host]
-    if config[:api_version].present?
+    if !config[:api_version].nil?
       url += '/' + config[:api_version] + '/' + path
     else
       url += '/' + path
