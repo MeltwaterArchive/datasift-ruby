@@ -1,11 +1,11 @@
 # Custom error class for rescuing DataSift errors
 class DataSiftError < StandardError
-  attr_reader :status
-  attr_reader :body
+  attr_reader :status, :body, :response
 
-  def initialize(http_status = nil, http_body = nil)
+  def initialize(http_status = nil, http_body = nil, response_on_error = nil)
     @status = http_status
     @body   = http_body
+    @response = response_on_error
   end
 
   def message

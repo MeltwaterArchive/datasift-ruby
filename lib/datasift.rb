@@ -21,6 +21,7 @@ require dir + '/account'
 require dir + '/account_identity'
 require dir + '/account_identity_token'
 require dir + '/account_identity_limit'
+require dir + '/ingestion_service'
 #
 require 'rbconfig'
 
@@ -66,11 +67,12 @@ module DataSift
       @account_identity         = DataSift::AccountIdentity.new(config)
       @account_identity_token   = DataSift::AccountIdentityToken.new(config)
       @account_identity_limit   = DataSift::AccountIdentityLimit.new(config)
+      @ingestion_service        = DataSift::IngestionService.new(config)
     end
 
     attr_reader :historics, :push, :managed_source, :managed_source_resource,
       :managed_source_auth, :historics_preview, :pylon, :account,
-      :account_identity, :account_identity_token, :account_identity_limit
+      :account_identity, :account_identity_token, :account_identity_limit, :ingestion_service
 
     # Checks if the syntax of the given CSDL is valid
     #
@@ -167,7 +169,7 @@ module DataSift
       url += "#{URI.parse(url).query ? '&' : '?'}#{encode params}"
       payload = nil
     else
-      payload = MultiJson.dump(params)
+      payload = params.is_a?(String) ? params : MultiJson.dump(params)
       headers.update({ :content_type => 'application/json' })
     end
 
@@ -181,7 +183,8 @@ module DataSift
       :ssl_version  => OpenSSL::SSL::SSLContext::DEFAULT_PARAMS[:ssl_version],
       :verify_ssl   => OpenSSL::SSL::VERIFY_PEER
     )
-
+    
+    response = nil
     begin
       response = RestClient::Request.execute options
       if !response.nil? && response.length > 0
@@ -223,7 +226,19 @@ module DataSift
         body = e.http_body
         if code && body
           error = MultiJson.load(body)
-          handle_api_error(e.http_code, (error['error'] ? error['error'] : '') + " for URL #{url}")
+          response_on_error = {
+            :data => nil,
+            :datasift => {
+              :x_ratelimit_limit     => e.response.headers[:x_ratelimit_limit],
+              :x_ratelimit_remaining => e.response.headers[:x_ratelimit_remaining],
+              :x_ratelimit_cost      => e.response.headers[:x_ratelimit_cost]
+            },
+            :http => {
+              :status  => e.response.code,
+              :headers => e.response.headers
+            }
+          }
+          handle_api_error(e.http_code, (error['error'] ? error['error'] : '') + " for URL #{url}", response_on_error)
         else
           process_client_error(e)
         end
@@ -238,10 +253,14 @@ module DataSift
   private
 
   def self.build_url(path, config)
-    'http' + (config[:enable_ssl] ? 's' : '') + '://' + config[:api_host] +
-      '/' + config[:api_version] + '/' + path
+    url = 'http' + (config[:enable_ssl] ? 's' : '') + '://' + config[:api_host]
+    if !config[:api_version].nil?
+      url += '/' + config[:api_version] + '/' + path
+    else
+      url += '/' + path
+    end
   end
-
+  
   # Returns true if username or api key are not set
   def self.is_invalid?(config)
     !config.key?(:username) || !config.key?(:api_key)
@@ -257,20 +276,20 @@ module DataSift
     params.collect { |param, value| [param, CGI.escape(value.to_s)].join('=') }.join('&')
   end
 
-  def self.handle_api_error(code, body)
+  def self.handle_api_error(code, body, response)
     case code
       when 400
-        raise BadRequestError.new(code, body)
+        raise BadRequestError.new(code, body, response)
       when 401
-        raise AuthError.new(code, body)
+        raise AuthError.new(code, body, response)
       when 404
-        raise ApiResourceNotFoundError.new(code, body)
+        raise ApiResourceNotFoundError.new(code, body, response)
       when 409
-        raise ConflictError.new(code, body)
+        raise ConflictError.new(code, body, response)
       when 410
-        raise GoneError.new(code, body)
+        raise GoneError.new(code, body, response)
       else
-        raise DataSiftError.new(code, body)
+        raise DataSiftError.new(code, body, response)
     end
   end
 
