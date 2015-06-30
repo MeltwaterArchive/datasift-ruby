@@ -183,7 +183,8 @@ module DataSift
       :ssl_version  => OpenSSL::SSL::SSLContext::DEFAULT_PARAMS[:ssl_version],
       :verify_ssl   => OpenSSL::SSL::VERIFY_PEER
     )
-
+    
+    response = nil
     begin
       response = RestClient::Request.execute options
       if !response.nil? && response.length > 0
@@ -225,7 +226,19 @@ module DataSift
         body = e.http_body
         if code && body
           error = MultiJson.load(body)
-          handle_api_error(e.http_code, (error['error'] ? error['error'] : '') + " for URL #{url}")
+          response_on_error = {
+            :data => nil,
+            :datasift => {
+              :x_ratelimit_limit     => e.response.headers[:x_ratelimit_limit],
+              :x_ratelimit_remaining => e.response.headers[:x_ratelimit_remaining],
+              :x_ratelimit_cost      => e.response.headers[:x_ratelimit_cost]
+            },
+            :http => {
+              :status  => e.response.code,
+              :headers => e.response.headers
+            }
+          }
+          handle_api_error(e.http_code, (error['error'] ? error['error'] : '') + " for URL #{url}", response_on_error)
         else
           process_client_error(e)
         end
@@ -263,20 +276,20 @@ module DataSift
     params.collect { |param, value| [param, CGI.escape(value.to_s)].join('=') }.join('&')
   end
 
-  def self.handle_api_error(code, body)
+  def self.handle_api_error(code, body, response)
     case code
       when 400
-        raise BadRequestError.new(code, body)
+        raise BadRequestError.new(code, body, response)
       when 401
-        raise AuthError.new(code, body)
+        raise AuthError.new(code, body, response)
       when 404
-        raise ApiResourceNotFoundError.new(code, body)
+        raise ApiResourceNotFoundError.new(code, body, response)
       when 409
-        raise ConflictError.new(code, body)
+        raise ConflictError.new(code, body, response)
       when 410
-        raise GoneError.new(code, body)
+        raise GoneError.new(code, body, response)
       else
-        raise DataSiftError.new(code, body)
+        raise DataSiftError.new(code, body, response)
     end
   end
 
