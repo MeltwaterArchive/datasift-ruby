@@ -2,9 +2,11 @@ class DataSiftExample
   require 'datasift'
 
   def initialize
-    @username = 'DATASIFT_USERNAME'
-    @api_key = 'DATASIFT_API_KEY'
-    @config = { :username => @username, :api_key => @api_key }
+    @config = {
+      :username => 'DATASIFT_USERNAME',
+      :api_key => 'DATASIFT_API_KEY',
+      :api_version => 'v1.2'
+    }
     @params = {
       :output_type => 's3',
       :output_params => {
