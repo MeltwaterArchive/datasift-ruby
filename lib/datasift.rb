@@ -259,18 +259,20 @@ module DataSift
 
   def self.handle_api_error(code, body)
     case code
-      when 400
-        raise BadRequestError.new(code, body)
-      when 401
-        raise AuthError.new(code, body)
-      when 404
-        raise ApiResourceNotFoundError.new(code, body)
-      when 409
-        raise ConflictError.new(code, body)
-      when 410
-        raise GoneError.new(code, body)
-      else
-        raise DataSiftError.new(code, body)
+    when 400
+      raise BadRequestError.new(code, body)
+    when 401
+      raise AuthError.new(code, body)
+    when 404
+      raise ApiResourceNotFoundError.new(code, body)
+    when 409
+      raise ConflictError.new(code, body)
+    when 410
+      raise GoneError.new(code, body)
+    when 429
+      raise TooManyRequestsError.new(code, body)
+    else
+      raise DataSiftError.new(code, body)
     end
   end
 
