@@ -107,13 +107,20 @@ class AnalysisApi < DataSiftExample
         analysis_type: 'freqDist',
         parameters: {
           threshold: 2,
-          target: 'fb.author.gender'
+          target: 'fb.author.country'
         },
         child: {
           analysis_type: 'freqDist',
           parameters: {
-            threshold: 3,
-            target: 'fb.author.age'
+            threshold: 2,
+            target: 'fb.author.gender'
+          },
+          child: {
+            analysis_type: 'freqDist',
+            parameters: {
+              threshold: 4,
+              target: 'fb.author.age'
+            }
           }
         }
       }
