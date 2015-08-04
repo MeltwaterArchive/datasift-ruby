@@ -104,13 +104,13 @@ end
 def run_historics_command(c, command, p)
   case command
   when 'prepare'
-    c.historics.prepare(p['hash'], p['start'], p['end'], p['name'], opt(p['sources'], 'twitter'), opt(p['sample'], 10))
+    c.historics.prepare(p['hash'], p['start'], p['end'], p['name'], opt(p['sources'], 'tumblr'), opt(p['sample'], 10))
   when 'start'
     c.historics.start(p['id'])
   when 'stop'
     c.historics.stop(p['id'], opt(p['reason'], ''))
   when 'status'
-    c.historics.status(p['start'], p['end'], opt(p['sources'], 'twitter'))
+    c.historics.status(p['start'], p['end'], opt(p['sources'], 'tumblr'))
   when 'update'
     c.historics.update(p['id'], p['name'])
   when 'delete'
