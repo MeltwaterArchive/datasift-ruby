@@ -1,5 +1,17 @@
 CHANGELOG
 ================================
+## v.3.3.0 (2015-07-)
+### Added
+* Explicit support for 429 errors from the API
+* PYLON Nested query example
+
+### Changed
+* Default API version to 1.2
+* Improved Managed Sources examples (added dedicated Facebook Pages example)
+
+### Removed
+* References to the Twitter data source (being deprecated on August 13th, 2015)
+
 ## v.3.2.0 (2015-05-13)
 ### Added
 * Support for [PYLON API](http://dev.datasift.com/pylon/docs/api-endpoints)

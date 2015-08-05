@@ -108,7 +108,7 @@ ds -e push -c delete -p id ${push_id} | jq .
 #todo update push, pull
 
 echo "Attempting to create a Historics preview"
-preview=$(ds -e preview -c create -p start ${start} -p end ${end} -p hash ${hash} -p sources twitter \
+preview=$(ds -e preview -c create -p start ${start} -p end ${end} -p hash ${hash} -p sources tumblr \
 -p parameters 'interaction.author.link,targetVol,hour;interaction.type,freqDist,10')
 
 echo ${preview} | jq .
