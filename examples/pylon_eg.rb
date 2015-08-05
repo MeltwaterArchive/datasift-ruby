@@ -101,12 +101,13 @@ class AnalysisApi < DataSiftExample
         end_time
       )[:data].to_json
 
-      puts "\nFrequency Distribution with nested queries. Find the top three age groups for each gender"
+      puts "\nFrequency Distribution with nested queries. Find the top three " \
+        "age groups for each gender by country"
       filter = ''
       params = {
         analysis_type: 'freqDist',
         parameters: {
-          threshold: 2,
+          threshold: 4,
           target: 'fb.author.country'
         },
         child: {
@@ -118,7 +119,7 @@ class AnalysisApi < DataSiftExample
           child: {
             analysis_type: 'freqDist',
             parameters: {
-              threshold: 4,
+              threshold: 3,
               target: 'fb.author.age'
             }
           }
