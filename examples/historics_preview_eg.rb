@@ -13,7 +13,7 @@ class HistoricsPreviewApi < DataSiftExample
 
       puts "\nCreating a preview"
       # see http://dev.datasift.com/docs/rest-api/previewcreate for docs
-      sources    = 'facebook,twitter'
+      sources    = 'tumblr'
       parameters = 'interaction.author.link,targetVol,hour;interaction.type,freqDist,10'
       start      = Time.now.to_i - (3600 * 48) # 48hrs ago
       source     = @datasift.historics_preview.create(hash, sources, parameters, start)
