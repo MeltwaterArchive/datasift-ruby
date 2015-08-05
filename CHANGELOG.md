@@ -1,6 +1,6 @@
 CHANGELOG
 ================================
-## v.3.3.0 (2015-07-)
+## v.3.3.0 (2015-08-05)
 ### Added
 * Explicit support for 429 errors from the API
 * PYLON Nested query example
