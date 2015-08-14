@@ -11,6 +11,7 @@ module DataSift
       @config = config
       config[:api_host] = 'api.datasift.com' unless config.has_key?(:api_host)
       config[:stream_host] = 'websocket.datasift.com' unless config.has_key?(:stream_host)
+      config[:ingestion_host] = 'in.datasift.com' unless config.has_key?(:ingestion_host)
       config[:api_version] = 'v1.1' unless config.has_key?(:api_version)
       config[:enable_ssl] = true unless config.has_key?(:enable_ssl)
       # Only SSLv3, TLSv1 and TLSv1.2 currently supported, TLSv1.2 preferred

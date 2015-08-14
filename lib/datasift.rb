@@ -67,12 +67,12 @@ module DataSift
       @account_identity         = DataSift::AccountIdentity.new(config)
       @account_identity_token   = DataSift::AccountIdentityToken.new(config)
       @account_identity_limit   = DataSift::AccountIdentityLimit.new(config)
-      @ingestion_service        = DataSift::IngestionService.new(config)
+      @odp                      = DataSift::Odp.new(config)
     end
 
     attr_reader :historics, :push, :managed_source, :managed_source_resource,
       :managed_source_auth, :historics_preview, :pylon, :account,
-      :account_identity, :account_identity_token, :account_identity_limit, :ingestion_service
+      :account_identity, :account_identity_token, :account_identity_limit, :odp
 
     # Checks if the syntax of the given CSDL is valid
     #
@@ -183,7 +183,7 @@ module DataSift
       :ssl_version  => OpenSSL::SSL::SSLContext::DEFAULT_PARAMS[:ssl_version],
       :verify_ssl   => OpenSSL::SSL::VERIFY_PEER
     )
-    
+
     response = nil
     begin
       response = RestClient::Request.execute options
@@ -260,7 +260,7 @@ module DataSift
       url += '/' + path
     end
   end
-  
+
   # Returns true if username or api key are not set
   def self.is_invalid?(config)
     !config.key?(:username) || !config.key?(:api_key)
