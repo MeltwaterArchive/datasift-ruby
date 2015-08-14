@@ -52,6 +52,10 @@ end
 class PayloadTooLargeError < DataSiftError
 end
 
+# Standard error returned when receiving a 422 response from the API
+class UnprocessableEntityError < DataSiftError
+end
+
 # Standard error returned when receiving a 429 response from the API
 class TooManyRequestsError < DataSiftError
 end

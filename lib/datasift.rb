@@ -290,6 +290,8 @@ module DataSift
       raise GoneError.new(code, body, response)
     when 413
       raise PayloadTooLargeError.new(code, body, response)
+    when 422
+      raise UnprocessableEntityError.new(code, body, response)
     when 429
       raise TooManyRequestsError.new(code, body, response)
     else
