@@ -19,14 +19,14 @@ describe 'DataSift::Odp' do
     end
 
     after do
-      VCR.use_cassette('odp/batch/after/upload') do
+      VCR.use_cassette('odp/batch/after_upload') do
         @datasift.managed_source.delete @source[:data][:id]
       end
     end
 
     it 'can batch upload gnip twitter data' do
       VCR.use_cassette('odp/batch/upload_success') do
-        payload = File.open(File.expand_path(__FILE__, "./../../fixtures/data/fake_gnip_tweets.json", "rb").read
+        payload = File.open(File.expand_path('../../fixtures/data/fake_gnip_tweets.json', File.dirname(__FILE__))).read
         response = @datasift.odp.ingest(@source[:data][:id], payload)
         assert_equal STATUS.valid, response[:http][:status]
       end
@@ -36,7 +36,7 @@ describe 'DataSift::Odp' do
   describe '#ingest (failure)' do
     it 'handles 404 when Managed Source can not be found' do
       VCR.use_cassette('odp/batch/upload_failure_no_source') do
-        payload = File.open(File.expand_path(__FILE__, "./../../fixtures/data/fake_gnip_tweets.json", "rb").read
+        payload = File.open(File.expand_path('../../fixtures/data/fake_gnip_tweets.json', File.dirname(__FILE__))).read
         assert_raises ApiResourceNotFoundError do
           response = @datasift.odp.ingest('invalid_source_id', payload)
         end
