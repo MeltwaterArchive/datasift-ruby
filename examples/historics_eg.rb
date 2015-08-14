@@ -16,8 +16,11 @@ class HistoricsApi < DataSiftExample
       puts @datasift.historics.status(start, end_time)
 
       puts "\nPreparing"
-      #prepare a historics to start from three hours ago and run for 1 hour using twitter as a data source and using only a 10% sample
-      historics = @datasift.historics.prepare(hash, start, end_time, 'My ruby historics', 'twitter', 10)
+      # Prepare an Historics query to start from three hours ago and run for 1
+      #   hour using Tumblr as a data source and using only a 10% sample
+      historics = @datasift.historics.prepare(
+        hash, start, end_time, 'My ruby historics', 'tumblr', 10
+      )
       puts historics
 
       id = historics[:data][:id]

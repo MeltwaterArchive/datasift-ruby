@@ -7,7 +7,7 @@ describe 'DataSift::HistoricsPreview' do
     @data     = OpenStruct.new
 
     @data.valid_csdl = 'interaction.content contains "ruby"'
-    @data.sources = 'facebook,twitter'
+    @data.sources = 'tumblr'
     @data.parameters = 'language.tag,freqDist,5;interaction.id,targetVol,hour'
     @data.start = '1398898800'
     @data.end = '1398985200'
@@ -25,7 +25,9 @@ describe 'DataSift::HistoricsPreview' do
 
     it 'can_create_historics_preview' do
       VCR.use_cassette('preview/preview_create_success') do
-        response = @datasift.historics_preview.create(@hash, @data.sources, @data.parameters, @data.start, @data.end)
+        response = @datasift.historics_preview.create(
+          @hash, @data.sources, @data.parameters, @data.start, @data.end
+        )
         assert_equal STATUS.accepted, response[:http][:status]
       end
     end
@@ -38,7 +40,9 @@ describe 'DataSift::HistoricsPreview' do
     before do
       VCR.use_cassette('preview/before_preview_get') do
         @hash = @datasift.compile(@data.valid_csdl)[:data][:hash]
-        @preview = @datasift.historics_preview.create(@hash, @data.sources, @data.parameters, @data.start, @data.end)
+        @preview = @datasift.historics_preview.create(
+          @hash, @data.sources, @data.parameters, @data.start, @data.end
+        )
       end
     end
 

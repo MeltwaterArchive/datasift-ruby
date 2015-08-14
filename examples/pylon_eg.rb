@@ -9,7 +9,7 @@ class AnalysisApi < DataSiftExample
     begin
       puts "Create a new identity to make PYLON API calls"
       identity = @datasift.account_identity.create(
-        "JASON_#{Time.now.to_i}",
+        "RUBY_LIB_#{Time.now.to_i}",
         "active",
         false
       )
@@ -91,7 +91,41 @@ class AnalysisApi < DataSiftExample
         }
       }
       filter = ''
-      start_time = Time.now.to_i - (60 * 60 * 12) # 7 days ago
+      start_time = Time.now.to_i - (60 * 60 * 24 * 7) # 7 days ago
+      end_time = Time.now.to_i
+      puts @datasift.pylon.analyze(
+        hash,
+        params,
+        filter,
+        start_time,
+        end_time
+      )[:data].to_json
+
+      puts "\nFrequency Distribution with nested queries. Find the top three " \
+        "age groups for each gender by country"
+      filter = ''
+      params = {
+        analysis_type: 'freqDist',
+        parameters: {
+          threshold: 4,
+          target: 'fb.author.country'
+        },
+        child: {
+          analysis_type: 'freqDist',
+          parameters: {
+            threshold: 2,
+            target: 'fb.author.gender'
+          },
+          child: {
+            analysis_type: 'freqDist',
+            parameters: {
+              threshold: 3,
+              target: 'fb.author.age'
+            }
+          }
+        }
+      }
+      start_time = Time.now.to_i - (60 * 60 * 24 * 7)
       end_time = Time.now.to_i
       puts @datasift.pylon.analyze(
         hash,

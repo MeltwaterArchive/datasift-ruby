@@ -13,7 +13,7 @@ module DataSift
     #   query
     # @param sample [Integer] Sample size of your Historics query
     # @return [Object] API reponse object
-    def prepare(hash, start, end_time, name, sources = 'twitter', sample = 100)
+    def prepare(hash, start, end_time, name, sources = '', sample = 100)
       params = {
         :hash => hash,
         :start => start,
@@ -74,7 +74,7 @@ module DataSift
     #   Should be provided as a Unix timestamp
     # @param sources [String] Comma separated list of data sources you wish to
     #   query
-    def status(start, end_time, sources = 'twitter')
+    def status(start, end_time, sources = '')
       params = { :start => start, :end => end_time, :sources => sources }
       requires params
       DataSift.request(:GET, 'historics/status', @config, params)
