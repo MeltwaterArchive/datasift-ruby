@@ -47,6 +47,10 @@ class TwitterGnipBatchEg < DataSiftExample
           # some connection error
         when AuthError
         when BadRequestError
+        when PayloadTooLargeError
+          # You've probably hit your x_ingestion_data_ratelimit_limit rate limit; back off
+          #   and try again in a bit. Check your x_ingestion_request_ratelimit_reset header
+          #   to see when you can retry this request successfully
         else
           # do something else...
       end

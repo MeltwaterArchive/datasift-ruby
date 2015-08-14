@@ -48,6 +48,10 @@ end
 class GoneError < DataSiftError
 end
 
+# Standard error returned when receiving a 413 response from the API
+class PayloadTooLargeError < DataSiftError
+end
+
 # Standard error returned when receiving a 429 response from the API
 class TooManyRequestsError < DataSiftError
 end

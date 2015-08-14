@@ -288,6 +288,8 @@ module DataSift
       raise ConflictError.new(code, body, response)
     when 410
       raise GoneError.new(code, body, response)
+    when 413
+      raise PayloadTooLargeError.new(code, body, response)
     when 429
       raise TooManyRequestsError.new(code, body, response)
     else
