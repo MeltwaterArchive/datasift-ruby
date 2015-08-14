@@ -52,7 +52,7 @@ module DataSift
       raise InvalidConfigError.new('Config cannot be nil') if config.nil?
       if !config.key?(:username) || !config.key?(:api_key)
         raise InvalidConfigError.new('A valid username and API key are required. ' +
-          'You can check your API credentials at https://datasift.com/settings')
+          'You can check your API credentials at https://app.datasift.com/settings')
       end
 
       @config                   = config
@@ -329,7 +329,7 @@ module DataSift
       raise BadParametersError.new('on_close - 2 parameter required') unless on_close.arity == 2
     end
     begin
-      stream                    = WebsocketTD::Websocket.new('websocket.datasift.com', '/multi', "username=#{config[:username]}&api_key=#{config[:api_key]}")
+      stream                    = WebsocketTD::Websocket.new(config[:stream_host], '/multi', "username=#{config[:username]}&api_key=#{config[:api_key]}")
       connection                = LiveStream.new(config, stream)
       KNOWN_SOCKETS[connection] = Time.new.to_i
       stream.on_ping            = lambda { |data|
@@ -381,12 +381,12 @@ module DataSift
       if use_closed && !on_close.nil?
         on_close.call(connection, message)
       else
-        on_error.call(connection, ReconnectTimeoutError.new("Connecting to DataSift has failed, re-connection was attempted but
-                                         multiple consecutive failures where encountered. As a result no further
-                                         re-connection will be automatically attempted. Manually invoke connect() after
-                                          investigating the cause of the failure, be sure to observe DataSift's
-                                          re-connect policies available at http://dev.datasift.com/docs/streaming-api/reconnecting
-                                          - Error { #{message}}"))
+        on_error.call(connection, ReconnectTimeoutError.new("Connecting to DataSift has " \
+          "failed, re-connection was attempted but multiple consecutive failures where " \
+          "encountered. As a result no further re-connection will be automatically " \
+          "attempted. Manually invoke connect() after investigating the cause of the " \
+          "failure, be sure to observe DataSift's re-connect policies available at " \
+          "http://dev.datasift.com/docs/streaming-api/reconnecting - Error {#{message}}"))
       end
     else
       sleep config[:retry_timeout]
