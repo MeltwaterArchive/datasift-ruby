@@ -1,11 +1,11 @@
 # Custom error class for rescuing DataSift errors
 class DataSiftError < StandardError
-  attr_reader :status
-  attr_reader :body
+  attr_reader :status, :body, :response
 
-  def initialize(http_status = nil, http_body = nil)
+  def initialize(http_status = nil, http_body = nil, response_on_error = nil)
     @status = http_status
     @body   = http_body
+    @response = response_on_error
   end
 
   def message
@@ -46,6 +46,14 @@ end
 
 # Standard error returned when receiving a 410 response from the API
 class GoneError < DataSiftError
+end
+
+# Standard error returned when receiving a 413 response from the API
+class PayloadTooLargeError < DataSiftError
+end
+
+# Standard error returned when receiving a 422 response from the API
+class UnprocessableEntityError < DataSiftError
 end
 
 # Standard error returned when receiving a 429 response from the API
