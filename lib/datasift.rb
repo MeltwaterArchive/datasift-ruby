@@ -21,6 +21,7 @@ require dir + '/account'
 require dir + '/account_identity'
 require dir + '/account_identity_token'
 require dir + '/account_identity_limit'
+require dir + '/odp'
 #
 require 'rbconfig'
 
@@ -51,7 +52,7 @@ module DataSift
       raise InvalidConfigError.new('Config cannot be nil') if config.nil?
       if !config.key?(:username) || !config.key?(:api_key)
         raise InvalidConfigError.new('A valid username and API key are required. ' +
-          'You can check your API credentials at https://datasift.com/settings')
+          'You can check your API credentials at https://app.datasift.com/settings')
       end
 
       @config                   = config
@@ -66,11 +67,12 @@ module DataSift
       @account_identity         = DataSift::AccountIdentity.new(config)
       @account_identity_token   = DataSift::AccountIdentityToken.new(config)
       @account_identity_limit   = DataSift::AccountIdentityLimit.new(config)
+      @odp                      = DataSift::Odp.new(config)
     end
 
     attr_reader :historics, :push, :managed_source, :managed_source_resource,
       :managed_source_auth, :historics_preview, :pylon, :account,
-      :account_identity, :account_identity_token, :account_identity_limit
+      :account_identity, :account_identity_token, :account_identity_limit, :odp
 
     # Checks if the syntax of the given CSDL is valid
     #
@@ -167,7 +169,7 @@ module DataSift
       url += "#{URI.parse(url).query ? '&' : '?'}#{encode params}"
       payload = nil
     else
-      payload = MultiJson.dump(params)
+      payload = params.is_a?(String) ? params : MultiJson.dump(params)
       headers.update({ :content_type => 'application/json' })
     end
 
@@ -178,10 +180,11 @@ module DataSift
       :timeout      => timeout,
       :payload      => payload,
       :url          => url,
-      :ssl_version  => OpenSSL::SSL::SSLContext::DEFAULT_PARAMS[:ssl_version],
+      :ssl_version  => config[:ssl_version],
       :verify_ssl   => OpenSSL::SSL::VERIFY_PEER
     )
 
+    response = nil
     begin
       response = RestClient::Request.execute options
       if !response.nil? && response.length > 0
@@ -223,7 +226,19 @@ module DataSift
         body = e.http_body
         if code && body
           error = MultiJson.load(body)
-          handle_api_error(e.http_code, (error['error'] ? error['error'] : '') + " for URL #{url}")
+          response_on_error = {
+            :data => nil,
+            :datasift => {
+              :x_ratelimit_limit     => e.response.headers[:x_ratelimit_limit],
+              :x_ratelimit_remaining => e.response.headers[:x_ratelimit_remaining],
+              :x_ratelimit_cost      => e.response.headers[:x_ratelimit_cost]
+            },
+            :http => {
+              :status  => e.response.code,
+              :headers => e.response.headers
+            }
+          }
+          handle_api_error(e.http_code, (error['error'] ? error['error'] : '') + " for URL #{url}", response_on_error)
         else
           process_client_error(e)
         end
@@ -238,8 +253,12 @@ module DataSift
   private
 
   def self.build_url(path, config)
-    'http' + (config[:enable_ssl] ? 's' : '') + '://' + config[:api_host] +
-      '/' + config[:api_version] + '/' + path
+    url = 'http' + (config[:enable_ssl] ? 's' : '') + '://' + config[:api_host]
+    if !config[:api_version].nil?
+      url += '/' + config[:api_version] + '/' + path
+    else
+      url += '/' + path
+    end
   end
 
   # Returns true if username or api key are not set
@@ -257,22 +276,26 @@ module DataSift
     params.collect { |param, value| [param, CGI.escape(value.to_s)].join('=') }.join('&')
   end
 
-  def self.handle_api_error(code, body)
+  def self.handle_api_error(code, body, response)
     case code
     when 400
-      raise BadRequestError.new(code, body)
+      raise BadRequestError.new(code, body, response)
     when 401
-      raise AuthError.new(code, body)
+      raise AuthError.new(code, body, response)
     when 404
-      raise ApiResourceNotFoundError.new(code, body)
+      raise ApiResourceNotFoundError.new(code, body, response)
     when 409
-      raise ConflictError.new(code, body)
+      raise ConflictError.new(code, body, response)
     when 410
-      raise GoneError.new(code, body)
+      raise GoneError.new(code, body, response)
+    when 413
+      raise PayloadTooLargeError.new(code, body, response)
+    when 422
+      raise UnprocessableEntityError.new(code, body, response)
     when 429
-      raise TooManyRequestsError.new(code, body)
+      raise TooManyRequestsError.new(code, body, response)
     else
-      raise DataSiftError.new(code, body)
+      raise DataSiftError.new(code, body, response)
     end
   end
 
@@ -310,7 +333,7 @@ module DataSift
       raise BadParametersError.new('on_close - 2 parameter required') unless on_close.arity == 2
     end
     begin
-      stream                    = WebsocketTD::Websocket.new('websocket.datasift.com', '/multi', "username=#{config[:username]}&api_key=#{config[:api_key]}")
+      stream                    = WebsocketTD::Websocket.new(config[:stream_host], '/multi', "username=#{config[:username]}&api_key=#{config[:api_key]}")
       connection                = LiveStream.new(config, stream)
       KNOWN_SOCKETS[connection] = Time.new.to_i
       stream.on_ping            = lambda { |data|
@@ -362,12 +385,12 @@ module DataSift
       if use_closed && !on_close.nil?
         on_close.call(connection, message)
       else
-        on_error.call(connection, ReconnectTimeoutError.new("Connecting to DataSift has failed, re-connection was attempted but
-                                         multiple consecutive failures where encountered. As a result no further
-                                         re-connection will be automatically attempted. Manually invoke connect() after
-                                          investigating the cause of the failure, be sure to observe DataSift's
-                                          re-connect policies available at http://dev.datasift.com/docs/streaming-api/reconnecting
-                                          - Error { #{message}}"))
+        on_error.call(connection, ReconnectTimeoutError.new("Connecting to DataSift has " \
+          "failed, re-connection was attempted but multiple consecutive failures where " \
+          "encountered. As a result no further re-connection will be automatically " \
+          "attempted. Manually invoke connect() after investigating the cause of the " \
+          "failure, be sure to observe DataSift's re-connect policies available at " \
+          "http://dev.datasift.com/docs/streaming-api/reconnecting - Error {#{message}}"))
       end
     else
       sleep config[:retry_timeout]
