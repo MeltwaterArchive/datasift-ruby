@@ -180,7 +180,7 @@ module DataSift
       :timeout      => timeout,
       :payload      => payload,
       :url          => url,
-      :ssl_version  => OpenSSL::SSL::SSLContext::DEFAULT_PARAMS[:ssl_version],
+      :ssl_version  => config[:ssl_version],
       :verify_ssl   => OpenSSL::SSL::VERIFY_PEER
     )
 

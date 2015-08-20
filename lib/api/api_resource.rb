@@ -20,8 +20,7 @@ module DataSift
         # Ruby 1.x does not seem to support > TLSv1
         ssl_default = "TLSv1"
       end
-      OpenSSL::SSL::SSLContext::DEFAULT_PARAMS[:ssl_version] = config[:ssl_version] ||
-        ssl_default
+      config[:ssl_version] = config[:ssl_version] || ssl_default
 
       # max 320 seconds retry - http://dev.datasift.com/docs/streaming-api/reconnecting
       config[:max_retry_time] = 320 unless config.key?(:max_retry_time)
