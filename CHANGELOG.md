@@ -1,6 +1,6 @@
 CHANGELOG
 ================================
-## v.3.4.0 (2015-08-14)
+## v.3.4.0 (2015-08-20)
 ### Added
 * Support for [Open Data Processing](https://datasift.com/products/open-data-processing-for-twitter/) batch uploads (Thanks @giovannelli)
 * Explicit supprot for 413 and 422 errors from API
@@ -8,6 +8,7 @@ CHANGELOG
 
 ### Changed
 * Bumped [rest-client](https://github.com/rest-client/rest-client) dependency to ~> 1.8
+* The OpenSSL version you select within the DataSift gem no longer changes the default OpenSSL version in your wider application; it only affects API calls made by the DataSift gem to DataSift's API
 
 ## v.3.3.0 (2015-08-05)
 ### Added
