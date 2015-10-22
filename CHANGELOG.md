@@ -4,6 +4,10 @@ CHANGELOG
 ### Added
 * Support for the [/account/usage](http://dev.datasift.com/pylon/docs/api/acct-api-endpoints/get-accountusage) API endpoint
 
+### Changed
+* Only set ```Content-Type``` HTTP header for POST/PUT requests; it's not necessary unless we are passing a request entity
+* Teased out some minor performance enhancements by allocating fewer objects on each request
+
 ## v.3.4.0 (2015-08-20)
 ### Added
 * Support for [Open Data Processing](https://datasift.com/products/open-data-processing-for-twitter/) batch uploads (Thanks [@giovannelli](https://github.com/giovannelli))

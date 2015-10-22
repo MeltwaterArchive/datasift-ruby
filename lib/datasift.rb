@@ -33,6 +33,14 @@ module DataSift
   DETECT_DEAD_SOCKETS     = true
   SOCKET_DETECTOR_TIMEOUT = 6.5
 
+  GET = 'GET'.freeze
+  HEAD = 'HEAD'.freeze
+  DELETE = 'DELETE'.freeze
+  APPLICATION_JSON = 'application/json'.freeze
+  X_RATELIMIT_LIMIT = 'x_ratelimit_limit'.freeze
+  X_RATELIMIT_REMAINING = 'x_ratelimit_remaining'.freeze
+  X_RATELIMIT_COST = 'x_ratelimit_cost'.freeze
+
   Thread.new do
     while DETECT_DEAD_SOCKETS
       now = Time.now.to_i
@@ -155,25 +163,24 @@ module DataSift
     timeout = 30, open_timeout = 30, new_line_separated = false)
 
     validate config
-    options = {}
     url = build_url(path, config)
 
     headers.update(
       :user_agent    => "DataSift/#{config[:api_version]} Ruby/v#{VERSION}",
       :authorization => "#{config[:username]}:#{config[:api_key]}",
-      :content_type  => 'application/x-www-form-urlencoded'
+      :accept  => '*/*'
     )
 
-    case method.to_s.downcase.to_sym
-    when :get, :head, :delete
+    case method.to_s.upcase
+    when GET, HEAD, DELETE
       url += "#{URI.parse(url).query ? '&' : '?'}#{encode params}"
       payload = nil
     else
       payload = params.is_a?(String) ? params : MultiJson.dump(params)
-      headers.update({ :content_type => 'application/json' })
+      headers.update({ :content_type => APPLICATION_JSON })
     end
 
-    options.update(
+    options = {
       :headers      => headers,
       :method       => method,
       :open_timeout => open_timeout,
@@ -182,16 +189,15 @@ module DataSift
       :url          => url,
       :ssl_version  => config[:ssl_version],
       :verify_ssl   => OpenSSL::SSL::VERIFY_PEER
-    )
+    }
 
     response = nil
     begin
       response = RestClient::Request.execute options
       if !response.nil? && response.length > 0
         if new_line_separated
-          res_arr = response.split("\n")
-          data    = []
-          res_arr.each { |e|
+          data = []
+          response.split("\n").each { |e|
             interaction = MultiJson.load(e, :symbolize_keys => true)
             data.push(interaction)
             if params.key? :on_interaction
@@ -207,9 +213,9 @@ module DataSift
       {
         :data => data,
         :datasift => {
-          :x_ratelimit_limit     => response.headers[:x_ratelimit_limit],
-          :x_ratelimit_remaining => response.headers[:x_ratelimit_remaining],
-          :x_ratelimit_cost      => response.headers[:x_ratelimit_cost]
+          X_RATELIMIT_LIMIT => response.headers[:x_ratelimit_limit],
+          X_RATELIMIT_REMAINING => response.headers[:x_ratelimit_remaining],
+          X_RATELIMIT_COST => response.headers[:x_ratelimit_cost]
         },
         :http => {
           :status  => response.code,
@@ -229,9 +235,9 @@ module DataSift
           response_on_error = {
             :data => nil,
             :datasift => {
-              :x_ratelimit_limit     => e.response.headers[:x_ratelimit_limit],
-              :x_ratelimit_remaining => e.response.headers[:x_ratelimit_remaining],
-              :x_ratelimit_cost      => e.response.headers[:x_ratelimit_cost]
+              X_RATELIMIT_LIMIT => e.response.headers[:x_ratelimit_limit],
+              X_RATELIMIT_REMAINING => e.response.headers[:x_ratelimit_remaining],
+              X_RATELIMIT_COST => e.response.headers[:x_ratelimit_cost]
             },
             :http => {
               :status  => e.response.code,
@@ -255,10 +261,9 @@ module DataSift
   def self.build_url(path, config)
     url = 'http' + (config[:enable_ssl] ? 's' : '') + '://' + config[:api_host]
     if !config[:api_version].nil?
-      url += '/' + config[:api_version] + '/' + path
-    else
-      url += '/' + path
+      url += '/' + config[:api_version]
     end
+    url += '/' + path
   end
 
   # Returns true if username or api key are not set
