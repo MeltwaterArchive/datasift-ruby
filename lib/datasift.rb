@@ -293,12 +293,20 @@ module DataSift
       raise ConflictError.new(code, body, response)
     when 410
       raise GoneError.new(code, body, response)
+    when 412
+      raise PreconditionFailedError.new(code, body, response)
     when 413
       raise PayloadTooLargeError.new(code, body, response)
+    when 415
+      raise UnsupportedMediaTypeError.new(code, body, response)
     when 422
       raise UnprocessableEntityError.new(code, body, response)
     when 429
       raise TooManyRequestsError.new(code, body, response)
+    when 503
+      raise ServiceUnavailableError.new(code, body, response)
+    when 504
+      raise GatewayTimeoutError.new(code, body, response)
     else
       raise DataSiftError.new(code, body, response)
     end

@@ -3,6 +3,7 @@ CHANGELOG
 ## v.3.5.0 (2015-09-29)
 ### Added
 * Support for the [/account/usage](http://dev.datasift.com/pylon/docs/api/acct-api-endpoints/get-accountusage) API endpoint
+* Added explicit support for 412, 415, 503 and 504 HTTP error responses
 
 ### Changed
 * Only set ```Content-Type``` HTTP header for POST/PUT requests; it's not necessary unless we are passing a request entity
