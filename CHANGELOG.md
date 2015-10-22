@@ -8,6 +8,7 @@ CHANGELOG
 ### Changed
 * Only set ```Content-Type``` HTTP header for POST/PUT requests; it's not necessary unless we are passing a request entity
 * Teased out some minor performance enhancements by allocating fewer objects on each request
+* Loosen some Gem dependancies. Successfully tested against [rest-client](https://github.com/rest-client/rest-client) v2.0.0
 
 ## v.3.4.0 (2015-08-20)
 ### Added
