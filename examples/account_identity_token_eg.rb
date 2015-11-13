@@ -10,7 +10,7 @@ class AccountIdentityTokenEg < DataSiftExample
     begin
       puts "Create a new identity to create tokens for"
       identity = @datasift.account_identity.create(
-        "Ruby Identity for Tokens",
+        "Ruby Identity for Tokena",
         "active",
         false
       )
@@ -52,7 +52,7 @@ class AccountIdentityTokenEg < DataSiftExample
       @datasift.account_identity.delete(identity_id)
 
     rescue DataSiftError => dse
-      puts dse.message
+      puts dse.inspect
       # Then match specific error to take action;
       #   All errors thrown by the client extend DataSiftError
       case dse
@@ -60,9 +60,12 @@ class AccountIdentityTokenEg < DataSiftExample
           # some connection error
         when AuthError
         when BadRequestError
+          puts '[WARNING] You will need to use a valid token to run through this example'
         else
           # do something else...
       end
+      puts "\nCleanup and remove the Identity"
+      @datasift.account_identity.delete(identity_id)
     end
   end
 end
