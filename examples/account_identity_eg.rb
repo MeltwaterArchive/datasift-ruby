@@ -10,27 +10,27 @@ class AccountIdentityEg < DataSiftExample
     begin
       puts "Create a new identity"
       identity = @datasift.account_identity.create(
-        "Ruby Identity", "active", false
+        "Ruby Identity #{DateTime.now.to_s}", "active", false
       )
       identity_id = identity[:data][:id]
-      puts identity.to_json
+      puts identity[:data].to_json
 
       puts "\nList all existing identities"
-      puts @datasift.account_identity.list.to_json
+      puts @datasift.account_identity.list[:data].to_json
 
       puts "\nGet existing identity"
-      puts @datasift.account_identity.get(identity_id).to_json
+      puts @datasift.account_identity.get(identity_id)[:data].to_json
 
       puts "\nUpdate an identity"
       puts @datasift.account_identity.update(
-        identity_id, 'Updated Ruby Identity'
-      ).to_json
+        identity_id, "Updated Ruby Identity #{DateTime.now.to_s}"
+      )[:data].to_json
 
       puts "\nDelete an identity"
-      puts @datasift.account_identity.delete(identity_id).to_json
+      @datasift.account_identity.delete(identity_id)
 
     rescue DataSiftError => dse
-      puts dse.message
+      puts dse.inspect
       # Then match specific error to take action;
       #   All errors thrown by the client extend DataSiftError
       case dse
@@ -41,6 +41,8 @@ class AccountIdentityEg < DataSiftExample
         else
           # do something else...
       end
+      puts "\nClean up and delete the identity"
+      @datasift.account_identity.delete(identity_id)
     end
   end
 end
