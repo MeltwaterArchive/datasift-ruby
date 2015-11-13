@@ -10,7 +10,7 @@ class AccountIdentityEg < DataSiftExample
     begin
       puts "Create a new identity"
       identity = @datasift.account_identity.create(
-        "Ruby Identity #{DateTime.now.to_s}", "active", false
+        "Ruby Identity #{DateTime.now}", "active", false
       )
       identity_id = identity[:data][:id]
       puts identity[:data].to_json
@@ -23,7 +23,7 @@ class AccountIdentityEg < DataSiftExample
 
       puts "\nUpdate an identity"
       puts @datasift.account_identity.update(
-        identity_id, "Updated Ruby Identity #{DateTime.now.to_s}"
+        identity_id, "Updated Ruby Identity #{DateTime.now}"
       )[:data].to_json
 
       puts "\nDelete an identity"

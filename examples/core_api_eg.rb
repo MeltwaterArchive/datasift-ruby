@@ -35,7 +35,7 @@ class CoreApiEg < DataSiftExample
 
     rescue DataSiftError => dse
       puts dse.message
-      # Then match specific one to take action - All errors thrown by the client extend DataSiftError
+      # Then match specific one to take action; All errors thrown by the client extend DataSiftError
       case dse
         when ConnectionError
           # some connection error
