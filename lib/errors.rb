@@ -48,8 +48,16 @@ end
 class GoneError < DataSiftError
 end
 
+# Standard error returned when receiving a 412 response from the API
+class PreconditionFailedError < DataSiftError
+end
+
 # Standard error returned when receiving a 413 response from the API
 class PayloadTooLargeError < DataSiftError
+end
+
+# Standard error returned when receiving a 415 response from the API
+class UnsupportedMediaTypeError < DataSiftError
 end
 
 # Standard error returned when receiving a 422 response from the API
@@ -58,6 +66,14 @@ end
 
 # Standard error returned when receiving a 429 response from the API
 class TooManyRequestsError < DataSiftError
+end
+
+# Standard error returned when receiving a 503 response from the API
+class ServiceUnavailableError < DataSiftError
+end
+
+# Standard error returned when receiving a 504 response from the API
+class GatewayTimeoutError < DataSiftError
 end
 
 class InvalidConfigError < DataSiftError

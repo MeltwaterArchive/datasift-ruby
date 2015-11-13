@@ -138,11 +138,20 @@ class AnalysisApi < DataSiftExample
       puts "\nTags analysis"
       puts @datasift.pylon.tags(hash)[:data].to_json
 
+      puts "\nGet Public Posts"
+      puts @datasift.pylon.sample(
+        hash,
+        10,
+        Time.now.to_i - (60 * 60), # from 1hr ago
+        Time.now.to_i, # to 'now'
+        'fb.content contains_any "your, filter, terms"'
+      )[:data].to_json
+
       puts "\nStop recording filter with hash #{hash}"
       puts @datasift.pylon.stop(hash)[:data].to_json
 
       rescue DataSiftError => dse
-        puts dse.to_s
+        puts dse.inspect
     end
   end
 end

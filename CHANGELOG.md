@@ -1,10 +1,21 @@
 CHANGELOG
 ================================
+## v.3.5.0 (2015-11-13)
+### Added
+* Support for the [/account/usage](http://dev.datasift.com/pylon/docs/api/acct-api-endpoints/get-accountusage) API endpoint
+* Added explicit support for 412, 415, 503 and 504 HTTP error responses
+* Support for the [/pylon/sample](http://dev.datasift.com/pylon/docs/api/pylon-api-endpoints/pylonsample) API endpoint. Full details about the feature can be found in our [platform release notes](http://community.datasift.com/t/pylon-1-6-release-notes/1859)
+
+### Changed
+* Only set ```Content-Type``` HTTP header for POST/PUT requests; it's not necessary unless we are passing a request entity
+* Teased out some minor performance enhancements by allocating fewer objects on each request
+* Loosen some Gem dependancies. Successfully tested against [rest-client](https://github.com/rest-client/rest-client) v2.0.0
+
 ## v.3.4.0 (2015-08-20)
 ### Added
-* Support for [Open Data Processing](https://datasift.com/products/open-data-processing-for-twitter/) batch uploads (Thanks @giovannelli)
-* Explicit supprot for 413 and 422 errors from API
-* Ability to get at API response headers using the ```object.response``` accessor. (Thanks again @giovannelli)
+* Support for [Open Data Processing](https://datasift.com/products/open-data-processing-for-twitter/) batch uploads (Thanks [@giovannelli](https://github.com/giovannelli))
+* Explicit support for 413 and 422 errors from API
+* Ability to get at API response headers using the ```object.response``` accessor. (Thanks again [@giovannelli](https://github.com/giovannelli))
 
 ### Changed
 * Bumped [rest-client](https://github.com/rest-client/rest-client) dependency to ~> 1.8

@@ -2,6 +2,8 @@ module DataSift
   # Base API class
   class ApiResource
     include DataSift
+    TLSv1_2 = "TLSv1_2".freeze
+    TLSv1 = "TLSv1".freeze
 
     # Initializer to create global @config object
     #
@@ -15,10 +17,10 @@ module DataSift
       config[:api_version] = 'v1.2' unless config.has_key?(:api_version)
       config[:enable_ssl] = true unless config.has_key?(:enable_ssl)
 
-      ssl_default = "TLSv1_2"
+      ssl_default = TLSv1_2
       if RUBY_VERSION.to_i == 1
         # Ruby 1.x does not seem to support > TLSv1
-        ssl_default = "TLSv1"
+        ssl_default = TLSv1
       end
       config[:ssl_version] = config[:ssl_version] || ssl_default
 

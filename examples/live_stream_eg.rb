@@ -68,15 +68,15 @@ class StreamingApi < DataSiftExample
         puts "DataSift Message #{hash} ==> #{message}"
       end
 
-      conn                     = DataSift::new_stream(@config, on_delete, on_error, on_connect, on_close)
+      conn = DataSift::new_stream(@config, on_delete, on_error, on_connect, on_close)
       conn.on_datasift_message = on_datasift_message
       #can do something else here now...
       puts 'Do some other business stuff...'
       conn.stream.read_thread.join
         #rescue DataSiftError
     rescue DataSiftError => dse
-      puts "Error #{dse.message}"
-      # Then match specific one to take action - All errors thrown by the client extend DataSiftError
+      puts dse.inspect
+      # Then match specific one to take action; All errors thrown by the client extend DataSiftError
       case dse
         when ConnectionError
           # some connection error

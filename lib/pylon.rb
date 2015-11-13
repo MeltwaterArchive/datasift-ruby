@@ -118,5 +118,28 @@ module DataSift
 
       DataSift.request(:GET, 'pylon/tags', @config, params)
     end
+
+    # Hit the PYLON Sample endpoint to pull public sample data from a PYLON recording
+    #
+    # @param hash [String] The CSDL hash that identifies the recording you want to sample
+    # @param count [Integer] Optional number of public interactions you wish to receive
+    # @param start_time [Integer] Optional start timestamp for filtering by date
+    # @param end_time [Integer] Optional end timestamp for filtering by date
+    # @param filter [String] Optional PYLON CSDL for a query filter
+    # @return [Object] API reponse object
+    def sample(hash = '', count = nil, start_time = nil, end_time = nil, filter = '')
+      fail BadParametersError, 'hash is required' if hash.empty?
+      params = { hash: hash }
+      params.merge!(count: count) unless count.nil?
+      params.merge!(start_time: start_time) unless start_time.nil?
+      params.merge!(end_time: end_time) unless end_time.nil?
+
+      if filter.empty?
+        DataSift.request(:GET, 'pylon/sample', @config, params)
+      else
+        params.merge!(filter: filter)
+        DataSift.request(:POST, 'pylon/sample', @config, params)
+      end
+    end
   end
 end
