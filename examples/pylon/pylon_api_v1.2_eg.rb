@@ -1,4 +1,8 @@
-require './auth'
+##
+# This script runs through all PYLON API endpoints using v1.2 of the API
+##
+
+require './../auth'
 class AnalysisApi < DataSiftExample
   def initialize
     super
@@ -20,15 +24,18 @@ class AnalysisApi < DataSiftExample
       token = @datasift.account_identity_token.create(
         identity_id,
         'facebook',
-        'YOUR_TOKEN'
+        '125595667777713|5aef9cfdb31d8be64b87204c3bca820f'
       )
       puts token[:data].to_json
 
       puts "\nNow make PYLON API calls using the Identity's API key"
-      @config.merge!(api_key: identity[:data][:api_key])
+      @config.merge!(
+        api_key: identity[:data][:api_key],
+        api_version: 'v1.2'
+      )
       @datasift = DataSift::Client.new(@config)
 
-      csdl = 'return { fb.content contains "data" }'
+      csdl = "return { fb.content any \"data, #{Time.now}\" }"
 
       puts "Check this CSDL is valid: #{csdl}"
       puts "Valid? #{@datasift.pylon.valid?(csdl)}"
@@ -75,7 +82,7 @@ class AnalysisApi < DataSiftExample
           target: 'fb.author.age'
         }
       }
-      filter = 'fb.content contains "starbucks"'
+      filter = ''
       puts @datasift.pylon.analyze(
         hash,
         params,
