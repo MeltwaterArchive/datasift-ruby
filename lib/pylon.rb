@@ -30,10 +30,13 @@ module DataSift
     # Perform /pylon/get API call to query status of your PYLON recordings
     #
     # @param hash [String] Hash you with the get the status for
+    # @param id [String] The ID of the PYLON recording to get
     # @return [Object] API reponse object
-    def get(hash)
-      fail BadParametersError, 'hash is required' if hash.empty?
-      params = { hash: hash }
+    def get(hash = '', id = '')
+      fail BadParametersError, 'hash or id is required' if hash.empty? && id.empty?
+      params = {}
+      params.merge!(hash: hash) unless hash.empty?
+      params.merge!(id: id) unless id.empty?
 
       DataSift.request(:GET, 'pylon/get', @config, params)
     end
@@ -56,15 +59,46 @@ module DataSift
       DataSift.request(:GET, 'pylon/get', @config, params)
     end
 
+    # Perform /pylon/update API call to update a given PYLON Recording
+    #
+    # @param id [String] The ID of the PYLON recording to update
+    # @param hash [String] The CSDL filter hash this recording should be subscribed to
+    # @param name [String] Update the name of your recording
+    # @return [Object] API reponse object
+    def update(id, hash = '', name = '')
+      params = {id: id}
+      params.merge!(hash: hash) unless hash.empty?
+      params.merge!(name: name) unless name.empty?
+
+      DataSift.request(:PUT, 'pylon/update', @config, params)
+    end
+
     # Start recording a PYLON filter by making an /pylon/start API call
     #
     # @param hash [String] CSDL you wish to begin (or resume) recording
     # @param name [String] Give your recording a name. Required when starting a
+    # @param id [String] ID of the recording you wish to start
     #   new recording
     # @return [Object] API reponse object
-    def start(hash = '', name = '')
-      fail BadParametersError, 'hash is required' if hash.empty?
-      params = { hash: hash }
+    def start(hash = '', name = '', id = '')
+      fail BadParametersError, 'hash or id is required' if hash.empty? && id.empty?
+      params = {}
+      params.merge!(hash: hash) unless hash.empty?
+      params.merge!(name: name) unless name.empty?
+      params.merge!(id: id) unless id.empty?
+
+      DataSift.request(:PUT, 'pylon/start', @config, params)
+    end
+
+    # Restart an existing PYLON recording by making an /pylon/start API call with a recording ID
+    #
+    # @param id [String] CSDL you wish to begin (or resume) recording
+    # @param name [String] Give your recording a name. Required when starting a
+    #   new recording
+    # @return [Object] API reponse object
+    def restart(id, name = '')
+      fail BadParametersError, 'id is required' if id.empty?
+      params = { id: id }
       params.merge!(name: name) unless name.empty?
 
       DataSift.request(:PUT, 'pylon/start', @config, params)
@@ -73,10 +107,13 @@ module DataSift
     # Stop an active PYLON recording by making an /pylon/stop API call
     #
     # @param hash [String] CSDL you wish to stop recording
+    # @param id [String] ID of the recording you wish to stop
     # @return [Object] API reponse object
-    def stop(hash)
-      fail BadParametersError, 'hash is required' if hash.empty?
-      params = { hash: hash }
+    def stop(hash = '', id = '')
+      fail BadParametersError, 'hash or id is required' if hash.empty? && id.empty?
+      params = {}
+      params.merge!(hash: hash) unless hash.empty?
+      params.merge!(id: id) unless id.empty?
 
       DataSift.request(:PUT, 'pylon/stop', @config, params)
     end
@@ -92,14 +129,14 @@ module DataSift
     # @param filter [String] Optional PYLON CSDL for a query filter
     # @param start_time [Integer] Optional start timestamp for filtering by date
     # @param end_time [Integer] Optional end timestamp for filtering by date
+    # @param id [String] ID of the recording you wish to analyze
     # @return [Object] API reponse object
-    def analyze(hash = '', parameters = '', filter = '', start_time = nil, end_time = nil)
-      fail BadParametersError, 'hash is required' if hash.empty?
+    def analyze(hash = '', parameters = '', filter = '', start_time = nil, end_time = nil, id = '')
+      fail BadParametersError, 'hash or id is required' if hash.empty? && id.empty?
       fail BadParametersError, 'parameters is required' if parameters.empty?
-      params = {
-        hash: hash,
-        parameters: parameters
-      }
+      params = { parameters: parameters }
+      params.merge!(hash: hash) unless hash.empty?
+      params.merge!(id: id) unless id.empty?
       params.merge!(filter: filter) unless filter.empty?
       params.merge!(start: start_time) unless start_time.nil?
       params.merge!(end: end_time) unless end_time.nil?
@@ -111,10 +148,13 @@ module DataSift
     #   recording
     #
     # @param hash [String] Hash of the recording you wish to query
+    # @param id [String] ID of the recording you wish to query
     # @return [Object] API reponse object
-    def tags(hash)
-      fail BadParametersError, 'hash is required' if hash.empty?
-      params = { hash: hash }
+    def tags(hash = '', id = '')
+      fail BadParametersError, 'hash or id is required' if hash.empty? && id.empty?
+      params = {}
+      params.merge!(hash: hash) unless hash.empty?
+      params.merge!(id: id) unless id.empty?
 
       DataSift.request(:GET, 'pylon/tags', @config, params)
     end
@@ -126,10 +166,13 @@ module DataSift
     # @param start_time [Integer] Optional start timestamp for filtering by date
     # @param end_time [Integer] Optional end timestamp for filtering by date
     # @param filter [String] Optional PYLON CSDL for a query filter
+    # @param id [String] ID of the recording you wish to sample
     # @return [Object] API reponse object
-    def sample(hash = '', count = nil, start_time = nil, end_time = nil, filter = '')
-      fail BadParametersError, 'hash is required' if hash.empty?
-      params = { hash: hash }
+    def sample(hash = '', count = nil, start_time = nil, end_time = nil, filter = '', id = '')
+      fail BadParametersError, 'hash or id is required' if hash.empty? && id.empty?
+      params = {}
+      params.merge!(hash: hash) unless hash.empty?
+      params.merge!(id: id) unless id.empty?
       params.merge!(count: count) unless count.nil?
       params.merge!(start_time: start_time) unless start_time.nil?
       params.merge!(end_time: end_time) unless end_time.nil?
