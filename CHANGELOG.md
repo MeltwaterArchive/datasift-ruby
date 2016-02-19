@@ -1,5 +1,17 @@
 CHANGELOG
 ================================
+## v.4.0 (Under development)
+### Planned Features
+* Better thought out API design in a more traditional Gem style
+* More of an SDK style library; for example, you should perform actions (start/stop/analyze) on a PYLON recording object
+* Designed to make the most of DataSift's latest API version and features
+* Designed for Ruby 2.3+. Use features like keyword parameters across the board
+
+## v.3.6.0 (2016-02-19)
+### Added
+* Support for the [/pylon/update](dev.datasift.com/pylon/docs/api/pylon-api-endpoints/pylonupdate) API endpoint
+* Support for [API v1.3](http://dev.datasift.com/docs/api/api-changelog)
+
 ## v.3.5.0 (2015-11-13)
 ### Added
 * Support for the [/account/usage](http://dev.datasift.com/pylon/docs/api/acct-api-endpoints/get-accountusage) API endpoint
