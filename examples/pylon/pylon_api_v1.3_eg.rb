@@ -29,13 +29,14 @@ class AnalysisApi < DataSiftExample
       puts token[:data].to_json
 
       puts "\nNow make PYLON API calls using the Identity's API key"
-      @config.merge!(
+      @pylon_config = @config.dup
+      @pylon_config.merge!(
         api_key: identity[:data][:api_key],
         api_version: 'v1.3'
       )
-      @datasift = DataSift::Client.new(@config)
+      @datasift = DataSift::Client.new(@pylon_config)
 
-      csdl = "return { fb.content any \"data, #{Time.now}\" }"
+      csdl = "return { fb.all.content any \"data, #{Time.now}\" }"
 
       puts "Check this CSDL is valid: #{csdl}"
       puts "Valid? #{@datasift.pylon.valid?(csdl)}"
@@ -86,7 +87,7 @@ class AnalysisApi < DataSiftExample
           target: 'fb.author.age'
         }
       }
-      filter = ''
+      filter = 'fb.parent.content any "facebook"'
       puts @datasift.pylon.analyze(
         '',
         params,
@@ -152,7 +153,7 @@ class AnalysisApi < DataSiftExample
       )[:data].to_json
 
       puts "\nTags analysis"
-      puts @datasift.pylon.tags(recording[:data][:id])[:data].to_json
+      puts @datasift.pylon.tags('',recording[:data][:id])[:data].to_json
 
       puts "\nGet Public Posts"
       puts @datasift.pylon.sample(
@@ -166,23 +167,30 @@ class AnalysisApi < DataSiftExample
 
       puts "\nv1.3+ of the API allows you to update the name or hash of recordings;"
       puts "\nBefore update:"
-      puts @datasift.get(recording[:data][:id])[:data].to_json
+      puts @datasift.pylon.get(recording[:data][:id])[:data].to_json
 
       new_hash = @datasift.pylon.compile("fb.content any \"data, #{Time.now}\"")[:data][:hash]
 
       puts "\nAfter update:"
-      puts @datasift.update(
+      puts @datasift.pylon.update(
         recording[:data][:id],
         new_hash,
         "Updated at #{Time.now}"
       )[:data].to_json
 
       puts "\nStop recording filter with the recording ID #{recording[:data][:id]}"
-      puts @datasift.pylon.stop(recording[:data][:id])[:data].to_json
-
+      puts @datasift.pylon.stop('', recording[:data][:id])[:data].to_json
+      sleep(3)
       puts "\nYou can also restart a stopped recording by recording ID #{recording[:data][:id]}"
       puts @datasift.pylon.restart(recording[:data][:id])[:data].to_json
-      puts @datasift.pylon.stop(recording[:data][:id])[:data].to_json
+
+      # Cleanup.
+      # Stop the recording again to clean up
+      sleep(3)
+      @datasift.pylon.stop('', recording[:data][:id])[:data].to_json
+      # Disable the identity created for this example
+      @datasift = DataSift::Client.new(@config)
+      @datasift.account_identity.update(identity_id, '', 'disabled')
 
       rescue DataSiftError => dse
         puts dse.inspect
