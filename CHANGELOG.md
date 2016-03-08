@@ -7,7 +7,11 @@ CHANGELOG
 * Designed to make the most of DataSift's latest API version and features
 * Designed for Ruby 2.3+. Use features like keyword parameters across the board
 
-## v.3.6.0 (2016-02-19)
+## v.3.6.1 (2016-03-08)
+### Fixed
+* Use API v1.3 by default
+
+## v.3.6.0 (2016-03-08)
 ### Added
 * Support for the [/pylon/update](dev.datasift.com/pylon/docs/api/pylon-api-endpoints/pylonupdate) API endpoint
 * Support for [API v1.3](http://dev.datasift.com/docs/api/api-changelog)
