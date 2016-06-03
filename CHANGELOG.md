@@ -7,6 +7,10 @@ CHANGELOG
 * Designed to make the most of DataSift's latest API version and features
 * Designed for Ruby 2.3+. Use features like keyword parameters across the board
 
+## v.3.6.2 (2016-06-03)
+### Fixed
+* Corrected params used in the `managed_source_auth.remove()` method. Thanks [@zenovich](https://github.com/zenovich)
+
 ## v.3.6.1 (2016-03-08)
 ### Fixed
 * Use API v1.3 by default
