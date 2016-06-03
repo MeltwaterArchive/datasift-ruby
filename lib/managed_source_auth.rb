@@ -26,7 +26,7 @@ module DataSift
     def remove(id, auth_ids)
       params = {
         id: id,
-        auth: auth_ids
+        auth_ids: auth_ids
       }
       requires params
       DataSift.request(:PUT, 'source/auth/remove', @config, params)
