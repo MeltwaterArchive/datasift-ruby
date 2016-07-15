@@ -17,14 +17,14 @@ CHANGELOG
 
 ## v.3.6.0 (2016-03-08)
 ### Added
-* Support for the [/pylon/update](dev.datasift.com/pylon/docs/api/pylon-api-endpoints/pylonupdate) API endpoint
-* Support for [API v1.3](http://dev.datasift.com/docs/api/api-changelog)
+* Support for the [/pylon/update](http://dev.datasift.com/docs/platform/api/rest-api/endpoints/pylonupdate) API endpoint
+* Support for [API v1.3](http://dev.datasift.com/docs/platform/api/api-changelog)
 
 ## v.3.5.0 (2015-11-13)
 ### Added
-* Support for the [/account/usage](http://dev.datasift.com/pylon/docs/api/acct-api-endpoints/get-accountusage) API endpoint
+* Support for the `/account/usage` API endpoint
 * Added explicit support for 412, 415, 503 and 504 HTTP error responses
-* Support for the [/pylon/sample](http://dev.datasift.com/pylon/docs/api/pylon-api-endpoints/pylonsample) API endpoint. Full details about the feature can be found in our [platform release notes](http://community.datasift.com/t/pylon-1-6-release-notes/1859)
+* Support for the [/pylon/sample](http://dev.datasift.com/docs/platform/api/rest-api/endpoints/pylonsample) API endpoint. Full details about the feature can be found in our [platform release notes](http://community.datasift.com/t/pylon-1-6-release-notes/1859)
 
 ### Changed
 * Only set ```Content-Type``` HTTP header for POST/PUT requests; it's not necessary unless we are passing a request entity
@@ -55,8 +55,8 @@ CHANGELOG
 
 ## v.3.2.0 (2015-05-13)
 ### Added
-* Support for [PYLON API](http://dev.datasift.com/pylon/docs/api-endpoints)
-* Support for [Account Identities API](http://dev.datasift.com/pylon/docs/api/account-api)
+* Support for [PYLON API](http://dev.datasift.com/docs/platform/api/rest-api/endpoints)
+* Support for [Account Identities API](http://dev.datasift.com/docs/platform/api/rest-api/endpoints)
 * Adds opts for Managed Sources create/update endpoints to allow passing of 'validate' param
 * Support for HTTP 409 Conflict error
 * Support for HTTP 410 Gone error
@@ -130,9 +130,9 @@ v.3.0.0 (2014-07-04)
 --------------------
 
 Final fixes for v.3.0.0!
-This release does break backwards compatibility with version 2.x and earlier. A [migration guide](https://github.com/datasift/datasift-ruby/blob/3.0.0/MIGRATING_TO_V.3.0.0.md) is available.
-* Adds support for the [Pull Push Destination](http://dev.datasift.com/docs/push/connectors/pull)
-* Adds support for DataSift [Historics Preview](http://dev.datasift.com/docs/historics/preview)
+This release does break backwards compatibility with version 2.x and earlier. A [migration guide](MIGRATING_TO_V.3.0.0.md) is available.
+* Adds support for the [Pull Push Destination](http://dev.datasift.com/docs/products/stream/features/delivery/push/push-connectors/pull)
+* Adds support for DataSift [Historics Preview](http://dev.datasift.com/docs/products/stream/features/historics/preview)
 * Adds support for the new Dynamic Lists feature
 * Adds support for multi-streaming via WebSockets
 * Added a CLI to the library
@@ -231,7 +231,7 @@ v.1.2.0 (2012-02-28)
 
 Twitter Compliance
 
-* The consumer now has an onDeleted method to which you can assign a block that will be called to handle DELETE requests from Twitter. See delete.rb in the examples folder for a sample implementation. (@see http://dev.datasift.com/docs/twitter-deletes)
+* The consumer now has an onDeleted method to which you can assign a block that will be called to handle DELETE requests from Twitter. See delete.rb in the examples folder for a sample implementation. (@see http://dev.datasift.com/docs/products/stream/features/sources/public-sources/twitter/twitter-delete-messages)
 
 NB: if you are storing tweets you must implement this method in your code
 and take appropriate action to maintain compliance with the Twitter license.

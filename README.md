@@ -11,11 +11,11 @@ The official Ruby library for accessing the DataSift API.
 
 Getting Started
 ---------------
-**Read our [Ruby Getting Started Guide](http://dev.datasift.com/quickstart/ruby) to get started with the DataSift platform.** The guide will take you through creating a [DataSift](http://datasift.com) account, and activating data sources which you will need to do before using the DataSift API.
+**Read our [Stream](http://dev.datasift.com/docs/products/stream/quick-start/getting-started-ruby) and [PYLON](http://dev.datasift.com/docs/products/pylon-fbtd/get-started/getting-started-ruby) Getting Started guides for an introduction to the DataSift platform.** The guides will take you through creating a [DataSift](https://datasift.com) account, and activating data sources which you will need to do before using the DataSift API.
 
-Many of the examples and API endpoints used in this library require you have enabled certain data sources before you can receive any data (you should do this at [datasift.com/source](https://datasift.com/source)). Certain API features, such as [Historics](http://datasift.com/platform/historics/) and [Managed Sources](http://datasift.com/platform/datasources/) will require you have signed up to a monthly subscription before you can access them.
+Many of the examples and API endpoints used in this library require you have enabled certain data sources before you can receive any data (you should do this at [https://datasift.com/source](https://datasift.com/source)). Certain API features, such as [Historics](https://datasift.com/platform/historics/) and [Managed Sources](https://datasift.com/platform/datasources/) will require you have signed up to a monthly subscription before you can access them.
 
-If you are interested in using these features, or would like more information about DataSift, please [get in touch](http://datasift.com/contact-us/)!
+If you are interested in using these features, or would like more information about DataSift, please [get in touch](https://datasift.com/contact-us/)!
 
 
 Install Instructions
@@ -83,10 +83,11 @@ Supported Operating Environment
 This version of the client library has been tested, and is known to work against the following language versions and Operating Systems:
 
 ### Language Versions
-* Ruby 1.9.3 (Support for Ruby 1.x will be dropped from v4.0 of the library)
-* Ruby 2.0
+* Ruby 1.9.3 (May work, but no longer officially supported)
+* Ruby 2.0 (May work, but no longer officially supported)
 * Ruby 2.1
 * Ruby 2.2
+* Ruby 2.3
 
 ### Operating Systems
 * Linux
@@ -99,14 +100,9 @@ Contributing
 Contributions are always welcome and appreciated
 
 1. Fork on GitHub
-2. Create a feature branch (we use [Gitflow](http://datasift.github.io/gitflow/IntroducingGitFlow.html) for branching)
-3. Commit your changes with tests
-	* New feature? Send a pull request against the develop branch.
-	* Bug fix? Send a pull request against the master branch.
-	* Please don't break backwards-compatibility :)
+2. Create a feature branch (we use [Gitflow](https://datasift.github.io/gitflow/IntroducingGitFlow.html) for branching)
+3. Commit your changes with tests. Please try not to break backwards-compatibility :)
 
 License
 -------
-All code contained in this repository is Copyright 2011-2015 MediaSift Ltd.
-
-This code is released under the BSD license. Please see the [LICENSE](https://github.com/datasift/datasift-ruby/blob/master/LICENSE) file for more details.
+This code is released under the BSD license. Please see the [LICENSE](LICENSE) file for details.
