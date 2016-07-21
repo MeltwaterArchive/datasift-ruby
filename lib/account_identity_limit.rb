@@ -8,16 +8,17 @@ module DataSift
     #   a limit
     # @param service [String] The service this limit will apply to. For example;
     #   'facebook'
-    # @param total_allowance [Integer] The limit for this Identity
+    # @param total_allowance [Integer] (Optional) The daily interaction limit for this Identity
+    # @param analyze_queries [Integer] (Optional) The hourly analysis query limit for this Identity
     # @return [Object] API reponse object
-    def create(identity_id = '', service = '', total_allowance = nil)
+    def create(identity_id = '', service = '', total_allowance = nil, analyze_queries = nil)
       fail BadParametersError, 'identity_id is required' if identity_id.empty?
       fail BadParametersError, 'service is required' if service.empty?
-      fail BadParametersError, 'total_allowance can not be "nil"' if total_allowance.nil?
-      params = {
-        service: service,
-        total_allowance: total_allowance
-      }
+      fail BadParametersError, 'Must set total_allowance or analyze_queries' if
+        total_allowance.nil? && analyze_queries.nil?
+      params = { service: service }
+      params[:total_allowance] = total_allowance unless total_allowance.nil?
+      params[:analyze_queries] = analyze_queries unless analyze_queries.nil?
 
       DataSift.request(:POST, "account/identity/#{identity_id}/limit", @config, params)
     end
@@ -46,8 +47,8 @@ module DataSift
       fail BadParametersError, 'service is required' if service.empty?
 
       params = {}
-      params.merge!(per_page: per_page) unless per_page.empty?
-      params.merge!(page: page) unless page.empty?
+      params[:per_page] = per_page unless per_page.empty?
+      params[:page] = page unless page.empty?
 
       DataSift.request(:GET, "account/identity/limit/#{service}", @config, params)
     end
@@ -58,13 +59,17 @@ module DataSift
     #   a limit
     # @param service [String] The service this limit will apply to. For example;
     #   'facebook'
-    # @param total_allowance [Integer] The new limit for this Identity
+    # @param total_allowance [Integer] (Optional) The daily interaction limit for this Identity
+    # @param analyze_queries [Integer] (Optional) The hourly analysis query limit for this Identity
     # @return [Object] API reponse object
-    def update(identity_id = '', service = '', total_allowance = nil)
+    def update(identity_id = '', service = '', total_allowance = nil, analyze_queries = nil)
       fail BadParametersError, 'identity_id is required' if identity_id.empty?
       fail BadParametersError, 'service is required' if service.empty?
-      fail BadParametersError, 'total_allowance can not be "nil"' if total_allowance.nil?
-      params = { total_allowance: total_allowance }
+      fail BadParametersError, 'Must set total_allowance or analyze_queries' if
+        total_allowance.nil? && analyze_queries.nil?
+      params = {}
+      params[:total_allowance] = total_allowance unless total_allowance.nil?
+      params[:analyze_queries] = analyze_queries unless analyze_queries.nil?
 
       DataSift.request(:PUT, "account/identity/#{identity_id}/limit/#{service}", @config, params)
     end
