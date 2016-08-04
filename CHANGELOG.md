@@ -7,6 +7,13 @@ CHANGELOG
 * Designed to make the most of DataSift's latest API version and features
 * Designed for Ruby 2.3+. Use features like keyword parameters across the board
 
+## v.3.7.0 (2016-08-04)
+### Added
+* Support for an `analyze_queries` parameter for Account Identity Limits
+
+### Changed
+* Minor fixes for Rubocop
+
 ## v.3.6.2 (2016-06-03)
 ### Fixed
 * Corrected params used in the `managed_source_auth.remove()` method. Thanks [@zenovich](https://github.com/zenovich)
