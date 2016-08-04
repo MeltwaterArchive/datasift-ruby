@@ -19,7 +19,8 @@ class AccountIdentityLimitEg < DataSiftExample
       puts @datasift.account_identity_limit.create(
         identity_id,
         'facebook',
-        100_000
+        100_000,
+        50
       )[:data].to_json
 
       puts "\nList all existing Limits for this Service"
@@ -33,11 +34,12 @@ class AccountIdentityLimitEg < DataSiftExample
         'facebook'
       )[:data].to_json
 
-      puts "\nUpdate a Limit for a given Identity"
+      puts "\nUpdate just the daily interaction limit for a Limit for a given Identity"
       puts @datasift.account_identity_limit.update(
         identity_id,
         'facebook',
-        250_000
+        250_000,
+        nil
       )[:data].to_json
 
       puts "\nRemove the Limit from a given Identity and Service"
