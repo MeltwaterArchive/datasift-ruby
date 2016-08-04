@@ -7,7 +7,7 @@ CHANGELOG
 * Designed to make the most of DataSift's latest API version and features
 * Designed for Ruby 2.3+. Use features like keyword parameters across the board
 
-## v.3.7.0 (2016-07-19)
+## v.3.7.0 (2016-08-04)
 ### Added
 * Support for an `analyze_queries` parameter for Account Identity Limits
 
