@@ -7,6 +7,12 @@ CHANGELOG
 * Designed to make the most of DataSift's latest API version and features
 * Designed for Ruby 2.3+. Use features like keyword parameters across the board
 
+## v.3.7.1 (2016-10-06)
+### Added
+* Explicit support for 500 and 502 responses from the API
+### Fixes
+* Resolves [#86](https://github.com/datasift/datasift-ruby/issues/86); not handling 502 responses well
+
 ## v.3.7.0 (2016-08-04)
 ### Added
 * Support for an `analyze_queries` parameter for Account Identity Limits
