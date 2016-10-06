@@ -27,6 +27,12 @@ CHANGELOG
 * Support for the [/pylon/update](http://dev.datasift.com/docs/platform/api/rest-api/endpoints/pylonupdate) API endpoint
 * Support for [API v1.3](http://dev.datasift.com/docs/platform/api/api-changelog)
 
+## v.3.5.1 (2016-10-06)
+### Added
+* Explicit support for 500 and 502 responses from the API
+### Fixes
+* Resolves [#86](https://github.com/datasift/datasift-ruby/issues/86); not handling 502 responses well
+
 ## v.3.5.0 (2015-11-13)
 ### Added
 * Support for the `/account/usage` API endpoint

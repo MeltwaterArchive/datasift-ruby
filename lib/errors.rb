@@ -68,6 +68,14 @@ end
 class TooManyRequestsError < DataSiftError
 end
 
+# Standard error returned when receiving a 500 response from the API
+class InternalServerError < DataSiftError
+end
+
+# Standard error returned when receiving a 502 response from the API
+class BadGatewayError < DataSiftError
+end
+
 # Standard error returned when receiving a 503 response from the API
 class ServiceUnavailableError < DataSiftError
 end
