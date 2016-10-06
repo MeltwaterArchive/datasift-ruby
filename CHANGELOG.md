@@ -1,5 +1,11 @@
 CHANGELOG
 ================================
+## v.3.5.1 (2016-10-06)
+### Added
+* Explicit support for 500 and 502 responses from the API
+### Fixes
+* Resolves [#86](https://github.com/datasift/datasift-ruby/issues/86); not handling 502 responses well
+
 ## v.3.5.0 (2015-11-13)
 ### Added
 * Support for the [/account/usage](http://dev.datasift.com/pylon/docs/api/acct-api-endpoints/get-accountusage) API endpoint
