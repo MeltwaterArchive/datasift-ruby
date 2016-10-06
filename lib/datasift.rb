@@ -230,8 +230,14 @@ module DataSift
       begin
         code = e.http_code
         body = e.http_body
+        error = nil
         if code && body
-          error = MultiJson.load(body)
+          begin
+            error = MultiJson.load(body)
+          rescue MultiJson::ParseError
+            # In cases where we receive 502 responses, Nginx may send HTML rather than JSON
+            error = body
+          end
           response_on_error = {
             :data => nil,
             :datasift => {
@@ -303,6 +309,10 @@ module DataSift
       raise UnprocessableEntityError.new(code, body, response)
     when 429
       raise TooManyRequestsError.new(code, body, response)
+    when 500
+      raise InternalServerError.new(code, body, response)
+    when 502
+      raise BadGatewayError.new(code, body, response)
     when 503
       raise ServiceUnavailableError.new(code, body, response)
     when 504
