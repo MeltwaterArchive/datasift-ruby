@@ -7,6 +7,10 @@ CHANGELOG
 * Designed to make the most of DataSift's latest API version and features
 * Designed for Ruby 2.3+. Use features like keyword parameters across the board
 
+## v.3.7.2 (2016-11-08)
+### Fixes
+* Uses correct timestamp params in PYLON Sample API calls. `start_time` -> `start` and `end_time` - `end`
+
 ## v.3.7.1 (2016-10-06)
 ### Added
 * Explicit support for 500 and 502 responses from the API
@@ -32,6 +36,10 @@ CHANGELOG
 ### Added
 * Support for the [/pylon/update](http://dev.datasift.com/docs/platform/api/rest-api/endpoints/pylonupdate) API endpoint
 * Support for [API v1.3](http://dev.datasift.com/docs/platform/api/api-changelog)
+
+## v.3.5.2 (2016-11-08)
+### Fixes
+* Uses correct timestamp params in PYLON Sample API calls. `start_time` -> `start` and `end_time` - `end`
 
 ## v.3.5.1 (2016-10-06)
 ### Added
