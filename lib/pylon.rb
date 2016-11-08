@@ -174,8 +174,8 @@ module DataSift
       params.merge!(hash: hash) unless hash.empty?
       params.merge!(id: id) unless id.empty?
       params.merge!(count: count) unless count.nil?
-      params.merge!(start_time: start_time) unless start_time.nil?
-      params.merge!(end_time: end_time) unless end_time.nil?
+      params.merge!(start: start_time) unless start_time.nil?
+      params.merge!(end: end_time) unless end_time.nil?
 
       if filter.empty?
         DataSift.request(:GET, 'pylon/sample', @config, params)
