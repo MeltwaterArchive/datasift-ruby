@@ -1,5 +1,9 @@
 CHANGELOG
 ================================
+## v.3.5.2 (2016-11-08)
+### Fixes
+* Uses correct timestamp params in PYLON Sample API calls. `start_time` -> `start` and `end_time` -> `end`
+
 ## v.3.5.1 (2016-10-06)
 ### Added
 * Explicit support for 500 and 502 responses from the API
