@@ -2,7 +2,9 @@
 # This script runs through all PYLON API endpoints using v1.3 of the API
 ##
 
-require './../auth'
+require_relative './../auth'
+require 'json'
+
 class AnalysisApi < DataSiftExample
   def initialize
     super
@@ -57,7 +59,7 @@ class AnalysisApi < DataSiftExample
       sleep(10)
 
       puts "\nGet details of our running recording by ID"
-      puts @datasift.pylon.get('', recording[:data][:id])[:data].to_json
+      puts @datasift.pylon.get(recording[:data][:id])[:data].to_json
 
       puts "\nYou can also list running recordings"
       puts @datasift.pylon.list[:data].to_json
@@ -71,12 +73,11 @@ class AnalysisApi < DataSiftExample
         }
       }
       puts @datasift.pylon.analyze(
-        '',
+        recording[:data][:id],
         params,
         '',
         nil,
-        nil,
-        recording[:data][:id]
+        nil
       )[:data].to_json
 
       puts "\nFrequency distribution analysis on fb.author.age with filter"
@@ -89,12 +90,11 @@ class AnalysisApi < DataSiftExample
       }
       filter = 'fb.parent.content any "facebook"'
       puts @datasift.pylon.analyze(
-        '',
+        recording[:data][:id],
         params,
         filter,
         nil,
-        nil,
-        recording[:data][:id]
+        nil
       )[:data].to_json
 
       puts "\nTime series analysis"
@@ -109,12 +109,11 @@ class AnalysisApi < DataSiftExample
       start_time = Time.now.to_i - (60 * 60 * 24 * 7) # 7 days ago
       end_time = Time.now.to_i
       puts @datasift.pylon.analyze(
-        '',
+        recording[:data][:id],
         params,
         filter,
         start_time,
-        end_time,
-        recording[:data][:id]
+        end_time
       )[:data].to_json
 
       puts "\nFrequency Distribution with nested queries. Find the top three " \
@@ -144,12 +143,11 @@ class AnalysisApi < DataSiftExample
       start_time = Time.now.to_i - (60 * 60 * 24 * 7)
       end_time = Time.now.to_i
       puts @datasift.pylon.analyze(
-        '',
+        recording[:data][:id],
         params,
         filter,
         start_time,
-        end_time,
-        recording[:data][:id]
+        end_time
       )[:data].to_json
 
       puts "\nTags analysis"
@@ -157,12 +155,11 @@ class AnalysisApi < DataSiftExample
 
       puts "\nGet Public Posts"
       puts @datasift.pylon.sample(
-        '',
+        recording[:data][:id],
         10,
         Time.now.to_i - (60 * 60), # from 1hr ago
         Time.now.to_i, # to 'now'
-        'fb.content contains_any "your, filter, terms"',
-        recording[:data][:id]
+        'fb.content contains_any "your, filter, terms"'
       )[:data].to_json
 
       puts "\nv1.3+ of the API allows you to update the name or hash of recordings;"
@@ -187,7 +184,7 @@ class AnalysisApi < DataSiftExample
       # Cleanup.
       # Stop the recording again to clean up
       sleep(3)
-      @datasift.pylon.stop('', recording[:data][:id])[:data].to_json
+      @datasift.pylon.stop(recording[:data][:id])[:data].to_json
       # Disable the identity created for this example
       @datasift = DataSift::Client.new(@config)
       @datasift.account_identity.update(identity_id, '', 'disabled')
