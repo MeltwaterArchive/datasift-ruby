@@ -32,10 +32,9 @@ module DataSift
     # @param hash [String] Hash you with the get the status for
     # @param id [String] The ID of the PYLON recording to get
     # @return [Object] API reponse object
-    def get(hash = '', id = '')
-      fail BadParametersError, 'hash or id is required' if hash.empty? && id.empty?
+    def get(id='')
+      fail BadParametersError, 'hash or id is required' if id.empty?
       params = {}
-      params.merge!(hash: hash) unless hash.empty?
       params.merge!(id: id) unless id.empty?
 
       DataSift.request(:GET, 'pylon/get', @config, params)
@@ -109,10 +108,9 @@ module DataSift
     # @param hash [String] CSDL you wish to stop recording
     # @param id [String] ID of the recording you wish to stop
     # @return [Object] API reponse object
-    def stop(hash = '', id = '')
-      fail BadParametersError, 'hash or id is required' if hash.empty? && id.empty?
+    def stop(id = '')
+      fail BadParametersError, 'hash or id is required' if id.empty?
       params = {}
-      params.merge!(hash: hash) unless hash.empty?
       params.merge!(id: id) unless id.empty?
 
       DataSift.request(:PUT, 'pylon/stop', @config, params)
@@ -131,11 +129,10 @@ module DataSift
     # @param end_time [Integer] Optional end timestamp for filtering by date
     # @param id [String] ID of the recording you wish to analyze
     # @return [Object] API reponse object
-    def analyze(hash = '', parameters = '', filter = '', start_time = nil, end_time = nil, id = '')
-      fail BadParametersError, 'hash or id is required' if hash.empty? && id.empty?
+    def analyze(id = '', parameters = '', filter = '', start_time = nil, end_time = nil)
+      fail BadParametersError, 'hash or id is required' if id.empty?
       fail BadParametersError, 'parameters is required' if parameters.empty?
       params = { parameters: parameters }
-      params.merge!(hash: hash) unless hash.empty?
       params.merge!(id: id) unless id.empty?
       params.merge!(filter: filter) unless filter.empty?
       params.merge!(start: start_time) unless start_time.nil?
@@ -150,10 +147,9 @@ module DataSift
     # @param hash [String] Hash of the recording you wish to query
     # @param id [String] ID of the recording you wish to query
     # @return [Object] API reponse object
-    def tags(hash = '', id = '')
-      fail BadParametersError, 'hash or id is required' if hash.empty? && id.empty?
+    def tags(id = '')
+      fail BadParametersError, 'hash or id is required' if id.empty?
       params = {}
-      params.merge!(hash: hash) unless hash.empty?
       params.merge!(id: id) unless id.empty?
 
       DataSift.request(:GET, 'pylon/tags', @config, params)
@@ -168,10 +164,9 @@ module DataSift
     # @param filter [String] Optional PYLON CSDL for a query filter
     # @param id [String] ID of the recording you wish to sample
     # @return [Object] API reponse object
-    def sample(hash = '', count = nil, start_time = nil, end_time = nil, filter = '', id = '')
-      fail BadParametersError, 'hash or id is required' if hash.empty? && id.empty?
+    def sample(id = '', count = nil, start_time = nil, end_time = nil, filter = '')
+      fail BadParametersError, 'hash or id is required' if id.empty?
       params = {}
-      params.merge!(hash: hash) unless hash.empty?
       params.merge!(id: id) unless id.empty?
       params.merge!(count: count) unless count.nil?
       params.merge!(start: start_time) unless start_time.nil?
