@@ -1,10 +1,10 @@
 module DataSift
   class LiveStream < DataSift::ApiResource
 
-    @stream              = nil
+    @stream = nil
     @on_datasift_message = lambda {}
 
-    def initialize (config, stream)
+    def initialize(config, stream)
       super(config)
       @stream        = stream
       @retry_timeout = 0
@@ -30,11 +30,11 @@ module DataSift
         hash = message[:hash]
       end
       message.merge!({
-                         :is_failure => message[:status] == 'failure',
-                         :is_success => message[:status] == 'success',
-                         :is_warning => message[:status] == 'warning',
-                         :is_tick    => message[:status] == 'connected'
-                     })
+        :is_failure => message[:status] == 'failure',
+        :is_success => message[:status] == 'success',
+        :is_warning => message[:status] == 'warning',
+        :is_tick    => message[:status] == 'connected'
+      })
       @on_datasift_message.call(self, message, hash)
     end
 
