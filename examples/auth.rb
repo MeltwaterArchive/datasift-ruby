@@ -1,11 +1,12 @@
 class DataSiftExample
   require 'datasift'
+  require 'json'
 
   def initialize
     @config = {
       username: 'DATASIFT_USERNAME',
       api_key: 'DATASIFT_API_KEY',
-      api_version: 'v1.3'
+      api_version: 'v1.5'
     }
     @params = {
       output_type: 's3',
@@ -31,7 +32,7 @@ class DataSiftExample
     @datasift = DataSift::Client.new(@config)
   end
 
-  attr_reader :datasift, :params
+  attr_reader :datasift, :params, :pull_params
 
   def create_push(hash, is_historics_id = false)
     create_params = @params.merge ({
