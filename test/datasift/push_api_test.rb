@@ -166,7 +166,10 @@ describe 'DataSift::Push' do
     before do
       VCR.use_cassette("#{@datasift.config[:api_version]}" + '/push/before_push_log') do
         @filter = @datasift.compile(@data.valid_csdl)[:data][:hash]
-        params = @data.params.merge('hash': @filter, 'name': 'Ruby Push Example')
+        params = @data.params.merge(
+          hash: @filter,
+          name: 'Ruby Push Example'
+        )
         response = @datasift.push.create params
         @id = response[:data][:id]
       end

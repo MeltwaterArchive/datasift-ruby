@@ -16,7 +16,11 @@ describe 'DataSift::Pull' do
     before do
       VCR.use_cassette("#{@datasift.config[:api_version]}" + '/pull/before_pull') do
         @filter = @datasift.compile(@data.valid_csdl)[:data][:hash]
-        params = {'output_type': 'pull', 'hash': @filter, 'name': 'Ruby Pull Example'}
+        params = {
+          output_type: 'pull',
+          hash: @filter,
+          name: 'Ruby Pull Example'
+        }
         response = @datasift.push.create params
         @id = response[:data][:id]
       end
