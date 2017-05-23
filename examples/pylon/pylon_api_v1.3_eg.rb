@@ -53,8 +53,8 @@ class AnalysisApi < DataSiftExample
       )
       puts recording[:data].to_json
 
-      puts "\nSleep for 10 seconds to record a little data"
-      sleep(10)
+      # Just sleep for a moment to ensure we can access this new recording
+      sleep 2
 
       puts "\nGet details of our running recording by ID"
       puts @datasift.pylon.get('', recording[:data][:id])[:data].to_json
@@ -167,16 +167,17 @@ class AnalysisApi < DataSiftExample
 
       puts "\nv1.3+ of the API allows you to update the name or hash of recordings;"
       puts "\nBefore update:"
-      puts @datasift.pylon.get(recording[:data][:id])[:data].to_json
+      puts @datasift.pylon.get('', recording[:data][:id])[:data].to_json
 
       new_hash = @datasift.pylon.compile("fb.content any \"data, #{Time.now}\"")[:data][:hash]
 
       puts "\nAfter update:"
-      puts @datasift.pylon.update(
+      @datasift.pylon.update(
         recording[:data][:id],
         new_hash,
         "Updated at #{Time.now}"
-      )[:data].to_json
+      )
+      puts @datasift.pylon.get('', recording[:data][:id])[:data].to_json
 
       puts "\nStop recording filter with the recording ID #{recording[:data][:id]}"
       puts @datasift.pylon.stop('', recording[:data][:id])[:data].to_json

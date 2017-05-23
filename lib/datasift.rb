@@ -17,18 +17,19 @@ require dir + '/managed_source_auth'
 require dir + '/managed_source_resource'
 require dir + '/live_stream'
 require dir + '/pylon'
+require dir + '/tasks'
 require dir + '/account'
 require dir + '/account_identity'
 require dir + '/account_identity_token'
 require dir + '/account_identity_limit'
 require dir + '/odp'
+require dir + '/version'
 #
 require 'rbconfig'
 
 module DataSift
   #
   IS_WINDOWS              = (RbConfig::CONFIG['host_os'] =~ /mswin|mingw|cygwin/)
-  VERSION                 = File.open(File.join(File.dirname(__FILE__), '../') + '/VERSION').first
   KNOWN_SOCKETS           = {}
   DETECT_DEAD_SOCKETS     = true
   SOCKET_DETECTOR_TIMEOUT = 6.5
@@ -37,9 +38,16 @@ module DataSift
   HEAD = 'HEAD'.freeze
   DELETE = 'DELETE'.freeze
   APPLICATION_JSON = 'application/json'.freeze
+  # Rate limits
   X_RATELIMIT_LIMIT = 'x_ratelimit_limit'.freeze
   X_RATELIMIT_REMAINING = 'x_ratelimit_remaining'.freeze
   X_RATELIMIT_COST = 'x_ratelimit_cost'.freeze
+  X_TASKS_QUEUED = 'x_tasks_queued'.freeze
+  X_TASKS_QUEUE_LIMIT = 'x_tasks_queue_limit'.freeze
+  X_ANALYSIS_TASKS_QUEUE_LIMIT = 'x_analysis_tasks_queue_limit'.freeze
+  X_ANALYSIS_TASKS_QUEUED = 'x_analysis_tasks_queued'.freeze
+  X_INSIGHT_TASKS_QUEUE_LIMIT = 'x_insight_tasks_queue_limit'.freeze
+  X_INSIGHT_TASKS_QUEUED = 'x_insight_tasks_queued'.freeze
 
   Thread.new do
     while DETECT_DEAD_SOCKETS
@@ -71,6 +79,7 @@ module DataSift
       @managed_source_auth      = DataSift::ManagedSourceAuth.new(config)
       @historics_preview        = DataSift::HistoricsPreview.new(config)
       @pylon                    = DataSift::Pylon.new(config)
+      @task                     = DataSift::Task.new(config)
       @account                  = DataSift::Account.new(config)
       @account_identity         = DataSift::AccountIdentity.new(config)
       @account_identity_token   = DataSift::AccountIdentityToken.new(config)
@@ -78,9 +87,9 @@ module DataSift
       @odp                      = DataSift::Odp.new(config)
     end
 
-    attr_reader :historics, :push, :managed_source, :managed_source_resource,
-      :managed_source_auth, :historics_preview, :pylon, :account,
-      :account_identity, :account_identity_token, :account_identity_limit, :odp
+    attr_reader :config, :historics, :push, :managed_source, :managed_source_resource,
+      :managed_source_auth, :historics_preview, :pylon, :account, :account_identity,
+      :account_identity_token, :account_identity_limit, :odp, :task
 
     # Checks if the syntax of the given CSDL is valid
     #
@@ -166,7 +175,7 @@ module DataSift
     url = build_url(path, config)
 
     headers.update(
-      :user_agent    => "DataSift/#{config[:api_version]} Ruby/v#{VERSION}",
+      :user_agent    => "DataSift/#{config[:api_version]} Ruby/v#{DataSift::VERSION}",
       :authorization => "#{config[:username]}:#{config[:api_key]}",
       :accept  => '*/*'
     )
@@ -212,11 +221,7 @@ module DataSift
       end
       {
         :data => data,
-        :datasift => {
-          X_RATELIMIT_LIMIT => response.headers[:x_ratelimit_limit],
-          X_RATELIMIT_REMAINING => response.headers[:x_ratelimit_remaining],
-          X_RATELIMIT_COST => response.headers[:x_ratelimit_cost]
-        },
+        :datasift => build_headers(response.headers),
         :http => {
           :status  => response.code,
           :headers => response.headers
@@ -240,11 +245,7 @@ module DataSift
           end
           response_on_error = {
             :data => nil,
-            :datasift => {
-              X_RATELIMIT_LIMIT => e.response.headers[:x_ratelimit_limit],
-              X_RATELIMIT_REMAINING => e.response.headers[:x_ratelimit_remaining],
-              X_RATELIMIT_COST => e.response.headers[:x_ratelimit_cost]
-            },
+            :datasift => build_headers(e.response.headers),
             :http => {
               :status  => e.response.code,
               :headers => e.response.headers
@@ -260,6 +261,20 @@ module DataSift
     rescue RestClient::Exception, Errno::ECONNREFUSED => e
       process_client_error(e)
     end
+  end
+
+  # Only to be used for building URI paths for /pylon API calls. API v1.4+ requires a 'service'
+  #   param to be passed as part of the URI. This checks the API version, and adds the service
+  #   if necessary
+  def build_path(service, path, config)
+    # We need to add the service param to PYLON API URLs for API v1.4+
+    if config[:api_version].split('v')[1].to_f >= 1.4
+      split_path = path.split('/')
+      path = split_path[0] + '/' + service + '/' + split_path[1]
+    end
+    puts path
+
+    return path
   end
 
   private
@@ -287,14 +302,36 @@ module DataSift
     params.collect { |param, value| [param, CGI.escape(value.to_s)].join('=') }.join('&')
   end
 
+  def self.build_headers(headers)
+    # rest_client downcases, and replaces hyphens in headers with underscores. Actual headers
+    #   returned by DS API can be found at:
+    #   http://dev.datasift.com/docs/platform/api/rest-api/api-rate-limiting
+    response = {}
+    response.merge!(X_TASKS_QUEUED => headers[:x_tasks_queued]) if headers.key?(:x_tasks_queued)
+    response.merge!(X_TASKS_QUEUE_LIMIT => headers[:x_tasks_queue_limit]) if headers.key?(:x_tasks_queue_limit)
+    response.merge!(X_ANALYSIS_TASKS_QUEUE_LIMIT => headers[:x_analysis_tasks_queue_limit]) if headers.key?(:x_analysis_tasks_queue_limit)
+    response.merge!(X_ANALYSIS_TASKS_QUEUED => headers[:x_analysis_tasks_queued]) if headers.key?(:x_analysis_tasks_queued)
+    response.merge!(X_INSIGHT_TASKS_QUEUE_LIMIT => headers[:x_insight_tasks_queue_limit]) if headers.key?(:x_insight_tasks_queue_limit)
+    response.merge!(X_INSIGHT_TASKS_QUEUED => headers[:x_insight_tasks_queued]) if headers.key?(:x_insight_tasks_queued)
+    response.merge!(
+      X_RATELIMIT_LIMIT => headers[:x_ratelimit_limit],
+      X_RATELIMIT_REMAINING => headers[:x_ratelimit_remaining],
+      X_RATELIMIT_COST => headers[:x_ratelimit_cost]
+    )
+  end
+
   def self.handle_api_error(code, body, response)
     case code
     when 400
       raise BadRequestError.new(code, body, response)
     when 401
       raise AuthError.new(code, body, response)
+    when 403
+      raise ForbiddenError.new(code, body, response)
     when 404
       raise ApiResourceNotFoundError.new(code, body, response)
+    when 405
+      raise MethodNotAllowedError.new(code, body, response)
     when 409
       raise ConflictError.new(code, body, response)
     when 410
@@ -413,7 +450,7 @@ module DataSift
           "encountered. As a result no further re-connection will be automatically " \
           "attempted. Manually invoke connect() after investigating the cause of the " \
           "failure, be sure to observe DataSift's re-connect policies available at " \
-          "http://dev.datasift.com/docs/streaming-api/reconnecting - Error {#{message}}"))
+          "https://dev.datasift.com/docs/platform/api/streaming-api/reconnecting - Error {#{message}}"))
       end
     else
       sleep config[:retry_timeout]

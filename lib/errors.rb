@@ -36,8 +36,16 @@ end
 class ConnectionError < DataSiftError
 end
 
+# Standard error returned when receiving a 403 response from the API
+class ForbiddenError < DataSiftError
+end
+
 # Standard error returned when receiving a 404 response from the API
 class ApiResourceNotFoundError < DataSiftError
+end
+
+# Standard error returned when receiving a 405 response from the API
+class MethodNotAllowedError < DataSiftError
 end
 
 # Standard error returned when receiving a 409 response from the API

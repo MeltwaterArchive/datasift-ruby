@@ -7,6 +7,14 @@ CHANGELOG
 * Designed to make the most of DataSift's latest API version and features
 * Designed for Ruby 2.3+. Use features like keyword parameters across the board
 
+## v.3.8.0 (2017-05-23)
+### Added
+* Support for PYLON Task API
+* Ads explicit support for additional HTTP response codes
+
+### Changed
+* Uses API v1.5 by default
+
 ## v.3.7.2 (2016-11-08)
 ### Fixes
 * Uses correct timestamp params in PYLON Sample API calls. `start_time` -> `start` and `end_time` - `end`

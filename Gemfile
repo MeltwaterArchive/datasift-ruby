@@ -7,8 +7,7 @@ group :test do
   gem 'minitest', '~> 5.0'
   gem 'rubocop', '>= 0.27'
   gem 'simplecov', '>= 0.9'
-  gem 'shoulda', '>= 2.11'
-  gem 'vcr', '~> 2.9'
+  gem 'vcr', '~> 3.0'
   gem 'webmock'
 end
 

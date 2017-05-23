@@ -2,6 +2,7 @@ require 'simplecov'
 SimpleCov.start do
   add_filter "/test/"
   add_filter "/examples/"
+  command_name 'Mintest'
 end
 
 require 'datasift'

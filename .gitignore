@@ -10,3 +10,4 @@ pkg/*
 *.gem
 .yardoc
 doc/
+.ruby-version
