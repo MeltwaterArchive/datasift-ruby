@@ -4,14 +4,15 @@ cache: bundler
 bundler_args: --without development --retry=3 --jobs=3
 
 rvm:
-  - 1.9.3
-  - 2.0.0
   - 2.1
   - 2.2
   - 2.3
+  - 2.4
   - ruby-head
 
 matrix:
   allow_failures:
+    - 1.9
+    - 2.0
     - ruby-head
   fast_finish: true
