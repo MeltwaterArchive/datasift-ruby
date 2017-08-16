@@ -7,6 +7,10 @@ CHANGELOG
 * Designed to make the most of DataSift's latest API version and features
 * Designed for Ruby 2.3+. Use features like keyword parameters across the board
 
+## v.3.9.0 (2017-08-16)
+### Added
+* Support for PYLON Reference data API
+
 ## v.3.8.0 (2017-05-23)
 ### Added
 * Support for PYLON Task API
