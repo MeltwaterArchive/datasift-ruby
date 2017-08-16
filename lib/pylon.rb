@@ -217,5 +217,20 @@ module DataSift
         DataSift.request(:POST, build_path(service, 'pylon/sample', @config), @config, params)
       end
     end
+
+    # Hit the PYLON Reference endpoint to expose reference data sets
+    #
+    # @param service [String] The PYLON service to make this API call against
+    # @param slug [String] Optional slug of the reference data set you would like to explore
+    # **opts
+    # @param per_page [Integer] (Optional) How many data sets should be returned per page of results
+    # @param page [Integer] (Optional) Which page of results to return
+    def reference(service:, slug: '', **opts)
+      params = {}
+      params[:per_page] = opts[:per_page] if opts.key?(:per_page)
+      params[:page] = opts[:page] if opts.key?(:page)
+
+      DataSift.request(:GET, "pylon/#{service}/reference/#{slug}", @config, params)
+    end
   end
 end
