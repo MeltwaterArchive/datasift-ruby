@@ -3,6 +3,7 @@ CHANGELOG
 ## v.3.10.0 (2017-01-15)
 ### Changed
 * Uses API v1.6 by default
+* Change to `account.usage()` required by API; start/end times must be included
 
 ## v.3.9.0 (2017-08-16)
 ### Added
