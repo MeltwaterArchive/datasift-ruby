@@ -1,12 +1,5 @@
 CHANGELOG
 ================================
-## v.4.0 (Under development)
-### Planned Features
-* Better thought out API design in a more traditional Gem style
-* More of an SDK style library; for example, you should perform actions (start/stop/analyze) on a PYLON recording object
-* Designed to make the most of DataSift's latest API version and features
-* Designed for Ruby 2.3+. Use features like keyword parameters across the board
-
 ## v.3.10.0 (2017-01-15)
 ### Changed
 * Uses API v1.6 by default
