@@ -10,11 +10,9 @@ module DataSift
     # @param end_time [Integer] (Optional) Unix timestamp of the end of the period
     #   you are querying
     # @return [Object] API reponse object
-    def usage(period = '', start_time = nil, end_time = nil)
-      params = {}
+    def usage(start_time, end_time, period = '')
+      params = { start: start_time, end: end_time }
       params.merge!(period: period) unless period.empty?
-      params.merge!(start: start_time) unless start_time.nil?
-      params.merge!(end: end_time) unless end_time.nil?
 
       DataSift.request(:GET, 'account/usage', @config, params)
     end

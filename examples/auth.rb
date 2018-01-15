@@ -6,7 +6,7 @@ class DataSiftExample
     @config = {
       username: 'DATASIFT_USERNAME',
       api_key: 'DATASIFT_API_KEY',
-      api_version: 'v1.5'
+      api_version: 'v1.6'
     }
     @params = {
       output_type: 's3',
