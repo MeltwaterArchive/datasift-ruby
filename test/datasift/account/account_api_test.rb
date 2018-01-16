@@ -12,18 +12,30 @@ describe 'DataSift::Account' do
     it 'can get account usage using valid params' do
       VCR.use_cassette("#{@datasift.config[:api_version]}" + '/account/usage/valid_params') do
         response = @datasift.account.usage(
-          'daily',
           1490054400,
-          1490572800
+          1490572800,
+          'daily'
         )
         assert_equal STATUS.valid, response[:http][:status]
+      end
+    end
+
+    it 'raises argument error when using invalid params' do
+      VCR.use_cassette("#{@datasift.config[:api_version]}" + '/account/usage/invalid') do
+        assert_raises ArgumentError do
+          @datasift.account.usage()
+        end
       end
     end
 
     it 'handles 400 when using invalid params' do
       VCR.use_cassette("#{@datasift.config[:api_version]}" + '/account/usage/invalid') do
         assert_raises BadRequestError do
-          @datasift.account.usage('invalid_period')
+          @datasift.account.usage(
+          1490054400,
+          1490572800,
+          'invalid_period'
+        )
         end
       end
     end
