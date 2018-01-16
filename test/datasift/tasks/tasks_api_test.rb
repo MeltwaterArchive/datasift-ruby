@@ -45,7 +45,7 @@ describe 'DataSift::Tasks' do
           name: 'Ruby client test - top domains',
           type: 'strategy',
           parameters: {
-            insight: 'top_domains',
+            strategy: 'top_domains',
             version: 1,
             parameters: {
               comparison_audience: 'global',
