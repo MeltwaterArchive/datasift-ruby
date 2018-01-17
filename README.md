@@ -85,9 +85,11 @@ This version of the client library has been tested, and is known to work against
 ### Language Versions
 * Ruby 1.9.3 (May work, but no longer officially supported)
 * Ruby 2.0 (May work, but no longer officially supported)
-* Ruby 2.1
+* Ruby 2.1 (May work, but no longer officially supported)
 * Ruby 2.2
 * Ruby 2.3
+* Ruby 2.4
+* Ruby 2.5
 
 ### Operating Systems
 * Linux
@@ -102,6 +104,15 @@ Contributions are always welcome and appreciated
 1. Fork on GitHub
 2. Create a feature branch (we use [Gitflow](https://datasift.github.io/gitflow/IntroducingGitFlow.html) for branching)
 3. Commit your changes with tests. Please try not to break backwards-compatibility :)
+
+Testing
+-------
+When contributing new code, it should be accompanied with appropriate tests.
+When adding new tests, or testing a new API version, you should follow these steps:
+1. Add your credentials and appropriate API version to the `examples/auth.rb` file (these credentials will not be stored anywhere. Please remember to remove them before committing code!)
+2. Run `bundle install; rake build; rake install` to ensure we are using the latest versions of your changes
+3. Run `rake test` to run the full test suite, or you can run `ruby test/datasift/<test_file>` to run just a specific test.
+4. When you have successfully tested your changes, and stored the API response from any new API calls using VCR (see the `test/fixtures/cassettes` directory), run `rake test` again to run the full test suite. If that passes, you should be good to commit and push your changes.
 
 License
 -------
